@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id          String       @id @default(uuid())
+    email       String       @unique
+    name        String?
+    createdAt   DateTime     @default(now())
+    updatedAt   DateTime     @updatedAt
+    foodLogs    FoodLog[]
+    sleepLogs   SleepLog[]
+    moodLogs    MoodLog[]
+    anxietyLogs AnxietyLog[]
+}
+
+model FoodItem {
+    id          String    @id @default(uuid())
+    name        String
+    description String?
+    foodLogs    FoodLog[]
+}
+
+model FoodLog {
+    id        String     @id @default(uuid())
+    user      User       @relation(fields: [userId], references: [id])
+    userId    String
+    foodItems FoodItem[]
+    image     String?
+    date      DateTime
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
+}
+
+model SleepLog {
+    id        String   @id @default(uuid())
+    user      User     @relation(fields: [userId], references: [id])
+    userId    String
+    date      DateTime
+    quality   Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model MoodLog {
+    id        String   @id @default(uuid())
+    user      User     @relation(fields: [userId], references: [id])
+    userId    String
+    date      DateTime
+    moodLevel Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model AnxietyLog {
+    id           String   @id @default(uuid())
+    user         User     @relation(fields: [userId], references: [id])
+    userId       String
+    date         DateTime
+    anxietyLevel Int
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+}

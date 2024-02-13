@@ -1,0 +1,15 @@
+
+* {
+    font-family: var(--font-primary);
+    margin: 0;
+    padding: 0;
+    min-width: none;
+    line-height: 1.5;
+    outline: none;
+}
+
+body {
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
