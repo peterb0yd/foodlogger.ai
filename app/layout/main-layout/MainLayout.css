@@ -1,0 +1,23 @@
+
+.MainLayout {
+    width: 80vw;
+    max-width: 400px;
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+}
+
+.MainLayout-Header {
+    grid-row: 1;
+    padding-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MainLayout-Content {
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+}
+

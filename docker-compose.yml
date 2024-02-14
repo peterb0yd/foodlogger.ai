@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   db:
-    container_name: food-tracker
+    container_name: foodlogger_db
     build: .
     restart: unless-stopped
     ports:

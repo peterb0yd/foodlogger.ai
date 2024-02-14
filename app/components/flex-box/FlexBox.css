@@ -1,0 +1,54 @@
+
+.FlexBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+[data-flex-col=true] {
+    flex-direction: column;
+}
+
+[data-flex-center=true] {
+    justify-content: center;
+    align-items: center;
+}
+
+[data-flex-end=true] {
+    justify-content: flex-end;
+}
+
+[data-flex-start=true] {
+    justify-content: flex-start;
+}
+
+[data-flex-space-between=true] {
+    justify-content: space-between;
+}
+
+[data-flex-space-around=true] {
+    justify-content: space-around;
+}
+
+[data-flex-space-evenly=true] {
+    justify-content: space-evenly;
+}
+
+[data-flex-wrap=true] {
+    flex-wrap: wrap;
+}
+
+[data-flex-wrap-reverse=true] {
+    flex-wrap: wrap-reverse;
+}
+
+[data-flex-nowrap=true] {
+    flex-wrap: nowrap;
+}
+
+[data-flex-stretch=true] {
+    align-items: stretch;
+}

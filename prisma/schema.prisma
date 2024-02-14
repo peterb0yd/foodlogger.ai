@@ -20,6 +20,7 @@ model User {
     sleepLogs   SleepLog[]
     moodLogs    MoodLog[]
     anxietyLogs AnxietyLog[]
+    poopLog     PoopLog[]
 }
 
 model FoodItem {
@@ -50,22 +51,32 @@ model SleepLog {
     updatedAt DateTime @updatedAt
 }
 
+model PoopLog {
+    id        String   @id @default(uuid())
+    user      User     @relation(fields: [userId], references: [id])
+    userId    String
+    date      DateTime
+    quality   Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
 model MoodLog {
     id        String   @id @default(uuid())
     user      User     @relation(fields: [userId], references: [id])
     userId    String
     date      DateTime
-    moodLevel Int
+    quality   Int
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
 model AnxietyLog {
-    id           String   @id @default(uuid())
-    user         User     @relation(fields: [userId], references: [id])
-    userId       String
-    date         DateTime
-    anxietyLevel Int
-    createdAt    DateTime @default(now())
-    updatedAt    DateTime @updatedAt
+    id        String   @id @default(uuid())
+    user      User     @relation(fields: [userId], references: [id])
+    userId    String
+    date      DateTime
+    quality   Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
