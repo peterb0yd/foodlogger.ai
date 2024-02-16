@@ -1,6 +1,9 @@
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
-import { FlexBox, links as flexBoxLinks } from "~/components/flex-box/FlexBox";
-import { Logo, links as logoLinks } from "~/components/logo/Logo";
+import { Outlet } from "@remix-run/react";
+import { Button } from "~/components/library/button/Button";
+import { FlexBox, links as flexBoxLinks } from "~/components/library/flex-box/FlexBox";
+import { Logo, links as logoLinks } from "~/components/library/logo/Logo";
+import { Routes } from "~/enums/routes";
 import { MainLayout, links as mainLayoutLinks } from "~/layout/main-layout/MainLayout";
 
 export const meta: MetaFunction = () => {
@@ -21,9 +24,8 @@ export default function Index() {
         <MainLayout>
             <MainLayout.Header />
             <MainLayout.Content>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
+                <Button to={Routes.ADD_LOG}>Add Log</Button>
+                <Outlet />
             </MainLayout.Content>
         </MainLayout>
     );

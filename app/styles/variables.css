@@ -1,3 +1,34 @@
 :root {
+    /* Font Families */
     --font-primary: 'Manrope Variable', sans-serif;
+
+    /* Font Sizes */
+    --base-font-size: 16px;
+    --base-line-height: 1.5;
+
+    --small-font-size: 0.875rem;
+    --small-line-height: 1.5;
+
+    --medium-font-size: 1rem;
+    --medium-line-height: 1.5;
+
+    --large-font-size: 1.25rem;
+    --large-line-height: 1.5;
+
+    /* Colors */
+    --color-primary: #000;
+    --color-primary-light: #333;
+    --color-primary-dark: #000;
+
+    --color-secondary: #fff;
+    --color-secondary-light: #f0f0f0;
+    --color-secondary-dark: #fff;
+
+    --color-tertiary: #f0f0f0;
+    --color-tertiary-light: #f8f8f8;
+    --color-tertiary-dark: #e8e8e8;
+
+    --color-quaternary: #f8f8f8;
+    --color-quaternary-light: #fff;
+    --color-quaternary-dark: #f0f0f0;
 }
