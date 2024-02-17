@@ -5,7 +5,7 @@
 
     height: var(--height);
     width: var(--width);
-    border: 2px solid #000;
+    border: 2px solid var(--color-surface-contrast);
     border-radius: calc(var(--height) / 2);
     display: flex;
     align-items: center;
@@ -15,6 +15,7 @@
         font-size: 20px;
         font-optical-sizing: auto;
         text-transform: lowercase;
+        color: var(--color-surface-contrast);
     }
 
     &[data-size=sm] {

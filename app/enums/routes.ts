@@ -1,4 +1,4 @@
 export enum Routes {
     HOME = '/',
-    ADD_LOG = '/add-log',
+    NEW_LOG = '/new-log',
 }

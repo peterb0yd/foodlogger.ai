@@ -1,34 +1,50 @@
 :root {
-    /* Font Families */
-    --font-primary: 'Manrope Variable', sans-serif;
+	/* Font Families */
+	--font-primary: 'Manrope Variable', sans-serif;
 
-    /* Font Sizes */
-    --base-font-size: 16px;
-    --base-line-height: 1.5;
+	/* Font Sizes */
+	--base-font-size: 16px;
+	--base-line-height: 1.5;
 
-    --small-font-size: 0.875rem;
-    --small-line-height: 1.5;
+	--small-font-size: 0.875rem;
+	--small-line-height: 1.5;
 
-    --medium-font-size: 1rem;
-    --medium-line-height: 1.5;
+	--medium-font-size: 1rem;
+	--medium-line-height: 1.5;
 
-    --large-font-size: 1.25rem;
-    --large-line-height: 1.5;
+	--large-font-size: 1.25rem;
+	--large-line-height: 1.5;
 
-    /* Colors */
-    --color-primary: #000;
-    --color-primary-light: #333;
-    --color-primary-dark: #000;
+    /* Z-Index */
+    --z-index-base: 0;
+    --z-index-overlay: 100;
+    --z-index-modal: 200;
+    --z-index-notification: 300;
 
-    --color-secondary: #fff;
-    --color-secondary-light: #f0f0f0;
-    --color-secondary-dark: #fff;
+	/* Colors */
+	--color-primary: #2178cf;
+	--color-primary-light: #2e8fe5;
+	--color-primary-dark: #1a5f9c;
 
-    --color-tertiary: #f0f0f0;
-    --color-tertiary-light: #f8f8f8;
-    --color-tertiary-dark: #e8e8e8;
+	--color-secondary: #ac2af3;
+	--color-secondary-light: #c53cf3;
+	--color-secondary-dark: #8e24aa;
+}
 
-    --color-quaternary: #f8f8f8;
-    --color-quaternary-light: #fff;
-    --color-quaternary-dark: #f0f0f0;
+@media (prefers-color-scheme: light) {
+	:root {
+		--color-surface: #e4e7eb;
+		--color-surface-contrast: #000000;
+		--color-text: #333333;
+		--color-text-contrast: #ffffff;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-surface: #333333;
+		--color-surface-contrast: #ffffff;
+		--color-text: #ffffff;
+		--color-text-contrast: #000000;
+	}
 }

@@ -1,0 +1,33 @@
+.Button {
+    background-color: var(--color-primary);
+    border: none;
+    border-radius: 10px;
+    color: var(--color-text);
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: var(--medium-font-size);
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--color-primary-dark);
+    }
+
+    &:active {
+        background-color: var(--color-primary-light);
+    }
+
+    &[data-variant="secondary"] {
+        background-color: var(--color-secondary);
+    
+        &:hover {
+            background-color: var(--color-secondary-dark);
+        }
+
+        &:active {
+            background-color: var(--color-secondary-light);
+        }
+    }
+}

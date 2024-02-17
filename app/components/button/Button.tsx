@@ -1,14 +1,21 @@
+import { LinksFunction } from '@remix-run/node';
 import { useNavigate } from '@remix-run/react';
-import {PropsWithChildren} from 'react';
+import { PropsWithChildren } from 'react';
 import { Routes } from '~/enums/routes';
+import buttonStyles from './Button.css';
 
 interface ButtonProps extends PropsWithChildren {
     href?: string;
     to?: Routes;
+    variant: 'primary' | 'secondary';
     onClick?: () => void;
 }
 
-export const Button = ({ href, to, children, onClick, }: ButtonProps) => {
+export const links: LinksFunction = () => [
+    { rel: 'stylesheet', href: buttonStyles },
+];
+
+export const Button = ({ href, to, children, variant, onClick, }: ButtonProps) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -22,7 +29,11 @@ export const Button = ({ href, to, children, onClick, }: ButtonProps) => {
     }
 
     return (
-        <button onClick={handleClick} className="Button">
+        <button
+            onClick={handleClick}
+            data-variant={variant}
+            className="Button"
+        >
             {children}
         </button>
     );
