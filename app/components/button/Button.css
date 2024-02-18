@@ -1,50 +1,68 @@
 .Button {
-	background: linear-gradient(170deg, var(--color-primary-dark), var(--color-secondary));
-	color: var(--color-text-contrast);
 	border: none;
-	border-radius: 10px;
-	padding: 15px 30px;
 	text-align: center;
 	font-size: var(--medium-font-size);
 	font-weight: bold;
 	cursor: pointer;
-	transition: background-color 0.3s ease-out;
+}
 
-	&:hover {
-		background-color: linear-gradient(
-			170deg,
-			var(--color-primary-light),
-			var(--color-secondary-light)
-		);
-	}
+/** Sizes */
+.Button[data-size='sm'] {
+    padding: 10px 20px;
+    font-size: var(--small-font-size);
+}
+.Button[data-size='md'] {
+    padding: 15px 30px;
+    font-size: var(--medium-font-size);
+}
+.Button[data-size='lg'] {
+    padding: 20px 40px;
+    font-size: var(--large-font-size);
+}
 
-	&:active {
-		background-color: linear-gradient(
-			170deg,
-			var(--color-primary-dark),
-			var(--color-secondary-light)
-		);
-	}
+/** Variants */
+.Button[data-variant='base'] {
+    background: none;
+    color: var(--color-text);
+}
+.Button[data-variant='primary'] {
+    background: linear-gradient(170deg, var(--color-primary-dark), var(--color-secondary));
+    border-radius: 10px;
+    color: var(--color-text-contrast);
 
-    &[data-variant='secondary'] {
-        background: linear-gradient(170deg, var(--color-secondary), var(--color-primary-dark));
-    
-        &:hover {
-            background: linear-gradient(170deg, var(--color-secondary), var(--color-primary));
-        }
-    
-        &:active {
-            background: linear-gradient(170deg, var(--color-secondary-dark), var(--color-primary-light));
-        }
+    &:hover {
+        background: linear-gradient(
+            170deg,
+            var(--color-primary-light),
+            var(--color-secondary-light)
+        );
     }
-    
-    &[data-variant='icon'] {
-        padding: 10px;
-        width: max-content;
-        height: max-content;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: transparent;
+    &:active {
+        background: linear-gradient(
+            170deg,
+            var(--color-primary-dark),
+            var(--color-secondary-light)
+        );
     }
+}
+.Button[data-variant='secondary'] {
+    background: linear-gradient(170deg, var(--color-secondary), var(--color-primary-dark));
+    border-radius: 10px;
+    color: var(--color-text-contrast);
+
+    &:hover {
+        background: linear-gradient(170deg, var(--color-secondary), var(--color-primary));
+    }
+
+    &:active {
+        background: linear-gradient(170deg, var(--color-secondary-dark), var(--color-primary-light));
+    }
+}
+.Button[data-variant='icon'] {
+    width: max-content;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
 }

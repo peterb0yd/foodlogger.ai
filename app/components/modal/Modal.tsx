@@ -3,12 +3,14 @@ import modalStyles from './Modal.css';
 import { PropsWithChildren } from 'react';
 import { Routes } from '~/enums/routes';
 import { useNavigate } from '@remix-run/react';
-import { CloseIcon } from '../icons/CloseIcon';
-import { Button } from '../button/Button';
+import { Text, links as textLinks } from '../text/Text';
+import { Button, links as buttonLinks } from '../button/Button';
 import { Icons } from '~/enums/icons';
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: modalStyles },
+    ...textLinks(),
+    ...buttonLinks(),
 ];
 
 const CloseButton = ({ goBackRoute }: { goBackRoute: Routes }) => {
@@ -19,6 +21,7 @@ const CloseButton = ({ goBackRoute }: { goBackRoute: Routes }) => {
                 variant="icon"
                 icon={Icons.CloseIcon}
                 iconColor="var(--color-text)"
+                iconSize='sm'
                 onClick={() => navigate(goBackRoute)}
             />
         </div>
@@ -27,13 +30,23 @@ const CloseButton = ({ goBackRoute }: { goBackRoute: Routes }) => {
 
 interface ModalProps extends PropsWithChildren {
     goBackRoute?: Routes;
+    title?: string;
 }
 
-export const Modal = ({ children, goBackRoute }: ModalProps) => {
+export const Modal = ({ children, title, goBackRoute }: ModalProps) => {
     return (
         <div className="Modal">
             {goBackRoute && <CloseButton goBackRoute={goBackRoute} />}
-            {children}
+            {title && (
+                <div className="title">
+                    <Text size="xl" weight="bold" lineHeight='none'>{title}</Text>
+                </div>
+            )}
+            <div className="container" data-has-title={!!title}>
+                <div className="content">
+                    {children}
+                </div>
+            </div>
         </div>
     );
 }

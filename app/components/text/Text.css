@@ -1,0 +1,61 @@
+.Text {
+}
+
+/** Colors */
+.Text[data-color='base'] {
+    color: var(--color-text);
+}
+.Text[data-color='contrast'] {
+	color: var(--color-text-contrast);
+}
+.Text[data-color='primary'] {
+	color: var(--color-primary);
+}
+.Text[data-color='secondary'] {
+	color: var(--color-secondary);
+}
+
+/** Sizes */
+.Text[data-size='xs'] {
+	font-size: var(--x-small-font-size);
+}
+.Text[data-size='sm'] {
+	font-size: var(--small-font-size);
+}
+.Text[data-size='md'] {
+	font-size: var(--medium-font-size);
+}
+.Text[data-size='lg'] {
+	font-size: var(--large-font-size);
+}
+.Text[data-size='xl'] {
+	font-size: var(--x-large-font-size);
+}
+.Text[data-size='2xl'] {
+	font-size: var(--xx-large-font-size);
+}
+
+/** Weights */
+.Text[data-weight='light'] {
+	font-weight: 300;
+}
+.Text[data-weight='regular'] {
+	font-weight: 400;
+}
+.Text[data-weight='bold'] {
+	font-weight: 600;
+}
+
+/** Line Heights */
+.Text[data-line-height='none'] {
+	line-height: 1;
+}
+.Text[data-line-height='tight'] {
+	line-height: 1.25;
+}
+.Text[data-line-height='normal'] {
+	line-height: 1.5;
+}
+.Text[data-line-height='loose'] {
+	line-height: 2;
+}

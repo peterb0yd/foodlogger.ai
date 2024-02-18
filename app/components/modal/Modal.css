@@ -1,21 +1,45 @@
-
 .Modal {
-    position: fixed;
-    width: max-content;
-    height: max-content;
-    background-color: var(--color-surface);
-    padding: 20px;
-    z-index: var(--z-index-modal);
-    box-shadow: 0 2px 8px var(--color-shadow);
-    box-sizing: border-box;
-    transition: all 0.3s ease-out;
+	--max-height: 40vh;
+	--title-height: 50px;
+	--padding: 20px;
 
+	position: fixed;
+	width: max-content;
+	height: max-content;
+	max-height: var(--max-height);
+	max-width: 90vw;
+	background-color: var(--color-surface);
+	padding: var(--padding);
+	z-index: var(--z-index-modal);
+	box-shadow: 0 5px 10px var(--color-shadow);
+	box-sizing: border-box;
+	transition: all 0.3s ease-out;
+
+	.title {
+		height: var(--title-height);
+	}
+
+	.container {
+		display: flex;
+		max-height: calc(var(--max-height) - var(--padding) * 2);
+		overflow: auto;
+
+		.content {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+
+		&[data-has-title="true"] {
+			max-height: calc(var(--max-height) - var(--title-height) - var(--padding) * 2);
+		}
+	}
 }
 
 .Modal-CloseButton {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    height: max-content;
-    width: max-content;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	height: max-content;
+	width: max-content;
 }

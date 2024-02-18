@@ -1,25 +1,7 @@
 
 .SvgWrapper {
-    display: inline-block;
-    vertical-align: middle;
-    width: 1em;
-    height: 1em;
-    fill: currentColor;
-    color: inherit;
-    font-size: 1em;
-    overflow: hidden;
-    line-height: 1;
-    flex-shrink: 0;
-    transition: fill 0.3s ease;
-
-    &[data-size="sm"] {
-        width: 0.75em;
-        height: 0.75em;
-    }
-
-    &[data-size="lg"] {
-        width: 1.5em;
-        height: 1.5em;
-    }
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 

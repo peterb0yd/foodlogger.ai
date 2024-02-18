@@ -6,7 +6,7 @@ export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: svgStyles },
 ];
 export interface SvgWrapperProps extends PropsWithChildren {
-    size?: 'sm' | 'md' | 'lg';
+    size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
     color?: string;
     viewBox?: string;
 }
@@ -15,6 +15,8 @@ const sizeMap = {
     sm: 24,
     md: 32,
     lg: 48,
+    xl: 64,
+    '2xl': 96,
 };
 
 export const SvgWrapper = ({ children, viewBox, size = 'md' }: SvgWrapperProps) => {

@@ -3,17 +3,12 @@
 	--font-primary: 'Manrope Variable', sans-serif;
 
 	/* Font Sizes */
-	--base-font-size: 16px;
-	--base-line-height: 1.5;
-
-	--small-font-size: 0.875rem;
-	--small-line-height: 1.5;
-
-	--medium-font-size: 1rem;
-	--medium-line-height: 1.5;
-
+    --x-small-font-size: 14px;
+	--small-font-size: 16px;
+	--medium-font-size: 1.15rem;
 	--large-font-size: 1.25rem;
-	--large-line-height: 1.5;
+    --x-large-font-size: 1.5rem;
+    --xx-large-font-size: 2.5rem;
 
     /* Z-Index */
     --z-index-base: 0;
@@ -22,14 +17,15 @@
     --z-index-notification: 300;
 
 	/* Colors */
+    /* - Primary */
 	--color-primary: #5cf05c;
 	--color-primary-light: rgb(43, 224, 43);
 	--color-primary-dark: #1dc21d;
-
+    /* - Secondary */
 	--color-secondary: #ac2af3;
 	--color-secondary-light: #c53cf3;
 	--color-secondary-dark: #8e24aa;
-
+    /* - Shadows */
     --color-shadow: rgba(0, 0, 0, 0.4);
     --color-shadow-light: rgba(0, 0, 0, 0.2);
     --color-shadow-dark: rgba(0, 0, 0, 0.8);

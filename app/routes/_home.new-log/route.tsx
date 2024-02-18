@@ -2,22 +2,27 @@ import { LinksFunction } from "@remix-run/node";
 import newLogStyles from "./new-log.styles.css";
 import { Overlay, links as overlayLinks } from "~/components/overlay/Overlay";
 import { Modal, links as modalLinks } from "~/components/modal/Modal";
+import { Text, links as textLinks } from "~/components/text/Text";
 import { Routes } from "~/enums/routes";
+import { AudioRecorder } from "~/components/audio-recorder/AudioRecorder";
 
 export const links: LinksFunction = () => [
     { rel: "stylesheet", href: newLogStyles },
     ...overlayLinks(),
     ...modalLinks(),
+    ...textLinks(),
 ];
 
 export default function NewLog() {
 
     return (
         <Overlay>
-            <Modal goBackRoute={Routes.HOME}>
+            <Modal title="New Log" goBackRoute={Routes.HOME}>
                 <div className="NewLog">
-                    <h1>New Loger</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nunc nec lacinia tincidunt, nunc nunc.</p>
+                    <Text size="lg" weight="light">
+                        {`PRESS & HOLD RECORD BUTTON`}
+                    </Text>
+                    <AudioRecorder />
                 </div>
             </Modal>
         </Overlay>

@@ -1,19 +1,23 @@
 import { Icons } from "~/enums/icons"
 import { CloseIcon, links as closeIconLinks } from "./CloseIcon"
+import { RecordIcon, links as recordIconLinks } from "./RecordIcon"
+import { SvgWrapperProps } from "./svg-wrapper/SvgWrapper";
 
 export const links = () => [
     ...closeIconLinks(),
+    ...recordIconLinks(),
 ];
 
-interface IconProps {
+export interface IconProps extends SvgWrapperProps {
     name: Icons;
-    color: string;
 }
 
 export const Icon = ({ name, ...rest }: IconProps) => {
     switch (name) {
         case Icons.CloseIcon:
             return <CloseIcon {...rest} />;
+        case Icons.RecordIcon:
+            return <RecordIcon {...rest} />;
         default:
             return null;
     }
