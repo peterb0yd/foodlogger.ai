@@ -1,21 +1,43 @@
 import { LinksFunction } from '@remix-run/node';
 import { useNavigate } from '@remix-run/react';
-import { PropsWithChildren } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import { Routes } from '~/enums/routes';
 import buttonStyles from './Button.css';
+import { Icons } from '~/enums/icons';
+import { Icon, links as iconLinks } from '../icons/Icon';
 
 interface ButtonProps extends PropsWithChildren {
     href?: string;
     to?: Routes;
-    variant: 'primary' | 'secondary';
+    icon?: Icons;
+    iconColor?: string;
+    variant: 'primary' | 'secondary' | 'icon';
     onClick?: () => void;
 }
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: buttonStyles },
+    ...iconLinks(),
 ];
 
-export const Button = ({ href, to, children, variant, onClick, }: ButtonProps) => {
+interface ButtonContentProps extends PropsWithChildren {
+    icon?: Icons;
+    iconColor?: string;
+}
+
+const ButtonContent = ({ icon, iconColor, children }: ButtonContentProps) => {
+    if (icon) {
+        return (
+            <Icon
+                name={icon}
+                color={iconColor as string}
+            />
+        );
+    }
+    return children;
+}
+
+export const Button = ({ href, to, icon, iconColor, children, variant, onClick, }: ButtonProps) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -34,7 +56,12 @@ export const Button = ({ href, to, children, variant, onClick, }: ButtonProps) =
             data-variant={variant}
             className="Button"
         >
-            {children}
+            <ButtonContent
+                icon={icon}
+                iconColor={iconColor}
+            >
+                {children}
+            </ButtonContent>
         </button>
     );
 }

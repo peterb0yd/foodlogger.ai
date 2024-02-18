@@ -1,12 +1,13 @@
 import { LinksFunction } from "@remix-run/node";
-import newLogStyles from "./styles.css";
+import newLogStyles from "./new-log.styles.css";
 import { Overlay, links as overlayLinks } from "~/components/overlay/Overlay";
-import { Modal } from "~/components/modal/Modal";
+import { Modal, links as modalLinks } from "~/components/modal/Modal";
 import { Routes } from "~/enums/routes";
 
 export const links: LinksFunction = () => [
     { rel: "stylesheet", href: newLogStyles },
     ...overlayLinks(),
+    ...modalLinks(),
 ];
 
 export default function NewLog() {

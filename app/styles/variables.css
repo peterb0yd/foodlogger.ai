@@ -22,13 +22,17 @@
     --z-index-notification: 300;
 
 	/* Colors */
-	--color-primary: #2178cf;
-	--color-primary-light: #2e8fe5;
-	--color-primary-dark: #1a5f9c;
+	--color-primary: #5cf05c;
+	--color-primary-light: rgb(43, 224, 43);
+	--color-primary-dark: #1dc21d;
 
 	--color-secondary: #ac2af3;
 	--color-secondary-light: #c53cf3;
 	--color-secondary-dark: #8e24aa;
+
+    --color-shadow: rgba(0, 0, 0, 0.4);
+    --color-shadow-light: rgba(0, 0, 0, 0.2);
+    --color-shadow-dark: rgba(0, 0, 0, 0.8);
 }
 
 @media (prefers-color-scheme: light) {

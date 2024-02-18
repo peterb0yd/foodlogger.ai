@@ -4,6 +4,8 @@ import { PropsWithChildren } from 'react';
 import { Routes } from '~/enums/routes';
 import { useNavigate } from '@remix-run/react';
 import { CloseIcon } from '../icons/CloseIcon';
+import { Button } from '../button/Button';
+import { Icons } from '~/enums/icons';
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: modalStyles },
@@ -12,12 +14,14 @@ export const links: LinksFunction = () => [
 const CloseButton = ({ goBackRoute }: { goBackRoute: Routes }) => {
     const navigate = useNavigate();
     return (
-        <button
-            className="close-button"
-            onClick={() => navigate(goBackRoute)}
-        >
-            <CloseIcon size="md" />
-        </button>
+        <div className="Modal-CloseButton">
+            <Button
+                variant="icon"
+                icon={Icons.CloseIcon}
+                iconColor="var(--color-text)"
+                onClick={() => navigate(goBackRoute)}
+            />
+        </div>
     );
 }
 

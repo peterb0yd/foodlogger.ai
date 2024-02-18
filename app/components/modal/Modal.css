@@ -1,23 +1,21 @@
 
 .Modal {
-    /* position: fixed;
-    top: 50%;
-    left: 50%;
+    position: fixed;
     width: max-content;
     height: max-content;
-    transform: translate(-50%, -50%); */
-    background-color: var(--color-surface-contrast);
+    background-color: var(--color-surface);
     padding: 20px;
     z-index: var(--z-index-modal);
-    box-shadow: 0 2px 8px var(--color-surface);
+    box-shadow: 0 2px 8px var(--color-shadow);
     box-sizing: border-box;
     transition: all 0.3s ease-out;
 
-    .close-button {
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 10px;
-        cursor: pointer;
-    }
+}
+
+.Modal-CloseButton {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    height: max-content;
+    width: max-content;
 }

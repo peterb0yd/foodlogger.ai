@@ -1,7 +1,13 @@
+import { LinksFunction } from "@remix-run/node";
 import { PropsWithChildren } from "react";
+import svgStyles from './SvgWrapper.css';
 
+export const links: LinksFunction = () => [
+    { rel: 'stylesheet', href: svgStyles },
+];
 export interface SvgWrapperProps extends PropsWithChildren {
     size?: 'sm' | 'md' | 'lg';
+    color?: string;
     viewBox?: string;
 }
 
