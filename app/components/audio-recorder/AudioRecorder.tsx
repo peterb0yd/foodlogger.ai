@@ -34,13 +34,13 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
             }
         }
 
-        if (navigator.mediaDevices) {
+        if (navigator?.mediaDevices) {
             setupAudioStream();
         } else {
             console.log("getUserMedia not supported on your browser!");
             alert("getUserMedia not supported on your browser!")
         }
-    }, [navigator.mediaDevices]);
+    }, [navigator?.mediaDevices]);
 
     const handleRecordingStart = (e: React.MouseEvent | React.TouchEvent) => {
         e.preventDefault();
@@ -79,7 +79,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
 
     return (
         <div className="AudioRecorder">
-            <p>test 8</p>
+            <p>test 9</p>
             <Button
                 onTouchStart={handleRecordingStart}
                 // onMouseDown={handleRecordingStart}
