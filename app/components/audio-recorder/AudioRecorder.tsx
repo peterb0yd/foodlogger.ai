@@ -77,9 +77,9 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
             <p>test 1</p>
             <Button
                 onTouchStart={handleRecordingStart}
-                onMouseDown={handleRecordingStart}
+                // onMouseDown={handleRecordingStart}
                 onTouchEnd={handleRecordingStop}
-                onMouseUp={handleRecordingStop}
+                // onMouseUp={handleRecordingStop}
                 icon={Icons.RecordIcon}
                 iconColor={buttonColor}
                 iconSize="xl"
