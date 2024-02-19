@@ -45,6 +45,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
     const handleRecordingStart = (e: React.MouseEvent | React.TouchEvent) => {
         e.preventDefault();
         setIsRecording(true);
+        alert(stream);
         if (!stream) return;
         const media = new MediaRecorder(stream as MediaStream, { mimeType: MIME_TYPE });
         mediaRecorder.current = media;
@@ -61,6 +62,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
     const handleRecordingStop = (e: React.MouseEvent | React.TouchEvent) => {
         e.preventDefault();
         setIsRecording(false);
+        alert(mediaRecorder.current);
         if (!mediaRecorder.current) return;
         //stops the recording instancee
         mediaRecorder.current.stop();
@@ -76,7 +78,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
 
     return (
         <div className="AudioRecorder">
-            <p>test 3</p>
+            <p>test 4</p>
             <Button
                 onTouchStart={handleRecordingStart}
                 // onMouseDown={handleRecordingStart}
