@@ -59,7 +59,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
     const handleRecordingStop = (e: React.MouseEvent | React.TouchEvent) => {
         e.preventDefault();
         if (!mediaRecorder.current) return;
-        //stops the recording instance
+        //stops the recording instancee
         mediaRecorder.current.stop();
         mediaRecorder.current.onstop = () => {
             //creates a blob file from the audiochunks data
