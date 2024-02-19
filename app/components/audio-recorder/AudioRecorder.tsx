@@ -21,6 +21,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
     const [isRecording, setIsRecording] = useState<boolean>(false);
     const [audioChunks, setAudioChunks] = useState<Blob[]>([]);
     const mediaRecorder = useRef<MediaRecorder | null>(null);
+    const buttonColor = isRecording ? "red" : "green";
 
     useEffect(() => {
         const setupAudioStream = async () => {
@@ -39,7 +40,8 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
         }
     }, []);
 
-    const handleRecordingStart = () => {
+    const handleRecordingStart = (e: React.MouseEvent | React.TouchEvent) => {
+        e.preventDefault();
         if (!stream) return;
         const media = new MediaRecorder(stream as MediaStream, { mimeType: MIME_TYPE });
         mediaRecorder.current = media;
@@ -54,7 +56,8 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
         setIsRecording(true);
     }
 
-    const handleRecordingStop = () => {
+    const handleRecordingStop = (e: React.MouseEvent | React.TouchEvent) => {
+        e.preventDefault();
         if (!mediaRecorder.current) return;
         //stops the recording instance
         mediaRecorder.current.stop();
@@ -69,22 +72,16 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
         setIsRecording(false);
     }
 
-    const getColor = () => {
-        if (mediaRecorder.current?.state === 'recording') {
-            return 'red';
-        }
-        return 'green';
-    }
-
     return (
         <div className="AudioRecorder">
+            <p>test 1</p>
             <Button
                 onTouchStart={handleRecordingStart}
                 onMouseDown={handleRecordingStart}
                 onTouchEnd={handleRecordingStop}
                 onMouseUp={handleRecordingStop}
                 icon={Icons.RecordIcon}
-                iconColor={getColor()}
+                iconColor={buttonColor}
                 iconSize="xl"
             />
             <audio controls src={audioURL} />
