@@ -28,10 +28,8 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
             try {
                 const initStream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 setStream(initStream);
-                alert(initStream);
             } catch (err) {
                 console.error(`The following getUserMedia error occurred: ${err}`);
-                alert(JSON.stringify(err));
             }
         }
 
@@ -46,7 +44,6 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
     const handleRecordingStart = (e: React.MouseEvent | React.TouchEvent) => {
         e.preventDefault();
         setIsRecording(true);
-        alert(stream);
         if (!stream) return;
         const media = new MediaRecorder(stream as MediaStream, { mimeType: MIME_TYPE });
         mediaRecorder.current = media;
@@ -63,7 +60,6 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
     const handleRecordingStop = (e: React.MouseEvent | React.TouchEvent) => {
         e.preventDefault();
         setIsRecording(false);
-        alert(mediaRecorder.current);
         if (!mediaRecorder.current) return;
         //stops the recording instancee
         mediaRecorder.current.stop();
@@ -79,7 +75,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
 
     return (
         <div className="AudioRecorder">
-            <p>test 5</p>
+            <p>test 6</p>
             <Button
                 onTouchStart={handleRecordingStart}
                 // onMouseDown={handleRecordingStart}
