@@ -28,6 +28,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
             try {
                 const initStream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 setStream(initStream);
+                alert(initStream);
             } catch (err) {
                 console.error(`The following getUserMedia error occurred: ${err}`);
                 alert(JSON.stringify(err));
@@ -40,7 +41,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
             console.log("getUserMedia not supported on your browser!");
             alert("getUserMedia not supported on your browser!")
         }
-    }, []);
+    }, [navigator.mediaDevices]);
 
     const handleRecordingStart = (e: React.MouseEvent | React.TouchEvent) => {
         e.preventDefault();
@@ -78,7 +79,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
 
     return (
         <div className="AudioRecorder">
-            <p>test 4</p>
+            <p>test 5</p>
             <Button
                 onTouchStart={handleRecordingStart}
                 // onMouseDown={handleRecordingStart}
