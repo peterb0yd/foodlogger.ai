@@ -30,6 +30,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
                 setStream(initStream);
             } catch (err) {
                 console.error(`The following getUserMedia error occurred: ${err}`);
+                alert(JSON.stringify(err));
             }
         }
 
@@ -37,6 +38,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
             setupAudioStream();
         } else {
             console.log("getUserMedia not supported on your browser!");
+            alert("getUserMedia not supported on your browser!")
         }
     }, []);
 
