@@ -20,8 +20,7 @@ export const useAudioRecorder = (isRecording: boolean) => {
     const setupAudioRecorder = async () => {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            const media = new MediaRecorder(stream as MediaStream);
-            mediaRecorder.current = media;
+            mediaRecorder.current = new MediaRecorder(stream as MediaStream);
             mediaRecorder.current.ondataavailable = (e) => {
                 if (typeof e.data === "undefined") return;
                 if (e.data.size === 0) return;
@@ -31,7 +30,7 @@ export const useAudioRecorder = (isRecording: boolean) => {
                 //creates a blob file from the audiochunks data
                 const audioBlob = new Blob(audioChunks, { type: mediaRecorder.current?.mimeType });
                 //creates a playable URL from the blob file.
-                const audioUrl = URL.createObjectURL(audioBlob);
+                const audioUrl = window.URL.createObjectURL(audioBlob);
                 setAudioURL(audioUrl);
                 setAudioChunks([]);
             };

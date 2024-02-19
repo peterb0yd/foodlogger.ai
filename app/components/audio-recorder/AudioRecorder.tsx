@@ -27,14 +27,17 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
         }
     }, [navigator?.mediaDevices])
 
+    const startRecording = () => setIsRecording(true);
+    const stopRecording = () => setIsRecording(false);
+
     return (
         <div className="AudioRecorder">
-            <p>test 14</p>
+            <p>test 15</p>
             <Button
-                onTouchStart={() => setIsRecording(true)}
-                // onMouseDown={handleRecordingStart}
-                onTouchEnd={() => setIsRecording(false)}
-                // onMouseUp={handleRecordingStop}
+                onTouchStart={startRecording}
+                onMouseDown={startRecording}
+                onTouchEnd={stopRecording}
+                onMouseUp={stopRecording}
                 icon={Icons.RecordIcon}
                 iconColor={buttonColor}
                 iconSize="xl"
