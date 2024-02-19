@@ -20,6 +20,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
     const [stream, setStream] = useState<MediaStream | null>(null);
     const [isRecording, setIsRecording] = useState<boolean>(false);
     const [audioChunks, setAudioChunks] = useState<Blob[]>([]);
+    const [mediaRec, setMediaRec] = useState<MediaRecorder | null>(null);
     const mediaRecorder = useRef<MediaRecorder | null>(null);
     const buttonColor = isRecording ? "red" : "green";
 
@@ -48,6 +49,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
         if (!stream) return;
         const media = new MediaRecorder(stream as MediaStream, { mimeType: MIME_TYPE });
         mediaRecorder.current = media;
+        setMediaRec(media);
         mediaRecorder.current.start();
         let localAudioChunks: Blob[] = [];
         mediaRecorder.current.ondataavailable = (e) => {
@@ -61,7 +63,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
     const handleRecordingStop = (e: React.MouseEvent | React.TouchEvent) => {
         e.preventDefault();
         setIsRecording(false);
-        if (!mediaRecorder.current) alert('No media recorder found')
+        if (!mediaRec) alert('No media recorder found')
         if (!mediaRecorder.current) return;
         //stops the recording instancee
         mediaRecorder.current.stop();
@@ -77,7 +79,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
 
     return (
         <div className="AudioRecorder">
-            <p>test 7</p>
+            <p>test 8</p>
             <Button
                 onTouchStart={handleRecordingStart}
                 // onMouseDown={handleRecordingStart}
