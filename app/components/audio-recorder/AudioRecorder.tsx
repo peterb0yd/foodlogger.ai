@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { LinksFunction } from "@remix-run/node";
 import audioRecorderStyles from "./AudioRecorder.css";
 import { Button } from "../button/Button";
@@ -14,30 +14,27 @@ interface AudioRecorderProps {
 }
 
 export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
-    const mediaRef = useRef<MediaRecorder | null>(null);
-    const chunksRef = useRef<Blob[]>([]);
-    const audioRef = useRef<HTMLAudioElement>(null);
+    const [audioSrc, setAudioSrc] = useState<string>("");
+    const [chunks, setChunks] = useState<Blob[]>([]);
+    const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
 
     useEffect(() => {
-        if (!audioRef.current) {
-            return;
-        }
-
         const setUpMediaRecorder = async () => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                mediaRef.current = new MediaRecorder(stream);
-                mediaRef.current.ondataavailable = (e) => {
-                    chunksRef.current.push(e.data);
+                const mediaRec = new MediaRecorder(stream);
+                mediaRec.ondataavailable = (e) => {
+                    setChunks((prev) => [...prev, e.data]);
                 };
-                mediaRef.current.onstop = () => {
-                    const blob = new Blob(chunksRef.current, { type: "audio/ogg; codecs=opus" });
-                    console.log(chunksRef.current);
-                    chunksRef.current = [];
+                mediaRec.onstop = () => {
+                    const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
+                    setChunks([]);
                     const audioURL = window.URL.createObjectURL(blob);
                     console.log("Audio URL: ", audioURL);
-                    audioRef.current!.src = audioURL;
+                    setAudioSrc(audioURL);
                 };
+                console.log("MediaRecorder: ", mediaRec);
+                setMediaRecorder(mediaRec);
             } catch (err) {
                 console.error(`The following getUserMedia error occurred: ${err}`);
             }
@@ -48,17 +45,26 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
         } else {
             console.log("getUserMedia not supported on your browser!");
         }
-    }, [mediaRef.current, audioRef.current]);
+    }, []);
 
     const handleRecordingStart = () => {
+        if (!mediaRecorder) return;
         console.log('Recording started');
-        mediaRef.current?.start();
-        console.log(mediaRef.current);
+        mediaRecorder.start();
+        setMediaRecorder(mediaRecorder);
     }
 
     const handleRecordingStop = () => {
+        if (!mediaRecorder) return;
         console.log('Recording stopped');
-        mediaRef.current?.stop();
+        mediaRecorder.stop();
+    }
+
+    const getColor = () => {
+        if (mediaRecorder?.state === 'recording') { 
+            return 'red';
+        } 
+        return 'green';
     }
 
     return (
@@ -69,10 +75,10 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
                 onTouchEnd={handleRecordingStop}
                 onMouseUp={handleRecordingStop}
                 icon={Icons.RecordIcon}
-                iconColor="red"
+                iconColor={getColor()}
                 iconSize="xl"
             />
-            <audio controls ref={audioRef} />
+            <audio controls src={audioSrc} />
         </div>
     );
 }
