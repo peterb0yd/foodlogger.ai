@@ -11,16 +11,14 @@ export const useAudioRecorder = (isRecording: boolean) => {
     useEffect(() => {
         if (isRecording) {
             if (!stream) return;
-            const media = new MediaRecorder(stream as MediaStream, { mimeType: MIME_TYPE });
+            const media = new MediaRecorder(stream as MediaStream);
             mediaRecorder.current = media;
             mediaRecorder.current.start();
-            let localAudioChunks: Blob[] = [];
             mediaRecorder.current.ondataavailable = (e) => {
                 if (typeof e.data === "undefined") return;
                 if (e.data.size === 0) return;
-                localAudioChunks.push(e.data);
+                setAudioChunks(prev => [...prev, e.data]);
             }
-            setAudioChunks(localAudioChunks);
         } else {
             if (!mediaRecorder.current) return;
             //stops the recording instancee

@@ -29,7 +29,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
 
     return (
         <div className="AudioRecorder">
-            <p>test 11</p>
+            <p>test 12</p>
             <Button
                 onTouchStart={() => setIsRecording(true)}
                 // onMouseDown={handleRecordingStart}
@@ -39,7 +39,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
                 iconColor={buttonColor}
                 iconSize="xl"
             />
-            <audio controls src={audioURL} />
+            <audio controls={!!audioURL} src={audioURL} />
             {audioURL && (
                 <a download href={audioURL}>
                     Download Recording
