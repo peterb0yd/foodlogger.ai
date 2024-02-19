@@ -4,6 +4,11 @@
 	font-size: var(--medium-font-size);
 	font-weight: bold;
 	cursor: pointer;
+    user-select: none;
+    /* no highlight */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
 }
 
 /** Sizes */
