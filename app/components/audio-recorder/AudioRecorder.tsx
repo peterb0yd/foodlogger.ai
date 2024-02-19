@@ -76,7 +76,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
 
     return (
         <div className="AudioRecorder">
-            <p>test 2</p>
+            <p>test 3</p>
             <Button
                 onTouchStart={handleRecordingStart}
                 // onMouseDown={handleRecordingStart}
