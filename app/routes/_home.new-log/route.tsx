@@ -23,9 +23,8 @@ export default function NewLog() {
                         {`PRESS & HOLD RECORD BUTTON`}
                     </Text>
                     <AudioRecorder 
-                        className="AudioRecorder"
-                        onRecordingStart={() => console.log('Recording started')}
-                        onRecordingEnd={() => console.log('Recording ended')}
+                        onStart={() => console.log('Recording started')}
+                        onStop={() => console.log('Recording ended')}
                     />
                 </div>
             </Modal>
