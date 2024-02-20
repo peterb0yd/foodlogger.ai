@@ -3,7 +3,7 @@ import { LinksFunction } from "@remix-run/node";
 import audioRecorderStyles from "./AudioRecorder.css";
 import { Button } from "../button/Button";
 import { Icons } from "~/enums/icons";
-import { useAudioRecorder } from "~/hooks/useAudioRecorder";
+import useAudioRecorder from "~/hooks/useAudioRecorder";
 
 const MIME_TYPE = "audio/webm";
 
@@ -19,20 +19,14 @@ interface AudioRecorderProps {
 export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
     const [isRecording, setIsRecording] = useState<boolean>(false);
     const buttonColor = isRecording ? "red" : "green";
-    const { audioURL, setupAudioRecorder } = useAudioRecorder(isRecording);
-
-    useEffect(() => {
-        if (navigator?.mediaDevices) {
-            setupAudioRecorder();
-        }
-    }, [navigator?.mediaDevices])
+    const audioURL = useAudioRecorder(isRecording);
 
     const startRecording = () => setIsRecording(true);
     const stopRecording = () => setIsRecording(false);
 
     return (
         <div className="AudioRecorder">
-            <p>test 18</p>
+            <p>test 19</p>
             <Button
                 onTouchStart={startRecording}
                 onMouseDown={startRecording}
