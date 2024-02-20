@@ -1,4 +1,16 @@
 .Text {
+
+}
+
+/** Align **/
+.Text[data-align='left'] {
+    text-align: left;
+}
+.Text[data-align='center'] {
+    text-align: center;
+}
+.Text[data-align='right'] {
+    text-align: right;
 }
 
 /** Decorations */

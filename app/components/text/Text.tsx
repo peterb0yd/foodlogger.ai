@@ -11,6 +11,7 @@ interface TextProps extends PropsWithChildren {
     weight?: "light" | "regular" | "bold";
     color?: "base" | 'muted' | "contrast" | "primary" | "secondary";
     lineHeight?: "none" | "tight" | "normal" | "loose";
+    align?: "left" | "center" | "right";
     italic?: boolean;
     underline?: boolean;
 }
@@ -20,6 +21,7 @@ export const Text = ({
     weight = "regular", 
     color = "base", 
     lineHeight = "normal",
+    align,
     italic,
     underline,
     children 
@@ -31,6 +33,7 @@ export const Text = ({
             data-weight={weight}
             data-line-height={lineHeight}
             data-color={color}
+            data-align={align}
             data-italic={italic}
             data-underline={underline}
         >
