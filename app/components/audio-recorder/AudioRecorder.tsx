@@ -31,7 +31,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
                 iconColor={isRecording ? 'red' : 'gray'}
                 iconSize="xl"
             />
-            <audio controls={!!audioURL} src={audioURL} onError={err => alert(JSON.stringify(err))} />
+            <audio controls={!!audioURL} src={audioURL} />
             {audioURL && (
                 <a download href={audioURL}>
                     Download Recording
