@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { useClient } from "./useClient";
 
 const MIME_TYPE = "audio/webm";
 
@@ -7,7 +6,6 @@ export const useAudioRecorder = () => {
     const [audioURL, setAudioURL] = useState<string>("");
     const mediaRecorder = useRef<MediaRecorder | null>(null);
     const [isRecording, setIsRecording] = useState(false);
-    const isClient = useClient();
 
     useEffect(() => {
         const setupAudioRecorder = async () => {
