@@ -18,20 +18,25 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
     const [startPressed, setStartPressed] = useState(false);
     const { startRecording, stopRecording, isRecording, audioURL } = useAudioRecorder();
 
+    useEffect(() => {
+        if (startPressed) {
+            startRecording();
+            onStart();
+        } else {
+            stopRecording();
+            onStop(audioURL);
+        }
+    }, [startPressed]);
 
     const handleStartRecording = (e: React.MouseEvent | React.TouchEvent) => {
         e.preventDefault();
         if (startPressed) return;
         setStartPressed(true);
-        startRecording();
-        onStart();
     }
 
     const handleStopRecording = () => {
         if (!startPressed) return;
         setStartPressed(false);
-        stopRecording();
-        onStop(audioURL);
     }
 
     return (
