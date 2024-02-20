@@ -23,7 +23,6 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
             return {
                 onTouchStart: startRecording,
                 onTouchEnd: stopRecording,
-                onTouchCancel: stopRecording,
             };
         }
         return {

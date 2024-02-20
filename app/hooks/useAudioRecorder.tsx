@@ -11,7 +11,6 @@ export const useAudioRecorder = () => {
 
     useEffect(() => {
         if (!isClient) return;
-        
         const setupAudioRecorder = async () => {
             try {
                 let chunks: Blob[] = [];

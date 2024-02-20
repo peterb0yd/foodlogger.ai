@@ -20,13 +20,14 @@ export default function NewLog() {
 
     return (
         <Overlay>
-            <Modal title="New Food Log" goBackRoute={Routes.HOME}>
+            <Modal title="Record Food Log" goBackRoute={Routes.HOME}>
                 <div className="NewLog">
                     <FlexBox align="center" justify="center" col gap="md">
                         <FlexBox col gap="sm" align="center">
                             <Text size="lg" weight="light" lineHeight="tight">
-                                {`PRESS & HOLD TO LOG A FOOD ITEM`}
+                                {`Press & hold the mic button to record a food item.`}
                             </Text>
+                            <Text size="xs" color="muted" lineHeight="tight" italic>{`Ex: Hold button and say "One cup steamed broccoli"`}</Text>
                             <Text size="2xl" lineHeight="tight">👇</Text>
                         </FlexBox>
                         <AudioRecorder

@@ -1,6 +1,14 @@
 .Text {
 }
 
+/** Decorations */
+.Text[data-italic='true'] {
+    font-style: italic;
+}
+.Text[data-underline='true'] {
+    text-decoration: underline;
+}
+
 /** Colors */
 .Text[data-color='base'] {
     color: var(--color-text);
