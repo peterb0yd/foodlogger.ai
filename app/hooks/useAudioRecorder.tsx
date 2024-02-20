@@ -12,20 +12,12 @@ export const useAudioRecorder = (isRecording: boolean) => {
 
         if (isRecording) {
             mediaRecorder.current.start();
-        } else {
-            mediaRecorder.current.stop();
-        }
-    }, [isRecording]);
-
-    const setupAudioRecorder = async () => {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            mediaRecorder.current = new MediaRecorder(stream as MediaStream);
             mediaRecorder.current.ondataavailable = (e) => {
                 if (typeof e.data === "undefined") return;
                 if (e.data.size === 0) return;
                 chunks.current.push(e.data);
             }
+        } else {
             mediaRecorder.current.onstop = () => {
                 //creates a blob file from the audiochunks data
                 const audioBlob = new Blob(chunks.current, { type: mediaRecorder.current?.mimeType });
@@ -34,6 +26,14 @@ export const useAudioRecorder = (isRecording: boolean) => {
                 setAudioURL(audioUrl);
                 chunks.current = [];
             };
+            mediaRecorder.current.stop();
+        }
+    }, [isRecording]);
+
+    const setupAudioRecorder = async () => {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder.current = new MediaRecorder(stream as MediaStream);
         } catch (err) {
             console.error(`The following getUserMedia error occurred: ${err}`);
         }
