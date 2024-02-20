@@ -10,7 +10,6 @@ export const useAudioRecorder = () => {
     const isClient = useClient();
 
     useEffect(() => {
-        if (!isClient) return;
         const setupAudioRecorder = async () => {
             try {
                 let chunks: Blob[] = [];
@@ -36,7 +35,7 @@ export const useAudioRecorder = () => {
         if (navigator?.mediaDevices) {
             setupAudioRecorder();
         }
-    }, [isClient]);
+    }, []);
 
     return {
         audioURL,
