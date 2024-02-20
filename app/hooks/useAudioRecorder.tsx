@@ -20,6 +20,7 @@ export const useAudioRecorder = () => {
                 }
                 mediaRecorder.current.onstop = () => {
                     //creates a blob file from the audiochunks data
+                    alert(JSON.stringify(chunks))
                     const audioBlob = new Blob(chunks, { type: mediaRecorder.current?.mimeType });
                     //creates a playable URL from the blob file.
                     const audioUrl = window.URL.createObjectURL(audioBlob);
