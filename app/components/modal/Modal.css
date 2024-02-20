@@ -1,5 +1,6 @@
 .Modal {
 	--max-height: 80vh;
+    --max-width: 90vw;
 	--title-height: 50px;
 	--padding: 20px;
 
@@ -7,7 +8,7 @@
 	width: max-content;
 	height: max-content;
 	max-height: var(--max-height);
-	max-width: 90vw;
+	max-width: var(--max-width);
 	background-color: var(--color-surface);
 	padding: var(--padding);
 	z-index: var(--z-index-modal);
