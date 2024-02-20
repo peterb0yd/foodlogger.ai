@@ -37,7 +37,7 @@ export const useAudioRecorder = () => {
 
     return {
         audioURL,
-        isRecording: mediaRecorder.current?.state === "recording",
+        isRecording,
         startRecording: () => {
             setIsRecording(true);
             mediaRecorder.current?.start();
