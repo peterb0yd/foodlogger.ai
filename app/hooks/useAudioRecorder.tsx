@@ -1,46 +1,46 @@
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from "react";
 
-function useAudioRecorder(isRecording: boolean) {
-  const [audioUrl, setAudioUrl] = useState('');
-  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
-  const [audioChunks, setAudioChunks] = useState<BlobPart[]>([]);
+const MIME_TYPE = "audio/webm";
 
-  useEffect(() => {
-    // Request access to the microphone
-    async function setupMediaRecorder() {
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const recorder = new MediaRecorder(stream);
-        setMediaRecorder(recorder);
+export const useAudioRecorder = (isRecording: boolean) => {
+    const [audioURL, setAudioURL] = useState<string>("");
+    const mediaRecorder = useRef<MediaRecorder | null>(null);
 
-        recorder.ondataavailable = (event) => {
-          setAudioChunks((currentChunks) => [...currentChunks, event.data]);
-        };
+    useEffect(() => {
+        if (!mediaRecorder.current) return;
 
-        recorder.onstop = () => {
-          const audioBlob = new Blob(audioChunks, { type: recorder.mimeType });
-          const url = URL.createObjectURL(audioBlob);
-          setAudioUrl(url);
-        };
-      }
+        if (isRecording) {
+            mediaRecorder.current.start();
+        } else {
+            mediaRecorder.current.stop();
+        }
+    }, [isRecording]);
+
+    const setupAudioRecorder = async () => {
+        try {
+            let chunks: Blob[] = [];
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder.current = new MediaRecorder(stream as MediaStream);
+            mediaRecorder.current.ondataavailable = (e) => {
+                if (typeof e.data === "undefined") return;
+                if (e.data.size === 0) return;
+                chunks.push(e.data);
+            }
+            mediaRecorder.current.onstop = () => {
+                //creates a blob file from the audiochunks data
+                const audioBlob = new Blob(chunks, { type: mediaRecorder.current?.mimeType });
+                //creates a playable URL from the blob file.
+                const audioUrl = window.URL.createObjectURL(audioBlob);
+                setAudioURL(audioUrl);
+                chunks = [];
+            };
+        } catch (err) {
+            console.error(`The following getUserMedia error occurred: ${err}`);
+        }
     }
 
-    if (isRecording) {
-      setAudioChunks([]); // Reset chunks on new recording
-      setupMediaRecorder().then(() => {
-        mediaRecorder?.start();
-      });
-    } else if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-      mediaRecorder.stop();
+    return {
+        audioURL,
+        setupAudioRecorder,
     }
-
-    // Cleanup on component unmount
-    return () => {
-      mediaRecorder?.stream.getTracks().forEach(track => track.stop());
-    };
-  }, [isRecording, mediaRecorder]);
-
-  return audioUrl;
 }
-
-export default useAudioRecorder;
