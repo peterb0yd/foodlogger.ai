@@ -4,28 +4,37 @@ import { Overlay, links as overlayLinks } from "~/components/overlay/Overlay";
 import { Modal, links as modalLinks } from "~/components/modal/Modal";
 import { Text, links as textLinks } from "~/components/text/Text";
 import { Routes } from "~/enums/routes";
-import { AudioRecorder } from "~/components/audio-recorder/AudioRecorder";
+import { AudioRecorder, links as audioRecLinks } from "~/components/audio-recorder/AudioRecorder";
+import { FlexBox, links as flexBoxLinks } from "~/components/flex-box/FlexBox";
 
 export const links: LinksFunction = () => [
     { rel: "stylesheet", href: newLogStyles },
     ...overlayLinks(),
     ...modalLinks(),
     ...textLinks(),
+    ...flexBoxLinks(),
+    ...audioRecLinks(),
 ];
 
 export default function NewLog() {
 
     return (
         <Overlay>
-            <Modal title="New Log" goBackRoute={Routes.HOME}>
+            <Modal title="New Food Log" goBackRoute={Routes.HOME}>
                 <div className="NewLog">
-                    <Text size="lg" weight="light">
-                        {`PRESS & HOLD RECORD BUTTON`}
-                    </Text>
-                    <AudioRecorder 
-                        onStart={() => console.log('Recording started')}
-                        onStop={() => console.log('Recording ended')}
-                    />
+                    <FlexBox align="center" justify="center" col gap="md">
+                        <FlexBox col gap="sm" align="center">
+                            <Text size="lg" weight="light" lineHeight="tight">
+                                {`PRESS & HOLD TO LOG A FOOD ITEM`}
+                            </Text>
+                            <Text size="2xl" lineHeight="tight">👇</Text>
+                        </FlexBox>
+                        <AudioRecorder
+                            onStart={() => console.log('Recording started')}
+                            onStop={(src: string) => console.log('Recording ended', src)}
+                        />
+                        <Text size="xs" color="muted">Your food logs will appear here...</Text>
+                    </FlexBox>
                 </div>
             </Modal>
         </Overlay>

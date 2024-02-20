@@ -9,6 +9,7 @@
 	--large-font-size: 1.25rem;
     --x-large-font-size: 1.5rem;
     --xx-large-font-size: 2.5rem;
+    --xxx-large-font-size: 3.5rem;
 
     /* Z-Index */
     --z-index-base: 0;
@@ -37,6 +38,7 @@
 		--color-surface-contrast: #000000;
 		--color-text: #333333;
 		--color-text-contrast: #ffffff;
+        --color-text-muted: #666666;
 	}
 }
 
@@ -46,5 +48,6 @@
 		--color-surface-contrast: #ffffff;
 		--color-text: #ffffff;
 		--color-text-contrast: #000000;
+        --color-text-muted: #cccccc;
 	}
 }

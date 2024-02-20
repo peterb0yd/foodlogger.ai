@@ -5,6 +5,9 @@
 .Text[data-color='base'] {
     color: var(--color-text);
 }
+.Text[data-color='muted'] {
+    color: var(--color-text-muted);
+}
 .Text[data-color='contrast'] {
 	color: var(--color-text-contrast);
 }
@@ -33,6 +36,9 @@
 }
 .Text[data-size='2xl'] {
 	font-size: var(--xx-large-font-size);
+}
+.Text[data-size='3xl'] {
+    font-size: var(--xxx-large-font-size);
 }
 
 /** Weights */

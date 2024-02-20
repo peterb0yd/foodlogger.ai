@@ -6,15 +6,13 @@ import { Icons } from "~/enums/icons";
 import { useAudioRecorder } from "~/hooks/useAudioRecorder";
 import { useMobileDevice } from "~/hooks/useMobileDevice";
 
-const MIME_TYPE = "audio/webm";
-
 export const links: LinksFunction = () => [
     { rel: "stylesheet", href: audioRecorderStyles },
 ];
 
 interface AudioRecorderProps {
     onStart: () => void;
-    onStop: () => void;
+    onStop: (url: string) => void;
 }
 
 export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
@@ -25,11 +23,13 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
             return {
                 onTouchStart: startRecording,
                 onTouchEnd: stopRecording,
+                onTouchCancel: stopRecording,
             };
         }
         return {
             onMouseDown: startRecording,
             onMouseUp: stopRecording,
+            onMouseLeave: stopRecording,
         };
     }, [isMobile, startRecording, stopRecording]);
 
@@ -41,12 +41,6 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
                 iconColor={isRecording ? 'red' : 'gray'}
                 iconSize="xl"
             />
-            <audio controls={!!audioURL} src={audioURL} />
-            {audioURL && (
-                <a download href={audioURL}>
-                    Download Recording
-                </a>
-            )}
         </div>
     );
 }
