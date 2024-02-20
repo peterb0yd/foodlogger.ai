@@ -30,7 +30,7 @@ export const useAudioRecorder = () => {
             }
         }
         setupAudioRecorder();
-    }, []);
+    }, [navigator?.mediaDevices]);
 
     return {
         audioURL,
