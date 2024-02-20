@@ -29,7 +29,9 @@ export const useAudioRecorder = () => {
                 console.error(`The following getUserMedia error occurred: ${err}`);
             }
         }
-        setupAudioRecorder();
+        if (navigator?.mediaDevices) {
+            setupAudioRecorder();
+        }
     }, [navigator?.mediaDevices]);
 
     return {
