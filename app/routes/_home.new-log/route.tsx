@@ -23,7 +23,7 @@ export default function NewLog() {
             <Modal title="Record Food Log" goBackRoute={Routes.HOME}>
                 <div className="NewLog">
                     <FlexBox align="center" justify="center" col gap="md">
-                        <FlexBox col gap="sm" align="center">
+                        <FlexBox col gap="md" align="center">
                             <Text size="lg" weight="light" align="center" lineHeight="tight">
                                 {`Press & hold the mic button to record a food item.`}
                             </Text>
