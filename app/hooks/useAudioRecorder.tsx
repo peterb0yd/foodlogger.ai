@@ -4,7 +4,6 @@ const MIME_TYPE = "audio/webm";
 
 export const useAudioRecorder = (isRecording: boolean) => {
     const [audioURL, setAudioURL] = useState<string>("");
-    const [audioChunks, setAudioChunks] = useState<Blob[]>([]);
     const mediaRecorder = useRef<MediaRecorder | null>(null);
 
     useEffect(() => {
@@ -19,20 +18,21 @@ export const useAudioRecorder = (isRecording: boolean) => {
 
     const setupAudioRecorder = async () => {
         try {
+            let chunks: Blob[] = [];
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             mediaRecorder.current = new MediaRecorder(stream as MediaStream);
             mediaRecorder.current.ondataavailable = (e) => {
                 if (typeof e.data === "undefined") return;
                 if (e.data.size === 0) return;
-                setAudioChunks(prev => [...prev, e.data]);
+                chunks.push(e.data);
             }
             mediaRecorder.current.onstop = () => {
                 //creates a blob file from the audiochunks data
-                const audioBlob = new Blob(audioChunks, { type: mediaRecorder.current?.mimeType });
+                const audioBlob = new Blob(chunks, { type: mediaRecorder.current?.mimeType });
                 //creates a playable URL from the blob file.
                 const audioUrl = window.URL.createObjectURL(audioBlob);
                 setAudioURL(audioUrl);
-                setAudioChunks([]);
+                chunks = [];
             };
         } catch (err) {
             console.error(`The following getUserMedia error occurred: ${err}`);
