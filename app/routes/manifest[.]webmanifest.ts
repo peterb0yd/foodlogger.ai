@@ -9,6 +9,11 @@ export const loader = async () => {
 			display: 'standalone',
 			background_color: '#d3d7dd',
 			theme_color: '#c34138',
+			permissions: {
+				'audio-capture': {
+					description: 'Required to capture audio via getUserMedia',
+				},
+			},
 			shortcuts: [
 				{
 					name: 'Homepage',
