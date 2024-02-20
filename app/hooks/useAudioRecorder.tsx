@@ -5,6 +5,7 @@ const MIME_TYPE = "audio/webm";
 export const useAudioRecorder = () => {
     const [audioURL, setAudioURL] = useState<string>("");
     const mediaRecorder = useRef<MediaRecorder | null>(null);
+    const [isRecording, setIsRecording] = useState(false);
 
     useEffect(() => {
         const setupAudioRecorder = async () => {
@@ -32,12 +33,18 @@ export const useAudioRecorder = () => {
         if (navigator?.mediaDevices) {
             setupAudioRecorder();
         }
-    }, [navigator?.mediaDevices]);
+    }, []);
 
     return {
         audioURL,
         isRecording: mediaRecorder.current?.state === "recording",
-        startRecording: mediaRecorder.current?.start,
-        stopRecording: mediaRecorder.current?.stop,
+        startRecording: () => {
+            setIsRecording(true);
+            mediaRecorder.current?.start();
+        },
+        stopRecording: () => {
+            setIsRecording(false);
+            mediaRecorder.current?.stop();
+        }
     }
 }
