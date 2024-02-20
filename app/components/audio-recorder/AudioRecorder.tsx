@@ -3,7 +3,7 @@ import { LinksFunction } from "@remix-run/node";
 import audioRecorderStyles from "./AudioRecorder.css";
 import { Button } from "../button/Button";
 import { Icons } from "~/enums/icons";
-import useAudioRecorder from "~/hooks/useAudioRecorder";
+import { useAudioRecorder } from "~/hooks/useAudioRecorder";
 
 const MIME_TYPE = "audio/webm";
 
@@ -17,23 +17,18 @@ interface AudioRecorderProps {
 }
 
 export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
-    const [isRecording, setIsRecording] = useState<boolean>(false);
-    const buttonColor = isRecording ? "red" : "green";
-    const audioURL = useAudioRecorder(isRecording);
-
-    const startRecording = () => setIsRecording(true);
-    const stopRecording = () => setIsRecording(false);
+    const { startRecording, stopRecording, isRecording, audioURL } = useAudioRecorder();
 
     return (
         <div className="AudioRecorder">
-            <p>test 20</p>
+            <p>test 21</p>
             <Button
-                onTouchStart={startRecording}
-                onMouseDown={startRecording}
-                onTouchEnd={stopRecording}
-                onMouseUp={stopRecording}
+                onTouchStart={() => startRecording?.()}
+                onMouseDown={() => startRecording?.()}
+                onTouchEnd={() => stopRecording?.()}
+                onMouseUp={() => stopRecording?.()}
                 icon={Icons.RecordIcon}
-                iconColor={buttonColor}
+                iconColor={isRecording ? 'red' : 'gray'}
                 iconSize="xl"
             />
             <audio controls={!!audioURL} src={audioURL} />
