@@ -30,17 +30,21 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
 
     const handleStartRecording = (e: React.MouseEvent | React.TouchEvent) => {
         e.preventDefault();
+        e.stopPropagation();
         if (startPressed) return;
         setStartPressed(true);
     }
 
-    const handleStopRecording = () => {
+    const handleStopRecording = (e: React.MouseEvent | React.TouchEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
         if (!startPressed) return;
         setStartPressed(false);
     }
 
     return (
         <div className="AudioRecorder">
+            1
             <Button
                 onTouchStart={handleStartRecording}
                 onMouseDown={handleStartRecording}
