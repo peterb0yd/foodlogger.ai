@@ -28,8 +28,6 @@ export const action: ActionFunction = async ({ request }) => {
             const audioFile = formData.get('audio') as NodeOnDiskFile;
             const audioFilePath = audioFile.getFilePath();
 
-            console.log({audioFilePath})
-
             try {
                 // send the file to OpenAI for transcription
                 const openai = getOpenAIClient();
