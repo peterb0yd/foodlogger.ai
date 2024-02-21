@@ -11,28 +11,25 @@ export const links: LinksFunction = () => [
 
 interface AudioRecorderProps {
     onStart: () => void;
-    onStop: (url: string) => void;
+    onStop: (audioBlob: Blob) => void;
 }
 
 export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
     const [startPressed, setStartPressed] = useState(false);
-    const { startRecording, stopRecording, isRecording, audioURL } = useAudioRecorder();
+    const { startRecording, stopRecording, isRecording, audioBlob } = useAudioRecorder();
 
     useEffect(() => {
-        if (startPressed) {
-            startRecording();
-            onStart();
-        } else {
-            stopRecording();
-            onStop(audioURL);
+        if (audioBlob) {
+            onStop(audioBlob);
         }
-    }, [startPressed]);
+    }, [audioBlob]);
 
     const handleStartRecording = (e: React.MouseEvent | React.TouchEvent) => {
         e.preventDefault();
         e.stopPropagation();
         if (startPressed) return;
         setStartPressed(true);
+        startRecording();
     }
 
     const handleStopRecording = (e: React.MouseEvent | React.TouchEvent) => {
@@ -40,6 +37,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
         e.stopPropagation();
         if (!startPressed) return;
         setStartPressed(false);
+        stopRecording();
     }
 
     return (

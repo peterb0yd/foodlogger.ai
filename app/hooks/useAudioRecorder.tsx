@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 
-const MIME_TYPE = "audio/webm";
+const MIME_TYPE = "audio/wav";
 
 export const useAudioRecorder = () => {
-    const [audioURL, setAudioURL] = useState<string>("");
+    const [audioBlob, setAudioBlob] = useState<Blob | null>(null); // [1
     const mediaRecorder = useRef<MediaRecorder | null>(null);
     const [isRecording, setIsRecording] = useState(false);
 
@@ -20,31 +20,31 @@ export const useAudioRecorder = () => {
                 }
                 mediaRecorder.current.onstop = () => {
                     //creates a blob file from the audiochunks data
-                    const audioBlob = new Blob(chunks, { type: mediaRecorder.current?.mimeType });
-                    //creates a playable URL from the blob file.
-                    const audioUrl = window.URL.createObjectURL(audioBlob);
-                    setAudioURL(audioUrl);
+                    const audioBlob = new Blob(chunks, { type: MIME_TYPE });
+                    setAudioBlob(audioBlob);
+                    setIsRecording(false);
                     chunks = [];
                 };
             } catch (err) {
                 console.error(`The following getUserMedia error occurred: ${err}`);
             }
         }
-        if (navigator?.mediaDevices) {
-            setupAudioRecorder();
-        }
+        setupAudioRecorder();
     }, []);
 
+    const startRecording = () => {
+        setIsRecording(true);
+        mediaRecorder.current?.start();
+    }
+
+    const stopRecording = () => {
+        mediaRecorder.current?.stop();
+    }
+
     return {
-        audioURL,
+        audioBlob,
         isRecording,
-        startRecording: () => {
-            setIsRecording(true);
-            mediaRecorder.current?.start();
-        },
-        stopRecording: () => {
-            setIsRecording(false);
-            mediaRecorder.current?.stop();
-        }
+        startRecording,
+        stopRecording,
     }
 }

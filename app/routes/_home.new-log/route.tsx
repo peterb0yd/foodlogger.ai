@@ -6,6 +6,8 @@ import { Text, links as textLinks } from "~/components/text/Text";
 import { Routes } from "~/enums/routes";
 import { AudioRecorder, links as audioRecLinks } from "~/components/audio-recorder/AudioRecorder";
 import { FlexBox, links as flexBoxLinks } from "~/components/flex-box/FlexBox";
+import { useFetcher, useSubmit } from "@remix-run/react";
+import { useState } from "react";
 
 export const links: LinksFunction = () => [
     { rel: "stylesheet", href: newLogStyles },
@@ -16,7 +18,40 @@ export const links: LinksFunction = () => [
     ...audioRecLinks(),
 ];
 
+interface FoodLogsProps {
+    log: string | undefined;
+    isLoading: boolean;
+}
+
+const FoodLogs = ({ log, isLoading }: FoodLogsProps) => {
+    if (isLoading) {
+        return <Text>Loading...</Text>;
+    }
+    if (!log) {
+        return <Text>No food logs yet...</Text>;
+    }
+    return (
+        <Text>{log}</Text>
+    );
+}
+
 export default function NewLog() {
+    const fetcher = useFetcher();
+
+    const handleNewAudioLog = (audioBlob: Blob) => {
+        if (!audioBlob) return;
+        const formData = new FormData();
+        const file = new File([audioBlob], "audio.wav", { type: "audio/wav" });
+        formData.append("audio", file);
+        fetcher.submit(formData, {
+            method: "POST",
+            action: "/api/food-logs",
+            encType: "multipart/form-data",
+            navigate: false,
+        });
+    }
+
+    console.log({data: fetcher.data});
 
     return (
         <Overlay>
@@ -34,9 +69,12 @@ export default function NewLog() {
                         </FlexBox>
                         <AudioRecorder
                             onStart={() => console.log('Recording started')}
-                            onStop={(src: string) => console.log('Recording ended', src)}
+                            onStop={handleNewAudioLog}
                         />
-                        <Text size="xs" color="muted">Your food logs will appear here...</Text>
+                        <FoodLogs
+                            log={fetcher.data as string}
+                            isLoading={fetcher.state === 'loading'}
+                        />
                     </FlexBox>
                 </div>
             </Modal>
