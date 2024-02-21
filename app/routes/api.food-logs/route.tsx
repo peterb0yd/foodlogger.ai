@@ -13,14 +13,11 @@ export const action: ActionFunction = async ({ request }) => {
     switch (request.method) {
         case "POST": {
             // Get the audio file from the request
-            const uploadHandler = unstable_composeUploadHandlers(
-                unstable_createFileUploadHandler({
-                    maxPartSize: 5_000_000,
-                    directory: "food-logs",
-                    file: ({ filename }) => filename,
-                }),
-                unstable_createMemoryUploadHandler(),
-            );
+            const uploadHandler = unstable_createFileUploadHandler({
+                maxPartSize: 5_000_000,
+                directory: "food-logs",
+                file: ({ filename }) => filename,
+            })
             const formData = await unstable_parseMultipartFormData(
                 request,
                 uploadHandler,
@@ -45,7 +42,7 @@ export const action: ActionFunction = async ({ request }) => {
                     status: 500,
                     statusText: "Internal Server Error",
                 });
-            }   
+            }
         }
         default: {
             return new Response("Method not allowed", { status: 405 });
