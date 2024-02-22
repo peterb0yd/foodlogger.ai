@@ -1,6 +1,6 @@
-import { ActionFunction, LoaderFunction, NodeOnDiskFile, unstable_composeUploadHandlers, unstable_createFileUploadHandler, unstable_createMemoryUploadHandler, unstable_parseMultipartFormData } from "@remix-run/node";
 import { getOpenAIClient } from "~/utils/openAI";
-import fs from "fs";
+import { getAudioFileFromRequest } from "./food-logs.utils";
+import { ActionFunction, LoaderFunction } from "@remix-run/node";
 
 export const loader: LoaderFunction = async () => {
     return new Response(null, {
@@ -12,20 +12,8 @@ export const loader: LoaderFunction = async () => {
 export const action: ActionFunction = async ({ request }) => {
     switch (request.method) {
         case "POST": {
-            // Get the audio file from the request
-            const uploadHandler = unstable_createFileUploadHandler({
-                maxPartSize: 5_000_000,
-                directory: "food-logs",
-                file: ({ filename }) => filename,
-            })
-            const formData = await unstable_parseMultipartFormData(
-                request,
-                uploadHandler,
-            );
-            const audioFile = formData.get('audio') as NodeOnDiskFile;
-            const audioFilePath = audioFile.getFilePath();
-
             try {
+                const audioFile = await getAudioFileFromRequest(request);
                 // send the file to OpenAI for transcription
                 const openai = getOpenAIClient();
                 const transcription = await openai.audio.transcriptions.create({

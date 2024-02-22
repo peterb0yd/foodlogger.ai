@@ -12,11 +12,12 @@
     "build:worker": "remix-pwa build",
     "dev": "run-p dev:*",
     "dev:remix": "remix dev --manual",
-    "dev:worker": "remix-pwa dev"
+    "dev:worker": "remix-pwa dev",
+    "seed-db": "npx prisma db seed"
   },
   "dependencies": {
     "@fontsource-variable/manrope": "^5.0.18",
-    "@prisma/client": "^5.9.1",
+    "@prisma/client": "^5.10.2",
     "@remix-pwa/cache": "^2.0.12",
     "@remix-pwa/push": "^1.0.9",
     "@remix-pwa/strategy": "^2.1.9",
@@ -35,6 +36,7 @@
     "@remix-pwa/dev": "2.0.31",
     "@remix-pwa/worker-runtime": "^2.0.8",
     "@remix-run/dev": "^2.6.0",
+    "@types/node": "^20.11.19",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
@@ -48,9 +50,13 @@
     "npm-run-all": "^4.1.5",
     "prisma": "^5.9.1",
     "remix-pwa": "^3.0.19",
-    "typescript": "^5.1.6"
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   }
 }

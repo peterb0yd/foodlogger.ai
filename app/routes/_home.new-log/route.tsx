@@ -6,7 +6,7 @@ import { Text, links as textLinks } from "~/components/text/Text";
 import { Routes } from "~/enums/routes";
 import { AudioRecorder, links as audioRecLinks } from "~/components/audio-recorder/AudioRecorder";
 import { FlexBox, links as flexBoxLinks } from "~/components/flex-box/FlexBox";
-import { useFetcher, useSubmit } from "@remix-run/react";
+import { useFetcher, useLoaderData, useSubmit } from "@remix-run/react";
 import { useState } from "react";
 
 export const links: LinksFunction = () => [
@@ -36,6 +36,7 @@ const FoodLogs = ({ log, isLoading }: FoodLogsProps) => {
 }
 
 export default function NewLog() {
+    const submit = useSubmit();
     const fetcher = useFetcher();
 
     const handleNewAudioLog = (audioBlob: Blob) => {
@@ -43,7 +44,7 @@ export default function NewLog() {
         const formData = new FormData();
         const file = new File([audioBlob], "audio.wav", { type: "audio/wav" });
         formData.append("audio", file);
-        fetcher.submit(formData, {
+        submit(formData, {
             method: "POST",
             action: "/api/food-logs",
             encType: "multipart/form-data",
