@@ -52,8 +52,6 @@ export default function NewLog() {
         });
     }
 
-    console.log({data: fetcher.data});
-
     return (
         <Overlay>
             <Modal title="Record Food Log" goBackRoute={Routes.HOME}>

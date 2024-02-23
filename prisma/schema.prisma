@@ -11,16 +11,16 @@ datasource db {
 }
 
 model User {
-    id                       String                    @id @default(uuid())
-    email                    String                    @unique
+    id                       String                      @id @default(uuid())
+    email                    String                      @unique
     name                     String?
-    createdAt                DateTime                  @default(now())
-    updatedAt                DateTime                  @updatedAt
+    createdAt                DateTime                    @default(now())
+    updatedAt                DateTime                    @updatedAt
     stripeCustomerId         String?
     stripeSubscriptionId     String?
-    stripeSubscriptionStatus StripeSubscriptionStatus?
+    stripeSubscriptionStatus StripeSubscriptionStatuses?
     dailyLogs                DailyLog[]
-    FoodLog                  FoodLog[]
+    foodLogs                 FoodLog[]
 }
 
 model FoodItem {
@@ -31,16 +31,14 @@ model FoodItem {
 }
 
 model FoodItemLog {
-    id                String            @id @default(uuid())
-    foodItem          FoodItem          @relation(fields: [foodItemId], references: [id])
-    foodItemId        String
-    foodLog           FoodLog           @relation(fields: [foodLogId], references: [id])
-    foodLogId         String
-    preparationMethod PreparationMethod
-    quantityCups      Int
-    quantityTbsp      Int
-    quantityTsp       Int
-    quantityGrams     Int
+    id          String             @id @default(uuid())
+    foodItem    FoodItem           @relation(fields: [foodItemId], references: [id])
+    foodItemId  String
+    foodLog     FoodLog            @relation(fields: [foodLogId], references: [id])
+    foodLogId   String
+    preparation PreparationMethods
+    quantity    Float
+    unit        Units              @default(NONE)
 }
 
 model FoodLog {
@@ -68,8 +66,8 @@ model DailyLog {
     anxietyQuality Int
 }
 
-enum StripeSubscriptionStatus {
-    ACTIVE 
+enum StripeSubscriptionStatuses {
+    ACTIVE
     CANCELED
     INCOMPLETE
     INCOMPLETE_EXPIRED
@@ -78,8 +76,22 @@ enum StripeSubscriptionStatus {
     UNPAID
 }
 
-enum PreparationMethod {
-    STEAMED 
+enum Units {
+    CUP
+    TABLESPOON
+    TEASPOON
+    OUNCE
+    POUND
+    GRAM
+    LITER
+    GALLON
+    QUART
+    PINT
+    NONE
+}
+
+enum PreparationMethods {
+    STEAMED
     BOILED
     FRIED
     AIR_FRIED

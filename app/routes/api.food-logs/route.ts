@@ -1,6 +1,6 @@
-import { getOpenAIClient } from "~/utils/openAI";
-import { getAudioFileFromRequest } from "./food-logs.utils";
 import { ActionFunction, LoaderFunction } from "@remix-run/node";
+import { createFoodLogFromAudioRequest } from "../../api/modules/food-logs/food-logs.service";
+import { RequestMethods } from "~/enums/requests";
 
 export const loader: LoaderFunction = async () => {
     return new Response(null, {
@@ -11,16 +11,10 @@ export const loader: LoaderFunction = async () => {
 
 export const action: ActionFunction = async ({ request }) => {
     switch (request.method) {
-        case "POST": {
+        case RequestMethods.POST: {
             try {
-                const audioFile = await getAudioFileFromRequest(request);
-                // send the file to OpenAI for transcription
-                const openai = getOpenAIClient();
-                const transcription = await openai.audio.transcriptions.create({
-                    file: audioFile,
-                    model: "whisper-1",
-                });
-                return new Response(transcription.text, {
+                const foodLog = await createFoodLogFromAudioRequest(request);
+                return new Response(foodLog, {
                     status: 200,
                     statusText: "OK",
                 });
