@@ -21,14 +21,15 @@ export const getAudioFileFromRequest = async (request: Request) => {
 // OpenAI's API is used to transcribe the audio file
 export const getTranscriptionFromAudioFile = async (audioFile: NodeOnDiskFile) => {
     const openai = getOpenAIClient();
-    return openai.audio.transcriptions.create({
+    const response = await openai.audio.transcriptions.create({
         file: audioFile,
         model: "whisper-1",
     });
+    return response.text;
 }
 
 // Find out what the user said and have ChatGPT put it in JSON format
-export const getFoodItemLogData = async (transcription: string) => {
+export const parseFoodItemLogData = async (transcription: string) => {
 	try {
 		const openai = getOpenAIClient();
 		const response = await openai.chat.completions.create({

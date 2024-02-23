@@ -1,8 +1,16 @@
-import { getAudioFileFromRequest, getTranscriptionFromAudioFile } from "./food-logs.utils";
+import { foodLogDataToFoodLog } from "./food-logs.mappers";
+import { createFoodLog } from "./food-logs.repository";
 
-// Find out what the user said and create a food log from it
-export const createFoodLogFromAudioRequest = async (request: Request) => {
-    const audioFile = await getAudioFileFromRequest(request);
-    const transcription = await getTranscriptionFromAudioFile(audioFile);
-    return transcription;
+export class FoodLogService {
+    static async createFoodLog(request: Request) {
+        const requestData = await request.formData();
+        const userId = requestData.get('userId') as string;
+        if (!userId) {
+            throw new Error('User ID is required');
+        }
+        return createFoodLog(
+            foodLogDataToFoodLog({ userId }),
+        );
+    }
+
 }

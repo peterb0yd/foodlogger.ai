@@ -1,12 +1,12 @@
+import { Prisma } from '@prisma/client';
 import { IFoodItemLogData } from './food-item-logs.interfaces';
 
 export const foodItemLogDataToFoodItemLog = ({
 	foodItem,
 	foodLogId,
-	quantity,
-	unit,
-	preparation,
+	foodItemLogData,
 }: IFoodItemLogData) => {
+    const { quantity, unit, preparation } = foodItemLogData;
 	return {
 		quantity,
 		unit,
@@ -21,5 +21,5 @@ export const foodItemLogDataToFoodItemLog = ({
 				id: foodItem.id,
 			},
 		},
-	};
+	} as Prisma.FoodItemLogCreateInput;
 };

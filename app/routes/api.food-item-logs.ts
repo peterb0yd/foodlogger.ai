@@ -1,5 +1,6 @@
-import { ActionFunction, LoaderFunction } from "@remix-run/node";
-import { createFoodLogFromAudioRequest } from "../../api/modules/food-logs/food-logs.service";
+import { ActionFunction, LoaderFunction, json } from "@remix-run/node";
+import { createFoodItemLog } from "~/api/modules/food-item-logs/food-item-logs.repository";
+import { getFoodItemLogDataFromAudioRequest } from "~/api/modules/food-item-logs/food-item-logs.service";
 import { RequestMethods } from "~/enums/requests";
 
 export const loader: LoaderFunction = async () => {
@@ -13,11 +14,9 @@ export const action: ActionFunction = async ({ request }) => {
     switch (request.method) {
         case RequestMethods.POST: {
             try {
-                const foodLog = await createFoodLogFromAudioRequest(request);
-                return new Response(foodLog, {
-                    status: 200,
-                    statusText: "OK",
-                });
+                const foodItemLogData = await getFoodItemLogDataFromAudioRequest(request);
+                const foodItemLog = await createFoodItemLog(foodItemLogData);
+                return json(foodItemLog);
             } catch (error) {
                 console.error(error);
                 return new Response(null, {

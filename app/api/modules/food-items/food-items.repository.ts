@@ -8,6 +8,9 @@ export const findFoodItemByName = async (name: string) => {
                 name: name,
             },
         });
+        if (!foodItem) {
+            return null;
+        }
         return foodItem;
     } catch (error) {
         throw new Error(`Error finding food item by name: ${error}`);
