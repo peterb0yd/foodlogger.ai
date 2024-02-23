@@ -1,4 +1,4 @@
-import { LinksFunction } from "@remix-run/node";
+import { LinksFunction, LoaderFunction } from "@remix-run/node";
 import newLogStyles from "./new-log.styles.css";
 import { Overlay, links as overlayLinks } from "~/components/overlay/Overlay";
 import { Modal, links as modalLinks } from "~/components/modal/Modal";
@@ -8,6 +8,7 @@ import { AudioRecorder, links as audioRecLinks } from "~/components/audio-record
 import { FlexBox, links as flexBoxLinks } from "~/components/flex-box/FlexBox";
 import { useFetcher, useLoaderData, useSubmit } from "@remix-run/react";
 import { useState } from "react";
+import { createFoodLog } from "~/api/modules/food-logs/food-logs.repository";
 
 export const links: LinksFunction = () => [
     { rel: "stylesheet", href: newLogStyles },
@@ -17,6 +18,12 @@ export const links: LinksFunction = () => [
     ...flexBoxLinks(),
     ...audioRecLinks(),
 ];
+
+export const loader: LoaderFunction = async () => {
+    const foodLog = await createFoodLog({ userId: '123' });
+    
+}
+
 
 interface FoodLogsProps {
     log: string | undefined;
