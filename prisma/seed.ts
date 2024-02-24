@@ -12,7 +12,8 @@ async function runSeeder() {
 				},
 			});
 		}
-
+        
+        // Peter Boyd user
         await prisma.user.create({
             data: {
                 email: 'peterboyd192@gmail.com',
