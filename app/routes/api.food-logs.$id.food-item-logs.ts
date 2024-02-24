@@ -1,6 +1,6 @@
 import { ActionFunction, LoaderFunction, json } from "@remix-run/node";
-import { FoodItemLogService } from "~/api/modules/food-item-log/food-item-log.service";
-import { parseMultipartFormData } from "~/api/modules/food-item-log/food-item-log.utils";
+import { FoodLogItemService } from "~/api/modules/food-log-item/food-log-item.service";
+import { parseMultipartFormData } from "~/api/modules/food-log-item/food-log-item.utils";
 import { RequestMethods } from "~/enums/requests";
 
 export const loader: LoaderFunction = async () => {
@@ -10,15 +10,16 @@ export const loader: LoaderFunction = async () => {
     });
 }
 
-export const action: ActionFunction = async ({ request }) => {
+export const action: ActionFunction = async (context) => {
+    const { request, params } = context;
     switch (request.method) {
         case RequestMethods.POST: {
             try {
                 // Find out what the user said and create one or more food logs from it
                 const formData = await parseMultipartFormData(request);
                 const audioFile = formData.get('audio') as File;
-                const foodLogId = formData.get('foodLogId') as string;
-                const foodItemLog = await FoodItemLogService.create(audioFile, foodLogId);
+                const foodLogId = params.id as string;
+                const foodItemLog = await FoodLogItemService.create(audioFile, foodLogId);
                 return json(foodItemLog);
             } catch (error) {
                 console.error(error);

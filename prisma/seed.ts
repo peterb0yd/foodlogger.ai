@@ -8,7 +8,7 @@ async function runSeeder() {
 		for (const food of foodList) {
 			await prisma.foodItem.create({
 				data: {
-					name: food,
+					name: food.trim().toLowerCase(),
 				},
 			});
 		}

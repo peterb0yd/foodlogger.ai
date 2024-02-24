@@ -1,6 +1,5 @@
 import { Prisma } from '@prisma/client';
 import { getPrisma } from '~/api/utils/prisma';
-import { foodLogDataToFoodLog } from './food-log.mappers';
 
 export class FoodLogRepository {
 	static async create(foodLog: Prisma.FoodLogCreateInput) {

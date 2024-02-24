@@ -1,4 +1,5 @@
-export enum Routes {
+export enum PageRoutes {
     HOME = '/',
-    NEW_LOG = '/new-log',
+    LOGIN = '/login',
+    EDIT_LOG = '/logs/:id',
 }
