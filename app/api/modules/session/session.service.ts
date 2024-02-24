@@ -4,7 +4,6 @@ import { getSession } from './session.utils';
 import { Prisma } from '@prisma/client';
 
 export class SessionService {
-
     static async findById (id: string) {
         return SessionRepository.findById(id);
     }
