@@ -1,4 +1,4 @@
-import { LinksFunction, LoaderFunction } from "@remix-run/node";
+import { LinksFunction, LoaderFunction, json } from "@remix-run/node";
 import newLogStyles from "./new-log.styles.css";
 import { Overlay, links as overlayLinks } from "~/components/overlay/Overlay";
 import { Modal, links as modalLinks } from "~/components/modal/Modal";
@@ -7,8 +7,10 @@ import { Routes } from "~/enums/routes";
 import { AudioRecorder, links as audioRecLinks } from "~/components/audio-recorder/AudioRecorder";
 import { FlexBox, links as flexBoxLinks } from "~/components/flex-box/FlexBox";
 import { useFetcher, useLoaderData, useSubmit } from "@remix-run/react";
-import { useState } from "react";
-import { createFoodLog } from "~/api/modules/food-logs/food-logs.repository";
+import React, { useState } from "react";
+import { FoodLogService } from "~/api/modules/food-log/food-log.service";
+import { FoodItemLogService } from "~/api/modules/food-item-log/food-item-log.service";
+import { UserService } from "~/api/modules/user/user.service";
 
 export const links: LinksFunction = () => [
     { rel: "stylesheet", href: newLogStyles },
@@ -20,8 +22,11 @@ export const links: LinksFunction = () => [
 ];
 
 export const loader: LoaderFunction = async () => {
-    const foodLog = await createFoodLog({ userId: '123' });
-    
+    const user = await UserService.findByPhone('2407235209');
+    if (!user) return json(null, { status: 404 });
+    const foodLog = await FoodLogService.create({ userId: user.id });
+    const foodItemLogs = await FoodItemLogService.findAllByLogId(foodLog.id);
+    return json({ foodLog, foodItemLogs });
 }
 
 
@@ -43,15 +48,21 @@ const FoodLogs = ({ log, isLoading }: FoodLogsProps) => {
 }
 
 export default function NewLog() {
-    const submit = useSubmit();
-    const fetcher = useFetcher();
+    const newLogFetcher = useFetcher();
+    const logsFetcher = useFetcher();
+
+    React.useEffect(() => {
+        if (newLogFetcher.state === 'submitted') {
+            logsFetcher
+        }
+    }, [newLogFetcher.state])
 
     const handleNewAudioLog = (audioBlob: Blob) => {
         if (!audioBlob) return;
         const formData = new FormData();
         const file = new File([audioBlob], "audio.wav", { type: "audio/wav" });
         formData.append("audio", file);
-        submit(formData, {
+        newLogFetcher.submit(formData, {
             method: "POST",
             action: "/api/food-logs",
             encType: "multipart/form-data",

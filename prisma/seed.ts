@@ -12,6 +12,14 @@ async function runSeeder() {
 				},
 			});
 		}
+
+        await prisma.user.create({
+            data: {
+                email: 'peterboyd192@gmail.com',
+                phone: '2407235209',
+                name: 'Peter Boyd',
+            },
+        });
 	} catch (error) {
 		console.error(error);
 		await prisma.$disconnect();

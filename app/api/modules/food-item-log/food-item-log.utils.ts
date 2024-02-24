@@ -1,25 +1,23 @@
 import { Prisma } from '@prisma/client';
-import { getOpenAIClient } from '~/utils/openAI';
-import { unstable_createFileUploadHandler, unstable_parseMultipartFormData, NodeOnDiskFile } from "@remix-run/node";
-import { FoodItemLogTranscriptionData } from './food-item-logs.types';
+import { getOpenAIClient } from '~/api/utils/openAI';
+import { unstable_createFileUploadHandler, unstable_parseMultipartFormData } from "@remix-run/node";
+import { FoodItemLogTranscriptionOutput } from './food-item-log.types';
 
-export const getAudioFileFromRequest = async (request: Request) => {
+export const parseMultipartFormData = async (request: Request) => {
     // Remix's file upload handler is used to parse the multipart form data
     const uploadHandler = unstable_createFileUploadHandler({
         maxPartSize: 5_000_000,
         directory: "food-logs",
         file: ({ filename }) => filename,
     })
-    const formData = await unstable_parseMultipartFormData(
+    return unstable_parseMultipartFormData(
         request,
         uploadHandler,
     );
-    // NodeOnDiskFile extends the File interface
-    return formData.get('audio') as NodeOnDiskFile;
 }
 
 // OpenAI's API is used to transcribe the audio file
-export const getTranscriptionFromAudioFile = async (audioFile: NodeOnDiskFile) => {
+export const getTranscriptionFromAudioFile = async (audioFile: File) => {
     const openai = getOpenAIClient();
     const response = await openai.audio.transcriptions.create({
         file: audioFile,
@@ -61,7 +59,7 @@ export const parseFoodItemLogData = async (transcription: string) => {
 		});
 		return JSON.parse(
 			JSON.stringify(response.choices[0].message.content)
-		) as FoodItemLogTranscriptionData;
+		) as FoodItemLogTranscriptionOutput;
 	} catch (error) {
 		throw new Error(`Error getting food item log data from transcription: ${error}`);
 	}

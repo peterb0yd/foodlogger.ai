@@ -1,6 +1,6 @@
 import { ActionFunction, LoaderFunction, json } from "@remix-run/node";
+import { FoodLogService } from "~/api/modules/food-log/food-log.service";
 import { RequestMethods } from "~/enums/requests";
-import { createFoodLogFromRequest } from "~/api/modules/food-logs/food-logs.service";
 
 export const loader: LoaderFunction = async () => {
     return new Response(null, {
@@ -13,7 +13,9 @@ export const action: ActionFunction = async ({ request }) => {
     switch (request.method) {
         case RequestMethods.POST: {
             try {
-                const foodLog = await createFoodLogFromRequest(request);
+                const data = await request.formData();
+                const userId = data.get('userId') as string;
+                const foodLog = await FoodLogService.create({ userId });
                 return json(foodLog);
             } catch (error) {
                 console.error(error);

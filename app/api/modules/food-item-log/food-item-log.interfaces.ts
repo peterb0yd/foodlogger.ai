@@ -1,5 +1,5 @@
-import { PreparationMethods, Prisma, Units } from "@prisma/client";
-import { FoodItemLogTranscriptionOutput } from "./food-item-logs.types";
+import { Prisma } from "@prisma/client";
+import { FoodItemLogTranscriptionOutput } from "./food-item-log.types";
 
 export interface IFoodItemLogData {
 	foodItem: Prisma.FoodItemCreateInput;
