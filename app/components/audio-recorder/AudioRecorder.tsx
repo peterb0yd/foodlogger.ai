@@ -24,6 +24,8 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
             onStop(audioBlob);
             const audioUrl = URL.createObjectURL(audioBlob);
             setAudioUrl(audioUrl);
+        } else {
+            setAudioUrl(null);
         }
     }, [audioBlob]);
 
