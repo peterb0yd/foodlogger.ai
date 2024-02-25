@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 
-const MIME_TYPE = "audio/wav";
+const MIME_TYPE = "audio/mpeg";
 
 export const useAudioRecorder = () => {
     const [audioBlob, setAudioBlob] = useState<Blob | null>(null); // [1
@@ -33,6 +33,7 @@ export const useAudioRecorder = () => {
     }, []);
 
     const startRecording = () => {
+        setAudioBlob(null);
         setIsRecording(true);
         mediaRecorder.current?.start();
     }
