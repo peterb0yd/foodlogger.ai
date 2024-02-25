@@ -11,7 +11,9 @@ export class FoodLogItemService {
 	// Add a food-item-log to a food-log given the user's audio file
 	static async create(audioFile: File, foodLogId: string) {
 		const transcription = await getTranscriptionFromAudioFile(audioFile);
+        console.log('transcription', transcription)
 		const foodLogItemData = await parseFoodItemLogData(transcription);
+        console.log('foodLogItemData', JSON.stringify(foodLogItemData))
 		const foodName = foodLogItemData.name.toLowerCase();
 		const foodItem = await FoodItemService.findByName(foodName);
 		if (!foodItem) {
