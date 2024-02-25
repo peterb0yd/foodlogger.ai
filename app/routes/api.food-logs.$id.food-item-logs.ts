@@ -19,10 +19,10 @@ export const action: ActionFunction = async (context) => {
             try {
                 // Find out what the user said and create one or more food logs from it
                 const formData = await parseMultipartFormData(request);
-                const audioFile = formData.get('audio') as NodeOnDiskFile;
+                const audioFile = formData.get('audio') as File;
                 console.log({ audioFile })
                 console.log('audio file:', JSON.stringify(audioFile))
-                const audioData = fs.readFileSync(audioFile.name);
+                const audioData = await audioFile.text();
                 console.log('audio data:', audioData)
                 const foodLogId = params.id as string;
                 const foodItemLog = await FoodLogItemService.create(audioFile, foodLogId);
