@@ -17,10 +17,13 @@ interface AudioRecorderProps {
 export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
     const [startPressed, setStartPressed] = useState(false);
     const { startRecording, stopRecording, isRecording, audioBlob } = useAudioRecorder();
+    const [audioUrl, setAudioUrl] = useState<string | null>(null);
 
     useEffect(() => {
         if (audioBlob) {
             onStop(audioBlob);
+            const audioUrl = URL.createObjectURL(audioBlob);
+            setAudioUrl(audioUrl);
         }
     }, [audioBlob]);
 
@@ -42,6 +45,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
 
     return (
         <div className="AudioRecorder">
+            {audioUrl && <audio src={audioUrl} controls />}
             <Button
                 onTouchStart={handleStartRecording}
                 onMouseDown={handleStartRecording}
