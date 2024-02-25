@@ -16,7 +16,7 @@ export class FoodLogItemRepository {
             }
             return foodLogItems as IFoodLogItemWithFoodItem[];
         } catch (error) {
-            throw new Error(`Error finding food item log by log id: ${error}`);
+            throw new Error(`Error finding food item log by log id : ${error}`);
         }
     }
 
