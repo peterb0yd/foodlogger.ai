@@ -1,11 +1,10 @@
 import { Prisma } from '@prisma/client';
-import { getPrisma } from '~/api/utils/prisma';
+import prisma from '~/api/utils/prisma';
 import { IFoodLogItemWithFoodItem } from './food-log-item.interfaces';
 
 export class FoodLogItemRepository {
     static async findAllByLogId(logId: string) {
         try {
-            const prisma = getPrisma();
             const foodLogItems = await prisma.foodLogItem.findMany({
                 where: { foodLogId: logId },
                 include: {
@@ -24,7 +23,6 @@ export class FoodLogItemRepository {
 	static async create(foodLogItem: Prisma.FoodLogItemUncheckedCreateInput) {
 		const data = Prisma.validator<Prisma.FoodLogItemUncheckedCreateInput>()(foodLogItem);
 		try {
-			const prisma = getPrisma();
             console.log({data});
 			const createdFoodItem = await prisma.foodLogItem.create({ data });
 			return createdFoodItem;

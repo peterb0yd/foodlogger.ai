@@ -1,10 +1,9 @@
 import { Prisma } from '@prisma/client';
-import { getPrisma } from '~/api/utils/prisma';
+import prisma from '~/api/utils/prisma';
 
 export class UserRepository {
 	static async findById(id: string) {
 		try {
-			const prisma = getPrisma();
 			return await prisma.user.findUnique({
 				where: { id },
 			});
@@ -15,7 +14,6 @@ export class UserRepository {
 
     static async findByPhone(phone: string) {
         try {
-            const prisma = getPrisma();
             return await prisma.user.findFirst({
                 where: { phone },
             });

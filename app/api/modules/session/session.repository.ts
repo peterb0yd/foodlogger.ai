@@ -1,11 +1,10 @@
 import { Prisma } from "@prisma/client";
-import { getPrisma } from "~/api/utils/prisma";
+import prisma from '~/api/utils/prisma';
 
 export class SessionRepository {
     static async create(session: Prisma.SessionCreateInput) {
         const data = Prisma.validator<Prisma.SessionCreateInput>()(session);
         try {
-            const prisma = getPrisma();
             const createdSession = await prisma.session.create({ data });
             return createdSession;
         } catch (error) {
@@ -15,7 +14,6 @@ export class SessionRepository {
 
     static async findById(id: string) {
         try {
-            const prisma = getPrisma();
             const session = await prisma.session.findFirst({
                 where: { id },
             });
@@ -31,7 +29,6 @@ export class SessionRepository {
     static async updateById(id: string, session: Prisma.SessionUncheckedUpdateInput) {
         const data = Prisma.validator<Prisma.SessionUncheckedUpdateInput>()(session);
         try {
-            const prisma = getPrisma();
             const updatedSession = await prisma.session.update({
                 where: { id },
                 data,
@@ -44,7 +41,6 @@ export class SessionRepository {
 
     static async deleteById(id: string) {
         try {
-            const prisma = getPrisma();
             const session = await prisma.session.delete({
                 where: { id },
             });
