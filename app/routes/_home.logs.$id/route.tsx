@@ -10,6 +10,7 @@ import { FoodLogItemService } from "~/api/modules/food-log-item/food-log-item.se
 import { getSession } from "~/api/modules/session/session.utils";
 import { IFoodLogItemWithFoodItem } from "~/api/modules/food-log-item/food-log-item.interfaces";
 import { SessionService } from "~/api/modules/session/session.service";
+import { MIME_TYPE } from "~/api/utils/constants";
 
 export const links: LinksFunction = () => [
     ...overlayLinks(),
@@ -38,13 +39,13 @@ export default function EditFoodLogPage() {
     const handleNewAudioLog = (audioBlob: Blob) => {
         if (!audioBlob) return;
         const formData = new FormData();
-        const file = new File([audioBlob], "audio.wav", { type: "audio/wav" });
+        const file = new File([audioBlob], "audio.mp3", { type: MIME_TYPE });
         formData.append("audio", file);
         submitLogItem(formData, {
             method: "POST",
             action: `/api/food-logs/${foodLogId}/food-item-logs`,
             encType: "multipart/form-data",
-            navigate: false,
+            navigate: false
         });
     }
 
