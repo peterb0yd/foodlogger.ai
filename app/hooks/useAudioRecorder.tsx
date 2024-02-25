@@ -26,7 +26,6 @@ export const useAudioRecorder = () => {
                 };
                 mediaRecorder.current.onerror = (err) => {
                     console.error(`The following MediaRecorder error occurred: ${err}`);
-                    alert(JSON.stringify(err, null, 2));
                 }
             } catch (err) {
                 console.error(`The following getUserMedia error occurred: ${err}`);

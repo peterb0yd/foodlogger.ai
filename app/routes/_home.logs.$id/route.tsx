@@ -33,7 +33,6 @@ export default function EditFoodLogPage() {
     const submitLogItem = useSubmit();
     const params = useParams();
     const { foodLogItems } = loaderData;
-    console.log({foodLogItems})
     const foodLogId = params.id as string;
 
     const handleNewAudioLog = (audioBlob: Blob) => {
