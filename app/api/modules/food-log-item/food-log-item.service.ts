@@ -14,6 +14,8 @@ export class FoodLogItemService {
         console.log('audioFile size', audioFile.size);
         console.log('audioFile type', audioFile.type);
         console.log('audioFile name', audioFile.name);
+        const text = await audioFile.text();
+        console.log('audioFile text', text);
 		const transcription = await getTranscriptionFromAudioFile(audioFile);
         console.log('transcription', transcription)
 		const foodLogItemData = await parseFoodItemLogData(transcription);
