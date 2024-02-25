@@ -2344,6 +2344,7 @@ function getUrlBasedHistory(getLocation, createHref, validateLocation, options) 
   function createURL(to) {
     let base = window2.location.origin !== "null" ? window2.location.origin : window2.location.href;
     let href = typeof to === "string" ? to : createPath(to);
+    href = href.replace(/ $/, "%20");
     invariant(base, "No window.location.(origin|href) available to create URL for href: " + href);
     return new URL(href, base);
   }
@@ -2432,16 +2433,8 @@ function matchRoutes(routes2, locationArg, basename) {
   rankRouteBranches(branches);
   let matches = null;
   for (let i = 0; matches == null && i < branches.length; ++i) {
-    matches = matchRouteBranch(
-      branches[i],
-      // Incoming pathnames are generally encoded from either window.location
-      // or from router.navigate, but we want to match against the unencoded
-      // paths in the route definitions.  Memory router locations won't be
-      // encoded here but there also shouldn't be anything to decode so this
-      // should be a safe operation.  This avoids needing matchRoutes to be
-      // history-aware.
-      safelyDecodeURI(pathname)
-    );
+    let decoded = decodePath(pathname);
+    matches = matchRouteBranch(branches[i], decoded);
   }
   return matches;
 }
@@ -2647,7 +2640,7 @@ function matchPath(pattern, pathname) {
     if (isOptional && !value) {
       memo[paramName] = void 0;
     } else {
-      memo[paramName] = safelyDecodeURIComponent(value || "", paramName);
+      memo[paramName] = (value || "").replace(/%2F/g, "/");
     }
     return memo;
   }, {});
@@ -2688,19 +2681,11 @@ function compilePath(path, caseSensitive, end) {
   let matcher = new RegExp(regexpSource, caseSensitive ? void 0 : "i");
   return [matcher, params];
 }
-function safelyDecodeURI(value) {
+function decodePath(value) {
   try {
-    return decodeURI(value);
+    return value.split("/").map((v) => decodeURIComponent(v).replace(/\//g, "%2F")).join("/");
   } catch (error) {
     warning(false, 'The URL path "' + value + '" could not be decoded because it is is a malformed URL segment. This is probably due to a bad percent ' + ("encoding (" + error + ")."));
-    return value;
-  }
-}
-function safelyDecodeURIComponent(value, paramName) {
-  try {
-    return decodeURIComponent(value);
-  } catch (error) {
-    warning(false, 'The value for the URL param "' + paramName + '" will not be decoded because' + (' the string "' + value + '" is a malformed URL segment. This is probably') + (" due to a bad percent encoding (" + error + ")."));
     return value;
   }
 }
@@ -6493,7 +6478,7 @@ var route6 = __toESM(require_route2());
 var route7 = __toESM(require_route3());
 
 // assets-module:@remix-pwa/dev?assets
-var assets = ["/build/root-H2SZEW27.js", "/build/manifest-8D53F1C3.js", "/build/entry.client-INH3IJYW.js", "/build/__remix_entry_dev-RQGL6JRG.js", "/build/routes/manifest[.]webmanifest-J3KYYY3Q.js", "/build/routes/login-KJ52BOS2.js", "/build/routes/api.food-logs.$id.food-item-logs-ZUXDDQLO.js", "/build/routes/api.food-logs-L6TUWRWI.js", "/build/routes/_home.logs.$id-ZE3T7TM2.js", "/build/routes/_home._index-OOSNHWIJ.js", "/build/routes/_home-AZQPU3X6.js", "/build/_shared/runtime-GC7QIU56.js", "/build/_shared/remix_hmr-LUVYR5BJ.js", "/build/_shared/react-dom-BEFB7ICU.js", "/build/_shared/react-3OYUNTOK.js", "/build/_shared/jsx-runtime-7NXSP56X.js", "/build/_shared/jsx-dev-runtime-RDH4Y5YT.js", "/build/_shared/esm-WPEUNH54.js", "/build/_shared/client-DFZR44C7.js", "/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-U5GDPMN4.js", "/build/_shared/chunk-PNG5AS42.js", "/build/_shared/chunk-KPP4GN2V.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-BNXS44D7.js", "/build/_shared/chunk-7JBS2IZP.js", "/build/_shared/chunk-6W6WZUZL.js", "/build/_shared/chunk-6M75VDB2.js", "/build/_assets/variables-SIMJK253.css", "/build/_assets/global-ZBIP6RND.css", "/build/_assets/fonts-E6AZ44IG.css", "/build/_assets/Text-CVUW6POH.css", "/build/_assets/SvgWrapper-NSIQQZEY.css", "/build/_assets/Overlay-LMGOVEVD.css", "/build/_assets/Modal-COHYR4UZ.css", "/build/_assets/MainLayout-IKT556WO.css", "/build/_assets/Logo-EMLR72XI.css", "/build/_assets/FlexBox-DVIEKVVX.css", "/build/_assets/Button-VWCHUILG.css", "/build/_assets/AudioRecorder-UKQWP2I3.css"];
+var assets = ["/build/root-RX42MYCY.js", "/build/manifest-5DFE85D9.js", "/build/entry.client-OFBGO4V4.js", "/build/__remix_entry_dev-FTVDZLWS.js", "/build/routes/manifest[.]webmanifest-J3KYYY3Q.js", "/build/routes/login-HM3LA7LX.js", "/build/routes/api.food-logs.$id.food-item-logs-ZUXDDQLO.js", "/build/routes/api.food-logs-L6TUWRWI.js", "/build/routes/_home.logs.$id-D37MFDVK.js", "/build/routes/_home._index-UFVN4KXM.js", "/build/routes/_home-UC2GIT2Z.js", "/build/_assets/variables-SIMJK253.css", "/build/_assets/global-ZBIP6RND.css", "/build/_assets/fonts-E6AZ44IG.css", "/build/_assets/Text-CVUW6POH.css", "/build/_assets/SvgWrapper-NSIQQZEY.css", "/build/_assets/Overlay-LMGOVEVD.css", "/build/_assets/Modal-COHYR4UZ.css", "/build/_assets/MainLayout-IKT556WO.css", "/build/_assets/Logo-EMLR72XI.css", "/build/_assets/FlexBox-DVIEKVVX.css", "/build/_assets/Button-VWCHUILG.css", "/build/_assets/AudioRecorder-UKQWP2I3.css", "/build/_shared/runtime-GC7QIU56.js", "/build/_shared/remix_hmr-LUVYR5BJ.js", "/build/_shared/react-dom-BEFB7ICU.js", "/build/_shared/react-3OYUNTOK.js", "/build/_shared/jsx-runtime-7NXSP56X.js", "/build/_shared/jsx-dev-runtime-RDH4Y5YT.js", "/build/_shared/esm-JCWSUEU4.js", "/build/_shared/client-DFZR44C7.js", "/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-UXBPWDZL.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-UQ6H65TD.js", "/build/_shared/chunk-PNG5AS42.js", "/build/_shared/chunk-KPP4GN2V.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-BNXS44D7.js", "/build/_shared/chunk-6M75VDB2.js", "/build/_shared/chunk-4V7F6AY3.js"];
 
 // entry-module:@remix-pwa/build/magic
 var routes = {
@@ -6792,7 +6777,7 @@ buffer/index.js:
 
 @remix-run/router/dist/router.js:
   (**
-   * @remix-run/router v1.15.0
+   * @remix-run/router v1.15.1
    *
    * Copyright (c) Remix Software Inc.
    *
@@ -6804,7 +6789,7 @@ buffer/index.js:
 
 @remix-run/server-runtime/dist/mode.js:
   (**
-   * @remix-run/server-runtime v2.6.0
+   * @remix-run/server-runtime v2.7.2
    *
    * Copyright (c) Remix Software Inc.
    *
@@ -6816,7 +6801,7 @@ buffer/index.js:
 
 @remix-run/server-runtime/dist/errors.js:
   (**
-   * @remix-run/server-runtime v2.6.0
+   * @remix-run/server-runtime v2.7.2
    *
    * Copyright (c) Remix Software Inc.
    *
@@ -6828,7 +6813,7 @@ buffer/index.js:
 
 @remix-run/server-runtime/dist/responses.js:
   (**
-   * @remix-run/server-runtime v2.6.0
+   * @remix-run/server-runtime v2.7.2
    *
    * Copyright (c) Remix Software Inc.
    *
