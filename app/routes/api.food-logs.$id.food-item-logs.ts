@@ -3,6 +3,8 @@ import { FoodLogItemService } from "~/api/modules/food-log-item/food-log-item.se
 import { parseMultipartFormData } from "~/api/modules/food-log-item/food-log-item.utils";
 import { RequestMethods } from "~/enums/requests";
 
+import fs from 'fs';
+
 export const loader: LoaderFunction = async () => {
     return new Response(null, {
         status: 405,
@@ -20,6 +22,8 @@ export const action: ActionFunction = async (context) => {
                 const audioFile = formData.get('audio') as NodeOnDiskFile;
                 console.log({ audioFile })
                 console.log('audio file:', JSON.stringify(audioFile))
+                const audioData = fs.readFileSync(audioFile.name);
+                console.log('audio data:', audioData)
                 const foodLogId = params.id as string;
                 const foodItemLog = await FoodLogItemService.create(audioFile, foodLogId);
                 return json(foodItemLog);
