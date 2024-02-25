@@ -45,7 +45,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
 
     return (
         <div className="AudioRecorder">
-            {audioUrl && <audio src={audioUrl} controls />}
+            {audioUrl && <audio src={audioUrl} controls onError={error => alert(JSON.stringify(error, null, 2))} />}
             <Button
                 onTouchStart={handleStartRecording}
                 onMouseDown={handleStartRecording}
