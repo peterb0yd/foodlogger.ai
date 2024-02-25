@@ -1,2 +1,2 @@
 
-export const MIME_TYPE = "audio/amr";
+export const MIME_TYPE = "audio/mpeg";
