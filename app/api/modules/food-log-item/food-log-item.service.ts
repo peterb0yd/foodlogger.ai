@@ -1,4 +1,4 @@
-import { parseFoodItemLogData, getTranscriptionFromAudioFile, convertAudioFile } from './food-log-item.utils.server';
+import { parseFoodItemLogData, getTranscriptionFromAudioFile } from './food-log-item.utils.server';
 import { foodItemLogDataToFoodItemLog } from './food-log-item.mappers';
 import { FoodLogItemRepository } from './food-log-item.repository';
 import { FoodItemService } from '../food-item/food-item.service';
