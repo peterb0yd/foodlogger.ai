@@ -12,7 +12,6 @@ export const useAudioRecorder = () => {
                 let chunks: Blob[] = [];
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 mediaRecorder.current = new MediaRecorder(stream as MediaStream, {
-                    mimeType: 'audio/webm; codecs=opus', 
                     audioBitsPerSecond: 32000,
                 });
                 mediaRecorder.current.ondataavailable = (e) => {
