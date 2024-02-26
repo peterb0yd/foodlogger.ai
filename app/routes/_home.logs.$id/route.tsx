@@ -31,11 +31,8 @@ export default function EditFoodLogPage() {
     const loaderData = useLoaderData<typeof loader>();
     const submitLogItem = useSubmit();
     const params = useParams();
-    const [mounted, setMounted] = useState(false);
     const { foodLogItems } = loaderData;
     const foodLogId = params.id as string;
-
-    useEffect(() => setMounted(true), []);
 
     const handleNewAudioLog = async (file: File) => {
         if (!file) return;
@@ -63,12 +60,10 @@ export default function EditFoodLogPage() {
                             </Text>
                             <Text size="2xl" lineHeight="tight">👇</Text>
                         </FlexBox>
-                        {mounted && (
-                            <AudioRecorder
-                                onStart={() => console.log('Recording started')}
-                                onStop={handleNewAudioLog}
-                            />
-                        )}
+                        <AudioRecorder
+                            onStart={() => console.log('Recording started')}
+                            onStop={handleNewAudioLog}
+                        />
                         <FoodLogItems
                             logItems={foodLogItems}
                         />
