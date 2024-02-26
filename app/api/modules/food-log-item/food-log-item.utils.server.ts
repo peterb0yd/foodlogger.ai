@@ -20,7 +20,7 @@ export const parseMultipartFormData = async (request: Request) => {
 };
 
 // OpenAI's API is used to transcribe the audio file
-export const getTranscriptionFromAudioFile = async (audioFile: fs.ReadStream) => {
+export const getTranscriptionFromAudioFile = async (audioFile: NodeOnDiskFile) => {
 	const openai = getOpenAIClient();
 	const response = await openai.audio.transcriptions.create({
 		file: audioFile,
