@@ -1,5 +1,9 @@
 import { getOpenAIClient } from '~/api/utils/openAI';
-import { NodeOnDiskFile, unstable_createFileUploadHandler, unstable_parseMultipartFormData } from '@remix-run/node';
+import {
+	NodeOnDiskFile,
+	unstable_createFileUploadHandler,
+	unstable_parseMultipartFormData,
+} from '@remix-run/node';
 import { IFoodLogItemTranscriptionOutput } from './food-log-item.interfaces';
 import { PreparationMethods, Units } from '@prisma/client';
 import ffmpegPath from 'ffmpeg-static';
@@ -7,9 +11,9 @@ import ffmpeg from 'fluent-ffmpeg';
 import fs from 'fs';
 
 export const parseMultipartFormData = async (request: Request) => {
-	// Remix's file upload handler is used to parse the multipart form data
+	// Remix's file upload handler is used to parse the multipart form data 
 	const uploadHandler = unstable_createFileUploadHandler({
-		maxPartSize: 5_000_000,
+		maxPartSize: 5000000,
 		file: ({ filename }) => filename,
 	});
 	return unstable_parseMultipartFormData(request, uploadHandler);
@@ -78,19 +82,19 @@ export const parseFoodItemLogData = async (transcription: string) => {
 };
 
 export const convertAudioFile = async (audioFile: NodeOnDiskFile): Promise<fs.ReadStream> => {
-    const outputPath = 'audio.wav';
+	const outputPath = 'audio.wav';
 	return new Promise((resolve, reject) => {
-        ffmpeg.setFfmpegPath(ffmpegPath as string);
-        ffmpeg(audioFile.getFilePath())
-          .toFormat('wav')
-          .on('end', () => {
-            const readStream = fs.createReadStream(outputPath);
-            resolve(readStream);
-          })
-          .on('error', (err) => {
-            console.error(`Error converting file: ${err.message}`);
-            reject(err);
-          })
-          .save(outputPath);
-      });
+		ffmpeg.setFfmpegPath(ffmpegPath as string);
+		ffmpeg(audioFile.getFilePath())
+			.toFormat('wav')
+			.on('end', () => {
+				const readStream = fs.createReadStream(outputPath);
+				resolve(readStream);
+			})
+			.on('error', (err) => {
+				console.error(`Error converting file: ${err.message}`);
+				reject(err);
+			})
+			.save(outputPath);
+	});
 };
