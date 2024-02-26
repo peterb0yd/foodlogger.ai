@@ -13,8 +13,7 @@ export const useAudioRecorder = () => {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 mediaRecorder.current = new MediaRecorder(stream as MediaStream, {
                     mimeType: MIME_TYPE,
-                    audioBitsPerSecond: 128000,
-                    bitsPerSecond: 128000,
+                    audioBitsPerSecond: 32000,
                 });
                 mediaRecorder.current.ondataavailable = (e) => {
                     if (typeof e.data === "undefined") return;

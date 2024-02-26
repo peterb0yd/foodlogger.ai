@@ -6,9 +6,6 @@ import {
 } from '@remix-run/node';
 import { IFoodLogItemTranscriptionOutput } from './food-log-item.interfaces';
 import { PreparationMethods, Units } from '@prisma/client';
-import ffmpegPath from 'ffmpeg-static';
-import ffmpeg from 'fluent-ffmpeg';
-import fs from 'fs';
 
 export const parseMultipartFormData = async (request: Request) => {
 	// Remix's file upload handler is used to parse the multipart form data 
@@ -79,22 +76,4 @@ export const parseFoodItemLogData = async (transcription: string) => {
 	} catch (error) {
 		throw new Error(`Error getting food item log data from transcription: ${error}`);
 	}
-};
-
-export const convertAudioFile = async (audioFile: NodeOnDiskFile): Promise<fs.ReadStream> => {
-	const outputPath = 'audio.wav';
-	return new Promise((resolve, reject) => {
-		ffmpeg.setFfmpegPath(ffmpegPath as string);
-		ffmpeg(audioFile.getFilePath())
-			.toFormat('wav')
-			.on('end', () => {
-				const readStream = fs.createReadStream(outputPath);
-				resolve(readStream);
-			})
-			.on('error', (err) => {
-				console.error(`Error converting file: ${err.message}`);
-				reject(err);
-			})
-			.save(outputPath);
-	});
 };
