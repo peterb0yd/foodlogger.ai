@@ -11,23 +11,18 @@ export const links: LinksFunction = () => [
 
 interface AudioRecorderProps {
     onStart: () => void;
-    onStop: (audioBlob: Blob) => void;
+    onStop: (audioFile: File) => void;
 }
 
 export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
     const [startPressed, setStartPressed] = useState(false);
-    const { startRecording, stopRecording, isRecording, audioBlob } = useAudioRecorder();
-    const [audioUrl, setAudioUrl] = useState<string | null>(null);
+    const { startRecording, stopRecording, isRecording, audioFile } = useAudioRecorder();
 
     useEffect(() => {
-        if (audioBlob) {
-            onStop(audioBlob);
-            const audioUrl = URL.createObjectURL(audioBlob);
-            setAudioUrl(audioUrl);
-        } else {
-            setAudioUrl(null);
-        }
-    }, [audioBlob]);
+        if (audioFile) {
+            onStop(audioFile);
+        } 
+    }, [audioFile]);
 
     const handleStartRecording = (e: React.MouseEvent | React.TouchEvent) => {
         e.preventDefault();

@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { MIME_TYPE } from "~/api/utils/constants";
 
 export const useAudioRecorder = () => {
-    const [audioBlob, setAudioBlob] = useState<Blob | null>(null); // [1
+    const [audioFile, setAudioFile] = useState<File | null>(null); // [1
     const mediaRecorder = useRef<MediaRecorder | null>(null);
     const [isRecording, setIsRecording] = useState(false);
 
@@ -17,10 +17,11 @@ export const useAudioRecorder = () => {
                     if (e.data.size === 0) return;
                     chunks.push(e.data);
                 }
-                mediaRecorder.current.onstop = () => {
+                mediaRecorder.current.onstop = async () => {
                     //creates a blob file from the audiochunks data
                     const audioBlob = new Blob(chunks, { type: MIME_TYPE });
-                    setAudioBlob(audioBlob);
+                    const file = new File([audioBlob], "audio.mp3", { type: MIME_TYPE });
+                    setAudioFile(file as File);
                     setIsRecording(false);
                     chunks = [];
                 };
@@ -35,7 +36,7 @@ export const useAudioRecorder = () => {
     }, []);
 
     const startRecording = () => {
-        setAudioBlob(null);
+        setAudioFile(null);
         setIsRecording(true);
         mediaRecorder.current?.start();
     }
@@ -45,7 +46,7 @@ export const useAudioRecorder = () => {
     }
 
     return {
-        audioBlob,
+        audioFile,
         isRecording,
         startRecording,
         stopRecording,

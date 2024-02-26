@@ -7,10 +7,9 @@ import { AudioRecorder, links as audioRecLinks } from "~/components/audio-record
 import { FlexBox } from "~/components/flex-box/FlexBox";
 import { useLoaderData, useParams, useSubmit } from "@remix-run/react";
 import { FoodLogItemService } from "~/api/modules/food-log-item/food-log-item.service";
-import { getSession } from "~/api/modules/session/session.utils";
 import { IFoodLogItemWithFoodItem } from "~/api/modules/food-log-item/food-log-item.interfaces";
 import { SessionService } from "~/api/modules/session/session.service";
-import { MIME_TYPE } from "~/api/utils/constants";
+import { useEffect, useState } from "react";
 
 export const links: LinksFunction = () => [
     ...overlayLinks(),
@@ -32,13 +31,15 @@ export default function EditFoodLogPage() {
     const loaderData = useLoaderData<typeof loader>();
     const submitLogItem = useSubmit();
     const params = useParams();
+    const [mounted, setMounted] = useState(false);
     const { foodLogItems } = loaderData;
     const foodLogId = params.id as string;
 
-    const handleNewAudioLog = (audioBlob: Blob) => {
-        if (!audioBlob) return;
+    useEffect(() => setMounted(true), []);
+
+    const handleNewAudioLog = async (file: File) => {
+        if (!file) return;
         const formData = new FormData();
-        const file = new File([audioBlob], "audio.mp3", { type: MIME_TYPE });
         formData.append("audio", file);
         submitLogItem(formData, {
             method: "POST",
@@ -62,10 +63,12 @@ export default function EditFoodLogPage() {
                             </Text>
                             <Text size="2xl" lineHeight="tight">👇</Text>
                         </FlexBox>
-                        <AudioRecorder
-                            onStart={() => console.log('Recording started')}
-                            onStop={handleNewAudioLog}
-                        />
+                        {mounted && (
+                            <AudioRecorder
+                                onStart={() => console.log('Recording started')}
+                                onStop={handleNewAudioLog}
+                            />
+                        )}
                         <FoodLogItems
                             logItems={foodLogItems}
                         />

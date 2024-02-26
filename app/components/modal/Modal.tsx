@@ -1,7 +1,7 @@
 import { LinksFunction } from '@remix-run/node';
 import modalStyles from './Modal.css';
 import { PropsWithChildren } from 'react';
-import { Routes } from '~/enums/routes';
+import { PageRoutes } from '~/enums/routes';
 import { useNavigate } from '@remix-run/react';
 import { Text, links as textLinks } from '../text/Text';
 import { Button, links as buttonLinks } from '../button/Button';
@@ -13,7 +13,7 @@ export const links: LinksFunction = () => [
     ...buttonLinks(),
 ];
 
-const CloseButton = ({ goBackRoute }: { goBackRoute: Routes }) => {
+const CloseButton = ({ goBackRoute }: { goBackRoute: PageRoutes }) => {
     const navigate = useNavigate();
     return (
         <div className="Modal-CloseButton">
@@ -29,7 +29,7 @@ const CloseButton = ({ goBackRoute }: { goBackRoute: Routes }) => {
 }
 
 interface ModalProps extends PropsWithChildren {
-    goBackRoute?: Routes;
+    goBackRoute?: PageRoutes;
     title?: string;
 }
 
