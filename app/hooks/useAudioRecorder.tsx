@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import FFmpeg from "@ffmpeg/ffmpeg";
 
 const INPUT_NAME = "audio.webm";
-const FILE_EXT = "mpeg";
+const FILE_EXT = "mp3";
 const OUTPUT_NAME = `audio.${FILE_EXT}`;
 
 const convertToMp3Blob = async (
@@ -10,20 +10,16 @@ const convertToMp3Blob = async (
 ): Promise<Blob> => {
     const ffmpeg = FFmpeg.createFFmpeg({ log: false });
     await ffmpeg.load();
-
     ffmpeg.FS(
         "writeFile",
         INPUT_NAME,
         new Uint8Array(await webmBlob.arrayBuffer())
     );
-
     await ffmpeg.run("-i", INPUT_NAME, OUTPUT_NAME);
-
     const outputData = ffmpeg.FS("readFile", OUTPUT_NAME);
     const outputBlob = new Blob([outputData.buffer], {
         type: `audio/${FILE_EXT}`,
     });
-
     return outputBlob;
 };
 
