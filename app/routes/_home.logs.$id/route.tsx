@@ -95,7 +95,7 @@ const FoodLogItems = ({ logItems }: FoodLogItemsProps) => {
             align="center"
             lineHeight="tight"
         >
-            {logItem.foodItem.name} - {logItem.quantity} {logItem.unit.toLowerCase()}
+            {logItem.foodItem.name} - {logItem.quantity} - ${logItem.preparation} - {logItem.unit.toLowerCase()}
         </Text>
     ))
 }
