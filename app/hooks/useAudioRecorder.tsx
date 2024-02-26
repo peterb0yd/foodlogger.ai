@@ -1,25 +1,31 @@
 import { useState, useRef, useEffect } from "react";
-import { MIME_TYPE } from "~/api/utils/constants";
+import FFmpeg from "@ffmpeg/ffmpeg";
 
-const audioTypes = ["webm", "mpeg", "ogg", "mp3", "x-matroska"];
-const codecs = ["should-not-be-supported", "vp9", "vp9.0", "vp8", "vp8.0", "avc1", "av1", "h265", "h.265", "h264", "h.264", "opus", "pcm", "aac", "mpeg", "mp4a"];
+const INPUT_NAME = "audio.webm";
+const FILE_EXT = "mpeg";
+const OUTPUT_NAME = `audio.${FILE_EXT}`;
 
-function getSupportedAudioMimeType() {
-    const isSupported = MediaRecorder.isTypeSupported;
-    audioTypes.forEach((type) => {
-        const mimeType = `audio/${type}`;
-        codecs.forEach((codec) => [
-            `${mimeType};codecs=${codec}`,
-            `${mimeType};codecs=${codec.toUpperCase()}`,
-        ].forEach(variation => {
-            if (isSupported(variation))
-                return variation;
-        }));
+const convertToMp3Blob = async (
+    webmBlob: Blob
+): Promise<Blob> => {
+    const ffmpeg = FFmpeg.createFFmpeg({ log: false });
+    await ffmpeg.load();
+
+    ffmpeg.FS(
+        "writeFile",
+        INPUT_NAME,
+        new Uint8Array(await webmBlob.arrayBuffer())
+    );
+
+    await ffmpeg.run("-i", INPUT_NAME, OUTPUT_NAME);
+
+    const outputData = ffmpeg.FS("readFile", OUTPUT_NAME);
+    const outputBlob = new Blob([outputData.buffer], {
+        type: `audio/${FILE_EXT}`,
     });
-    return null;
+
+    return outputBlob;
 };
-
-
 
 export const useAudioRecorder = () => {
     const [audioFile, setAudioFile] = useState<File | null>(null); // [1
@@ -31,20 +37,27 @@ export const useAudioRecorder = () => {
             try {
                 let chunks: Blob[] = [];
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                const mimeType = getSupportedAudioMimeType();
-                mediaRecorder.current = new MediaRecorder(stream as MediaStream, {
-                    audioBitsPerSecond: 32000,
-                    ...(mimeType ? { mimeType } : {}),
-                });
+                mediaRecorder.current = new MediaRecorder(stream as MediaStream);
                 mediaRecorder.current.ondataavailable = (e) => {
                     if (typeof e.data === "undefined") return;
                     if (e.data.size === 0) return;
                     chunks.push(e.data);
+                    mediaRecorder.current?.stream.getTracks().forEach((t) => t.stop());
                 }
                 mediaRecorder.current.onstop = async () => {
                     //creates a blob file from the audiochunks data
                     const audioBlob = new Blob(chunks);
-                    const file = new File([audioBlob], "audio.mp3");
+                    if (!crossOriginIsolated) {
+                        console.warn(
+                            `This website is not "cross-origin isolated". Audio will be downloaded in webm format, since mp3/wav encoding requires cross origin isolation. Please visit https://web.dev/cross-origin-isolation-guide/ and https://web.dev/coop-coep/ for information on how to make your website "cross-origin isolated"`
+                        );
+                    }
+                    let blob = audioBlob;
+                    if (crossOriginIsolated) {
+                        blob = await convertToMp3Blob(audioBlob);
+                    }
+                    const fileExt = crossOriginIsolated ? FILE_EXT : "webm";
+                    const file = new File([blob], OUTPUT_NAME, { type: `audio/${fileExt}` });
                     setAudioFile(file as File);
                     setIsRecording(false);
                     chunks = [];
