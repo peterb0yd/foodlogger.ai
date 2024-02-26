@@ -6,8 +6,6 @@ import ffmpegPath from 'ffmpeg-static';
 import ffmpeg from 'fluent-ffmpeg';
 import fs from 'fs';
 
-ffmpeg.setFfmpegPath(ffmpegPath as string);
-
 export const parseMultipartFormData = async (request: Request) => {
 	// Remix's file upload handler is used to parse the multipart form data
 	const uploadHandler = unstable_createFileUploadHandler({
@@ -82,7 +80,7 @@ export const parseFoodItemLogData = async (transcription: string) => {
 export const convertAudioFile = async (audioFile: NodeOnDiskFile): Promise<fs.ReadStream> => {
     const outputPath = 'audio.wav';
 	return new Promise((resolve, reject) => {
-        console.log('audioFile', audioFile)
+        ffmpeg.setFfmpegPath(ffmpegPath as string);
         ffmpeg(audioFile.getFilePath())
           .toFormat('wav')
           .on('end', () => {
