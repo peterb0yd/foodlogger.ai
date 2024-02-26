@@ -37,7 +37,7 @@ export default function EditFoodLogPage() {
     const handleNewAudioLog = async (file: File) => {
         if (!file) return;
         const formData = new FormData();
-        formData.append("audio", file, 'audio.mp3');
+        formData.append("audio", file, file.name);
         submitLogItem(formData, {
             method: "POST",
             action: `/api/food-logs/${foodLogId}/food-item-logs`,
