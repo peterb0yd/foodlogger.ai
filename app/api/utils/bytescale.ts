@@ -7,3 +7,5 @@ export const bytescaleUploader = new Bytescale.UploadManager({
 export const bytescaleProcesser = new Bytescale.FileApi({
     apiKey: process.env.BYTE_SCALE_API_KEY as string,
 })
+
+export const BytescaleUrlBuilder = Bytescale.UrlBuilder;

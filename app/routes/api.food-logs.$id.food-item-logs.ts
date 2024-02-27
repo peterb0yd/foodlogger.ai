@@ -1,7 +1,7 @@
 import { ActionFunction, LoaderFunction, json } from '@remix-run/node';
 import { FoodLogItemService } from '~/api/modules/food-log-item/food-log-item.service';
 import { convertAudioDataToReadStream } from '~/api/modules/food-log-item/food-log-item.utils.server';
-import { bytescaleUploader, bytescaleProcesser } from '~/api/utils/bytescale';
+import { bytescaleUploader, bytescaleProcesser, BytescaleUrlBuilder } from '~/api/utils/bytescale';
 import { AUDIO_FILE_EXT, MIME_TYPE } from '~/api/utils/constants';
 import { RequestMethods } from '~/enums/requests';
 import fs from 'fs';
@@ -27,7 +27,7 @@ export const action: ActionFunction = async (context) => {
 				const audioReadStream = await convertAudioDataToReadStream(audioString);
 				const fileSize = fs.statSync(`/tmp/audio.${AUDIO_FILE_EXT}`).size;
 
-                const FILE_NAME = `/tmp/audio.${AUDIO_FILE_EXT}`;
+				const FILE_NAME = `/tmp/audio.${AUDIO_FILE_EXT}`;
 
 				const audioFile = await bytescaleUploader.upload({
 					data: audioReadStream,
@@ -36,12 +36,21 @@ export const action: ActionFunction = async (context) => {
 					mime: MIME_TYPE,
 				});
 
-                // Uint8Array
-                const audioWriteStream = fs.createWriteStream(FILE_NAME);
-                const audioUrl = audioFile.fileUrl;
-                const response = await fetch(`${audioUrl}?f=mp3`);
-                await responseToReadable(response)?.pipe(audioWriteStream);
-                const readStream = await fs.createReadStream(FILE_NAME);
+				const audioTransformUrl = BytescaleUrlBuilder.url({
+					accountId: process.env.BYTE_SCALE_ACCOUNT_ID as string,
+					filePath: audioFile.fileUrl,
+					options: {
+						transformation: 'audio',
+						transformationParams: {
+							f: 'wav',
+						},
+					},
+				});
+
+				const audioWriteStream = fs.createWriteStream(FILE_NAME);
+				const response = await fetch(audioTransformUrl);
+				await responseToReadable(response)?.pipe(audioWriteStream);
+				const readStream = await fs.createReadStream(FILE_NAME);
 
 				const foodLogId = params.id as string;
 				const foodItemLog = await FoodLogItemService.create(readStream, foodLogId);
@@ -62,19 +71,19 @@ export const action: ActionFunction = async (context) => {
 
 // TODO: move to util
 const responseToReadable = (response: Response) => {
-    if (!response.body) {
-        return null;
-    }
-    const reader = response.body.getReader();
-    const rs = new Readable();
-    rs._read = async () => {
-        const result = await reader.read();
-        if(!result.done){
-            rs.push(Buffer.from(result.value));
-        }else{
-            rs.push(null);
-            return;
-        }
-    };
-    return rs;
+	if (!response.body) {
+		return null;
+	}
+	const reader = response.body.getReader();
+	const rs = new Readable();
+	rs._read = async () => {
+		const result = await reader.read();
+		if (!result.done) {
+			rs.push(Buffer.from(result.value));
+		} else {
+			rs.push(null);
+			return;
+		}
+	};
+	return rs;
 };
