@@ -38,7 +38,7 @@ export const action: ActionFunction = async (context) => {
 
 				const audioTransformUrl = BytescaleUrlBuilder.url({
 					accountId: process.env.BYTE_SCALE_ACCOUNT_ID as string,
-					filePath: audioFile.fileUrl,
+					filePath: audioFile.filePath,
 					options: {
 						transformation: 'audio',
 						transformationParams: {
