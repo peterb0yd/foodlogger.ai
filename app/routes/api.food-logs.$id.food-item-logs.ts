@@ -6,6 +6,7 @@ import { AUDIO_FILE_EXT, MIME_TYPE } from '~/api/utils/constants';
 import { RequestMethods } from '~/enums/requests';
 import fs from 'fs';
 import { Readable } from 'stream';
+import { assembyai } from '~/api/utils/assemblyai';
 
 export const loader: LoaderFunction = async () => {
 	return new Response(null, {
@@ -35,25 +36,29 @@ export const action: ActionFunction = async (context) => {
 					originalFileName: FILE_NAME, // 'audio.wav
 					mime: MIME_TYPE,
 				});
+				// const audioTransformUrl = BytescaleUrlBuilder.url({
+				// 	accountId: process.env.BYTE_SCALE_ACCOUNT_ID as string,
+				// 	filePath: audioFile.filePath,
+				// 	options: {
+				// 		transformation: 'audio',
+				// 		transformationParams: {
+				// 			f: 'mp3',
+				// 		},
+				// 	},
+				// });
 
-				const audioTransformUrl = BytescaleUrlBuilder.url({
-					accountId: process.env.BYTE_SCALE_ACCOUNT_ID as string,
-					filePath: audioFile.filePath,
-					options: {
-						transformation: 'audio',
-						transformationParams: {
-							f: 'wav',
-						},
-					},
-				});
+                const transcript = await assembyai.transcripts.create({
+                    audio_url: audioFile.fileUrl,
+                })
+                const transcriptText = transcript.text as string;
 
-				const audioWriteStream = fs.createWriteStream(FILE_NAME);
-				const response = await fetch(audioTransformUrl);
-				await responseToReadable(response)?.pipe(audioWriteStream);
-				const readStream = await fs.createReadStream(FILE_NAME);
+				// const audioWriteStream = fs.createWriteStream(FILE_NAME);
+				// const response = await fetch(audioFile.fileUrl);
+				// await responseToReadable(response)?.pipe(audioWriteStream);
+				// const readStream = await fs.createReadStream(FILE_NAME);
 
 				const foodLogId = params.id as string;
-				const foodItemLog = await FoodLogItemService.create(readStream, foodLogId);
+				const foodItemLog = await FoodLogItemService.create(transcriptText, foodLogId);
 				return json(foodItemLog);
 			} catch (error) {
 				console.error(error);
