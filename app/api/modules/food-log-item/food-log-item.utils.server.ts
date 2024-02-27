@@ -82,7 +82,7 @@ export const parseFoodItemLogData = async (transcription: string) => {
 };
 
 // audioString is the base64 encoded audio file
-export const getReadStreamFromAudioString = async (audioString: string) => {
+export const convertAudioDataToReadStream = async (audioString: string) => {
     const fileName = `/tmp/audio.${AUDIO_FILE_EXT}`;
     await fs.writeFileSync(
         fileName,

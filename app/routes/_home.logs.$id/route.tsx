@@ -44,7 +44,6 @@ export default function EditFoodLogPage() {
             submitLogItem(formData, {
                 method: "POST",
                 action: `/api/food-logs/${foodLogId}/food-item-logs`,
-                // encType: "multipart/form-data",
                 navigate: false
             });
         }
