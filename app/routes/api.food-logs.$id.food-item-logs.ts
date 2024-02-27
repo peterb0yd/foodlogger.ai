@@ -1,13 +1,7 @@
 import { ActionFunction, LoaderFunction, json } from '@remix-run/node';
 import { FoodLogItemService } from '~/api/modules/food-log-item/food-log-item.service';
 import { convertAudioDataToReadStream } from '~/api/modules/food-log-item/food-log-item.utils.server';
-import { bytescaleUploader, bytescaleProcesser, BytescaleUrlBuilder } from '~/api/utils/bytescale';
-import { AUDIO_FILE_EXT, MIME_TYPE } from '~/api/utils/constants';
 import { RequestMethods } from '~/enums/requests';
-import fs from 'fs';
-import { Readable } from 'stream';
-import { assembyai } from '~/api/utils/assemblyai';
-import { RealtimeTranscript } from 'assemblyai';
 import { deepgram } from '~/api/utils/deepgram';
 
 export const loader: LoaderFunction = async () => {
