@@ -16,7 +16,7 @@
     "seed-db": "npx prisma db seed"
   },
   "dependencies": {
-    "@bytescale/sdk": "^3.31.1",
+    "@deepgram/sdk": "^3.1.9",
     "@fontsource-variable/manrope": "^5.0.18",
     "@prisma/client": "^5.10.2",
     "@remix-pwa/cache": "^2.0.12",
@@ -27,7 +27,6 @@
     "@remix-run/node": "^2.6.0",
     "@remix-run/react": "^2.6.0",
     "@remix-run/serve": "^2.6.0",
-    "assemblyai": "^4.3.1",
     "dotenv": "^16.3.1",
     "isbot": "^4.1.0",
     "openai": "^4.28.0",

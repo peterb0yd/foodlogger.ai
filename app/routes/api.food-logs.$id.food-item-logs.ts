@@ -7,6 +7,8 @@ import { RequestMethods } from '~/enums/requests';
 import fs from 'fs';
 import { Readable } from 'stream';
 import { assembyai } from '~/api/utils/assemblyai';
+import { RealtimeTranscript } from 'assemblyai';
+import { deepgram } from '~/api/utils/deepgram';
 
 export const loader: LoaderFunction = async () => {
 	return new Response(null, {
@@ -26,37 +28,17 @@ export const action: ActionFunction = async (context) => {
 				const audioString = formData.get('audio') as string;
 
 				const audioReadStream = await convertAudioDataToReadStream(audioString);
-				const fileSize = fs.statSync(`/tmp/audio.${AUDIO_FILE_EXT}`).size;
 
-				const FILE_NAME = `/tmp/audio.${AUDIO_FILE_EXT}`;
+				// STEP 2: Call the transcribeFile method with the audio payload and options
+				const { result } = await deepgram.listen.prerecorded.transcribeFile(
+					audioReadStream,
+					{
+						model: 'nova-2',
+						smart_format: true,
+					}
+				);
 
-				const audioFile = await bytescaleUploader.upload({
-					data: audioReadStream,
-					size: fileSize,
-					originalFileName: FILE_NAME, // 'audio.wav
-					mime: MIME_TYPE,
-				});
-				// const audioTransformUrl = BytescaleUrlBuilder.url({
-				// 	accountId: process.env.BYTE_SCALE_ACCOUNT_ID as string,
-				// 	filePath: audioFile.filePath,
-				// 	options: {
-				// 		transformation: 'audio',
-				// 		transformationParams: {
-				// 			f: 'mp3',
-				// 		},
-				// 	},
-				// });
-
-                const transcript = await assembyai.transcripts.create({
-                    audio_url: audioFile.fileUrl,
-                })
-                const transcriptText = transcript.text as string;
-
-				// const audioWriteStream = fs.createWriteStream(FILE_NAME);
-				// const response = await fetch(audioFile.fileUrl);
-				// await responseToReadable(response)?.pipe(audioWriteStream);
-				// const readStream = await fs.createReadStream(FILE_NAME);
-
+                const transcriptText = result?.results.channels[0].alternatives[0].transcript as string;
 				const foodLogId = params.id as string;
 				const foodItemLog = await FoodLogItemService.create(transcriptText, foodLogId);
 				return json(foodItemLog);
@@ -72,23 +54,4 @@ export const action: ActionFunction = async (context) => {
 			return new Response('Method not allowed', { status: 405 });
 		}
 	}
-};
-
-// TODO: move to util
-const responseToReadable = (response: Response) => {
-	if (!response.body) {
-		return null;
-	}
-	const reader = response.body.getReader();
-	const rs = new Readable();
-	rs._read = async () => {
-		const result = await reader.read();
-		if (!result.done) {
-			rs.push(Buffer.from(result.value));
-		} else {
-			rs.push(null);
-			return;
-		}
-	};
-	return rs;
 };
