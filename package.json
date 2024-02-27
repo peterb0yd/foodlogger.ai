@@ -16,6 +16,7 @@
     "seed-db": "npx prisma db seed"
   },
   "dependencies": {
+    "@bytescale/sdk": "^3.31.1",
     "@fontsource-variable/manrope": "^5.0.18",
     "@prisma/client": "^5.10.2",
     "@remix-pwa/cache": "^2.0.12",
