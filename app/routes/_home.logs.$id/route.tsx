@@ -34,16 +34,20 @@ export default function EditFoodLogPage() {
     const { foodLogItems } = loaderData;
     const foodLogId = params.id as string;
 
-    const handleNewAudioLog = async (file: File) => {
-        if (!file) return;
+    const handleNewAudioLog = async (audioBlob: Blob) => {
+        if (!audioBlob) return;
         const formData = new FormData();
-        formData.append("audio", file, file.name);
-        submitLogItem(formData, {
-            method: "POST",
-            action: `/api/food-logs/${foodLogId}/food-item-logs`,
-            encType: "multipart/form-data",
-            navigate: false
-        });
+        const reader = new FileReader();
+        reader.readAsDataURL(audioBlob);
+        reader.onloadend = () => {
+            formData.append("audio", reader.result as string);
+            submitLogItem(formData, {
+                method: "POST",
+                action: `/api/food-logs/${foodLogId}/food-item-logs`,
+                // encType: "multipart/form-data",
+                navigate: false
+            });
+        }
     }
 
     return (

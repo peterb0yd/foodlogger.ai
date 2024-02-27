@@ -11,18 +11,18 @@ export const links: LinksFunction = () => [
 
 interface AudioRecorderProps {
     onStart: () => void;
-    onStop: (audioFile: File) => void;
+    onStop: (audioData: Blob) => void;
 }
 
 export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
     const [startPressed, setStartPressed] = useState(false);
-    const { startRecording, stopRecording, isRecording, audioFile } = useAudioRecorder();
+    const { startRecording, stopRecording, isRecording, audioBlob } = useAudioRecorder();
 
     useEffect(() => {
-        if (audioFile) {
-            onStop(audioFile);
+        if (audioBlob) {
+            onStop(audioBlob);
         } 
-    }, [audioFile]);
+    }, [audioBlob]);
 
     const handleStartRecording = (e: React.MouseEvent | React.TouchEvent) => {
         e.preventDefault();

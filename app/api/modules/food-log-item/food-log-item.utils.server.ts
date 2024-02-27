@@ -6,6 +6,9 @@ import {
 } from '@remix-run/node';
 import { IFoodLogItemTranscriptionOutput } from './food-log-item.interfaces';
 import { PreparationMethods, Units } from '@prisma/client';
+import { MIME_TYPE } from '~/api/utils/constants';
+import fs from 'fs';
+import { FsReadStream } from 'openai/_shims/node-types.mjs';
 
 export const parseMultipartFormData = async (request: Request) => {
 	// Remix's file upload handler is used to parse the multipart form data 
@@ -17,10 +20,10 @@ export const parseMultipartFormData = async (request: Request) => {
 };
 
 // OpenAI's API is used to transcribe the audio file
-export const getTranscriptionFromAudioFile = async (audioFile: NodeOnDiskFile) => {
+export const getTranscriptionFromAudioFile = async (audioStream: FsReadStream) => {
 	const openai = getOpenAIClient();
 	const response = await openai.audio.transcriptions.create({
-		file: audioFile,
+		file: audioStream,
 		model: 'whisper-1',
 	});
 	return response.text;
@@ -77,3 +80,13 @@ export const parseFoodItemLogData = async (transcription: string) => {
 		throw new Error(`Error getting food item log data from transcription: ${error}`);
 	}
 };
+
+// audioString is the base64 encoded audio file
+export const getReadStreamFromAudioString = async (audioString: string) => {
+    const fileName = 'audio.wav';
+    await fs.writeFileSync(
+        fileName,
+        Buffer.from(audioString.replace(`data:${MIME_TYPE};base64,`, ''), 'base64')
+    );
+    return fs.createReadStream(fileName);
+}
