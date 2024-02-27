@@ -6,7 +6,7 @@ import {
 } from '@remix-run/node';
 import { IFoodLogItemTranscriptionOutput } from './food-log-item.interfaces';
 import { PreparationMethods, Units } from '@prisma/client';
-import { MIME_TYPE } from '~/api/utils/constants';
+import { AUDIO_FILE_EXT, MIME_TYPE } from '~/api/utils/constants';
 import fs from 'fs';
 import { FsReadStream } from 'openai/_shims/node-types.mjs';
 
@@ -83,7 +83,7 @@ export const parseFoodItemLogData = async (transcription: string) => {
 
 // audioString is the base64 encoded audio file
 export const getReadStreamFromAudioString = async (audioString: string) => {
-    const fileName = '/tmp/audio.webm';
+    const fileName = `/tmp/audio.${AUDIO_FILE_EXT}`;
     await fs.writeFileSync(
         fileName,
         Buffer.from(audioString.replace(`data:${MIME_TYPE};base64,`, ''), 'base64')
