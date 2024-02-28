@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, useMemo } from "react";
 import { LinksFunction } from "@remix-run/node";
 import audioRecorderStyles from "./AudioRecorder.css";
 import { Button } from "../button/Button";
-import { Icons } from "~/enums/icons";
+import { IconNames } from "~/enums/icons";
 import { useAudioRecorder } from "~/hooks/useAudioRecorder";
 
 export const links: LinksFunction = () => [
@@ -49,8 +49,8 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
                 onMouseUp={handleStopRecording}
                 onTouchCancel={handleStopRecording}
                 onMouseLeave={handleStopRecording}
-                icon={Icons.RecordIcon}
-                iconColor={isRecording ? 'red' : 'gray'}
+                icon={IconNames.RecordIcon}
+                iconColor={isRecording ? 'destructive' : 'muted'}
                 iconSize="2xl"
             />
         </div>

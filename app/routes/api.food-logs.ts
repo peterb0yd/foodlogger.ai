@@ -1,4 +1,4 @@
-import { ActionFunction, LoaderFunction, json } from "@remix-run/node";
+import { ActionFunction, LoaderFunction, json, redirect } from "@remix-run/node";
 import { FoodLogService } from "~/api/modules/food-log/food-log.service";
 import { RequestMethods } from "~/enums/requests";
 
@@ -16,7 +16,7 @@ export const action: ActionFunction = async ({ request }) => {
                 const data = await request.formData();
                 const userId = data.get('userId') as string;
                 const foodLog = await FoodLogService.create({ userId });
-                return json(foodLog);
+                return redirect(`/logs/${foodLog.id}`);
             } catch (error) {
                 console.error(error);
                 return new Response(null, {

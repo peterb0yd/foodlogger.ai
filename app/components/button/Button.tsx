@@ -1,14 +1,12 @@
 import { LinksFunction } from '@remix-run/node';
 import { useNavigate } from '@remix-run/react';
 import { Component, PropsWithChildren } from 'react';
-import { Routes } from '~/enums/routes';
+import { PageRoutes } from '~/enums/routes';
 import buttonStyles from './Button.css';
-import { Icons } from '~/enums/icons';
-import { Icon, IconProps, links as iconLinks } from '../icons/Icon';
+import { Icon, IconProps } from '../icon/Icon';
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: buttonStyles },
-    ...iconLinks(),
 ];
 
 interface ButtonContentProps extends PropsWithChildren {
@@ -32,7 +30,7 @@ const ButtonContent = ({ icon, iconColor, iconSize, children }: ButtonContentPro
 
 interface ButtonProps extends ButtonContentProps, Omit<React.HTMLProps<HTMLButtonElement>, 'type' | 'size'> {
     href?: string;
-    to?: Routes;
+    to?: PageRoutes;
     size?: 'sm' | 'md' | 'lg';
     variant?: 'base' | 'primary' | 'secondary' | 'icon';
     onClick?: () => void;

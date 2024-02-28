@@ -1,24 +1,15 @@
-import { ActionFunction, redirect } from "@remix-run/node";
-import { Form } from "@remix-run/react";
-import { FoodLogService } from "~/api/modules/food-log/food-log.service";
-import { SessionService } from "~/api/modules/session/session.service";
+import { Form, useRouteLoaderData, useSubmit } from "@remix-run/react";
 import { Button } from "~/components/button/Button";
-import { PageRoutes } from "~/enums/routes";
-
-export const action: ActionFunction = async (context) => {
-    const { request } = context;
-    const userId = await SessionService.getUserIdFromRequest(request) as string;
-    if (!userId) {
-        return redirect(PageRoutes.LOGIN);
-    }
-    // Create new food log and redirect to it's edit page
-    const newFoodLog = await FoodLogService.create({ userId });
-    return redirect(`/logs/${newFoodLog.id}`);
-}
+import { APIRoutes } from "~/enums/routes";
+import { loader as rootLoader } from "./_home/route";
+import { RequestMethods } from "~/enums/requests";
 
 export default function Landing() {
+    const { userId } = useRouteLoaderData<typeof rootLoader>("routes/_home");
+
     return (
-        <Form method="POST" navigate={false}>
+        <Form method={RequestMethods.POST} action={APIRoutes.FOOD_LOGS}>
+            <input type="hidden" name="userId" value={userId} />
             <Button variant="secondary">Add Log</Button>
         </Form>
     );

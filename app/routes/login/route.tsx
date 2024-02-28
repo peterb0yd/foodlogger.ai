@@ -61,7 +61,7 @@ export const action: ActionFunction = async ({
 
     const sessionCookie = await commitSession(session);
 
-    console.log({sessionCookie})
+    console.log({ sessionCookie })
 
     // Login succeeded, send them to the home page.
     return redirect("/", {
@@ -75,16 +75,14 @@ export default function Login() {
     const { error } = useLoaderData<typeof loader>();
 
     return (
-        <FlexBox col>
-            <Form method="POST">
-                <FlexBox col gap="md">
-                    <Text size="md">Enter your phone number</Text>
-                    <label>
-                        <input type="text" name="phone" />
-                    </label>
-                    {error ? <div className="error">{error}</div> : null}
-                </FlexBox>
-            </Form>
-        </FlexBox>
+        <Form method="POST">
+            <FlexBox col gap="md" justify="center" align="center">
+                <Text size="md">Enter your phone number</Text>
+                <label>
+                    <input type="text" name="phone" />
+                </label>
+                {error ? <div className="error">{error}</div> : null}
+            </FlexBox>
+        </Form>
     );
 }

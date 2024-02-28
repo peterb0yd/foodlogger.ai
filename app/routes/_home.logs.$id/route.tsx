@@ -2,14 +2,17 @@ import { LinksFunction, LoaderFunction, json, redirect } from "@remix-run/node";
 import { Overlay, links as overlayLinks } from "~/components/overlay/Overlay";
 import { Modal, links as modalLinks } from "~/components/modal/Modal";
 import { Text } from "~/components/text/Text";
-import { PageRoutes } from "~/enums/routes";
+import { APIRoutes, PageRoutes } from "~/enums/routes";
 import { AudioRecorder, links as audioRecLinks } from "~/components/audio-recorder/AudioRecorder";
 import { FlexBox } from "~/components/flex-box/FlexBox";
-import { useLoaderData, useParams, useSubmit } from "@remix-run/react";
+import { Form, useLoaderData, useParams, useSubmit } from "@remix-run/react";
 import { FoodLogItemService } from "~/api/modules/food-log-item/food-log-item.service";
 import { IFoodLogItemWithFoodItem } from "~/api/modules/food-log-item/food-log-item.interfaces";
 import { SessionService } from "~/api/modules/session/session.service";
-import { useEffect, useState } from "react";
+import { startCase } from "lodash-es";
+import { Button } from "~/components/button/Button";
+import { IconNames } from "~/enums/icons";
+import { RequestMethods } from "~/enums/requests";
 
 export const links: LinksFunction = () => [
     ...overlayLinks(),
@@ -41,9 +44,10 @@ export default function EditFoodLogPage() {
         reader.readAsDataURL(audioBlob);
         reader.onloadend = () => {
             formData.append("audio", reader.result as string);
+            formData.append("foodLogId", foodLogId)
             submitLogItem(formData, {
-                method: "POST",
-                action: `/api/food-logs/${foodLogId}/food-item-logs`,
+                method: RequestMethods.POST,
+                action: APIRoutes.FOOD_ITEM_LOGS,
                 navigate: false
             });
         }
@@ -67,7 +71,7 @@ export default function EditFoodLogPage() {
                             onStart={() => console.log('Recording started')}
                             onStop={handleNewAudioLog}
                         />
-                        <FoodLogItems
+                        <FoodLogItemList
                             logItems={foodLogItems}
                         />
                     </FlexBox>
@@ -81,19 +85,40 @@ interface FoodLogItemsProps {
     logItems: IFoodLogItemWithFoodItem[]
 }
 
-const FoodLogItems = ({ logItems }: FoodLogItemsProps) => {
+const FoodLogItemList = ({ logItems }: FoodLogItemsProps) => {
     if (!logItems?.length) {
         return <Text>No food logs yet...</Text>;
     }
-    return logItems.map(logItem => (
-        <Text
-            key={logItem.id}
-            size="sm"
-            weight="light"
-            align="center"
-            lineHeight="tight"
-        >
-            {logItem.foodItem.name} - {logItem.quantity} - ${logItem.preparation} - {logItem.unit.toLowerCase()}
-        </Text>
-    ))
+    return (
+        <FlexBox col gap="md" bg="muted">
+            {logItems.map(logItem => <FoodLogItem logItem={logItem} />)}
+        </FlexBox>
+    );
+}
+
+const FoodLogItem = ({ logItem }: { logItem: IFoodLogItemWithFoodItem }) => {
+    const quantity = logItem.quantity;
+    const unit = logItem.unit.toLowerCase();
+    const name = startCase(logItem.foodItem.name);
+    const preparation = logItem.preparation.toLowerCase();
+
+    return (
+        <FlexBox justify="between" bg="base" border="thin">
+            <Text
+                size="sm"
+                weight="light"
+                align="center"
+                lineHeight="tight"
+            >
+                {name}: {quantity} {unit} - {preparation}
+            </Text>
+            <Form method={RequestMethods.DELETE} action={APIRoutes.FOOD_ITEM_LOGS} navigate={false}>
+                <input type="hidden" name="id" value={logItem.id} />
+                <Button
+                    icon={IconNames.TrashIcon}
+                    iconColor="destructive"
+                />
+            </Form>
+        </FlexBox>
+    );
 }

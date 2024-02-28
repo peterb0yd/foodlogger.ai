@@ -5,7 +5,7 @@ import { PageRoutes } from '~/enums/routes';
 import { useNavigate } from '@remix-run/react';
 import { Text, links as textLinks } from '../text/Text';
 import { Button, links as buttonLinks } from '../button/Button';
-import { Icons } from '~/enums/icons';
+import { IconNames } from '~/enums/icons';
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: modalStyles },
@@ -19,8 +19,8 @@ const CloseButton = ({ goBackRoute }: { goBackRoute: PageRoutes }) => {
         <div className="Modal-CloseButton">
             <Button
                 variant="icon"
-                icon={Icons.CloseIcon}
-                iconColor="var(--color-text)"
+                icon={IconNames.CloseIcon}
+                iconColor="contrast"
                 iconSize='sm'
                 onClick={() => navigate(goBackRoute)}
             />
