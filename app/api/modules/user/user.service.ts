@@ -13,7 +13,7 @@ export class UserService {
 
     // Creates a new user
     static async create(user: Prisma.UserCreateInput) {
-        await sendVerificationText(user.phone as string);
+        return UserRepository.create(user);
     }
 
     // Sends a verification code to the user's phone number

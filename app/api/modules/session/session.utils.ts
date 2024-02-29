@@ -3,10 +3,11 @@ import { createSessionStorage } from '@remix-run/node'; // or cloudflare/deno
 import { ISessionData } from './session.interfaces';
 import { SessionService } from './session.service';
 import { Prisma } from '@prisma/client';
+import { COOKIE_NAME } from './session.constants';
 
 const { getSession, commitSession, destroySession } = createSessionStorage<ISessionData>({
 	cookie: {
-		name: '__session',
+		name: COOKIE_NAME,
 		sameSite: 'lax',
         // secure: process.env.NODE_ENV === 'production',
 	},

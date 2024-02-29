@@ -21,10 +21,7 @@ export const links: LinksFunction = () => [
 ];
 
 export const loader: LoaderFunction = async (context) => {
-    const userId = await SessionService.getUserIdFromRequest(context.request);
-    if (!userId) {
-        redirect(PageRoutes.LOGIN);
-    }
+    await SessionService.requireAuth(context.request);
     const foodLogId = context.params.id as string;
     const foodLogItems = await FoodLogItemService.findAllByLogId(foodLogId);
     return json({ foodLogItems });

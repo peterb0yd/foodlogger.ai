@@ -3,6 +3,7 @@ import { FoodLogItemService } from '~/api/modules/food-log-item/food-log-item.se
 import { convertAudioDataToReadStream, getTranscriptionFromAudioFile } from '~/api/modules/food-log-item/food-log-item.utils.server';
 import { RequestMethods } from '~/enums/requests';
 import { deepgram } from '~/api/utils/deepgram';
+import { SessionService } from '~/api/modules/session/session.service';
 
 export const loader: LoaderFunction = async () => {
 	return new Response(null, {
@@ -12,6 +13,8 @@ export const loader: LoaderFunction = async () => {
 };
 
 export const action: ActionFunction = async (context) => {
+    await SessionService.requireAuth(context.request);
+    
 	const { request, params } = context;
 	switch (request.method) {
 		case RequestMethods.POST: {

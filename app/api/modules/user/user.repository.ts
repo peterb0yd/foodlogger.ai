@@ -22,7 +22,15 @@ export class UserRepository {
         }
     }
 
-	static async create(user: Prisma.UserCreateInput) {}
+	static async create(user: Prisma.UserCreateInput) {
+        try {
+            return await prisma.user.create({
+                data: user,
+            });
+        } catch (error) {
+            return null;
+        }
+    }
 
 	static async findUnique(where: Prisma.UserWhereUniqueInput) {}
 

@@ -1,5 +1,6 @@
 import { ActionFunction, LoaderFunction, json, redirect } from "@remix-run/node";
 import { FoodLogService } from "~/api/modules/food-log/food-log.service";
+import { SessionService } from "~/api/modules/session/session.service";
 import { RequestMethods } from "~/enums/requests";
 
 export const loader: LoaderFunction = async () => {
@@ -10,6 +11,8 @@ export const loader: LoaderFunction = async () => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
+    await SessionService.requireAuth(request);
+    
     switch (request.method) {
         case RequestMethods.POST: {
             try {

@@ -13,7 +13,7 @@
     "dev": "run-p dev:*",
     "dev:remix": "remix dev --manual",
     "dev:worker": "remix-pwa dev",
-    "seed-db": "npx prisma db seed"
+    "db:seed": "npx prisma db seed"
   },
   "dependencies": {
     "@deepgram/sdk": "^3.1.9",

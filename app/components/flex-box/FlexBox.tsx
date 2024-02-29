@@ -11,6 +11,7 @@ interface FlexBoxProps extends PropsWithChildren {
     bg?: 'base' | 'muted' | 'contrast';
     border?: 'thin' | 'base' | 'muted' | 'contrast';
     borderRadius?: 'xs' | 'sm' | 'md' | 'rounded';
+    width?: 'full' | 'max';
 }
 
 export const links: LinksFunction = () => [
@@ -22,6 +23,7 @@ export const FlexBox = ({
     justify = 'start',
     align = 'start',
     wrap = 'nowrap',
+    width,
     gap,
     bg,
     border,
@@ -32,6 +34,7 @@ export const FlexBox = ({
         <div
             className="FlexBox"
             data-col={col}
+            data-width={width}
             data-justify={justify}
             data-align={align}
             data-wrap={wrap}
