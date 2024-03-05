@@ -1,5 +1,6 @@
 export enum PageRoutes {
     HOME = '/',
+    LOGS = '/logs',
     LOGIN = '/login',
     VERIFY = '/verify',
     EDIT_LOG = '/logs/:id',

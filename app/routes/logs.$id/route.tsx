@@ -38,6 +38,7 @@ export default function EditFoodLogPage() {
         if (!audioBlob) return;
         const formData = new FormData();
         const reader = new FileReader();
+        console.log({audioBlob})
         reader.readAsDataURL(audioBlob);
         reader.onloadend = () => {
             formData.append("audio", reader.result as string);

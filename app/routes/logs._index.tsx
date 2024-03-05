@@ -6,8 +6,8 @@ import { SessionService } from "~/api/modules/session/session.service";
 import { LoaderFunction, json } from "@remix-run/node";
 
 export const loader: LoaderFunction = async ({ request }) => {
-    await SessionService.requireAuth(request);
-    return json({});
+    const userId = await SessionService.requireAuth(request);
+    return json({ userId });
 }
 
 export default function Landing() {
