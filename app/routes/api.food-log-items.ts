@@ -2,7 +2,7 @@ import { ActionFunction, LoaderFunction, json } from '@remix-run/node';
 import { FoodLogItemService } from '~/api/modules/food-log-item/food-log-item.service';
 import { convertAudioDataToReadStream, getTranscriptionFromAudioFile } from '~/api/modules/food-log-item/food-log-item.utils.server';
 import { RequestMethods } from '~/enums/requests';
-import { deepgram } from '~/api/utils/deepgram';
+import { deepgram } from '~/utils/deepgram';
 import { SessionService } from '~/api/modules/session/session.service';
 
 export const loader: LoaderFunction = async () => {

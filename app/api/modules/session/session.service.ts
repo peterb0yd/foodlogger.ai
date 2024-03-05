@@ -2,7 +2,7 @@ import { redirect } from '@remix-run/node';
 import { SessionRepository } from './session.repository';
 import { getSession } from './session.utils';
 import { Prisma } from '@prisma/client';
-import { twilio } from '~/api/utils/twilio';
+import { twilio } from '~/utils/twilio';
 import { PageRoutes } from '~/enums/routes';
 
 export class SessionService {

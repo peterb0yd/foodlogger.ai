@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import prisma from '~/api/utils/prisma';
+import prisma from '~/utils/prisma';
 import { IFoodLogItemWithFoodItem } from './food-log-item.interfaces';
 
 export class FoodLogItemRepository {

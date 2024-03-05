@@ -1,9 +1,9 @@
-import { getOpenAIClient } from '~/api/utils/openAI';
+import { getOpenAIClient } from '~/utils/openAI';
 import { IFoodLogItemTranscriptionOutput } from './food-log-item.interfaces';
 import { PreparationMethods, Units } from '@prisma/client';
-import { AUDIO_FILE_EXT, MIME_TYPE } from '~/api/utils/constants';
+import { AUDIO_FILE_EXT, MIME_TYPE } from '~/utils/constants';
 import fs from 'fs';
-import { deepgram } from '~/api/utils/deepgram';
+import { deepgram } from '~/utils/deepgram';
 
 // DeepGram's API is used to transcribe the audio file
 export const getTranscriptionFromAudioFile = async (audioData: string) => {

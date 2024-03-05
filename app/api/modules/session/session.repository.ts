@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import prisma from '~/api/utils/prisma';
+import prisma from '~/utils/prisma';
 
 export class SessionRepository {
     static async create(session: Prisma.SessionCreateInput) {

@@ -1,4 +1,4 @@
-import { getTwilio } from "~/api/utils/twilio";
+import { getTwilio } from "~/utils/twilio";
 
 export const sendVerificationText = async (phone: string) => {
     const twilio = getTwilio();

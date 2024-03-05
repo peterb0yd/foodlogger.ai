@@ -1,4 +1,4 @@
-import prisma from '~/api/utils/prisma';
+import prisma from '~/utils/prisma';
 
 export class FoodItemsRepository {
 	static async findByName(name: string) {

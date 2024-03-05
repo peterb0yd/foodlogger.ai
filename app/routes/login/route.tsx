@@ -45,9 +45,10 @@ export default function Login() {
     const onFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.target as HTMLFormElement);
-        const phoneNumber = formData.get("phone");
+        const phoneNumber = formData.get("phone")?.toString().trim() ?? '';
+        const phone = phoneNumber.replace(/[^0-9]*/g, '');
         const formDataToSubmit = new FormData();
-        formDataToSubmit.set("phone", `${countryCode}${phoneNumber}`);
+        formDataToSubmit.set("phone", `${countryCode}${phone}`);
         submit(formDataToSubmit, {
             method: RequestMethods.POST,
             action: APIRoutes.SESSIONS,

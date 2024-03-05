@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { MIME_TYPE } from "~/api/utils/constants";
+import { MIME_TYPE } from "~/utils/constants";
 
 export const useAudioRecorder = () => {
     const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
