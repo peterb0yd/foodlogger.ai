@@ -38,7 +38,7 @@ export default function EditFoodLogPage() {
         if (!audioBlob) return;
         const formData = new FormData();
         const reader = new FileReader();
-        console.log({audioBlob})
+        console.log({ audioBlob })
         reader.readAsDataURL(audioBlob);
         reader.onloadend = () => {
             formData.append("audio", reader.result as string);
@@ -52,30 +52,26 @@ export default function EditFoodLogPage() {
     }
 
     return (
-        <Overlay>
-            <Modal title="Record Food Log" goBackRoute={PageRoutes.HOME}>
-                <div className="NewLog">
-                    <FlexBox align="center" justify="center" col gap="md">
-                        <FlexBox col gap="md" align="center">
-                            <Text size="lg" weight="light" align="center" lineHeight="tight">
-                                {`Press & hold the mic button to record a food item.`}
-                            </Text>
-                            <Text size="xs" color="muted" align="center" lineHeight="tight" italic>
-                                {`Ex: Hold button and say "One cup steamed broccoli"`}
-                            </Text>
-                            <Text size="2xl" lineHeight="tight">👇</Text>
-                        </FlexBox>
-                        <AudioRecorder
-                            onStart={() => console.log('Recording started')}
-                            onStop={handleNewAudioLog}
-                        />
-                        <FoodLogItemList
-                            logItems={foodLogItems}
-                        />
-                    </FlexBox>
-                </div>
-            </Modal>
-        </Overlay>
+        <div className="NewLog">
+            <FlexBox align="center" justify="center" col gap="md">
+                <FlexBox col gap="md" align="center">
+                    <Text size="lg" weight="light" align="center" lineHeight="tight">
+                        {`Press & hold the mic button to record a food item.`}
+                    </Text>
+                    <Text size="xs" color="muted" align="center" lineHeight="tight" italic>
+                        {`Ex: Hold button and say "One cup steamed broccoli"`}
+                    </Text>
+                    <Text size="2xl" lineHeight="tight">👇</Text>
+                </FlexBox>
+                <AudioRecorder
+                    onStart={() => console.log('Recording started')}
+                    onStop={handleNewAudioLog}
+                />
+                <FoodLogItemList
+                    logItems={foodLogItems}
+                />
+            </FlexBox>
+        </div>
     );
 }
 

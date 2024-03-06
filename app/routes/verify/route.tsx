@@ -32,19 +32,21 @@ export const loader: LoaderFunction = async ({
 
 export default function Login() {
     const [error, setError] = useState<string | null>(null);
-    const [searchParams, ] = useSearchParams();
+    const [searchParams,] = useSearchParams();
     const phone = searchParams.get('phone') as string;
 
     return (
-        <Form method={RequestMethods.PATCH} action={APIRoutes.SESSIONS}>
-            <FlexBox col gap="md" justify="center" align="center">
-                <input type="hidden" name="phone" value={phone} />
-                <Text size="md">Enter your verification code</Text>
-                <label>
-                    <input type="text" name="code" />
-                </label>
-                {error ? <div className="error">{error}</div> : null}
-            </FlexBox>
-        </Form>
+        <FlexBox center col width="full">
+            <Form method={RequestMethods.PATCH} action={APIRoutes.SESSIONS}>
+                <FlexBox col gap="md" justify="center" align="center">
+                    <input type="hidden" name="phone" value={phone} />
+                    <Text size="md">Enter your verification code</Text>
+                    <label>
+                        <input type="text" name="code" />
+                    </label>
+                    {error ? <div className="error">{error}</div> : null}
+                </FlexBox>
+            </Form>
+        </FlexBox>
     );
 }

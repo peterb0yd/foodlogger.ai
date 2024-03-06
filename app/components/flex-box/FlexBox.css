@@ -9,6 +9,11 @@
     flex-direction: column;
 }
 
+/** Grow **/
+[data-grow=true] {
+    flex-grow: 1;
+}
+
 /** Justify **/
 [data-justify='start'] {
     justify-content: flex-start;

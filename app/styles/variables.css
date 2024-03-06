@@ -4,56 +4,95 @@
 
 	/* Font Sizes */
     --x-small-font-size: 14px;
-	--small-font-size: 16px;
-	--medium-font-size: 1.15rem;
-	--large-font-size: 1.25rem;
-    --x-large-font-size: 1.5rem;
-    --xx-large-font-size: 2.5rem;
-    --xxx-large-font-size: 3.5rem;
+    --small-font-size: 16px;
+    --medium-font-size: 20px;
+    --large-font-size: 26px;
+    --x-large-font-size: 32px;
+    --xx-large-font-size: 40px;
+    --xxx-large-font-size: 52px;
 
     /* Z-Index */
     --z-index-base: 0;
-    --z-index-overlay: 100;
-    --z-index-modal: 200;
-    --z-index-notification: 300;
+    --z-index-overlay: 10;
+    --z-index-modal: 20;
+    --z-index-notification: 30;
 
 	/* Colors */
+    /* - Background */
+    --color-surface: #181620;
+    --color-surface-muted: #2c293b;
+    --color-surface-contrast: #ffffff;
+    --color-surface-destructive: #e93f41;
+    /* - Text */
+    --color-text: #ffffff;
+    --color-text-contrast: #000000;
+    --color-text-muted: #cccccc;
+    --color-text-destructive: #e93f41;
     /* - Primary */
-	--color-primary: #5cf05c;
-	--color-primary-light: rgb(43, 224, 43);
-	--color-primary-dark: #1dc21d;
+    --color-primary: #A3C4BC;
+	--color-primary-light: #b5d8d0;
+	--color-primary-dark: #8aa59e;
     /* - Secondary */
-	--color-secondary: #ac2af3;
-	--color-secondary-light: #c53cf3;
-	--color-secondary-dark: #8e24aa;
+	--color-secondary: #BFD7B5;
+	--color-secondary-light: #cbe5bf;
+	--color-secondary-dark: #a4b79c;
+    /* - Tertiary */
+    --color-tertiary: #BFD7B5;
+    --color-tertiary-light: #c9e2be;
+    --color-tertiary-dark: #a8bc9f;
     /* - Shadows */
-    --color-shadow: rgba(0, 0, 0, 0.4);
-    --color-shadow-light: rgba(0, 0, 0, 0.2);
-    --color-shadow-dark: rgba(0, 0, 0, 0.8);
+    --color-shadow-light: rgba(220, 220, 220, 0.8);
+    --color-shadow: rgba(194, 194, 194, 0.6);
+    --color-shadow-dark: rgba(56, 56, 56, 0.8);
 }
 
-@media (prefers-color-scheme: light) {
-	:root {
-		--color-surface: #f4f5f7;
-        --color-surface-muted: #c5c9d1;
-		--color-surface-contrast: #000000;
-        --color-surface-destructive: #c32224;
-		--color-text: #333333;
-		--color-text-contrast: #ffffff;
-        --color-text-muted: #666666;
-        --color-text-destructive: #c32224;
-	}
+@media screen and (min-width: 35.5em) {
+    :root {
+        /* Font Sizes */
+        --x-small-font-size: 16px;
+        --small-font-size: 18px;
+        --medium-font-size: 24px;
+        --large-font-size: 30px;
+        --x-large-font-size: 36px;
+        --xx-large-font-size: 44px;
+        --xxx-large-font-size: 56px;
+    
+    }
 }
+@media screen and (min-width: 48em) {
+    :root {
+        /* Font Sizes */
+        --x-small-font-size: 18px;
+        --small-font-size: 20px;
+        --medium-font-size: 26px;
+        --large-font-size: 32px;
+        --x-large-font-size: 38px;
+        --xx-large-font-size: 46px;
+        --xxx-large-font-size: 58px;
+    }
+}
+@media screen and (min-width: 64em) {
+    :root {
+        /* Font Sizes */
+        --x-small-font-size: 20px;
+        --small-font-size: 22px;
+        --medium-font-size: 28px;
+        --large-font-size: 34px;
+        --x-large-font-size: 40px;
+        --xx-large-font-size: 48px;
+        --xxx-large-font-size: 60px;
+    }
 
-@media (prefers-color-scheme: dark) {
-	:root {
-		--color-surface: #333333;
-        --color-surface-muted: rgb(71, 71, 71);
-		--color-surface-contrast: #ffffff;
-        --color-surface-destructive: #e93f41;
-		--color-text: #ffffff;
-		--color-text-contrast: #000000;
-        --color-text-muted: #cccccc;
-        --color-text-destructive: #e93f41;
-	}
+}
+@media screen and (min-width: 80em) {
+    :root {
+        /* Font Sizes */
+        --x-small-font-size: 22px;
+        --small-font-size: 24px;
+        --medium-font-size: 30px;
+        --large-font-size: 36px;
+        --x-large-font-size: 42px;
+        --xx-large-font-size: 50px;
+        --xxx-large-font-size: 62px;
+    }
 }

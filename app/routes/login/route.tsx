@@ -56,18 +56,20 @@ export default function Login() {
     }
 
     return (
-        <Form onSubmit={onFormSubmit}>
-            <FlexBox col gap="md" justify="center" align="center">
-                <Text size="md">Enter your phone number</Text>
-                <FlexBox gap="sm" width='max'>
-                    <CountryCodeSelect value={countryCode} onSelect={setCountryCode} />
-                    <label>
-                        <input type="text" name="phone" />
-                    </label>
+        <FlexBox center col width="full">
+            <Form onSubmit={onFormSubmit}>
+                <FlexBox col gap="md" justify="center" align="center">
+                    <Text size="md">Enter your phone number</Text>
+                    <FlexBox gap="sm" width='max'>
+                        <CountryCodeSelect value={countryCode} onSelect={setCountryCode} />
+                        <label>
+                            <input type="text" name="phone" />
+                        </label>
+                    </FlexBox>
+                    {error ? <div className="error">{error}</div> : null}
                 </FlexBox>
-                {error ? <div className="error">{error}</div> : null}
-            </FlexBox>
-        </Form>
+            </Form>
+        </FlexBox>
     );
 }
 

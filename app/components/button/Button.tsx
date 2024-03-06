@@ -50,7 +50,7 @@ interface ButtonProps extends ButtonContentProps, Omit<React.HTMLProps<HTMLButto
  *      "icon": a button with an icon and no text 
  *          - if an icon is provided, the variant will be "icon" by default 
  */
-export const Button = ({ href, to, size, icon, iconColor, iconSize, children, variant = "base", onClick, ...rest }: ButtonProps) => {
+export const Button = ({ href, to, size = "sm", icon, iconColor, iconSize, children, variant = "base", onClick, ...rest }: ButtonProps) => {
     const navigate = useNavigate();
 
     // If the button has an icon, it should be an icon variant

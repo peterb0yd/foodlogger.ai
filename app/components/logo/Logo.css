@@ -1,35 +1,53 @@
-
 .Logo {
-    --height: 40px;
-    --width: 150px;
+	--height: 40px;
+	--width: 180px;
 
-    height: var(--height);
-    width: var(--width);
-    border: 2px solid var(--color-surface-contrast);
-    border-radius: calc(var(--height) / 2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	height: var(--height);
+	width: var(--width);
+	border: 2px solid var(--color-surface-contrast);
+	border-radius: calc(var(--height) / 2);
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
     h2 {
-        font-size: 20px;
-        font-optical-sizing: auto;
-        text-transform: lowercase;
-        color: var(--color-surface-contrast);
+        color: var(--color-text);
+        font-weight: bold;
     }
 
-    &[data-size=sm] {
-        margin: 0.125rem;
-        border-width: 1px;
+    &:hover {
+        background-color: var(--color-surface-contrast);
+        color: var(--color-text-contrast);
+
+        h2 {
+            color: var(--color-text-contrast);
+        }
     }
 
-    &[data-size=md] {
-        margin: 0.25rem;
-        border-width: 2px;
-    }
+}
 
-    &[data-size=lg] {
-        margin: 0.5rem;
-        border-width: 4px;
+/** Sizes **/
+.Logo[data-size='sm'] {
+	margin: 0.125rem;
+	border-width: 1px;
+
+    h2 {
+        font-size: var(--small-font-size);
+    }
+}
+.Logo[data-size='md'] {
+	margin: 0.25rem;
+	border-width: 2px;
+
+    h2 {
+        font-size: var(--medium-font-size);
+    }
+}
+.Logo[data-size='lg'] {
+	margin: 0.5rem;
+	border-width: 4px;
+
+    h2 {
+        font-size: var(--large-font-size);
     }
 }
