@@ -56,7 +56,7 @@ export default function EditFoodLogPage() {
         <div className="EditLog">
             <FlexBox center col width="full" gap="md">
                 <FlexBox col gap="md" align="center">
-                    <Text size="lg" weight="bold" align="center" lineHeight="tight">
+                    <Text size="xl" weight="bold" align="center" lineHeight="tight">
                         {`Log Your Meal`}
                     </Text>
                     <FlexBox col gap="sm" center>

@@ -54,6 +54,7 @@
 .Button[data-variant='primary'] {
     border-radius: 10px;
 	background-color: var(--color-primary);
+    color: var(--color-text-contrast);
     
 	&:hover {
         background-color: var(--color-primary-light);
@@ -67,6 +68,7 @@
 .Button[data-variant='secondary'] {
 	border-radius: 10px;
     background-color: var(--color-secondary);
+    color: var(--color-text-contrast);
     
 	&:hover {
         background-color: var(--color-secondary-light);
