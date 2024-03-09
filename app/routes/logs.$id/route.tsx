@@ -10,7 +10,7 @@ import { FoodLogItemService } from "~/api/modules/food-log-item/food-log-item.se
 import { IFoodLogItemWithFoodItem } from "~/api/modules/food-log-item/food-log-item.interfaces";
 import { SessionService } from "~/api/modules/session/session.service";
 import { startCase } from "lodash-es";
-import { Button } from "~/components/button/Button";
+import { Button, links as buttonLinks } from "~/components/button/Button";
 import { IconNames } from "~/enums/icons";
 import { RequestMethods } from "~/enums/requests";
 import pageStyles from './edit-log.styles.css';
@@ -19,6 +19,7 @@ export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: pageStyles },
     ...overlayLinks(),
     ...modalLinks(),
+    ...buttonLinks(),
     ...audioRecLinks(),
 ];
 

@@ -15,6 +15,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color: inherit;
     gap: 0.5rem;
 
     &[data-row-direction="right"] {
