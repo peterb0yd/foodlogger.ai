@@ -5,6 +5,7 @@ import { Text, links as textLinks } from "~/components/text/Text";
 import { PageRoutes } from "~/enums/routes";
 import styles from './home.styles.css';
 import { IconNames } from "~/enums/icons";
+import { MainLayout } from "~/layout/main-layout/MainLayout";
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: styles },
@@ -15,22 +16,27 @@ export const links: LinksFunction = () => [
 
 export default function Home() {
     return (
-        <div className="Home">
-            <FlexBox center col gap="xl">
-                <FlexBox col gap="md" align="center">
-                <Text size="lg" weight="black" lineHeight="tight">{`Meal tracking made simple.`}</Text>
-                <Text size="md" lineHeight="tight">{`[I'm a work in progress. Don't judge me.]`}</Text>
-                </FlexBox>
-                <Button
-                    to={PageRoutes.LOGS}
-                    variant="secondary"
-                    icon={IconNames.ChevronCircleIcon}
-                    iconSize="sm"
-                    iconSide="right"
-                >
-                    Go to Logs
-                </Button>
-            </FlexBox>
-        </div>
+        <MainLayout>
+            <MainLayout.Header />
+            <MainLayout.Content>
+                <div className="Home">
+                    <FlexBox center col gap="xl">
+                        <FlexBox col gap="md" align="center">
+                            <Text size="lg" weight="black" lineHeight="tight">{`Meal tracking made simple.`}</Text>
+                            <Text size="md" lineHeight="tight">{`[I'm a work in progress. Don't judge me.]`}</Text>
+                        </FlexBox>
+                        <Button
+                            to={PageRoutes.LOGS}
+                            variant="secondary"
+                            icon={IconNames.ChevronCircleIcon}
+                            iconSize="sm"
+                            iconSide="right"
+                        >
+                            Go to Logs
+                        </Button>
+                    </FlexBox>
+                </div>
+            </MainLayout.Content>
+        </MainLayout>
     );
 }
