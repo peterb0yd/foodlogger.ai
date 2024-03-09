@@ -14,13 +14,14 @@ interface BaseButtonProps extends PropsWithChildren {
     iconColor?: IconProps['color'];
     iconSize?: IconProps['size'];
     iconSide?: 'left' | 'right';
-    variant?: 'base' | 'primary' | 'secondary' | 'icon';
+    variant?: 'base' | 'primary' | 'secondary' | 'rounded' | 'icon';
 }
 
 interface ButtonProps extends BaseButtonProps, Omit<React.HTMLProps<HTMLButtonElement>, 'type' | 'size'> {
     href?: string;
     to?: PageRoutes;
     size?: 'flush' | 'sm' | 'md' | 'lg';
+    rounded?: boolean;
     onClick?: () => void;
 }
 
@@ -35,6 +36,7 @@ interface ButtonProps extends BaseButtonProps, Omit<React.HTMLProps<HTMLButtonEl
  *      "base": a simple button with no styles
  *      "primary": a button with primary styles
  *      "secondary": a button with secondary styles
+ *      "rounded": a circular button with no other styles
  *      "icon": a button with an icon and no text 
  *          - if an icon is provided, the variant will be "icon" by default 
  */

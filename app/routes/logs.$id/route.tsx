@@ -13,8 +13,10 @@ import { startCase } from "lodash-es";
 import { Button } from "~/components/button/Button";
 import { IconNames } from "~/enums/icons";
 import { RequestMethods } from "~/enums/requests";
+import pageStyles from './edit-log.styles.css';
 
 export const links: LinksFunction = () => [
+    { rel: 'stylesheet', href: pageStyles },
     ...overlayLinks(),
     ...modalLinks(),
     ...audioRecLinks(),
@@ -38,7 +40,6 @@ export default function EditFoodLogPage() {
         if (!audioBlob) return;
         const formData = new FormData();
         const reader = new FileReader();
-        console.log({ audioBlob })
         reader.readAsDataURL(audioBlob);
         reader.onloadend = () => {
             formData.append("audio", reader.result as string);
@@ -52,15 +53,20 @@ export default function EditFoodLogPage() {
     }
 
     return (
-        <div className="NewLog">
-            <FlexBox align="center" justify="center" col gap="md">
+        <div className="EditLog">
+            <FlexBox center col width="full" gap="md">
                 <FlexBox col gap="md" align="center">
-                    <Text size="lg" weight="light" align="center" lineHeight="tight">
-                        {`Press & hold the mic button to record a food item.`}
+                    <Text size="lg" weight="bold" align="center" lineHeight="tight">
+                        {`Log Your Meal`}
                     </Text>
-                    <Text size="xs" color="muted" align="center" lineHeight="tight" italic>
-                        {`Ex: Hold button and say "One cup steamed broccoli"`}
-                    </Text>
+                    <FlexBox col gap="sm" center>
+                        <Text align="center" lineHeight="tight">
+                            {`Hold down the mic button and speak the name and quantity for each item in your meal."`}
+                        </Text>
+                        <Text size="xs" color="muted" align="center" lineHeight="tight">
+                            {`Example: "I had a cup of steamed brocolli, a cup of hash browns and two eggs."`}
+                        </Text>
+                    </FlexBox>
                     <Text size="2xl" lineHeight="tight">👇</Text>
                 </FlexBox>
                 <AudioRecorder

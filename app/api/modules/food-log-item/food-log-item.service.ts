@@ -5,6 +5,12 @@ import { FoodItemService } from '../food-item/food-item.service';
 import { FsReadStream } from 'openai/_shims/node-types.mjs';
 import { IFoodItemLogData, IFoodLogItemTranscriptionOutput } from './food-log-item.interfaces';
 
+/** 
+ TODO: 
+    - As a user, I want to be able to add food items that don't exist in the database
+    - As the owner of the app, I need to be able to see added items clearly and who added them
+ */
+
 export class FoodLogItemService {
 	static async findAllByLogId(logId: string) {
 		return FoodLogItemRepository.findAllByLogId(logId);

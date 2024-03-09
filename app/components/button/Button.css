@@ -42,9 +42,14 @@
 	font-size: var(--large-font-size);
 }
 
+
 /** Variants */
 .Button[data-variant='base'] {
 	background: none;
+}
+.Button[data-variant='rounded'] {
+    border-radius: 100%;
+    background: none;
 }
 .Button[data-variant='primary'] {
     border-radius: 10px;

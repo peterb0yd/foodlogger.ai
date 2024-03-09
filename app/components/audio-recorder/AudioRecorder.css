@@ -1,2 +1,15 @@
 .AudioRecorder {
+    position: relative;
+
+    .MicIcon {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
+
+    & > button:hover {
+        box-shadow: 0 0 10px 0 var(--color-shadow-light);
+    }
 }

@@ -7,6 +7,7 @@ import { ChevronCircleIcon } from "./ChevronCircleIcon";
 import { PencilIcon } from "./PencilIcon";
 import iconStyles from './Icon.css';
 import { LinksFunction } from "@remix-run/node";
+import { MicIcon } from "./MicIcon";
 
 type ColorTypes = 'primary' | 'secondary' | 'base' | 'muted' | 'contrast' | 'destructive';
 
@@ -39,14 +40,14 @@ export const Icon = ({ name, size = 'md', color }: IconProps) => {
             case IconNames.TrashIcon: return TrashIcon;
             case IconNames.ChevronCircleIcon: return ChevronCircleIcon;
             case IconNames.PencilIcon: return PencilIcon;
+            case IconNames.MicIcon: return MicIcon;
             default: return Fragment;
         }
     })();
 
     return (
-
         <svg
-            className="Icon"
+            className={`Icon ${name}`}
             data-color={color}
             width={sizeMap[size as SizeMapKey]}
             height={sizeMap[size as SizeMapKey]}

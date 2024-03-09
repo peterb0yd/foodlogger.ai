@@ -9,6 +9,7 @@
 
     &:hover {
         background-color: var(--color-surface-contrast);
+        box-shadow: 0 0 10px var(--color-shadow-light);
         
         h4 {
             color: var(--color-text-contrast);
@@ -16,6 +17,10 @@
         .Icon {
             color: var(--color-text-contrast);
         }
+    }
+
+    &:active {
+        background-color: var(--color-surface-contrast);
     }
 }
 

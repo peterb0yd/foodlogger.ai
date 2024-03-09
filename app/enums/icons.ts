@@ -5,4 +5,5 @@ export enum IconNames {
     TrashIcon = 'TrashIcon',
     ChevronCircleIcon = 'ChevronCircleIcon',
     PencilIcon = 'PencilIcon',
+    MicIcon = 'MicIcon',
 }

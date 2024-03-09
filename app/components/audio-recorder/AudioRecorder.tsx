@@ -4,6 +4,7 @@ import audioRecorderStyles from "./AudioRecorder.css";
 import { Button } from "../button/Button";
 import { IconNames } from "~/enums/icons";
 import { useAudioRecorder } from "~/hooks/useAudioRecorder";
+import { Icon } from "../icon/Icon";
 
 export const links: LinksFunction = () => [
     { rel: "stylesheet", href: audioRecorderStyles },
@@ -49,10 +50,13 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
                 onMouseUp={handleStopRecording}
                 onTouchCancel={handleStopRecording}
                 onMouseLeave={handleStopRecording}
+                size="flush"
+                variant="rounded"
                 icon={IconNames.RecordIcon}
                 iconColor={isRecording ? 'destructive' : 'muted'}
                 iconSize="2xl"
             />
+            <Icon name={IconNames.MicIcon} size="lg" color="contrast" />
         </div>
     );
 }
