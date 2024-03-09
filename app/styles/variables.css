@@ -1,6 +1,6 @@
 :root {
 	/* Font Families */
-	--font-primary: 'Poppins', sans-serif;
+	--font-primary: 'Poppins';
 
 	/* Font Sizes */
     --x-small-font-size: 14px;

@@ -1,7 +1,5 @@
-import { IIconDataProps } from "./icon.interfaces";
-
-export const TrashIcon = ({ color }: IIconDataProps) => (
-    <g fill={color}>
+export const TrashIcon = () => (
+    <g fill="currentColor">
         <path d="m82.434 108.08h359.41v-93.516h307.04v93.516h359.41v141.52h-1025.8z" />
         <path d="m176.27 309.59h855.54l-101.7 886.96h-652.15m148.98-749.89-122.53 122.53 165.28 165.28-166.89 166.89 122.53 122.53 166.89-166.89 164.97 164.97 122.69-122.37-156.4-158.8 163.04-163.04-122.53-122.53-163.04 163.04" />
     </g>

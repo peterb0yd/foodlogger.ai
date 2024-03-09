@@ -4,6 +4,7 @@ import { FlexBox, links as flexBoxLinks } from "~/components/flex-box/FlexBox";
 import { Text, links as textLinks } from "~/components/text/Text";
 import { PageRoutes } from "~/enums/routes";
 import styles from './home.styles.css';
+import { IconNames } from "~/enums/icons";
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: styles },
@@ -23,6 +24,8 @@ export default function Home() {
                 <Button
                     to={PageRoutes.LOGS}
                     variant="secondary"
+                    icon={IconNames.ChevronCircleIcon}
+                    iconSide="right"
                 >
                     Go to Logs
                 </Button>

@@ -1,0 +1,20 @@
+
+/** Fill Colors **/
+.Icon[data-color='primary'] {
+    color: var(--color-primary);
+}
+.Icon[data-color='secondary'] {
+    color: var(--color-secondary);
+}
+.Icon[data-color='muted'] {
+    color: var(--color-text-muted);
+}
+.Icon[data-color='contrast'] {
+    color: var(--color-text-contrast);
+}
+.Icon[data-color='base'] {
+    color: var(--color-text);
+}
+.Icon[data-color='destructive'] {
+    color: var(--color-text-destructive);
+}

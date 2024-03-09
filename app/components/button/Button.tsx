@@ -9,30 +9,18 @@ export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: buttonStyles },
 ];
 
-interface ButtonContentProps extends PropsWithChildren {
+interface BaseButtonProps extends PropsWithChildren {
     icon?: IconProps['name'];
     iconColor?: IconProps['color'];
     iconSize?: IconProps['size'];
+    iconSide?: 'left' | 'right';
+    variant?: 'base' | 'primary' | 'secondary' | 'icon';
 }
 
-const ButtonContent = ({ icon, iconColor, iconSize, children }: ButtonContentProps) => {
-    if (icon) {
-        return (
-            <Icon
-                name={icon}
-                color={iconColor}
-                size={iconSize}
-            />
-        );
-    }
-    return children;
-}
-
-interface ButtonProps extends ButtonContentProps, Omit<React.HTMLProps<HTMLButtonElement>, 'type' | 'size'> {
+interface ButtonProps extends BaseButtonProps, Omit<React.HTMLProps<HTMLButtonElement>, 'type' | 'size'> {
     href?: string;
     to?: PageRoutes;
-    size?: 'sm' | 'md' | 'lg';
-    variant?: 'base' | 'primary' | 'secondary' | 'icon';
+    size?: 'flush' | 'sm' | 'md' | 'lg';
     onClick?: () => void;
 }
 
@@ -50,13 +38,8 @@ interface ButtonProps extends ButtonContentProps, Omit<React.HTMLProps<HTMLButto
  *      "icon": a button with an icon and no text 
  *          - if an icon is provided, the variant will be "icon" by default 
  */
-export const Button = ({ href, to, size = "sm", icon, iconColor, iconSize, children, variant = "base", onClick, ...rest }: ButtonProps) => {
+export const Button = ({ href, to, size = "sm", icon, iconSide, iconColor, iconSize, children, variant = "base", onClick, ...rest }: ButtonProps) => {
     const navigate = useNavigate();
-
-    // If the button has an icon, it should be an icon variant
-    if (Boolean(icon)) {
-        variant = 'icon';
-    }
 
     const handleClick = () => {
         if (href) {
@@ -73,6 +56,7 @@ export const Button = ({ href, to, size = "sm", icon, iconColor, iconSize, child
             {...rest}
             onClick={handleClick}
             data-variant={variant}
+            data-icon-side={iconSide}
             data-size={size}
             className="Button"
         >
@@ -80,9 +64,32 @@ export const Button = ({ href, to, size = "sm", icon, iconColor, iconSize, child
                 icon={icon}
                 iconColor={iconColor}
                 iconSize={iconSize}
+                iconSide={iconSide}
+                variant={variant}
             >
                 {children}
             </ButtonContent>
         </button>
     );
+}
+
+const ButtonContent = ({ icon, iconColor, iconSize, iconSide = 'right', variant, children }: BaseButtonProps) => {
+    if (icon && variant === 'icon') {
+        return (
+            <Icon
+                name={icon}
+                color={iconColor}
+                size={iconSize}
+            />
+        );
+    }
+    if (icon) {
+        return (
+            <div className='content-with-icon' data-row-direction={iconSide}>
+                {children}
+                <Icon name={icon} color={iconColor} size={iconSize} />
+            </div>
+        );
+    }
+    return children;
 }
