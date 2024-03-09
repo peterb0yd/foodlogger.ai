@@ -2,141 +2,185 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("PG_DATABASE_URL")
+    provider = "postgresql"
+    url      = env("PG_DATABASE_URL")
 }
 
 model User {
-  id                       String                      @id @default(uuid())
-  email                    String?                      @unique
-  name                     String?
-  phone                    String
-  createdAt                DateTime                    @default(now())
-  updatedAt                DateTime                    @updatedAt
-  stripeCustomerId         String?
-  stripeSubscriptionId     String?
-  stripeSubscriptionStatus StripeSubscriptionStatuses?
-  dailyLogs                DailyLog[]
-  foodLogs                 FoodLog[]
-  session                  Session[]
+    id                       String                      @id @default(uuid())
+    email                    String?                     @unique
+    name                     String?
+    phone                    String
+    createdAt                DateTime                    @default(now())
+    updatedAt                DateTime                    @updatedAt
+    stripeCustomerId         String?
+    stripeSubscriptionId     String?
+    stripeSubscriptionStatus StripeSubscriptionStatuses?
+    dailyLogs                DailyLog[]
+    foodLogs                 FoodLog[]
+    session                  Session[]
+    foodLogTemplates         FoodLogTemplate[]
+    FoodItem                 FoodItem[]
+    UserLogSettings          UserLogSettings[]
 }
 
 model Session {
-  id        String   @id @default(uuid())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  expiresAt DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+    id        String   @id @default(uuid())
+    user      User     @relation(fields: [userId], references: [id])
+    userId    String
+    expiresAt DateTime
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model FoodItem {
-  id           String        @id @default(uuid())
-  name         String
-  foodLogs     FoodLog[]
-  foodLogItems FoodLogItem[]
+    id                  String                @id @default(uuid())
+    name                String
+    createdByUser       User?                 @relation(fields: [createdByUserId], references: [id])
+    createdByUserId     String?
+    isApproved          Boolean               @default(false)
+    foodLogs            FoodLog[]
+    foodLogItems        FoodLogItem[]
+    FoodLogTemplateItem FoodLogTemplateItem[]
 }
 
 model FoodLogItem {
-  id          String             @id @default(uuid())
-  foodItem    FoodItem           @relation(fields: [foodItemId], references: [id])
-  foodItemId  String
-  foodLog     FoodLog            @relation(fields: [foodLogId], references: [id])
-  foodLogId   String
-  preparation PreparationMethods @default(RAW)
-  quantity    Float              @default(1)
-  unit        Units              @default(NONE)
+    id          String             @id @default(uuid())
+    foodItem    FoodItem           @relation(fields: [foodItemId], references: [id])
+    foodItemId  String
+    foodLog     FoodLog            @relation(fields: [foodLogId], references: [id])
+    foodLogId   String
+    preparation PreparationMethods @default(RAW)
+    quantity    Float              @default(1)
+    unit        Units              @default(NONE)
 }
 
 model FoodLog {
-  id          String          @id @default(uuid())
-  user        User            @relation(fields: [userId], references: [id])
-  userId      String
-  foodItems   FoodItem[]
-  image       String?
-  logTime     DateTime?
-  status      FoodLogStatuses @default(DRAFT)
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
-  foodLogItem FoodLogItem[]
+    id           String          @id @default(uuid())
+    user         User            @relation(fields: [userId], references: [id])
+    userId       String
+    foodItems    FoodItem[]
+    image        String?
+    logTime      DateTime?
+    status       FoodLogStatuses @default(DRAFT)
+    foodLogItems FoodLogItem[]
+    createdAt    DateTime        @default(now())
+    updatedAt    DateTime        @updatedAt
+}
+
+model FoodLogTemplate {
+    id                   String                @id @default(uuid())
+    user                 User                  @relation(fields: [userId], references: [id])
+    userId               String
+    name                 String
+    foodLogTemplateItems FoodLogTemplateItem[]
+    createdAt            DateTime              @default(now())
+    updatedAt            DateTime              @updatedAt
+}
+
+model FoodLogTemplateItem {
+    id                String             @id @default(uuid())
+    foodLogTemplate   FoodLogTemplate    @relation(fields: [foodLogTemplateId], references: [id])
+    foodLogTemplateId String
+    foodItem          FoodItem           @relation(fields: [foodItemId], references: [id])
+    foodItemId        String
+    preparation       PreparationMethods @default(RAW)
+    quantity          Float              @default(1)
+    unit              Units              @default(NONE)
+    createdAt         DateTime           @default(now())
+    updatedAt         DateTime           @updatedAt
 }
 
 model DailyLog {
-  id             String   @id @default(uuid())
-  user           User     @relation(fields: [userId], references: [id])
-  userId         String
-  date           DateTime
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  sleepQuality   Int
-  poopQuality    Int
-  moodQuality    Int
-  anxietyQuality Int
+    id             String   @id @default(uuid())
+    user           User     @relation(fields: [userId], references: [id])
+    userId         String
+    date           DateTime
+    createdAt      DateTime @default(now())
+    updatedAt      DateTime @updatedAt
+    sleepQuality   Int
+    workoutQuality Int
+    poopQuality    Int
+    moodQuality    Int
+    anxietyQuality Int
+}
+
+model UserLogSettings {
+    id                String   @id @default(uuid())
+    user              User     @relation(fields: [userId], references: [id])
+    userId            String
+    isTrackingWorkout Boolean  @default(true)
+    isTrackingPoop    Boolean  @default(true)
+    isTrackingMood    Boolean  @default(true)
+    isTrackingAnxiety Boolean  @default(true)
+    isTrackingSleep   Boolean  @default(true)
+    createdAt         DateTime @default(now())
+    updatedAt         DateTime @updatedAt
 }
 
 enum FoodLogStatuses {
-  DRAFT
-  SUBMITTED
-  DELETED
+    DRAFT
+    SUBMITTED
+    DELETED
 }
 
 enum StripeSubscriptionStatuses {
-  ACTIVE
-  CANCELED
-  INCOMPLETE
-  INCOMPLETE_EXPIRED
-  PAST_DUE
-  TRIALING
-  UNPAID
+    ACTIVE
+    CANCELED
+    INCOMPLETE
+    INCOMPLETE_EXPIRED
+    PAST_DUE
+    TRIALING
+    UNPAID
 }
 
 enum Units {
-  CUP
-  TABLESPOON
-  TEASPOON
-  OUNCE
-  POUND
-  GRAM
-  LITER
-  GALLON
-  QUART
-  PINT
-  NONE
+    CUP
+    TABLESPOON
+    TEASPOON
+    OUNCE
+    POUND
+    GRAM
+    LITER
+    GALLON
+    QUART
+    PINT
+    NONE
 }
 
 enum PreparationMethods {
-  STEAMED
-  BOILED
-  FRIED
-  AIR_FRIED
-  BAKED
-  RAW
-  GRILLED
-  SAUTEED
-  ROASTED
-  POACHED
-  BROILED
-  MICROWAVED
-  MARINATED
-  PICKLED
-  SMOKED
-  BRAISED
-  STEWED
-  COOKED
-  PRESSURE_COOKED
-  SLOW_COOKED
-  FERMENTED
-  CANNED
-  DEHYDRATED
-  FREEZE_DRIED
-  DRIED
-  CURED
-  SALTED
-  SUGARED
-  CANDIED
-  JAMMED
+    STEAMED
+    BOILED
+    FRIED
+    AIR_FRIED
+    BAKED
+    RAW
+    GRILLED
+    SAUTEED
+    ROASTED
+    POACHED
+    BROILED
+    MICROWAVED
+    MARINATED
+    PICKLED
+    SMOKED
+    BRAISED
+    STEWED
+    COOKED
+    PRESSURE_COOKED
+    SLOW_COOKED
+    FERMENTED
+    CANNED
+    DEHYDRATED
+    FREEZE_DRIED
+    DRIED
+    CURED
+    SALTED
+    SUGARED
+    CANDIED
+    JAMMED
 }

@@ -1,10 +1,11 @@
 import { LinksFunction } from '@remix-run/node';
 import { PropsWithChildren } from 'react';
-import { Logo } from '~/components/logo/Logo';
+import { Logo, links as logoLinks } from '~/components/logo/Logo';
 import styles from './MainLayout.css';
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: styles },
+    ...logoLinks(),
 ];
 
 export const MainLayout = ({ children }: PropsWithChildren) => {

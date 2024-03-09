@@ -1,6 +1,4 @@
 import type {
-    ActionFunction,
-    ActionFunctionArgs,
     LinksFunction,
     LoaderFunction,
     LoaderFunctionArgs,
@@ -15,10 +13,17 @@ import { COOKIE_NAME } from "~/api/modules/session/session.constants";
 import { RequestMethods } from "~/enums/requests";
 import countryCodes from "./countryCodes";
 import { useState } from "react";
+import { Select, links as selectLinks } from "~/components/select/Select";
+import { Input, links as inputLinks } from "~/components/input/Input";
+import { Button, links as buttonLinks } from "~/components/button/Button";
+import { IconNames } from "~/enums/icons";
 
 export const links: LinksFunction = () => [
     ...flexBoxLinks(),
+    ...selectLinks(),
+    ...inputLinks(),
     ...textLinks(),
+    ...buttonLinks(),
 ];
 
 export const loader: LoaderFunction = async ({
@@ -42,6 +47,11 @@ export default function Login() {
     const [countryCode, setCountryCode] = useState<string>(countryCodes[0].code);
     const submit = useSubmit();
 
+    const countryCodeOptions = countryCodes.map(({ code, name }) => ({
+        value: code,
+        label: `${name} (${code})`,
+    }));
+
     const onFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.target as HTMLFormElement);
@@ -56,36 +66,37 @@ export default function Login() {
     }
 
     return (
-        <FlexBox center col width="full">
-            <Form onSubmit={onFormSubmit}>
-                <FlexBox col gap="md" justify="center" align="center">
-                    <Text size="md">Enter your phone number</Text>
-                    <FlexBox gap="sm" width='max'>
-                        <CountryCodeSelect value={countryCode} onSelect={setCountryCode} />
-                        <label>
-                            <input type="text" name="phone" />
-                        </label>
-                    </FlexBox>
-                    {error ? <div className="error">{error}</div> : null}
+        <Form onSubmit={onFormSubmit}>
+            <FlexBox col gap="lg" justify="center" align="center">
+                <Text size="md">Enter your phone number</Text>
+                <FlexBox gap="sm" width='max'>
+                    <Select
+                        value={countryCode}
+                        options={countryCodeOptions}
+                        name="countryCode"
+                        label="Code"
+                        size="sm"
+                        autoComplete="tel-country-code"
+                        onSelect={setCountryCode}
+                    />
+                    <Input
+                        type="tel"
+                        name="phone"
+                        label="Number"
+                        pattern="[0-9]{10}"
+                        required
+                        autoComplete="tel-national"
+                    />
                 </FlexBox>
-            </Form>
-        </FlexBox>
-    );
-}
-
-interface CountryCodeSelectProps {
-    value: string;
-    onSelect: (value: string) => void;
-}
-
-const CountryCodeSelect = ({ value, onSelect }: CountryCodeSelectProps) => {
-    return (
-        <select value={value} onChange={(e) => onSelect(e.target.value)}>
-            {countryCodes.map(({ code, name }) => (
-                <option key={code} value={code}>
-                    {`${name} (${code})`}
-                </option>
-            ))}
-        </select>
+                <Button
+                    variant="primary"
+                    icon={IconNames.ChevronCircleIcon}
+                    iconSize='sm'
+                >
+                    Login
+                </Button>
+                {error ? <div className="error">{error}</div> : null}
+            </FlexBox>
+        </Form >
     );
 }

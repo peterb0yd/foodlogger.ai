@@ -4,12 +4,11 @@
     max-width: 400px;
     margin: 0 auto;
     display: grid;
-    gap: 1rem;
 }
 
 .MainLayout-Header {
     grid-row: 1;
-    padding-top: 1rem;
+    height: var(--header-height);
     display: flex;
     justify-content: center;
     align-items: center;

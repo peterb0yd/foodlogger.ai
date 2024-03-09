@@ -23,7 +23,6 @@ export class FoodLogItemRepository {
 	static async create(foodLogItem: Prisma.FoodLogItemUncheckedCreateInput) {
 		const data = Prisma.validator<Prisma.FoodLogItemUncheckedCreateInput>()(foodLogItem);
 		try {
-            console.log({data});
 			const createdFoodItem = await prisma.foodLogItem.create({ data });
 			return createdFoodItem;
 		} catch (error) {

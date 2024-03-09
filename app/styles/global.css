@@ -14,80 +14,87 @@ body {
 	background-color: var(--color-surface);
 }
 
+input,
+select {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
 /** Widths **/
 [data-width='full'] {
-    width: 100%;
+	width: 100%;
 }
 [data-width='max'] {
-    width: max-content;
+	width: max-content;
 }
 
 /** Heights **/
 [data-height='full'] {
-    height: 100%;
+	height: 100%;
 }
 [data-height='max'] {
-    height: max-content;
+	height: max-content;
 }
 
 /** Borders **/
 [data-border='thin'] {
-    border: 0.125rem solid var(--color-text);
+	border: 0.125rem solid var(--color-text);
 }
 [data-border='base'] {
-    border: 0.25rem solid var(--color-text);
+	border: 0.25rem solid var(--color-text);
 }
 [data-border='thick'] {
-    border: 0.5rem solid var(--color-text);
+	border: 0.5rem solid var(--color-text);
 }
 [data-border='muted'] {
-    border: 0.25rem solid var(--color-text-muted);
+	border: 0.25rem solid var(--color-text-muted);
 }
 [data-border='contrast'] {
-    border: 0.25rem solid var(--color-text-contrast);
+	border: 0.25rem solid var(--color-text-contrast);
 }
 
 /** Border Radius **/
 [data-border-radius='xs'] {
-    border-radius: 0.125rem;
+	border-radius: 0.125rem;
 }
 [data-border-radius='sm'] {
-    border-radius: 0.25rem;
+	border-radius: 0.25rem;
 }
 [data-border-radius='md'] {
-    border-radius: 0.5rem;
+	border-radius: 0.5rem;
 }
 [data-border-radius='rounded'] {
-    border-radius: 1rem;
+	border-radius: 1rem;
 }
 [data-border-radius='full'] {
-    border-radius: 50%;
+	border-radius: 50%;
 }
 
 /** Background Colors **/
 [data-bg='base'] {
-    background-color: var(--color-surface);
+	background-color: var(--color-surface);
 }
 [data-bg='muted'] {
-    background-color: var(--color-surface-muted);
+	background-color: var(--color-surface-muted);
 }
 [data-bg='contrast'] {
-    background-color: var(--color-surface-contrast);
+	background-color: var(--color-surface-contrast);
 }
 
 /** Text Colors **/
 [data-text-muted] {
-    color: var(--color-text-muted);
+	color: var(--color-text-muted);
 }
 [data-text-contrast] {
-    color: var(--color-text-contrast);
+	color: var(--color-text-contrast);
 }
 [data-text='destructive'] {
-    color: var(--color-text-destructive);
+	color: var(--color-text-destructive);
 }
 [data-text='primary'] {
-    color: var(--color-primary);
+	color: var(--color-primary);
 }
 [data-text='secondary'] {
-    color: var(--color-secondary);
+	color: var(--color-secondary);
 }

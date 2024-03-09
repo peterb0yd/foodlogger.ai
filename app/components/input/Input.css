@@ -1,0 +1,46 @@
+.Input {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	font-weight: 600;
+	font-family: var(--font-primary);
+	color: var(--color-primary);
+    
+	input {
+        background-color: var(--color-surface-contrast);
+		border: var(--input-border);
+		color: var(--color-text-contrast);
+        padding: calc(var(--input-padding) + 0.5px); /* added 0.5px to make same height as select */
+        border-radius: var(--input-border-radius);
+        height: var(--input-height);
+	}
+	& input:hover {
+		border: var(--input-border-hover);
+	}
+	& input:focus {
+		border: var(--input-border-focus);
+	}
+}
+
+.InputWithIcon {
+	display: flex;
+	align-items: center;
+	background-color: var(--color-surface-contrast);
+	border: 1px solid var(--color-surface-muted);
+	gap: 0.5rem;
+
+	input {
+        background-color: var(--color-surface-contrast);
+		border: var(--input-border);
+		color: var(--color-text-contrast);
+        padding: calc(var(--input-padding) + 0.5px); /* added 0.5px to make same height as select */
+        border-radius: var(--input-border-radius);
+        height: var(--input-height);
+	}
+	& input:hover {
+		border-color: var(--input-border-hover);
+	}
+	& input:focus {
+		border-color: var(--input-border-focus);
+	}
+}

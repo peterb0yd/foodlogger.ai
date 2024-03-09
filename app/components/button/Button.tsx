@@ -40,7 +40,7 @@ interface ButtonProps extends BaseButtonProps, Omit<React.HTMLProps<HTMLButtonEl
  *      "icon": a button with an icon and no text 
  *          - if an icon is provided, the variant will be "icon" by default 
  */
-export const Button = ({ href, to, size = "sm", icon, iconSide, iconColor, iconSize, children, variant = "base", onClick, ...rest }: ButtonProps) => {
+export const Button = ({ href, to, size = "sm", icon, iconSide, iconColor, iconSize = "sm", children, variant = "base", onClick, ...rest }: ButtonProps) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
