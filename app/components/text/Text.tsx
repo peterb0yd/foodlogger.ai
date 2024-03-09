@@ -8,7 +8,7 @@ export const links: LinksFunction = () => [
 
 interface TextProps extends PropsWithChildren {
     size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
-    weight?: "light" | "regular" | "bold";
+    weight?: "thin" | "light" | "regular" | "bold" | "extra-bold" | "black";
     color?: "base" | 'muted' | "contrast" | "primary" | "secondary";
     lineHeight?: "none" | "tight" | "normal" | "loose";
     align?: "left" | "center" | "right";

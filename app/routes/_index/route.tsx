@@ -15,8 +15,11 @@ export const links: LinksFunction = () => [
 export default function Home() {
     return (
         <div className="Home">
-            <FlexBox center col gap="lg">
-                <Text size="lg" weight="bold">foodlogger.ai</Text>
+            <FlexBox center col gap="xl">
+                <FlexBox col gap="md" align="center">
+                <Text size="lg" weight="black" lineHeight="tight">{`Meal tracking made simple.`}</Text>
+                <Text size="md" lineHeight="tight">{`[I'm a work in progress. Don't judge me.]`}</Text>
+                </FlexBox>
                 <Button
                     to={PageRoutes.LOGS}
                     variant="secondary"

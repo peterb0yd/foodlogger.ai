@@ -62,14 +62,20 @@
 }
 
 /** Weights */
+.Text[data-weight='thin'] {
+    font-weight: 100;
+}
 .Text[data-weight='light'] {
-	font-weight: 300;
+	font-weight: 200;
 }
 .Text[data-weight='regular'] {
 	font-weight: 400;
 }
 .Text[data-weight='bold'] {
 	font-weight: 600;
+}
+.Text[data-weight='black'] {
+    font-weight: 900;
 }
 
 /** Line Heights */
