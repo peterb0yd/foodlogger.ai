@@ -1,20 +1,10 @@
-import { Form, useFetcher, useLoaderData } from "@remix-run/react";
-import { APIRoutes } from "~/enums/routes";
-import { RequestMethods } from "~/enums/requests";
+import { useLoaderData } from "@remix-run/react";
 import { SessionService } from "~/api/modules/session/session.service";
 import { LinksFunction, LoaderFunction, json } from "@remix-run/node";
 import { FlexBox, links as flexBoxLinks } from "~/components/flex-box/FlexBox";
-import { Text, links as textLinks } from "~/components/text/Text";
 import logsStyles from './logs.styles.css';
-import { isFetcherLoading } from "~/utils/fetcherLoading";
 import { FoodLogService } from "~/api/modules/food-log/food-log.service";
-import { IconNames } from "~/enums/icons";
-import { FoodLog } from '@prisma/client';
-import styles from './Timeline.css';
-import { Button, links as buttonLinks } from '~/components/button/Button';
-import { useState } from 'react';
-import { Divider, links as dividerLinks } from '~/components/divider/Divider';
-import { Icon } from '~/components/icon/Icon';
+import {links as buttonLinks } from '~/components/button/Button';
 import { TimelineBlock, links as timelineBlockLinks } from "./timeline-block/TimelineBlock";
 
 const TIMES = [
@@ -32,9 +22,7 @@ const EVENING_BLOCK = TIMES.slice(18, 24);
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: logsStyles },
     ...flexBoxLinks(),
-    ...textLinks(),
     ...buttonLinks(),
-    ...dividerLinks(),
     ...timelineBlockLinks(),
 ];
 
@@ -51,9 +39,9 @@ export default function FoodLogsPage() {
     // TODO: add food logs to timeline
 
     return (
-        <FlexBox col center width="full">
+        <FlexBox col center width="full" padBottom='1/3'>
             <div className="timeline">
-                <FlexBox col gap="xl" width="full" padBottom='1/3'>
+                <FlexBox col gap="xl" width="full">
                     <TimelineBlock times={EARLY_MORNING_BLOCK} name="Early Morning" userId={userId} />
                     <TimelineBlock times={MORNING_BLOCK} name="Morning" userId={userId} />
                     <TimelineBlock times={AFTERNOON_BLOCK} name="Afternoon" userId={userId} />
