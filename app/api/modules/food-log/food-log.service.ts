@@ -10,12 +10,12 @@ import { FoodLogRepository } from "./food-log.repository";
 
 export class FoodLogService {
     static async create(foodLogData: IFoodLogRequestData) {
-        const { userId, time } = foodLogData;
-        if (!userId || !time) {
-            throw new Error('User ID and a Time is required');
+        const { userId, logTime } = foodLogData;
+        if (!userId || !logTime) {
+            throw new Error('User ID and a LogTime is required');
         }
         return FoodLogRepository.create(
-            foodLogDataToFoodLog({ userId, time }),
+            foodLogDataToFoodLog({ userId, logTime }),
         );
     }
 

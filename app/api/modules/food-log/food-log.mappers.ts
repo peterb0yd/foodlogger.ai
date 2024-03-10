@@ -3,7 +3,7 @@ import { IFoodLogRequestData } from "./food-log.interfaces";
 
 export const foodLogDataToFoodLog = (foodLogData: IFoodLogRequestData) => {
     return {
-        time: new Date(foodLogData.time),
+        logTime: new Date(foodLogData.logTime),
         user: {
             connect: {
                 id: foodLogData.userId

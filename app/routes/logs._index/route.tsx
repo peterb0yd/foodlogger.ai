@@ -42,7 +42,6 @@ export const loader: LoaderFunction = async ({ request }) => {
     const userId = await SessionService.requireAuth(request);
     const today = new Date();
     const foodLogs = await FoodLogService.findLogsForDate(userId, today);
-    console.log({ userId, foodLogs });
     return json({ userId, foodLogs });
 }
 
@@ -54,7 +53,7 @@ export default function FoodLogsPage() {
     return (
         <FlexBox col center width="full">
             <div className="timeline">
-                <FlexBox col gap="xl" width="full">
+                <FlexBox col gap="xl" width="full" padBottom='1/3'>
                     <TimelineBlock times={EARLY_MORNING_BLOCK} name="Early Morning" userId={userId} />
                     <TimelineBlock times={MORNING_BLOCK} name="Morning" userId={userId} />
                     <TimelineBlock times={AFTERNOON_BLOCK} name="Afternoon" userId={userId} />

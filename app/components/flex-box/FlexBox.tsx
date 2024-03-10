@@ -4,6 +4,7 @@ import flexBoxStyles from './FlexBox.css';
 
 interface FlexBoxProps extends PropsWithChildren {
     col?: boolean;
+    padBottom?: '1/4' | '1/3' | '1/2';
     center?: boolean;
     grow?: boolean;
     justify?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
@@ -36,6 +37,7 @@ export const FlexBox = ({
     bg,
     border,
     borderRadius,
+    padBottom,
     children,
 }: FlexBoxProps) => {
     if (center) {
@@ -57,6 +59,7 @@ export const FlexBox = ({
             data-bg={bg}
             data-border={border}
             data-border-radius={borderRadius}
+            data-pad-bottom={padBottom}
         >
             {children}
         </Component>

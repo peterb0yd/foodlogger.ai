@@ -2,35 +2,30 @@
 	--dot-size: 20px;
 
 	width: 100%;
-	margin: 0 auto;
     position: relative;
 
 	ul form {
         display: flex;
-        flex-grow: 1;
         width: 100%;
 
 		button {
             display: block;
             flex-grow: 1;
-            width: 100%;
 			background-color: var(--color-surface-muted);
 
 			&:hover {
 				background-color: var(--color-surface-highlight);
-				box-shadow: 0px 0px 10px 0px var(--color-shadow-light);
+				box-shadow: 0px 0px 10px 0px var(--color-shadow);
 			}
 
 			&:active {
 				background-color: var(--color-surface-muted);
-				box-shadow: 0px 0px 10px 0px var(--color-shadow-dark);
+				box-shadow: 0px 0px 10px 0px var(--color-shadow);
 			}
 
 			li {
 				position: relative;
 				margin: 0;
-				padding: 0 1rem;
-				height: calc(var(--dot-size) * 2);
 
 				span {
 					width: 120px;
