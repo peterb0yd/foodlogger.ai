@@ -1,7 +1,6 @@
 .Button {
-	border: none;
 	text-align: center;
-	font-size: var(--medium-font-size);
+	font-size: var(--font-size-md);
 	font-weight: bold;
 	cursor: pointer;
 	user-select: none;
@@ -30,17 +29,21 @@
 .Button[data-size="flush"] {
     padding: 0;
 }
+.Button[data-size="xs"] {
+    padding: 5px;
+    font-size: var(--font-size-sm);
+}
 .Button[data-size='sm'] {
-	padding: 10px 20px;
-	font-size: var(--small-font-size);
+	padding: 10px;
+	font-size: var(--font-size-base);
 }
 .Button[data-size='md'] {
-	padding: 15px 30px;
-	font-size: var(--medium-font-size);
+	padding: 15px;
+	font-size: var(--font-size-md);
 }
 .Button[data-size='lg'] {
-	padding: 20px 40px;
-	font-size: var(--large-font-size);
+	padding: 20px;
+	font-size: var(--font-size-lg);
 }
 
 
@@ -51,6 +54,17 @@
 .Button[data-variant='rounded'] {
     border-radius: 100%;
     background: none;
+}
+.Button[data-variant='muted'] {
+    background: var(--color-surface-muted);
+    &:hover {
+        background-color: var(--color-surface-highlight);
+        box-shadow: 0px 0px 10px 0px var(--color-surface-highlight);
+	}
+	&:active {
+		background-color: var(--color-surface-highlight);
+        box-shadow: 0px 0px 10px 0px var(--color-surface-muted);
+	}
 }
 .Button[data-variant='primary'] {
     border-radius: 10px;

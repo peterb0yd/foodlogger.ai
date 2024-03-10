@@ -11,6 +11,8 @@ import { useSWEffect, LiveReload } from '@remix-pwa/sw';
 import globalStyles from "~/styles/global.css";
 import variables from "~/styles/variables.css";
 import fonts from "~/styles/fonts.css";
+import 'react-loading-skeleton/dist/skeleton.css';
+import { SkeletonTheme } from "react-loading-skeleton";
 
 export const links: LinksFunction = () => [
     ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -31,7 +33,12 @@ export default function App() {
                 <Links />
             </head>
             <body>
-                <Outlet />
+                <SkeletonTheme
+                    baseColor="var(--color-surface-muted)"
+                    highlightColor="var(--color-surface-highlight)"
+                >
+                    <Outlet />
+                </SkeletonTheme>
                 <ScrollRestoration />
                 <Scripts />
                 <LiveReload />

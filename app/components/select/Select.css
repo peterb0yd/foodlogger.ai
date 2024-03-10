@@ -1,20 +1,24 @@
 .Select {
 	display: flex;
 	flex-direction: column;
-	gap: 0.25rem;
+	text-transform: uppercase;
+	gap: var(--input-label-gap);
 	font-family: var(--font-primary);
 	font-size: var(--font-size-base);
 	font-weight: 600;
 	color: var(--color-primary);
 
 	select {
-        cursor: pointer;
-        background-color: var(--color-surface-contrast);
+		cursor: pointer;
+		background-color: var(--color-surface-contrast);
 		border: var(--input-border);
 		color: var(--color-text-contrast);
-        padding: var(--input-padding);
-        border-radius: var(--input-border-radius);
-        height: var(--input-height);
+		padding: var(--input-padding);
+		border-radius: var(--input-border-radius);
+		height: var(--input-height);
+		font-size: var(--font-size-base);
+        line-height: 1rem;
+        margin: 0;
 	}
 	& select:hover {
 		border: var(--input-border-hover);
@@ -26,7 +30,7 @@
 
 /** Sizes **/
 .Select[data-size='sm'] {
-	width: 100px;
+	width: 120px;
 }
 .Select[data-size='md'] {
 	width: 200px;

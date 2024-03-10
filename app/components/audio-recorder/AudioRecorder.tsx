@@ -51,7 +51,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
                 onTouchCancel={handleStopRecording}
                 onMouseLeave={handleStopRecording}
                 size="flush"
-                variant="rounded"
+                borderRadius="full"
                 icon={IconNames.RecordIcon}
                 iconColor={isRecording ? 'destructive' : 'muted'}
                 iconSize="2xl"

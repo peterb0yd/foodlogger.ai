@@ -29,8 +29,8 @@ export default function Home() {
                         <Button
                             to={PageRoutes.LOGS}
                             variant="secondary"
+                            size="lg"
                             icon={IconNames.ChevronCircleIcon}
-                            iconSize="sm"
                             iconSide="right"
                         >
                             Go to Logs

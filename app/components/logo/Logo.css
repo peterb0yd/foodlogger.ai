@@ -29,20 +29,20 @@
 	margin: 0.125rem;
 	border-width: 1px;
     h4 {
-        font-size: var(--small-font-size);
+        font-size: var(--font-size-sm);
     }
 }
 .Logo[data-size='md'] {
 	margin: 0.25rem;
 	border-width: 2px;
     h4 {
-        font-size: var(--medium-font-size);
+        font-size: var(--font-size-md);
     }
 }
 .Logo[data-size='lg'] {
 	margin: 0.5rem;
 	border-width: 4px;
     h4 {
-        font-size: var(--large-font-size);
+        font-size: var(--font-size-lg);
     }
 }

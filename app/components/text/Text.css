@@ -39,28 +39,28 @@
 
 /** Sizes */
 .Text[data-size='xs'] {
-	font-size: var(--x-small-font-size);
+	font-size: var(--font-size-xs);
 }
 .Text[data-size='sm'] {
-	font-size: var(--small-font-size);
+	font-size: var(--font-size-sm);
 }
 .Text[data-size='base'] {
-    font-size: var(--base-font-size);
+    font-size: var(--font-size-base);
 }
 .Text[data-size='md'] {
-	font-size: var(--medium-font-size);
+	font-size: var(--font-size-md);
 }
 .Text[data-size='lg'] {
-	font-size: var(--large-font-size);
+	font-size: var(--font-size-lg);
 }
 .Text[data-size='xl'] {
-	font-size: var(--x-large-font-size);
+	font-size: var(--font-size-xl);
 }
 .Text[data-size='2xl'] {
-	font-size: var(--xx-large-font-size);
+	font-size: var(--font-size-2xl);
 }
 .Text[data-size='3xl'] {
-    font-size: var(--xxx-large-font-size);
+    font-size: var(--font-size-3xl);
 }
 
 /** Weights */

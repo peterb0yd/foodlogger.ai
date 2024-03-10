@@ -1,11 +1,9 @@
-import { LinksFunction, LoaderFunction, json, redirect } from "@remix-run/node";
-import { Overlay, links as overlayLinks } from "~/components/overlay/Overlay";
-import { Modal, links as modalLinks } from "~/components/modal/Modal";
+import { LinksFunction, LoaderFunction, json } from "@remix-run/node";
 import { Text } from "~/components/text/Text";
 import { APIRoutes, PageRoutes } from "~/enums/routes";
 import { AudioRecorder, links as audioRecLinks } from "~/components/audio-recorder/AudioRecorder";
 import { FlexBox } from "~/components/flex-box/FlexBox";
-import { Form, useLoaderData, useParams, useSubmit } from "@remix-run/react";
+import { Form, useFetcher, useLoaderData, useParams, useSubmit } from "@remix-run/react";
 import { FoodLogItemService } from "~/api/modules/food-log-item/food-log-item.service";
 import { IFoodLogItemWithFoodItem } from "~/api/modules/food-log-item/food-log-item.interfaces";
 import { SessionService } from "~/api/modules/session/session.service";
@@ -14,11 +12,14 @@ import { Button, links as buttonLinks } from "~/components/button/Button";
 import { IconNames } from "~/enums/icons";
 import { RequestMethods } from "~/enums/requests";
 import pageStyles from './edit-log.styles.css';
+import { Repeater } from "~/components/repeater/Repeater";
+import Skeleton from "react-loading-skeleton";
+import { Divider, links as dividerLinks } from "~/components/divider/Divider";
+import { useEffect, useState } from "react";
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: pageStyles },
-    ...overlayLinks(),
-    ...modalLinks(),
+    ...dividerLinks(),
     ...buttonLinks(),
     ...audioRecLinks(),
 ];
@@ -32,11 +33,27 @@ export const loader: LoaderFunction = async (context) => {
 
 export default function EditFoodLogPage() {
     const loaderData = useLoaderData<typeof loader>();
-    const submitLogItem = useSubmit();
+    const submitter = useFetcher();
     const params = useParams();
+    const [hasScrolled, setHasScrolled] = useState(false);
     const { foodLogItems } = loaderData;
     const foodLogId = params.id as string;
+    const isLoading = submitter.state === 'loading' || submitter.state === 'submitting';
 
+    useEffect(() => {
+        // Check for scroll position to add background box shadow
+        const handleScroll = () => {
+            if (window.scrollY > 0) {
+                setHasScrolled(true);
+            } else {
+                setHasScrolled(false);
+            }
+        }
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [])
+
+    // Submits the audio blob to the server but doesn't change page
     const handleNewAudioLog = async (audioBlob: Blob) => {
         if (!audioBlob) return;
         const formData = new FormData();
@@ -45,7 +62,7 @@ export default function EditFoodLogPage() {
         reader.onloadend = () => {
             formData.append("audio", reader.result as string);
             formData.append("foodLogId", foodLogId)
-            submitLogItem(formData, {
+            submitter.submit(formData, {
                 method: RequestMethods.POST,
                 action: APIRoutes.FOOD_ITEM_LOGS,
                 navigate: false
@@ -54,72 +71,109 @@ export default function EditFoodLogPage() {
     }
 
     return (
-        <div className="EditLog">
-            <FlexBox center col width="full" gap="md">
-                <FlexBox col gap="md" align="center">
-                    <Text size="xl" weight="bold" align="center" lineHeight="tight">
-                        {`Log Your Meal`}
-                    </Text>
-                    <FlexBox col gap="sm" center>
-                        <Text align="center" lineHeight="tight">
-                            {`Hold down the mic button and speak the name and quantity for each item in your meal."`}
-                        </Text>
-                        <Text size="xs" color="muted" align="center" lineHeight="tight">
-                            {`Example: "I had a cup of steamed brocolli, a cup of hash browns and two eggs."`}
-                        </Text>
+        <main className="EditLog">
+            <Text size="xl" color="primary" weight="bold" align="center" lineHeight="tight">
+                {`Log Your Meal`}
+            </Text>
+            <header>
+                <div className="background-box" data-visible={hasScrolled} />
+                <FlexBox center col width="full" gap="xl">
+                    <FlexBox col gap="lg" align="center">
+                        <FlexBox col gap="md" center>
+                            <Text align="center">
+                                {`Hold down the microphone button, then say what you've eaten and how much.`}
+                            </Text>
+                            <Text size="xs" color="muted" align="center" lineHeight="tight">
+                                {`Example: "I had a cup of steamed brocolli, a cup of hash browns and two eggs."`}
+                            </Text>
+                        </FlexBox>
                     </FlexBox>
-                    <Text size="2xl" lineHeight="tight">👇</Text>
+                    <AudioRecorder
+                        onStart={() => console.log('Recording started')}
+                        onStop={handleNewAudioLog}
+                    />
                 </FlexBox>
-                <AudioRecorder
-                    onStart={() => console.log('Recording started')}
-                    onStop={handleNewAudioLog}
-                />
+            </header>
+            <section>
                 <FoodLogItemList
                     logItems={foodLogItems}
+                    isLoading={isLoading}
                 />
-            </FlexBox>
-        </div>
+            </section>
+        </main>
     );
 }
 
 interface FoodLogItemsProps {
-    logItems: IFoodLogItemWithFoodItem[]
+    logItems: IFoodLogItemWithFoodItem[];
+    isLoading: boolean;
 }
 
-const FoodLogItemList = ({ logItems }: FoodLogItemsProps) => {
-    if (!logItems?.length) {
+const FoodLogItemList = ({ logItems, isLoading }: FoodLogItemsProps) => {
+    const hasLogItems = Boolean(logItems?.length);
+    if (!hasLogItems && !isLoading) {
         return <Text>No food logs yet...</Text>;
     }
     return (
-        <FlexBox col gap="md" bg="muted">
-            {logItems.map(logItem => <FoodLogItem logItem={logItem} />)}
+        <FlexBox col gap="md" width="full">
+            {logItems?.map((logItem, i) => (
+                <FoodLogItem
+                    key={logItem.id}
+                    logItem={logItem}
+                    isFirst={i === 0}
+                />
+            ))}
+            {isLoading && (
+                <Repeater count={3}>
+                    {hasLogItems && <Divider />}
+                    <FlexBox gap="md" width="full">
+                        <Skeleton height="2rem" width="80px" />
+                        <Skeleton height="2rem" width="100px" />
+                        <Skeleton height="2rem" containerClassName="skeleton-flex-grow" />
+                        <Skeleton height="2rem" width="60px" />
+                    </FlexBox>
+                </Repeater>
+            )}
         </FlexBox>
     );
 }
 
-const FoodLogItem = ({ logItem }: { logItem: IFoodLogItemWithFoodItem }) => {
+const FoodLogItem = ({ logItem, isFirst }: { logItem: IFoodLogItemWithFoodItem, isFirst: boolean; }) => {
     const quantity = logItem.quantity;
     const unit = logItem.unit.toLowerCase();
+    const unitText = unit === 'none' ? '' : ` ${unit}`;
     const name = startCase(logItem.foodItem.name);
     const preparation = logItem.preparation.toLowerCase();
 
     return (
-        <FlexBox justify="between" bg="base" border="thin">
-            <Text
-                size="sm"
-                weight="light"
-                align="center"
-                lineHeight="tight"
-            >
-                {name}: {quantity} {unit} - {preparation}
-            </Text>
-            <Form method={RequestMethods.DELETE} action={APIRoutes.FOOD_ITEM_LOGS} navigate={false}>
-                <input type="hidden" name="id" value={logItem.id} />
-                <Button
-                    icon={IconNames.TrashIcon}
-                    iconColor="destructive"
-                />
-            </Form>
-        </FlexBox>
+        <>
+            {!isFirst && <Divider />}
+            <FlexBox align="center" justify="between" width="full">
+                <FlexBox gap="md" align="center">
+                    <Text weight="bold" lineHeight="none">
+                        {name}
+                    </Text>
+                    <Text>{` • `}</Text>
+                    <Text lineHeight="none">
+                        {quantity}{unitText}
+                    </Text>
+                    <Text>{` • `}</Text>
+                    <Text lineHeight="none">
+                        {preparation}
+                    </Text>
+                </FlexBox>
+
+                <Form method={RequestMethods.DELETE} action={APIRoutes.FOOD_ITEM_LOGS} navigate={false}>
+                    <input type="hidden" name="id" value={logItem.id} />
+                    <Button
+                        icon={IconNames.TrashIcon}
+                        iconColor="destructive"
+                        borderRadius="sm"
+                        size="sm"
+                        variant="muted"
+                    />
+                </Form>
+            </FlexBox>
+        </>
     );
 }

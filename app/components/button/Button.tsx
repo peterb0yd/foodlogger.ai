@@ -14,14 +14,15 @@ interface BaseButtonProps extends PropsWithChildren {
     iconColor?: IconProps['color'];
     iconSize?: IconProps['size'];
     iconSide?: 'left' | 'right';
-    variant?: 'base' | 'primary' | 'secondary' | 'rounded' | 'icon';
+    variant?: 'base' | 'primary' | 'secondary' | 'muted' | 'icon';
 }
 
 interface ButtonProps extends BaseButtonProps, Omit<React.HTMLProps<HTMLButtonElement>, 'type' | 'size'> {
     href?: string;
     to?: PageRoutes;
-    size?: 'flush' | 'sm' | 'md' | 'lg';
-    rounded?: boolean;
+    size?: 'flush' | 'xs' | 'sm' | 'md' | 'lg';
+    border?: 'none' | 'thin' | 'base' | 'thick' | 'muted' | 'contrast';
+    borderRadius?: 'xs' | 'sm' | 'md' | 'rounded' | 'full';
     onClick?: () => void;
 }
 
@@ -36,11 +37,12 @@ interface ButtonProps extends BaseButtonProps, Omit<React.HTMLProps<HTMLButtonEl
  *      "base": a simple button with no styles
  *      "primary": a button with primary styles
  *      "secondary": a button with secondary styles
+        "muted": a button with muted background
  *      "rounded": a circular button with no other styles
  *      "icon": a button with an icon and no text 
  *          - if an icon is provided, the variant will be "icon" by default 
  */
-export const Button = ({ href, to, size = "sm", icon, iconSide, iconColor, iconSize = "sm", children, variant = "base", onClick, ...rest }: ButtonProps) => {
+export const Button = ({ href, to, size = "sm", icon, iconSide, iconColor, border = 'none', borderRadius, iconSize = "sm", children, variant = "base", onClick, ...rest }: ButtonProps) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -60,6 +62,8 @@ export const Button = ({ href, to, size = "sm", icon, iconSide, iconColor, iconS
             data-variant={variant}
             data-icon-side={iconSide}
             data-size={size}
+            data-border={border}
+            data-border-radius={borderRadius}
             className="Button"
         >
             <ButtonContent
@@ -87,7 +91,10 @@ const ButtonContent = ({ icon, iconColor, iconSize, iconSide = 'right', variant,
     }
     if (icon) {
         return (
-            <div className='content-with-icon' data-row-direction={iconSide}>
+            <div
+                className='content-with-icon'
+                data-row-direction={iconSide}
+            >
                 {children}
                 <Icon name={icon} color={iconColor} size={iconSize} />
             </div>

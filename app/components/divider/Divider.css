@@ -1,0 +1,23 @@
+.Divider {
+	width: 100%;
+	height: 1px;
+}
+
+/** Margins **/
+.Divider[data-margin='tight'] {
+	margin: 2px 0;
+}
+.Divider[data-margin='loose'] {
+	margin: 6px 0;
+}
+
+/** Color **/
+.Divider[data-color='muted'] {
+	background-color: var(--color-surface-muted);
+}
+.Divider[data-color='highlight'] {
+	background-color: var(--color-surface-highlight);
+}
+.Divider[data-color='primary'] {
+	background-color: var(--color-primary);
+}

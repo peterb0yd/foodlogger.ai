@@ -3,14 +3,14 @@
 	--font-primary: 'Poppins';
 
 	/* Font Sizes */
-    --x-small-font-size: 12px;
-    --small-font-size: 14px;
-    --base-font-size: 16px;
-    --medium-font-size: 18px;
-    --large-font-size: 20px;
-    --x-large-font-size: 26px;
-    --xx-large-font-size: 30px;
-    --xxx-large-font-size: 38px;
+    --font-size-xs: 12px;
+    --font-size-sm: 14px;
+    --font-size-base: 16px;
+    --font-size-md: 18px;
+    --font-size-lg: 20px;
+    --font-size-xl: 26px;
+    --font-size-2xl: 30px;
+    --font-size-3xl: 38px;
 
     /* Z-Index */
     --z-index-base: 0;
@@ -27,12 +27,14 @@
     --input-border-focus: 3px solid var(--color-primary-light);
     --input-padding: 0.5rem;
     --input-border-radius: 0.25rem;
-    --input-height: 2.5rem;
+    --input-height: calc(var(--font-size-base) + var(--input-padding) * 4);
+    --input-label-gap: 0.15rem;
 
 	/* Colors */
     /* - Background */
     --color-surface: #181620;
-    --color-surface-muted: #2c293b;
+    --color-surface-muted: #2a2637;
+    --color-surface-highlight: rgb(68, 62, 88);
     --color-surface-contrast: #ffffff;
     --color-surface-destructive: #e93f41;
     /* - Text */
@@ -61,40 +63,40 @@
 @media screen and (min-width: 48em) {
     :root {
         /* Font Sizes */
-        --x-small-font-size: 12px;
-        --small-font-size: 14px;
-        --base-font-size: 16px;
-        --medium-font-size: 18px;
-        --large-font-size: 24px;
-        --x-large-font-size: 28px;
-        --xx-large-font-size: 34px;
-        --xxx-large-font-size: 42px;  
+        --font-size-xs: 12px;
+        --font-size-sm: 14px;
+        --font-size-base: 16px;
+        --font-size-md: 18px;
+        --font-size-lg: 24px;
+        --font-size-xl: 28px;
+        --font-size-2xl: 34px;
+        --font-size-3xl: 42px;  
     }
 }
 @media screen and (min-width: 64em) {
     :root {
         /* Font Sizes */
-        --x-small-font-size: 12px;
-        --small-font-size: 14px;
-        --base-font-size: 16px;
-        --medium-font-size: 20px;
-        --large-font-size: 26px;
-        --x-large-font-size: 32px;
-        --xx-large-font-size: 36px;
-        --xxx-large-font-size: 44px;  
+        --font-size-xs: 12px;
+        --font-size-sm: 14px;
+        --font-size-base: 16px;
+        --font-size-md: 20px;
+        --font-size-lg: 26px;
+        --font-size-xl: 32px;
+        --font-size-2xl: 36px;
+        --font-size-3xl: 44px;  
     }
 
 }
 @media screen and (min-width: 80em) {
     :root {
         /* Font Sizes */
-        --x-small-font-size: 12px;
-        --small-font-size: 14px;
-        --base-font-size: 16px;
-        --medium-font-size: 20px;
-        --large-font-size: 28px;
-        --x-large-font-size: 36px;
-        --xx-large-font-size: 40px;
-        --xxx-large-font-size: 48px;
+        --font-size-xs: 12px;
+        --font-size-sm: 14px;
+        --font-size-base: 16px;
+        --font-size-md: 20px;
+        --font-size-lg: 28px;
+        --font-size-xl: 36px;
+        --font-size-2xl: 40px;
+        --font-size-3xl: 48px;
     }
 }

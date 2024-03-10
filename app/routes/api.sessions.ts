@@ -60,7 +60,7 @@ export const action: ActionFunction = async ({ request }) => {
 				session.set("userId", user.id);
 				const sessionCookie = await commitSession(session);
 				// Login succeeded, send them to the home page.
-				return redirect(PageRoutes.HOME, {
+				return redirect(PageRoutes.LOGS, {
 				    headers: {
 				        "Set-Cookie": sessionCookie,
 				    },

@@ -41,9 +41,9 @@ export default function Login() {
 
     return (
         <Form method={RequestMethods.PATCH} action={APIRoutes.SESSIONS}>
-            <FlexBox col gap="lg" justify="center" align="center">
+            <FlexBox col gap="xl" center>
                 <input type="hidden" name="phone" value={phone} />
-                <Text size="md">Enter your verification code</Text>
+                <Text size="lg">{`Enter your code.`}</Text>
                 <Input
                     type="tel"
                     required
