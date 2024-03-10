@@ -83,7 +83,7 @@ export default function EditFoodLogPage() {
                             <Text align="center">
                                 {`Hold down the microphone button, then say what you've eaten and how much.`}
                             </Text>
-                            <Text size="xs" color="muted" align="center" lineHeight="tight">
+                            <Text size="sm" color="muted" align="center">
                                 {`Example: "I had a cup of steamed brocolli, a cup of hash browns and two eggs."`}
                             </Text>
                         </FlexBox>
