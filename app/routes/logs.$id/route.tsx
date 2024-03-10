@@ -115,7 +115,7 @@ const FoodLogItemList = ({ logItems, isLoading }: FoodLogItemsProps) => {
         return <Text align="center">Your food logs will show up here...</Text>;
     }
     return (
-        <FlexBox col gap="md" width="full">
+        <FlexBox col gap="md" width="full" padBottom='1/3'>
             {logItems?.map((logItem, i) => (
                 <FoodLogItem
                     key={logItem.id}
