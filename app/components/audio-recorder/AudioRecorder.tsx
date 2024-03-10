@@ -53,7 +53,7 @@ export const AudioRecorder = ({ onStart, onStop }: AudioRecorderProps) => {
                 size="flush"
                 borderRadius="full"
                 icon={IconNames.RecordIcon}
-                iconColor={isRecording ? 'destructive' : 'muted'}
+                iconColor={isRecording ? 'destructive' : 'primary'}
                 iconSize="2xl"
             />
             <Icon name={IconNames.MicIcon} size="lg" color="contrast" />

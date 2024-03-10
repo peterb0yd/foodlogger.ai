@@ -72,7 +72,7 @@ export default function EditFoodLogPage() {
 
     return (
         <main className="EditLog">
-            <Text size="xl" color="primary" weight="bold" align="center" lineHeight="tight">
+            <Text size="xl" color="secondary" weight="bold" align="center" lineHeight="tight">
                 {`Log Your Meal`}
             </Text>
             <header>
