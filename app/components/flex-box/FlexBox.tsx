@@ -15,6 +15,7 @@ interface FlexBoxProps extends PropsWithChildren {
     borderRadius?: 'xs' | 'sm' | 'md' | 'rounded' | 'full';
     width?: 'full' | 'max';
     height?: 'full' | 'max';
+    as?: 'div' | 'ul' | 'ol' | 'span' | 'li';
 }
 
 export const links: LinksFunction = () => [
@@ -26,6 +27,7 @@ export const FlexBox = ({
     justify = 'start',
     align = 'start',
     wrap = 'nowrap',
+    as = 'div',
     height,
     width,
     grow,
@@ -40,8 +42,9 @@ export const FlexBox = ({
         align = "center";
         justify = "center";
     }
+    const Component = as;
     return (
-        <div
+        <Component
             className="FlexBox"
             data-col={col}
             data-grow={grow}
@@ -56,6 +59,6 @@ export const FlexBox = ({
             data-border-radius={borderRadius}
         >
             {children}
-        </div>
+        </Component>
     );
 }

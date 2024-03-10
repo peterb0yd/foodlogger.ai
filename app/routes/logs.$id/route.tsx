@@ -72,18 +72,18 @@ export default function EditFoodLogPage() {
 
     return (
         <main className="EditLog">
-            <Text size="xl" color="secondary" weight="bold" align="center" lineHeight="tight">
+            <Text size="xl" color="secondary" weight="bold" lineHeight="tight">
                 {`Log Your Meal`}
             </Text>
             <header>
                 <div className="background-box" data-visible={hasScrolled} />
                 <FlexBox center col width="full" gap="xl">
                     <FlexBox col gap="lg" align="center">
-                        <FlexBox col gap="md" center>
-                            <Text align="center">
+                        <FlexBox col gap="md">
+                            <Text>
                                 {`Hold down the microphone button, then say what you've eaten and how much.`}
                             </Text>
-                            <Text size="sm" color="muted" align="center">
+                            <Text size="sm" color="muted">
                                 {`Example: "I had a cup of steamed brocolli, a cup of hash browns and two eggs."`}
                             </Text>
                         </FlexBox>
@@ -112,7 +112,7 @@ interface FoodLogItemsProps {
 const FoodLogItemList = ({ logItems, isLoading }: FoodLogItemsProps) => {
     const hasLogItems = Boolean(logItems?.length);
     if (!hasLogItems && !isLoading) {
-        return <Text>No food logs yet...</Text>;
+        return <Text align="center">Your food logs will show up here...</Text>;
     }
     return (
         <FlexBox col gap="md" width="full">

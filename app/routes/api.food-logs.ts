@@ -18,7 +18,8 @@ export const action: ActionFunction = async ({ request }) => {
             try {
                 const data = await request.formData();
                 const userId = data.get('userId') as string;
-                const foodLog = await FoodLogService.create({ userId });
+                const time = data.get('time') as string;
+                const foodLog = await FoodLogService.create({ userId, time });
                 return redirect(`/logs/${foodLog.id}`);
             } catch (error) {
                 console.error(error);

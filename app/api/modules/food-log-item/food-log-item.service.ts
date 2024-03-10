@@ -4,6 +4,7 @@ import { FoodLogItemRepository } from './food-log-item.repository';
 import { FoodItemService } from '../food-item/food-item.service';
 import { FsReadStream } from 'openai/_shims/node-types.mjs';
 import { IFoodItemLogData, IFoodLogItemTranscriptionOutput } from './food-log-item.interfaces';
+import { FoodLogService } from '../food-log/food-log.service';
 
 /** 
  TODO: 
@@ -20,14 +21,20 @@ export class FoodLogItemService {
 	static async create(transcription: string, foodLogId: string) {
         console.log('transcription', transcription)
 		const foodLogItemData = await parseFoodItemLogData(transcription);
+        const foodLog = await FoodLogService.findById(foodLogId);
+
+        if (!foodLog) {
+            throw new Error(`Food log with id "${foodLogId}" not found`);
+        }
 
         // If the user said more than one food log, create multiple food logs
         if (Array.isArray(foodLogItemData) && foodLogItemData.length > 0) {
             const inputs = await Promise.all(foodLogItemData.map(async (foodLogItem) => {
                 const foodName = foodLogItem.name.toLowerCase();
-                const foodItem = await FoodItemService.findByName(foodName);
+                let foodItem = await FoodItemService.findByName(foodName);
                 if (!foodItem) {
-                    throw new Error(`Food item with name "${foodName}" not found`);
+                    console.log('Creating food item', foodName, 'for user', foodLog.userId);
+                    foodItem = await FoodItemService.create(foodName, foodLog.userId);
                 }
                 return foodItemLogDataToFoodItemLog({
                     foodLogId,
@@ -41,10 +48,11 @@ export class FoodLogItemService {
         // If the user said only one food log, create one food log
         const singleItemData = foodLogItemData as IFoodLogItemTranscriptionOutput;
 		const foodName = singleItemData.name.toLowerCase();
-		const foodItem = await FoodItemService.findByName(foodName);
+		let foodItem = await FoodItemService.findByName(foodName);
 		if (!foodItem) {
-			throw new Error(`Food item with name "${foodName}" not found`);
-		}
+            console.log('Creating food item', foodName, 'for user', foodLog.userId);
+            foodItem = await FoodItemService.create(foodName, foodLog.userId);
+        }
 		return FoodLogItemRepository.create(
 			foodItemLogDataToFoodItemLog({
 				foodLogId,

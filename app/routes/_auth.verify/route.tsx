@@ -6,7 +6,7 @@ import type {
     LoaderFunctionArgs,
 } from "@remix-run/node"; // or cloudflare/deno
 import { json, redirect } from "@remix-run/node"; // or cloudflare/deno
-import { Form, useSearchParams } from "@remix-run/react";
+import { Form, useFetcher, useSearchParams } from "@remix-run/react";
 import { FlexBox, links as flexBoxLinks } from "~/components/flex-box/FlexBox";
 import { Text, links as textLinks } from "~/components/text/Text";
 import { APIRoutes, PageRoutes } from "~/enums/routes";
@@ -16,6 +16,7 @@ import { useState } from "react";
 import { Input, links as inputLinks } from "~/components/input/Input";
 import { Button, links as buttonLinks } from "~/components/button/Button";
 import { IconNames } from "~/enums/icons";
+import { isFetcherLoading } from "~/utils/fetcherLoading";
 
 export const links: LinksFunction = () => [
     ...flexBoxLinks(),
@@ -37,10 +38,12 @@ export const loader: LoaderFunction = async ({
 export default function Login() {
     const [error, setError] = useState<string | null>(null);
     const [searchParams,] = useSearchParams();
+    const submitter = useFetcher();
     const phone = searchParams.get('phone') as string;
+    const isLoading = isFetcherLoading(submitter);
 
     return (
-        <Form method={RequestMethods.PATCH} action={APIRoutes.SESSIONS}>
+        <submitter.Form method={RequestMethods.PATCH} action={APIRoutes.SESSIONS}>
             <FlexBox col gap="xl" center>
                 <input type="hidden" name="phone" value={phone} />
                 <Text size="lg">{`Enter your code.`}</Text>
@@ -55,11 +58,12 @@ export default function Login() {
                     variant="primary"
                     icon={IconNames.ChevronCircleIcon}
                     iconSize='sm'
+                    loading={isLoading}
                 >
                     Verify
                 </Button>
                 {error ? <div className="error">{error}</div> : null}
             </FlexBox>
-        </Form>
+        </submitter.Form>
     );
 }

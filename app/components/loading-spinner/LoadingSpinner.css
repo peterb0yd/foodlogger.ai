@@ -1,0 +1,49 @@
+.LoadingSpinner {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	z-index: var(--z-index-overlay);
+
+	.Icon {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+}
+
+.dot {
+	animation: wave-animation 1.7s infinite; /* Ensures the animation includes a rest period */
+}
+
+@keyframes wave-animation {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	20% {
+		transform: translateY(-30%);
+	}
+	50%,
+	90% {
+		/* Adds a period of rest at the peak and ensures a smooth return */
+		transform: translateY(0);
+	}
+	40% {
+		transform: translateY(10%);
+	}
+}
+
+/* Adjusting animation delays to create a sequential wave effect */
+.dot:nth-child(1) {
+	animation-delay: 0s;
+}
+
+.dot:nth-child(3) {
+	animation-delay: 0.2s;
+}
+
+.dot:nth-child(2) {
+	animation-delay: 0.4s;
+}

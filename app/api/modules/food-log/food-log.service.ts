@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { IFoodLogRequestData } from "./food-log.interfaces";
 import { foodLogDataToFoodLog } from "./food-log.mappers";
 import { FoodLogRepository } from "./food-log.repository";
@@ -9,13 +10,21 @@ import { FoodLogRepository } from "./food-log.repository";
 
 export class FoodLogService {
     static async create(foodLogData: IFoodLogRequestData) {
-        const { userId } = foodLogData;
-        if (!userId) {
-            throw new Error('User ID is required');
+        const { userId, time } = foodLogData;
+        if (!userId || !time) {
+            throw new Error('User ID and a Time is required');
         }
         return FoodLogRepository.create(
-            foodLogDataToFoodLog({ userId }),
+            foodLogDataToFoodLog({ userId, time }),
         );
     }
 
+    static findById(id: string) {
+        return FoodLogRepository.findById(id);
+    }
+
+    static findLogsForDate(userId: string, date: Date) {
+        const startOfDate = DateTime.fromJSDate(date).startOf('day').toJSDate();
+        return FoodLogRepository.findLogsForDate(userId, startOfDate);
+    }
 }

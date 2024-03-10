@@ -4,7 +4,7 @@ import type {
     LoaderFunctionArgs,
 } from "@remix-run/node"; // or cloudflare/deno
 import { createCookie, json, redirect } from "@remix-run/node"; // or cloudflare/deno
-import { Form, useLoaderData, useSubmit } from "@remix-run/react";
+import { Form, useFetcher, useLoaderData, useSubmit } from "@remix-run/react";
 import { FlexBox, links as flexBoxLinks } from "~/components/flex-box/FlexBox";
 import { Text, links as textLinks } from "~/components/text/Text";
 import { APIRoutes, PageRoutes } from "~/enums/routes";
@@ -17,6 +17,7 @@ import { Select, links as selectLinks } from "~/components/select/Select";
 import { Input, links as inputLinks } from "~/components/input/Input";
 import { Button, links as buttonLinks } from "~/components/button/Button";
 import { IconNames } from "~/enums/icons";
+import { isFetcherLoading } from "~/utils/fetcherLoading";
 
 export const links: LinksFunction = () => [
     ...flexBoxLinks(),
@@ -45,7 +46,8 @@ export const loader: LoaderFunction = async ({
 export default function Login() {
     const { error } = useLoaderData<typeof loader>();
     const [countryCode, setCountryCode] = useState<string>(countryCodes[0].code);
-    const submit = useSubmit();
+    const submitter = useFetcher();
+    const isLoading = isFetcherLoading(submitter);
 
     const countryCodeOptions = countryCodes.map(({ code, name }) => ({
         value: code,
@@ -59,7 +61,7 @@ export default function Login() {
         const phone = phoneNumber.replace(/[^0-9]*/g, '');
         const formDataToSubmit = new FormData();
         formDataToSubmit.set("phone", `${countryCode}${phone}`);
-        submit(formDataToSubmit, {
+        submitter.submit(formDataToSubmit, {
             method: RequestMethods.POST,
             action: APIRoutes.SESSIONS,
         });
@@ -92,6 +94,7 @@ export default function Login() {
                     variant="primary"
                     icon={IconNames.ChevronCircleIcon}
                     iconSize='sm'
+                    loading={isLoading}
                 >
                     Login
                 </Button>

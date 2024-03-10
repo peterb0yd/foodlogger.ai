@@ -2,16 +2,20 @@ import { IconNames } from "~/enums/icons"
 import { CloseIcon } from "./CloseIcon"
 import { RecordIcon } from "./RecordIcon"
 import { TrashIcon } from "./TrashIcon";
-import { Fragment } from "react";
+import { ForwardedRef, Fragment, forwardRef } from "react";
 import { ChevronCircleIcon } from "./ChevronCircleIcon";
 import { PencilIcon } from "./PencilIcon";
 import iconStyles from './Icon.css';
 import { LinksFunction } from "@remix-run/node";
 import { MicIcon } from "./MicIcon";
-
-type ColorTypes = 'primary' | 'secondary' | 'base' | 'muted' | 'contrast' | 'destructive';
+import { LoadingDots } from "./LoadingDots";
+import { PlusIcon } from "./PlusIcon";
+import { ExpandVertical } from "./ExpandVertical";
+import { CollapseVertical } from "./CollapseVertical";
+import { ColorTypes } from "~/types/propTypes";
 
 const sizeMap = {
+    xs: 16,
     sm: 24,
     md: 32,
     lg: 48,
@@ -31,7 +35,7 @@ export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: iconStyles },
 ];
 
-export const Icon = ({ name, size = 'md', color }: IconProps) => {
+export const Icon = forwardRef(({ name, size = 'md', color }: IconProps, ref: ForwardedRef<SVGSVGElement>) => {
 
     const IconData = (() => {
         switch (name) {
@@ -41,6 +45,10 @@ export const Icon = ({ name, size = 'md', color }: IconProps) => {
             case IconNames.ChevronCircleIcon: return ChevronCircleIcon;
             case IconNames.PencilIcon: return PencilIcon;
             case IconNames.MicIcon: return MicIcon;
+            case IconNames.LoadingDots: return LoadingDots;
+            case IconNames.PlusIcon: return PlusIcon;
+            case IconNames.ExpandVertical: return ExpandVertical;
+            case IconNames.CollapseVertical: return CollapseVertical;
             default: return Fragment;
         }
     })();
@@ -54,8 +62,9 @@ export const Icon = ({ name, size = 'md', color }: IconProps) => {
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 1200 1200"
+            ref={ref}
         >
             <IconData />
         </svg>
     );
-}
+});

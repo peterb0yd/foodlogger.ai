@@ -78,6 +78,26 @@ select {
 	border-radius: 50%;
 }
 
+/** Font Colors */
+[data-color='base'] {
+    color: var(--color-text);
+}
+[data-color='muted'] {
+    color: var(--color-text-muted);
+}
+[data-color='soft'] {
+    color: var(--color-text-soft);
+}
+[data-color='contrast'] {
+	color: var(--color-text-contrast);
+}
+[data-color='primary'] {
+	color: var(--color-primary);
+}
+[data-color='secondary'] {
+	color: var(--color-secondary);
+}
+
 /** Background Colors **/
 [data-bg='base'] {
 	background-color: var(--color-surface);

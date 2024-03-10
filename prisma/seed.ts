@@ -9,6 +9,7 @@ async function runSeeder() {
 			await prisma.foodItem.create({
 				data: {
 					name: food.trim().toLowerCase(),
+                    isApproved: true,
 				},
 			});
 		}

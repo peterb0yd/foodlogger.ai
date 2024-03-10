@@ -1,6 +1,7 @@
 import { LinksFunction } from "@remix-run/node";
 import textStyles from "./Text.css";
 import { PropsWithChildren } from "react";
+import { ColorTypes } from "~/types/propTypes";
 
 export const links: LinksFunction = () => [
     { rel: "stylesheet", href: textStyles },
@@ -9,11 +10,12 @@ export const links: LinksFunction = () => [
 interface TextProps extends PropsWithChildren {
     size?: "xs" | "sm" | "base" | "md" | "lg" | "xl" | "2xl" | "3xl";
     weight?: "thin" | "light" | "regular" | "bold" | "extra-bold" | "black";
-    color?: "base" | 'muted' | "contrast" | "primary" | "secondary";
+    color?: ColorTypes;
     lineHeight?: "none" | "tight" | "normal" | "loose";
     align?: "left" | "center" | "right";
     italic?: boolean;
     underline?: boolean;
+    uppercase?: boolean;
 }
 
 export const Text = ({ 
@@ -24,6 +26,7 @@ export const Text = ({
     align,
     italic,
     underline,
+    uppercase,
     children 
 }: TextProps) => {
     return (
@@ -36,6 +39,7 @@ export const Text = ({
             data-align={align}
             data-italic={italic}
             data-underline={underline}
+            data-uppercase={uppercase}
         >
             {children}
         </div>

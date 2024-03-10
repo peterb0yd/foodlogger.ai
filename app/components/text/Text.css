@@ -19,22 +19,8 @@
 .Text[data-underline='true'] {
     text-decoration: underline;
 }
-
-/** Colors */
-.Text[data-color='base'] {
-    color: var(--color-text);
-}
-.Text[data-color='muted'] {
-    color: var(--color-text-muted);
-}
-.Text[data-color='contrast'] {
-	color: var(--color-text-contrast);
-}
-.Text[data-color='primary'] {
-	color: var(--color-primary);
-}
-.Text[data-color='secondary'] {
-	color: var(--color-secondary);
+.Text[data-uppercase='true'] {
+    text-transform: uppercase;
 }
 
 /** Sizes */

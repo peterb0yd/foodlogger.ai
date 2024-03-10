@@ -1,5 +1,7 @@
 .Button {
+    position: relative;
 	text-align: center;
+    background-color: transparent;
 	font-size: var(--font-size-md);
 	font-weight: bold;
 	cursor: pointer;
@@ -14,8 +16,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: inherit;
-    gap: 0.5rem;
 
     &[data-row-direction="right"] {
         flex-direction: row;
@@ -30,26 +30,41 @@
     padding: 0;
 }
 .Button[data-size="xs"] {
-    padding: 5px;
+    padding: 2px;
     font-size: var(--font-size-sm);
+    
+    .content-with-icon {
+        gap: 0.2rem;
+    }
 }
 .Button[data-size='sm'] {
-	padding: 10px;
+	padding: 5px;
 	font-size: var(--font-size-base);
+    
+    .content-with-icon {
+        gap: 0.3rem;
+    }
 }
 .Button[data-size='md'] {
-	padding: 15px;
+	padding: 8px;
 	font-size: var(--font-size-md);
+
+    .content-with-icon {
+        gap: 0.4rem;
+    }
 }
 .Button[data-size='lg'] {
-	padding: 20px;
+	padding: 10px;
 	font-size: var(--font-size-lg);
+
+    .content-with-icon {
+        gap: 0.5rem;
+    }
 }
 
 
 /** Variants */
 .Button[data-variant='base'] {
-	background: none;
 }
 .Button[data-variant='rounded'] {
     border-radius: 100%;
@@ -57,6 +72,8 @@
 }
 .Button[data-variant='muted'] {
     background: var(--color-surface-muted);
+    color: var(--color-text-soft);
+    font-weight: 400;
     &:hover {
         background-color: var(--color-surface-highlight);
         box-shadow: 0px 0px 10px 0px var(--color-surface-highlight);

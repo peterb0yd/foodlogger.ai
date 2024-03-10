@@ -21,6 +21,7 @@
         box-shadow: 0px 0 20px var(--color-shadow);
         opacity: 0;
         transition: opacity 0.2s ease-in-out;
+        pointer-events: none;
 
         &[data-visible=true] {
             opacity: 1;

@@ -41,6 +41,7 @@
     --color-text: #ffffff;
     --color-text-contrast: #000000;
     --color-text-muted: #cccccc;
+    --color-text-soft: rgb(126, 123, 139);
     --color-text-destructive: #e93f41;
     /* - Primary */
     --color-primary: #A3C4BC;

@@ -57,6 +57,9 @@ model FoodLogItem {
     preparation PreparationMethods @default(RAW)
     quantity    Float              @default(1)
     unit        Units              @default(NONE)
+    isDeleted   Boolean            @default(false)
+    createdAt   DateTime           @default(now())
+    updatedAt   DateTime           @updatedAt
 }
 
 model FoodLog {
