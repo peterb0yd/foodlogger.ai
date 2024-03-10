@@ -69,7 +69,7 @@ export default function Login() {
         <Form onSubmit={onFormSubmit}>
             <FlexBox col gap="xl" center>
                 <Text size="lg">{`Enter your phone number.`}</Text>
-                <FlexBox gap="md" width='max'>
+                <FlexBox gap="md" width='full'>
                     <Select
                         value={countryCode}
                         options={countryCodeOptions}
