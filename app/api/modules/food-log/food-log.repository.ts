@@ -22,6 +22,7 @@ export class FoodLogRepository {
     static findLogsForDate(userId: string, date: Date) {
         const tomorrowDate = DateTime.fromJSDate(date).plus({ days: 1 }).toJSDate();        
         return prisma.foodLog.findMany({
+            relationLoadStrategy: "join",
             where: {
                 userId,
                 createdAt: {
@@ -29,6 +30,13 @@ export class FoodLogRepository {
                     lt: tomorrowDate,
                 },
             },
+            include: {
+                foodLogItems: {
+                    include:{
+                        foodItem: true,
+                    }
+                }
+            }
         });
     }
 }

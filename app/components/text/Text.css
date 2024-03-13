@@ -49,6 +49,13 @@
     font-size: var(--font-size-3xl);
 }
 
+/** Truncate **/
+.Text[data-truncate='true'] {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 /** Weights */
 .Text[data-weight='thin'] {
     font-weight: 100;

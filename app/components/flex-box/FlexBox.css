@@ -5,90 +5,90 @@
 }
 
 /** Bottom Padding **/
-[data-bottom-padding='1/4'] {
+.FlexBox[data-bottom-padding='1/4'] {
     margin-bottom: 25vh;
 }
-[data-bottom-padding='1/3'] {
+.FlexBox[data-bottom-padding='1/3'] {
     margin-bottom: 33.3333vh;
 }
-[data-bottom-padding='1/2'] {
+.FlexBox[data-bottom-padding='1/2'] {
     margin-bottom: 50vh;
 }
 
 /** Direction **/
-[data-col=true] {
+.FlexBox[data-col=true] {
     flex-direction: column;
 }
 
 /** Grow **/
-[data-grow=true] {
+.FlexBox[data-grow=true] {
     flex-grow: 1;
 }
 
 /** Justify **/
-[data-justify='start'] {
+.FlexBox[data-justify='start'] {
     justify-content: flex-start;
 }
-[data-justify='end'] {
+.FlexBox[data-justify='end'] {
     justify-content: flex-end;
 }
-[data-justify='center'] {
+.FlexBox[data-justify='center'] {
     justify-content: center;
 }
-[data-justify='between'] {
+.FlexBox[data-justify='between'] {
     justify-content: space-between;
 }
-[data-justify='around'] {
+.FlexBox[data-justify='around'] {
     justify-content: space-around;
 }
-[data-justify='evenly'] {
+.FlexBox[data-justify='evenly'] {
     justify-content: space-evenly;
 }
-[data-justofy='stretch'] {
+.FlexBox[data-justofy='stretch'] {
     justify-content: stretch;
 }
 
 /** Align items **/
-[data-align='start'] {
+.FlexBox[data-align='start'] {
     align-items: flex-start;
 }
-[data-align='end'] {
+.FlexBox[data-align='end'] {
     align-items: flex-end;
 }
-[data-align='center'] {
+.FlexBox[data-align='center'] {
     align-items: center;
 }
-[data-align='stretch'] {
+.FlexBox[data-align='stretch'] {
     align-items: stretch;
 }
 
 /** Wrap **/
-[data-wrap='wrap'] {
+.FlexBox[data-wrap='wrap'] {
     flex-wrap: wrap;
 }
-[data-wrap='nowrap'] {
+.FlexBox[data-wrap='nowrap'] {
     flex-wrap: nowrap;
 }
-[data-wrap='reverse'] {
+.FlexBox[data-wrap='reverse'] {
     flex-wrap: wrap-reverse;
 }
 
 /** Gap **/
-[data-gap='xs'] {
+.FlexBox[data-gap='xs'] {
     gap: 0.125rem;
 }
-[data-gap='sm'] {
+.FlexBox[data-gap='sm'] {
     gap: 0.25rem;
 }
-[data-gap='md'] {
+.FlexBox[data-gap='md'] {
     gap: 0.5rem;
 }
-[data-gap='lg'] {
+.FlexBox[data-gap='lg'] {
     gap: 1rem;
 }
-[data-gap='xl'] {
+.FlexBox[data-gap='xl'] {
     gap: 2rem;
 }
-[data-gap='2xl'] {
+.FlexBox[data-gap='2xl'] {
     gap: 4rem;
 }

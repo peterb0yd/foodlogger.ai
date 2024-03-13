@@ -10,8 +10,8 @@ import { LinksFunction } from "@remix-run/node";
 import { MicIcon } from "./MicIcon";
 import { LoadingDots } from "./LoadingDots";
 import { PlusIcon } from "./PlusIcon";
-import { ExpandVertical } from "./ExpandVertical";
-import { CollapseVertical } from "./CollapseVertical";
+import { ChevronUp } from "./ChevronUp";
+import { ChevronDown } from "./ChevronDown";
 import { ColorTypes } from "~/types/propTypes";
 
 const sizeMap = {
@@ -47,8 +47,8 @@ export const Icon = forwardRef(({ name, size = 'md', color }: IconProps, ref: Fo
             case IconNames.MicIcon: return MicIcon;
             case IconNames.LoadingDots: return LoadingDots;
             case IconNames.PlusIcon: return PlusIcon;
-            case IconNames.ExpandVertical: return ExpandVertical;
-            case IconNames.CollapseVertical: return CollapseVertical;
+            case IconNames.ChevronUp: return ChevronUp;
+            case IconNames.ChevronDown: return ChevronDown;
             default: return Fragment;
         }
     })();

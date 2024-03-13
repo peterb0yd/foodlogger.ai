@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 import { IFoodLogRequestData } from "./food-log.interfaces";
-import { foodLogDataToFoodLog } from "./food-log.mappers";
+import { foodLogDataToFoodLog, foodLogWithItemsToDto } from "./food-log.mappers";
 import { FoodLogRepository } from "./food-log.repository";
 
 /** 
@@ -23,8 +23,9 @@ export class FoodLogService {
         return FoodLogRepository.findById(id);
     }
 
-    static findLogsForDate(userId: string, date: Date) {
+    static async findLogsForDate(userId: string, date: Date) {
         const startOfDate = DateTime.fromJSDate(date).startOf('day').toJSDate();
-        return FoodLogRepository.findLogsForDate(userId, startOfDate);
+        const foodLogsWithItems = await FoodLogRepository.findLogsForDate(userId, startOfDate);
+        return foodLogWithItemsToDto(foodLogsWithItems);
     }
 }

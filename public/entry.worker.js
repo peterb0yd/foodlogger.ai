@@ -2886,7 +2886,19 @@ function createRouter(init) {
   } else if (future.v7_partialHydration) {
     let loaderData = init.hydrationData ? init.hydrationData.loaderData : null;
     let errors = init.hydrationData ? init.hydrationData.errors : null;
-    initialized = initialMatches.every((m) => m.route.loader && m.route.loader.hydrate !== true && (loaderData && loaderData[m.route.id] !== void 0 || errors && errors[m.route.id] !== void 0));
+    let isRouteInitialized = (m) => {
+      if (!m.route.loader)
+        return true;
+      if (m.route.loader.hydrate === true)
+        return false;
+      return loaderData && loaderData[m.route.id] !== void 0 || errors && errors[m.route.id] !== void 0;
+    };
+    if (errors) {
+      let idx = initialMatches.findIndex((m) => errors[m.route.id] !== void 0);
+      initialized = initialMatches.slice(0, idx + 1).every(isRouteInitialized);
+    } else {
+      initialized = initialMatches.every(isRouteInitialized);
+    }
   } else {
     initialized = init.hydrationData != null;
   }
@@ -3444,6 +3456,17 @@ function createRouter(init) {
         }
       });
     });
+    if (future.v7_partialHydration && initialHydration && state.errors) {
+      Object.entries(state.errors).filter((_ref2) => {
+        let [id] = _ref2;
+        return !matchesToLoad.some((m) => m.route.id === id);
+      }).forEach((_ref3) => {
+        let [routeId, error] = _ref3;
+        errors = Object.assign(errors || {}, {
+          [routeId]: error
+        });
+      });
+    }
     let updatedFetchers = markFetchRedirectsDone();
     let didAbortFetchLoads = abortStaleFetchLoads(pendingNavigationLoadId);
     let shouldUpdateFetchers = updatedFetchers || didAbortFetchLoads || revalidatingFetchers.length > 0;
@@ -3908,12 +3931,12 @@ function createRouter(init) {
       blockers
     });
   }
-  function shouldBlockNavigation(_ref2) {
+  function shouldBlockNavigation(_ref4) {
     let {
       currentLocation,
       nextLocation,
       historyAction
-    } = _ref2;
+    } = _ref4;
     if (blockerFunctions.size === 0) {
       return;
     }
@@ -4410,8 +4433,8 @@ function normalizeNavigateOptions(normalizeFormMethod, isFetcher, path, opts) {
       }
       let text = typeof opts.body === "string" ? opts.body : opts.body instanceof FormData || opts.body instanceof URLSearchParams ? (
         // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#plain-text-form-data
-        Array.from(opts.body.entries()).reduce((acc, _ref3) => {
-          let [name, value] = _ref3;
+        Array.from(opts.body.entries()).reduce((acc, _ref5) => {
+          let [name, value] = _ref5;
           return "" + acc + name + "=" + value + "\n";
         }, "")
       ) : String(opts.body);
@@ -6510,7 +6533,7 @@ var route10 = __toESM(require_route6());
 var route11 = __toESM(require_route7());
 
 // assets-module:@remix-pwa/dev?assets
-var assets = ["/build/root-RXKBKVII.css", "/build/root-OKCWFK6V.js", "/build/manifest-9876326D.js", "/build/entry.client-64DHDCAJ.js", "/build/css-bundle-46UMMAO5.css", "/build/__remix_entry_dev-5OKUTNNP.js", "/build/_assets/variables-QLOT4P5F.css", "/build/_assets/logs.styles-33PL6OAE.css", "/build/_assets/home.styles-REFFGVN3.css", "/build/_assets/global-P2U5QJ66.css", "/build/_assets/fonts-TVTSVZVD.css", "/build/_assets/edit-log.styles-QLCRMRIB.css", "/build/_assets/authLayout.styles-T4QKPAPD.css", "/build/_assets/TimelineBlock-A4LQANOZ.css", "/build/_assets/Text-Y7L5KR4R.css", "/build/_assets/Select-AVHJ2EJY.css", "/build/_assets/MainLayout-63ASAYGW.css", "/build/_assets/Logo-FCYZPVPX.css", "/build/_assets/LoadingSpinner-ICQVTPN6.css", "/build/_assets/Input-KLERSXMD.css", "/build/_assets/Icon-VYMIEF2V.css", "/build/_assets/FlexBox-4LJBHUTX.css", "/build/_assets/Divider-BL5D63YI.css", "/build/_assets/Button-PYV3G7EE.css", "/build/_assets/AudioRecorder-CNPFDEXJ.css", "/build/routes/manifest[.]webmanifest-J3KYYY3Q.js", "/build/routes/logs._index-Q6YALERB.js", "/build/routes/logs.$id-CXRUVQI4.js", "/build/routes/logs-Z2VE3H32.js", "/build/routes/api.sessions-ROOW2LGU.js", "/build/routes/api.food-logs-L6TUWRWI.js", "/build/routes/api.food-log-items-HJIPGALR.js", "/build/routes/_index-ZWP7KC7Q.js", "/build/routes/_auth.verify-VBDC6SC6.js", "/build/routes/_auth.login-3525KEDS.js", "/build/routes/_auth-BDQHI36Y.js", "/build/_shared/runtime-GC7QIU56.js", "/build/_shared/remix_hmr-LUVYR5BJ.js", "/build/_shared/react-dom-BEFB7ICU.js", "/build/_shared/react-3OYUNTOK.js", "/build/_shared/jsx-runtime-7NXSP56X.js", "/build/_shared/jsx-dev-runtime-RDH4Y5YT.js", "/build/_shared/esm-IABH7WG6.js", "/build/_shared/client-DFZR44C7.js", "/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-UWVHQWK4.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-PNG5AS42.js", "/build/_shared/chunk-ODSS4IB4.js", "/build/_shared/chunk-MQ4QURDT.js", "/build/_shared/chunk-M37DLWY7.js", "/build/_shared/chunk-GTCMQ6BY.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-BNXS44D7.js", "/build/_shared/chunk-63XLW5XC.js", "/build/_shared/chunk-5RXUTICR.js"];
+var assets = ["/build/root-RXKBKVII.css", "/build/root-IKS3X7N4.js", "/build/manifest-D12A84CA.js", "/build/entry.client-Y4I5VTKY.js", "/build/css-bundle-46UMMAO5.css", "/build/__remix_entry_dev-CRFDCWRB.js", "/build/routes/manifest[.]webmanifest-J3KYYY3Q.js", "/build/routes/logs._index-IESSYJOV.js", "/build/routes/logs.$id-XNHQML7A.js", "/build/routes/logs-GUI26LKB.js", "/build/routes/api.sessions-ROOW2LGU.js", "/build/routes/api.food-logs-L6TUWRWI.js", "/build/routes/api.food-log-items-HJIPGALR.js", "/build/routes/_index-4FNB2MSD.js", "/build/routes/_auth.verify-J4HLVIG4.js", "/build/routes/_auth.login-SYXBIU4R.js", "/build/routes/_auth-2CNY42YU.js", "/build/_shared/runtime-GC7QIU56.js", "/build/_shared/remix_hmr-LUVYR5BJ.js", "/build/_shared/react-dom-BEFB7ICU.js", "/build/_shared/react-3OYUNTOK.js", "/build/_shared/jsx-runtime-7NXSP56X.js", "/build/_shared/jsx-dev-runtime-RDH4Y5YT.js", "/build/_shared/esm-FKM4HCWL.js", "/build/_shared/client-DFZR44C7.js", "/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-WUDIWKUL.js", "/build/_shared/chunk-UYSEDLHA.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-TWVX5L7K.js", "/build/_shared/chunk-T6MUD4WR.js", "/build/_shared/chunk-PNG5AS42.js", "/build/_shared/chunk-ODSS4IB4.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-EYNOW3DI.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-BNXS44D7.js", "/build/_shared/chunk-4FKKV6UW.js", "/build/_assets/variables-QLOT4P5F.css", "/build/_assets/logs.styles-33PL6OAE.css", "/build/_assets/home.styles-REFFGVN3.css", "/build/_assets/global-P2U5QJ66.css", "/build/_assets/fonts-TVTSVZVD.css", "/build/_assets/edit-log.styles-WLE2Z2OD.css", "/build/_assets/authLayout.styles-T4QKPAPD.css", "/build/_assets/TimelineBlock-Y2AJJHPX.css", "/build/_assets/Text-JJVUZX5E.css", "/build/_assets/Select-AVHJ2EJY.css", "/build/_assets/MainLayout-63ASAYGW.css", "/build/_assets/Logo-FCYZPVPX.css", "/build/_assets/LoadingSpinner-ICQVTPN6.css", "/build/_assets/Input-KLERSXMD.css", "/build/_assets/Icon-VYMIEF2V.css", "/build/_assets/FlexBox-JHTXWUDD.css", "/build/_assets/Divider-BL5D63YI.css", "/build/_assets/Button-CY4WCY2W.css", "/build/_assets/AudioRecorder-CNPFDEXJ.css"];
 
 // entry-module:@remix-pwa/build/magic
 var routes = {
@@ -6841,7 +6864,7 @@ buffer/index.js:
 
 @remix-run/router/dist/router.js:
   (**
-   * @remix-run/router v1.15.1
+   * @remix-run/router v1.15.3
    *
    * Copyright (c) Remix Software Inc.
    *
@@ -6853,7 +6876,7 @@ buffer/index.js:
 
 @remix-run/server-runtime/dist/mode.js:
   (**
-   * @remix-run/server-runtime v2.7.2
+   * @remix-run/server-runtime v2.8.1
    *
    * Copyright (c) Remix Software Inc.
    *
@@ -6865,7 +6888,7 @@ buffer/index.js:
 
 @remix-run/server-runtime/dist/errors.js:
   (**
-   * @remix-run/server-runtime v2.7.2
+   * @remix-run/server-runtime v2.8.1
    *
    * Copyright (c) Remix Software Inc.
    *
@@ -6877,7 +6900,7 @@ buffer/index.js:
 
 @remix-run/server-runtime/dist/responses.js:
   (**
-   * @remix-run/server-runtime v2.7.2
+   * @remix-run/server-runtime v2.8.1
    *
    * Copyright (c) Remix Software Inc.
    *

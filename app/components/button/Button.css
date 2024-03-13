@@ -25,6 +25,11 @@
     }
 }
 
+/** Full Width? **/
+.Button[data-full-width="true"] {
+    width: 100%;
+}
+
 /** Sizes */
 .Button[data-size="flush"] {
     padding: 0;
@@ -59,6 +64,14 @@
 
     .content-with-icon {
         gap: 0.5rem;
+    }
+}
+.Button[data-size='xl'] {
+    padding: 20px;
+    font-size: var(--font-size-xl);
+
+    .content-with-icon {
+        gap: 0.6rem;
     }
 }
 

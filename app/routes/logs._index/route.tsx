@@ -4,8 +4,9 @@ import { LinksFunction, LoaderFunction, json } from "@remix-run/node";
 import { FlexBox, links as flexBoxLinks } from "~/components/flex-box/FlexBox";
 import logsStyles from './logs.styles.css';
 import { FoodLogService } from "~/api/modules/food-log/food-log.service";
-import {links as buttonLinks } from '~/components/button/Button';
-import { TimelineBlock, links as timelineBlockLinks } from "./timeline-block/TimelineBlock";
+import { links as buttonLinks } from '~/components/button/Button';
+import { Timeline, links as timelineLinks } from "./timeline/Timeline";
+import { IFoodLogWithNestedFoods } from "~/api/modules/food-log/food-log.interfaces";
 
 const TIMES = [
     '12:00 AM', '1:00 AM', '2:00 AM', '3:00 AM', '4:00 AM', '5:00 AM',
@@ -23,8 +24,13 @@ export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: logsStyles },
     ...flexBoxLinks(),
     ...buttonLinks(),
-    ...timelineBlockLinks(),
+    ...timelineLinks(),
 ];
+
+interface LoaderDataProps {
+    userId: string;
+    foodLogs: IFoodLogWithNestedFoods[];
+}
 
 export const loader: LoaderFunction = async ({ request }) => {
     const userId = await SessionService.requireAuth(request);
@@ -34,18 +40,18 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export default function FoodLogsPage() {
-    const { userId, foodLogs } = useLoaderData<typeof loader>();
-
-    // TODO: add food logs to timeline
+    const { userId, foodLogs } = useLoaderData<LoaderDataProps>();
 
     return (
         <FlexBox col center width="full" padBottom='1/3'>
             <div className="timeline">
                 <FlexBox col gap="xl" width="full">
-                    <TimelineBlock times={EARLY_MORNING_BLOCK} name="Early Morning" userId={userId} />
-                    <TimelineBlock times={MORNING_BLOCK} name="Morning" userId={userId} />
-                    <TimelineBlock times={AFTERNOON_BLOCK} name="Afternoon" userId={userId} />
-                    <TimelineBlock times={EVENING_BLOCK} name="Evening" userId={userId} />
+                    <Timeline userId={userId} foodLogs={foodLogs}>
+                        <Timeline.Block times={EARLY_MORNING_BLOCK} name="Early Morning" />
+                        <Timeline.Block times={MORNING_BLOCK} name="Morning" />
+                        <Timeline.Block times={AFTERNOON_BLOCK} name="Afternoon" />
+                        <Timeline.Block times={EVENING_BLOCK} name="Evening" />
+                    </Timeline>
                 </FlexBox>
             </div>
         </FlexBox>

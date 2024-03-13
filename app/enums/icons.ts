@@ -7,7 +7,7 @@ export enum IconNames {
     PencilIcon = 'PencilIcon',
     MicIcon = 'MicIcon',
     PlusIcon = 'PlusIcon',
-    ExpandVertical = 'ExpandVertical',
-    CollapseVertical = 'CollapseVertical',
+    ChevronUp = 'ChevronUp',
+    ChevronDown = 'ChevronDown',
     LoadingDots = 'LoadingDots', // Only used for loading animation
 }
