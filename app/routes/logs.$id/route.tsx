@@ -87,7 +87,7 @@ export default function EditFoodLogPage() {
                             {`2. Be specific.`}
                         </Text>
                         <Text size="xl">
-                            {`3. Speak!`}
+                            {`3. Hold mic to speak.`}
                         </Text>
                     </FlexBox>
                     <AudioRecorder
