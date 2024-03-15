@@ -59,7 +59,7 @@ export const FlexBox = ({
             data-bg={bg}
             data-border={border}
             data-border-radius={borderRadius}
-            data-pad-bottom={padBottom}
+            data-bottom-padding={padBottom}
         >
             {children}
         </Component>
