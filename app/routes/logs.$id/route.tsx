@@ -84,10 +84,10 @@ export default function EditFoodLogPage() {
                             {`1. What did you just eat?`}
                         </Text>
                         <Text size="xl">
-                            {`2. Be specific.`}
+                            {`2. Hold mic to speak.`}
                         </Text>
                         <Text size="xl">
-                            {`3. Hold mic to speak.`}
+                            {`3. Be specific.`}
                         </Text>
                     </FlexBox>
                     <AudioRecorder
