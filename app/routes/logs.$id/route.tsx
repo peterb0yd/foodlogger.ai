@@ -80,13 +80,13 @@ export default function EditFoodLogPage() {
                 <div className="background-box" data-visible={hasScrolled} />
                 <FlexBox center col width="full" gap="xl">
                     <FlexBox col gap="md" width="full">
-                        <Text size="md">
+                        <Text size="xl">
                             {`1. What did you just eat?`}
                         </Text>
-                        <Text size="md">
+                        <Text size="xl">
                             {`2. Be specific.`}
                         </Text>
-                        <Text size="md">
+                        <Text size="xl">
                             {`3. Speak!`}
                         </Text>
                     </FlexBox>
