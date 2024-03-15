@@ -1,10 +1,7 @@
 .LoadingSpinner {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
 	z-index: var(--z-index-overlay);
-
+    pointer-events: none;
+    
 	.Icon {
 		position: absolute;
 		top: 50%;
@@ -46,4 +43,15 @@
 
 .dot:nth-child(2) {
 	animation-delay: 0.4s;
+}
+
+/** Positioning **/
+.LoadingSpinner[data-position='absolute'] {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.LoadingSpinner[data-position='relative'] {
+    position: relative;
 }

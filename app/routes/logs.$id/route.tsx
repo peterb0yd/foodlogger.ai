@@ -28,6 +28,7 @@ export const loader: LoaderFunction = async (context) => {
     await SessionService.requireAuth(context.request);
     const foodLogId = context.params.id as string;
     const foodLogItems = await FoodLogItemService.findAllByLogId(foodLogId);
+    console.log({ foodLogItems });
     return json({ foodLogItems });
 }
 
@@ -78,19 +79,21 @@ export default function EditFoodLogPage() {
             <header>
                 <div className="background-box" data-visible={hasScrolled} />
                 <FlexBox center col width="full" gap="xl">
-                    <FlexBox col gap="lg" align="center">
-                        <FlexBox col gap="md">
-                            <Text>
-                                {`Hold down the microphone button, then say what you've eaten and how much.`}
-                            </Text>
-                            <Text size="sm" color="muted">
-                                {`Example: "I had a cup of steamed brocolli, a cup of hash browns and two eggs."`}
-                            </Text>
-                        </FlexBox>
+                    <FlexBox col gap="md" width="full">
+                        <Text size="md">
+                            {`1. What did you just eat?`}
+                        </Text>
+                        <Text size="md">
+                            {`2. Be specific.`}
+                        </Text>
+                        <Text size="md">
+                            {`3. Speak!`}
+                        </Text>
                     </FlexBox>
                     <AudioRecorder
                         onStart={() => console.log('Recording started')}
                         onStop={handleNewAudioLog}
+                        isLoading={isLoading}
                     />
                 </FlexBox>
             </header>

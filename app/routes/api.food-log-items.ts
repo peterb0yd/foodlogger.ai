@@ -25,6 +25,7 @@ export const action: ActionFunction = async (context) => {
 				const audioData = formData.get('audio') as string;
                 const transcription = await getTranscriptionFromAudioFile(audioData);
 				const foodItemLog = await FoodLogItemService.create(transcription, foodLogId);
+                console.log({foodItemLog});
 				return json(foodItemLog);
 			} catch (error) {
 				console.error(error);

@@ -2,19 +2,19 @@ import { Prisma } from "@prisma/client";
 import prisma from '~/utils/prisma';
 
 export class SessionRepository {
-    static async create(session: Prisma.SessionCreateInput) {
+    static async create(session: Prisma.SessionCreateInput, tx: PrismaTxType = prisma) {
         const data = Prisma.validator<Prisma.SessionCreateInput>()(session);
         try {
-            const createdSession = await prisma.session.create({ data });
+            const createdSession = await tx.session.create({ data });
             return createdSession;
         } catch (error) {
             throw new Error(`Error creating session: ${error}`);
         }
     }
 
-    static async findById(id: string) {
+    static async findById(id: string, tx: PrismaTxType = prisma) {
         try {
-            const session = await prisma.session.findFirst({
+            const session = await tx.session.findFirst({
                 where: { id },
             });
             if (!session) {
@@ -26,10 +26,10 @@ export class SessionRepository {
         }
     }
 
-    static async updateById(id: string, session: Prisma.SessionUncheckedUpdateInput) {
+    static async updateById(id: string, session: Prisma.SessionUncheckedUpdateInput, tx: PrismaTxType = prisma) {
         const data = Prisma.validator<Prisma.SessionUncheckedUpdateInput>()(session);
         try {
-            const updatedSession = await prisma.session.update({
+            const updatedSession = await tx.session.update({
                 where: { id },
                 data,
             });
@@ -39,9 +39,9 @@ export class SessionRepository {
         }
     }
 
-    static async deleteById(id: string) {
+    static async deleteById(id: string, tx: PrismaTxType = prisma) {
         try {
-            const session = await prisma.session.delete({
+            const session = await tx.session.delete({
                 where: { id },
             });
             return session;

@@ -3,25 +3,25 @@ import prisma from '~/utils/prisma';
 import { DateTime } from "luxon";
 
 export class FoodLogRepository {
-	static async create(foodLog: Prisma.FoodLogCreateInput) {
+	static async create(foodLog: Prisma.FoodLogCreateInput, tx: PrismaTxType = prisma) {
 		const data = Prisma.validator<Prisma.FoodLogCreateInput>()(foodLog);
 		try {
-			const createdFoodLog = await prisma.foodLog.create({ data });
+			const createdFoodLog = await tx.foodLog.create({ data });
 			return createdFoodLog;
 		} catch (error) {
 			throw new Error(`Error creating food item log: ${error}`);
 		}
 	}
 
-    static findById(id: string) {
-        return prisma.foodLog.findUnique({
+    static findById(id: string, tx: PrismaTxType = prisma) {
+        return tx.foodLog.findUnique({
             where: { id },
         });
     }
 
-    static findLogsForDate(userId: string, date: Date) {
+    static findLogsForDate(userId: string, date: Date, tx: PrismaTxType = prisma) {
         const tomorrowDate = DateTime.fromJSDate(date).plus({ days: 1 }).toJSDate();        
-        return prisma.foodLog.findMany({
+        return tx.foodLog.findMany({
             relationLoadStrategy: "join",
             where: {
                 userId,

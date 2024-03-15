@@ -1,10 +1,10 @@
 import { Prisma } from '@prisma/client';
-import prisma from '~/utils/prisma';
+import prisma, { PrismaTxType } from '~/utils/prisma';
 
 export class FoodItemsRepository {
-	static async findByName(name: string) {
+	static async findByName(name: string, tx: PrismaTxType = prisma) {
 		try {
-			const foodItem = await prisma.foodItem.findFirst({
+			const foodItem = await tx.foodItem.findFirst({
 				where: { name },
 			});
 			if (!foodItem) {
@@ -16,13 +16,13 @@ export class FoodItemsRepository {
 		}
 	}
 
-    static async create(foodItemData: Prisma.FoodItemUncheckedCreateInput) {
+    static async create(foodItemData: Prisma.FoodItemUncheckedCreateInput, tx: PrismaTxType = prisma) {
         try {
             if (!foodItemData.createdByUserId) {
                 throw new Error('User ID is required to create a food item');
             }
             const data = Prisma.validator<Prisma.FoodItemUncheckedCreateInput>()(foodItemData);
-            const foodItem = await prisma.foodItem.create({
+            const foodItem = await tx.foodItem.create({
                 data,
             });
             return foodItem;

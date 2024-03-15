@@ -11,10 +11,14 @@ export const links: LinksFunction = () => [
 
 interface LoadingSpinnerProps {
     color?: ColorTypes;
+    position?: 'absolute' | 'relative';
 }
 
-export const LoadingSpinner = ({ color = 'muted' }: LoadingSpinnerProps) => (
-    <div className="LoadingSpinner">
+export const LoadingSpinner = ({ color = 'muted', position = 'absolute' }: LoadingSpinnerProps) => (
+    <div
+        className="LoadingSpinner"
+        data-position={position}
+    >
         <Icon name={IconNames.LoadingDots} size="md" color={color} />
     </div>
 )
