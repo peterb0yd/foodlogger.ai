@@ -62,6 +62,7 @@ export const parseFoodItemLogData = async (transcription: string) => {
 				},
 			],
 		});
+        // TODO: as a user, I should be able to see if my audio was bad and how to fix it
 		return JSON.parse(response.choices[0].message.content as string) as
 			| IFoodLogItemTranscriptionOutput
 			| Array<IFoodLogItemTranscriptionOutput>;

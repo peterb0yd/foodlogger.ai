@@ -99,6 +99,7 @@ export class FoodLogItemService {
 					foodItem,
 					foodLogItemData: singleItemData,
 				});
+                delete createOrUpdateData.foodItemName; // TODO: improve this
 
 				if (previousLogItems) {
 					const existingItem = previousLogItems.find(
