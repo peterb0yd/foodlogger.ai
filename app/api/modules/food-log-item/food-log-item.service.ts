@@ -62,6 +62,7 @@ export class FoodLogItemService {
 								(prevItem) => prevItem.foodItem.name === createItem.foodItemName
 							);
 							if (existingItem) {
+                                // TODO: update not working
 								updateItems.push({ ...createItem, id: existingItem.id });
 								return false;
 							}
