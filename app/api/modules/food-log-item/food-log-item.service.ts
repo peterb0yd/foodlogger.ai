@@ -51,7 +51,6 @@ export class FoodLogItemService {
 									foodItem,
 									foodLogItemData: foodLogItem,
 								}),
-								foodItemName: foodItem.name,
 							};
 						})
 					);
@@ -77,6 +76,11 @@ export class FoodLogItemService {
 
 					// Creates the new food log items
 					if (createItems.length > 0) {
+                        // This 'foodItemName' property is not in the FoodLogItem model
+						createItems = createItems.map((item) => {
+							delete item.foodItemName;
+                            return item;
+						});
 						return FoodLogItemRepository.createMany(createItems, tx);
 					}
 				}
@@ -100,10 +104,10 @@ export class FoodLogItemService {
 					const existingItem = previousLogItems.find(
 						(logItem) => logItem.foodItem.name === foodItem.name
 					);
-                    if (existingItem) {
-                        console.log('existingItem', JSON.stringify(existingItem, null, 2));
-                        return await FoodLogItemRepository.update(existingItem.id, createOrUpdateData, tx);
-                    }
+					if (existingItem) {
+						console.log('existingItem', JSON.stringify(existingItem, null, 2));
+						return await FoodLogItemRepository.update(existingItem.id, createOrUpdateData, tx);
+					}
 				}
 
 				console.log('createOrUpdateData', JSON.stringify(createOrUpdateData, null, 2));

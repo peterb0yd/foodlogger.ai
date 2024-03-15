@@ -10,8 +10,9 @@ export const foodItemLogDataToFoodItemLog = ({
 	return {
 		quantity,
 		unit: unit.toUpperCase() as Units,
+        foodItemName: foodItem.name,
 		preparation: preparation?.toUpperCase() as PreparationMethods,
         foodLogId,
         foodItemId: foodItem.id,
-	} as Prisma.FoodLogItemUncheckedCreateInput;
+	} as Prisma.FoodLogItemUncheckedCreateInput & { foodItemName?: string };
 };
