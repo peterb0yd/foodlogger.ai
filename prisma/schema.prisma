@@ -155,7 +155,9 @@ enum Units {
     PINT
     SLICE
     CAN
+    SERVING
     HANDFUL
+    FISTFUL
     PINCH
     DASH
     STICK

@@ -35,7 +35,6 @@ export class FoodLogItemService {
         } catch (error) {
             throw error;
         }
-		console.log('foodLogItemData', JSON.stringify(foodLogItemData, null, 2));
 		const foodLog = await FoodLogService.findById(foodLogId);
 
 		if (!foodLog) {
@@ -57,6 +56,8 @@ export class FoodLogItemService {
 						tx
 					);
 
+                    console.log({foodLogItemData, createItems, updateItems})
+
 					// This update can only change the quantity or unit used for the food-log-item
 					for (const updateItem of updateItems) {
 						await FoodLogItemRepository.update(updateItem.id, updateItem, tx);
@@ -64,9 +65,9 @@ export class FoodLogItemService {
 
 					// Creates the new food-log-items
 					if (createItems.length > 0) {
-						await FoodLogItemRepository.createMany(createItems, tx);
+						return await FoodLogItemRepository.createMany(createItems, tx);
 					}
-					return;
+                    return;
 				}
 
 				// If the user said only one food log, create one food log
@@ -130,7 +131,7 @@ export class FoodLogItemService {
 				}
 				// Check for existing food-log-item and add to our update list if it exists
 				let existingItem;
-				if (previousLogItems) {
+				if (previousLogItems?.length) {
 					existingItem = this.getExistingFoodLogItemInput(previousLogItems, foodName, logItemData);
 					if (existingItem) {
 						updateItems.push(existingItem);
@@ -138,13 +139,13 @@ export class FoodLogItemService {
 				}
 				// Add to our create list if it doesn't exist
 				if (!existingItem) {
-					return {
+					createItems.push({
 						...foodLogItemDataToCreateInput({
 							foodLogId: foodLog.id,
 							foodItem,
 							foodLogItemData: logItemData,
 						}),
-					};
+					});
 				}
 			})
 		);
@@ -157,9 +158,8 @@ export class FoodLogItemService {
 		foodItemName: string,
 		updateData: IFoodLogItemTranscriptionOutput
 	) {
-		let existingItem;
 		if (foodLogItems) {
-			existingItem = foodLogItems.find((logItem) => logItem.foodItem.name === foodItemName);
+			const existingItem = foodLogItems.find((logItem) => logItem.foodItem.name === foodItemName);
 			if (existingItem) {
 				return foodLogItemDataToUpdateInput({
 					foodLogItem: existingItem,

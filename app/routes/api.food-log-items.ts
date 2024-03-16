@@ -26,10 +26,10 @@ export const action: ActionFunction = async (context) => {
 				const audioData = formData.get('audio') as string;
                 const transcription = await getTranscriptionFromAudioFile(audioData);
 				const foodItemLog = await FoodLogItemService.create(transcription, foodLogId);
-                console.log({foodItemLog});
-				return json(foodItemLog);
+				return json(foodItemLog ?? {});
 			} catch (error) {
 				if (error instanceof BadAudioInputError) {
+                    console.log('IS BAD AUDIO ERROR');
                     return json({
                         suggestion: error.message,
                     })

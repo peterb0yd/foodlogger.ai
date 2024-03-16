@@ -51,8 +51,22 @@
 	}
 }
 
+/** Flex Grow **/
+.Input[data-flex-grow='true'],
+.InputWithIcon[data-flex-grow='true'] {
+    flex-grow: 1;
+
+    input {
+        width: 100%;
+    }
+}
+
 /** Full Width **/
 .Input[data-full-width='true'],
 .InputWithIcon[data-full-width='true'] {
 	width: 100%;
+
+    input {
+        width: 100%;
+    }
 }

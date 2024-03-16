@@ -15,6 +15,7 @@ interface InputProps {
     icon?: IconNames;
     required?: boolean;
     fullWidth?: boolean;
+    grow?: boolean;
     onChange?: (value: string) => void;
 }
 
@@ -22,16 +23,17 @@ export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: inputStyles },
 ];
 
-export const Input = ({ value, icon, size = 'md', type = 'text', name, label, pattern, autoComplete, required, fullWidth, onChange }: InputProps) => {
+export const Input = ({ value, icon, size = 'md', type = 'text', name, label, pattern, grow, autoComplete, required, fullWidth, onChange }: InputProps) => {
     return (
         <Container icon={icon}>
             <label
                 className="Input"
+                data-full-width={fullWidth}
+                data-flex-grow={grow}
             >
                 {label}
                 <input
                     data-size={size}
-                    data-full-width={fullWidth}
                     name={name}
                     type={type}
                     value={value}
@@ -47,12 +49,18 @@ export const Input = ({ value, icon, size = 'md', type = 'text', name, label, pa
 
 interface ContainerProps extends PropsWithChildren {
     icon?: IconNames;
+    grow?: boolean;
+    fullWidth?: boolean;
 }
 
-const Container = ({ icon, children }: ContainerProps) => {
+const Container = ({ icon, children, grow, fullWidth }: ContainerProps) => {
     if (icon) {
         return (
-            <div className="InputWithIcon">
+            <div
+                className="InputWithIcon"
+                data-full-width={fullWidth}
+                data-flex-grow={grow}
+            >
                 <Icon name={icon} size="lg" color="contrast" />
                 {children}
             </div>

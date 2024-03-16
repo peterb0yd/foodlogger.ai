@@ -46,7 +46,7 @@ export default function EditFoodLogPage() {
     const { foodLogItems } = loaderData;
     const foodLogId = params.id as string;
     const isLoading = submitter.state === 'loading' || submitter.state === 'submitting';
-    const promptErrorText = submitter.data?.suggestion;
+    const promptErrorText = submitter.data?.suggestion ?? null;
     const shouldShowPrompt = Boolean(promptErrorText && showPrompt);
 
     useEffect(() => {
