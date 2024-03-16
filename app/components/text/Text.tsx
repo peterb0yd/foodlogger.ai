@@ -11,13 +11,13 @@ interface TextProps extends PropsWithChildren {
     size?: "xs" | "sm" | "base" | "md" | "lg" | "xl" | "2xl" | "3xl";
     weight?: FontWeights;
     color?: ColorTypes;
+    width?: "full" | "auto";
     lineHeight?: "none" | "tight" | "normal" | "loose";
     align?: "left" | "center" | "right";
     truncate?: boolean;
     italic?: boolean;
     underline?: boolean;
     uppercase?: boolean;
-    customWidth?: string;
 }
 
 export const Text = ({ 
@@ -25,16 +25,14 @@ export const Text = ({
     weight = "regular", 
     color = "base", 
     lineHeight = "normal",
-    customWidth,
     truncate,
     align,
+    width,
     italic,
     underline,
     uppercase,
     children 
 }: TextProps) => {
-    const customWidthStyleProps = customWidth ? { width: customWidth } : {};
-
     return (
         <div
             className="Text"
@@ -43,11 +41,11 @@ export const Text = ({
             data-line-height={lineHeight}
             data-color={color}
             data-align={align}
+            data-width={width}
             data-truncate={truncate}
             data-italic={italic}
             data-underline={underline}
             data-uppercase={uppercase}
-            style={customWidthStyleProps}
         >
             {children}
         </div>

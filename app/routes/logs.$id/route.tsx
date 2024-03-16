@@ -3,7 +3,7 @@ import { Text } from "~/components/text/Text";
 import { APIRoutes, PageRoutes } from "~/enums/routes";
 import { AudioRecorder, links as audioRecLinks } from "~/components/audio-recorder/AudioRecorder";
 import { FlexBox } from "~/components/flex-box/FlexBox";
-import { Form, useFetcher, useLoaderData, useNavigate, useParams, useSubmit } from "@remix-run/react";
+import { Form, useFetcher, useLoaderData, useNavigate, useNavigationType, useParams, useSubmit } from "@remix-run/react";
 import { FoodLogItemService } from "~/api/modules/food-log-item/food-log-item.service";
 import { IFoodLogItemWithFoodItem } from "~/api/modules/food-log-item/food-log-item.interfaces";
 import { SessionService } from "~/api/modules/session/session.service";
@@ -11,7 +11,7 @@ import { startCase } from "lodash-es";
 import { Button, links as buttonLinks } from "~/components/button/Button";
 import { IconNames } from "~/enums/icons";
 import { RequestMethods } from "~/enums/requests";
-import pageStyles from './edit-log.styles.css';
+import pageStyles from './logs.$id.css';
 import { Repeater } from "~/components/repeater/Repeater";
 import Skeleton from "react-loading-skeleton";
 import { Divider, links as dividerLinks } from "~/components/divider/Divider";
@@ -50,6 +50,8 @@ export default function EditFoodLogPage() {
     const isLoading = submitter.state === 'loading' || submitter.state === 'submitting';
     const promptErrorText = submitter.data?.suggestion ?? null;
     const shouldShowPrompt = Boolean(promptErrorText && showPrompt);
+    const navigationType = useNavigationType();
+    const backLink = navigationType === 'PUSH' ? -1 : PageRoutes.LOGS;
 
     useEffect(() => {
         if (promptErrorText) {
@@ -93,7 +95,7 @@ export default function EditFoodLogPage() {
             <BottomBar
                 primaryActionText="Done"
                 primaryActionIcon={IconNames.CheckMark}
-                primaryAction={() => navigate(PageRoutes.LOGS)}
+                primaryAction={() => navigate(backLink as string)}
                 secondaryActionText="Template"
                 secondaryActionIcon={IconNames.Template}
                 secondaryAction={() => alert('TEMPLATE!!!')}

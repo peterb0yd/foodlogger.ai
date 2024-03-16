@@ -6,7 +6,6 @@
 	font-weight: bold;
 	cursor: pointer;
 	user-select: none;
-    z-index: var(--z-index-behind-base);
 	/* no highlight */
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;

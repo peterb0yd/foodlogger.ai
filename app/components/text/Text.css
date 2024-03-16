@@ -86,3 +86,11 @@
 .Text[data-line-height='loose'] {
 	line-height: 2;
 }
+
+/** Widths **/
+.Text[data-width='full'] {
+    width: 100%;
+}
+.Text[data-width='auto'] {
+    width: auto;
+}

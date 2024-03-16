@@ -2,11 +2,11 @@ import { useLoaderData } from "@remix-run/react";
 import { SessionService } from "~/api/modules/session/session.service";
 import { LinksFunction, LoaderFunction, json } from "@remix-run/node";
 import { FlexBox, links as flexBoxLinks } from "~/components/flex-box/FlexBox";
-import logsStyles from './logs.styles.css';
 import { FoodLogService } from "~/api/modules/food-log/food-log.service";
 import { links as buttonLinks } from '~/components/button/Button';
 import { Timeline, links as timelineLinks } from "./timeline/Timeline";
 import { IFoodLogWithNestedFoods } from "~/api/modules/food-log/food-log.interfaces";
+import logsStyles from './logs._index.css';
 
 const TIMES = [
     '12:00 AM', '1:00 AM', '2:00 AM', '3:00 AM', '4:00 AM', '5:00 AM',
