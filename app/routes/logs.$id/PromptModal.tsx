@@ -20,7 +20,7 @@ interface PromptModalProps {
 
 export const PromptModal = ({ promptText, closeModal }: PromptModalProps) => {
     return (
-        <Modal fullScreen contentWidth="md">
+        <Modal fullScreen contentWidth="lg">
             <FlexBox col gap="xl" center>
                 <Icon name={IconNames.RobotHead} size="3xl" color="muted" />
                 <Text size="lg">{promptText}</Text>

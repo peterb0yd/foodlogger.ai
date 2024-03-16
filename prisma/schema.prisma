@@ -153,6 +153,21 @@ enum Units {
     GALLON
     QUART
     PINT
+    SLICE
+    CAN
+    HANDFUL
+    PINCH
+    DASH
+    STICK
+    DROP
+    PIECE
+    SPLASH
+    DRIZZLE
+    SHOT
+    BOTTLE
+    BAR
+    TABLET
+    SQUARE
     NONE
 }
 
