@@ -97,7 +97,7 @@ const CollapsedSection = ({ name, onClick }: AddFoodLogToBlockProps) => (
     <Button
         variant="muted"
         size="xl"
-        fullWidth
+        width="full"
         borderRadius="md"
         onClick={onClick}
     >
@@ -160,7 +160,7 @@ const AddOrEditFoodLog = ({ time, foodLog }: AddOrEditFoodLogProps) => {
                 borderRadius="md"
                 name="EditFoodLog"
                 href={`/logs/${foodLog.id}`}
-                fullWidth
+                width="full"
             >
                 <FlexBox as='li' key={time} gap="xl" align="center" justify="between" width="full">
                     <FlexBox col gap="sm" align="start" width="full">
@@ -196,7 +196,7 @@ const AddOrEditFoodLog = ({ time, foodLog }: AddOrEditFoodLogProps) => {
                     </FlexBox>
                     <FlexBox gap="md" align="center">
                         <Text size="sm" color="soft" weight="bold">Log Meal</Text>
-                        <Icon name={IconNames.PlusIcon} size="sm" color="soft" />
+                        <Icon name={IconNames.ChevronRight} size="sm" color="soft" />
                     </FlexBox>
                 </FlexBox>
             </Button>

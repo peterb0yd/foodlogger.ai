@@ -3,7 +3,7 @@ import { Text } from "~/components/text/Text";
 import { APIRoutes, PageRoutes } from "~/enums/routes";
 import { AudioRecorder, links as audioRecLinks } from "~/components/audio-recorder/AudioRecorder";
 import { FlexBox } from "~/components/flex-box/FlexBox";
-import { Form, useFetcher, useLoaderData, useParams, useSubmit } from "@remix-run/react";
+import { Form, useFetcher, useLoaderData, useNavigate, useParams, useSubmit } from "@remix-run/react";
 import { FoodLogItemService } from "~/api/modules/food-log-item/food-log-item.service";
 import { IFoodLogItemWithFoodItem } from "~/api/modules/food-log-item/food-log-item.interfaces";
 import { SessionService } from "~/api/modules/session/session.service";
@@ -16,8 +16,8 @@ import { Repeater } from "~/components/repeater/Repeater";
 import Skeleton from "react-loading-skeleton";
 import { Divider, links as dividerLinks } from "~/components/divider/Divider";
 import { useEffect, useState } from "react";
-import { Modal } from "~/components/modal/Modal";
 import { PromptModal, links as promptModalLinks } from "./PromptModal";
+import { BottomBar, links as bottomBarLinks } from "~/components/bottom-bar/BottomBar";
 
 // This is the response type when a prompt error occurs, but not on success
 type SubmitterBadAudioResponse = { suggestion: string };
@@ -28,6 +28,7 @@ export const links: LinksFunction = () => [
     ...buttonLinks(),
     ...audioRecLinks(),
     ...promptModalLinks(),
+    ...bottomBarLinks(),
 ];
 
 export const loader: LoaderFunction = async (context) => {
@@ -42,6 +43,7 @@ export default function EditFoodLogPage() {
     const loaderData = useLoaderData<typeof loader>();
     const submitter = useFetcher<SubmitterBadAudioResponse>();
     const params = useParams();
+    const navigate = useNavigate();
     const [showPrompt, setShowPrompt] = useState(true);
     const { foodLogItems } = loaderData;
     const foodLogId = params.id as string;
@@ -91,6 +93,14 @@ export default function EditFoodLogPage() {
                     closeModal={() => setShowPrompt(false)}
                 />
             )}
+            <BottomBar 
+                primaryActionText="Done"
+                primaryActionIcon={IconNames.CheckMark}
+                primaryAction={() => navigate(PageRoutes.LOGS)}
+                secondaryActionText="Template"
+                secondaryActionIcon={IconNames.Template}
+                secondaryAction={() => alert('TEMPLATE!!!')}
+            />
         </main>
     );
 }

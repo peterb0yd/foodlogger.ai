@@ -1,19 +1,23 @@
 import { IconNames } from "~/enums/icons"
-import { CloseIcon } from "./CloseIcon"
-import { RecordIcon } from "./RecordIcon"
-import { TrashIcon } from "./TrashIcon";
+import { Close } from "./Close"
+import { Record } from "./Record"
+import { Trash } from "./Trash";
 import { ForwardedRef, Fragment, forwardRef } from "react";
-import { ChevronCircleIcon } from "./ChevronCircleIcon";
-import { PencilIcon } from "./PencilIcon";
+import { ChevronCircle } from "./ChevronCircle";
+import { Pencil } from "./Pencil";
 import iconStyles from './Icon.css';
 import { LinksFunction } from "@remix-run/node";
-import { MicIcon } from "./MicIcon";
+import { Mic } from "./Mic";
 import { LoadingDots } from "./LoadingDots";
-import { PlusIcon } from "./PlusIcon";
+import { Plus } from "./Plus";
 import { ChevronUp } from "./ChevronUp";
 import { ChevronDown } from "./ChevronDown";
 import { ColorTypes } from "~/types/propTypes";
 import { RobotHead } from "./RobotHead";
+import { ChevronLeft } from "./ChevronLeft";
+import { ChevronRight } from "./ChevronRight";
+import { CheckMark } from "./CheckMark";
+import { Template } from "./Template";
 
 const sizeMap = {
     xs: 16,
@@ -41,16 +45,20 @@ export const Icon = forwardRef(({ name, size = 'md', color }: IconProps, ref: Fo
 
     const IconData = (() => {
         switch (name) {
-            case IconNames.CloseIcon: return CloseIcon;
-            case IconNames.RecordIcon: return RecordIcon;
-            case IconNames.TrashIcon: return TrashIcon;
-            case IconNames.ChevronCircleIcon: return ChevronCircleIcon;
-            case IconNames.PencilIcon: return PencilIcon;
-            case IconNames.MicIcon: return MicIcon;
+            case IconNames.CloseIcon: return Close;
+            case IconNames.RecordIcon: return Record;
+            case IconNames.TrashIcon: return Trash;
+            case IconNames.ChevronCircleIcon: return ChevronCircle;
+            case IconNames.PencilIcon: return Pencil;
+            case IconNames.MicIcon: return Mic;
             case IconNames.LoadingDots: return LoadingDots;
-            case IconNames.PlusIcon: return PlusIcon;
+            case IconNames.PlusIcon: return Plus;
             case IconNames.ChevronUp: return ChevronUp;
             case IconNames.ChevronDown: return ChevronDown;
+            case IconNames.ChevronLeft: return ChevronLeft;
+            case IconNames.ChevronRight: return ChevronRight;
+            case IconNames.CheckMark: return CheckMark;
+            case IconNames.Template: return Template;
             case IconNames.RobotHead: return RobotHead;
             default: return Fragment;
         }

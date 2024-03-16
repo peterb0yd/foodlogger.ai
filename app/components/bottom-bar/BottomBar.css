@@ -1,0 +1,17 @@
+.BottomBar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: var(--bottom-bar-height);
+    background-color: var(--color-surface-muted);
+    border-top: 1px solid var(--color-surface-highlight);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0px -2px 5px 0px var(--color-shadow-dark);
+
+    & .FlexBox {
+        max-width: var(--global-max-width);
+    }
+}

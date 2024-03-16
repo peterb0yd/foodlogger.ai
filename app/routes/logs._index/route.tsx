@@ -15,7 +15,7 @@ const TIMES = [
     '6:00 PM', '7:00 PM', '8:00 PM', '9:00 PM', '10:00 PM', '11:00 PM',
 ];
 
-const EARLY_MORNING_BLOCK = TIMES.slice(0, 6);
+// const EARLY_MORNING_BLOCK = TIMES.slice(0, 6);
 const MORNING_BLOCK = TIMES.slice(6, 12);
 const AFTERNOON_BLOCK = TIMES.slice(12, 18);
 const EVENING_BLOCK = TIMES.slice(18, 24);
@@ -47,7 +47,7 @@ export default function FoodLogsPage() {
             <div className="timeline">
                 <FlexBox col gap="xl" width="full" padBottom='1/3'>
                     <Timeline userId={userId} foodLogs={foodLogs}>
-                        <Timeline.Block times={EARLY_MORNING_BLOCK} name="Early Morning" />
+                        {/* <Timeline.Block times={EARLY_MORNING_BLOCK} name="Early Morning" /> */}
                         <Timeline.Block times={MORNING_BLOCK} name="Morning" />
                         <Timeline.Block times={AFTERNOON_BLOCK} name="Afternoon" />
                         <Timeline.Block times={EVENING_BLOCK} name="Evening" />

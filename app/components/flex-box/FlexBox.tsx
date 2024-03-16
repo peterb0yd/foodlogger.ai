@@ -12,6 +12,7 @@ interface FlexBoxProps extends PropsWithChildren {
     wrap?: 'wrap' | 'reverse' | 'nowrap';
     gap?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
     bg?: 'base' | 'muted' | 'contrast';
+    padX?: 'xs' | 'sm' | 'md' | 'lg';
     border?: 'thin' | 'base' | 'muted' | 'contrast';
     borderRadius?: 'xs' | 'sm' | 'md' | 'rounded' | 'full';
     width?: 'full' | 'max';
@@ -31,6 +32,7 @@ export const FlexBox = ({
     as = 'div',
     height,
     width,
+    padX,
     grow,
     center,
     gap,
@@ -54,6 +56,7 @@ export const FlexBox = ({
             data-height={height}
             data-justify={justify}
             data-align={align}
+            data-padding-x={padX}
             data-wrap={wrap}
             data-gap={gap}
             data-bg={bg}

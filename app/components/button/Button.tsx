@@ -19,7 +19,6 @@ interface BaseButtonProps extends PropsWithChildren {
     iconSide?: 'left' | 'right';
     variant?: 'base' | 'primary' | 'secondary' | 'muted' | 'icon';
     loading?: boolean;
-    fullWidth?: boolean;
     color?: ColorTypes;
     contentSize?: {
         innerWidth: number;
@@ -27,9 +26,11 @@ interface BaseButtonProps extends PropsWithChildren {
     };
 }
 
-interface ButtonProps extends BaseButtonProps, Omit<React.HTMLProps<HTMLButtonElement>, 'type' | 'size' | 'color'> {
+interface ButtonProps extends BaseButtonProps, Omit<React.HTMLProps<HTMLButtonElement>, 'type' | 'size' | 'color' | 'width'> {
     href?: string;
     to?: PageRoutes;
+    grow?: boolean;
+    width?: 'full' | 'max' | '1/2' | '1/3' | '1/4';
     size?: 'flush' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     border?: 'none' | 'thin' | 'base' | 'thick' | 'muted' | 'contrast';
     borderRadius?: 'xs' | 'sm' | 'md' | 'rounded' | 'full';
@@ -59,7 +60,7 @@ export const Button = ({
     icon,
     iconSide,
     iconColor,
-    fullWidth,
+    grow,
     border = 'none',
     borderRadius,
     iconSize = "sm",
@@ -68,6 +69,7 @@ export const Button = ({
     loading,
     disabled,
     color,
+    width,
     name = '',
     onClick,
     ...rest
@@ -101,8 +103,9 @@ export const Button = ({
             onClick={handleClick}
             data-variant={variant}
             data-icon-side={iconSide}
-            data-full-width={fullWidth}
+            data-width={width}
             data-size={size}
+            data-flex-grow={grow}
             data-border={border}
             data-border-radius={borderRadius}
             disabled={disabled || loading}
