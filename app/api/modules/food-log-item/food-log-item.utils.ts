@@ -59,7 +59,7 @@ export const parseFoodItemLogData = async (transcription: string) => {
                         {name:"chicken",quantity:1,unit:"CUP"}
                     ]
                     
-                    Try your best, but if you cannot understand the input and cannot create a proper JSON response, respond with a very short and simple helpful suggestion in plain text. The user is speaking the sentence and an audio transcription tool is creating the text content for you to read here. If you cannot create the food item json, let the user know that their surroundings might be too noisy or that they need to be more specific about what they ate. Keep it short and sweet. If the text has actual food words, but they were not specific enough, call out the food words and let them know to be more specific about said food words in a friendly manner. Keep it very short!
+                    Try your best, but if you cannot understand the input and cannot create a proper JSON response, respond with a very short and simple helpful suggestion in plain text. The user is speaking the sentence and an audio transcription tool is creating the text content for you to read here. If you cannot create the food item json, let the user know that their surroundings might be too noisy or that they need to be more specific about what they ate. If the text has actual food words, but they were not specific enough, call out the food words and let them know to be more specific about said food words in a friendly manner. Instead of saying "food log" say "meal" if it seems like they said more than one thing or "food item" if only one thing. Keep your response very short!
                 `,
 				},
 				{
