@@ -13,6 +13,7 @@ import { PlusIcon } from "./PlusIcon";
 import { ChevronUp } from "./ChevronUp";
 import { ChevronDown } from "./ChevronDown";
 import { ColorTypes } from "~/types/propTypes";
+import { RobotHead } from "./RobotHead";
 
 const sizeMap = {
     xs: 16,
@@ -21,6 +22,7 @@ const sizeMap = {
     lg: 48,
     xl: 64,
     '2xl': 96,
+    '3xl': 128,
 };
 
 type SizeMapKey = keyof typeof sizeMap;
@@ -49,6 +51,7 @@ export const Icon = forwardRef(({ name, size = 'md', color }: IconProps, ref: Fo
             case IconNames.PlusIcon: return PlusIcon;
             case IconNames.ChevronUp: return ChevronUp;
             case IconNames.ChevronDown: return ChevronDown;
+            case IconNames.RobotHead: return RobotHead;
             default: return Fragment;
         }
     })();

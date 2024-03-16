@@ -16,12 +16,15 @@ import { Repeater } from "~/components/repeater/Repeater";
 import Skeleton from "react-loading-skeleton";
 import { Divider, links as dividerLinks } from "~/components/divider/Divider";
 import { useEffect, useState } from "react";
+import { Modal } from "~/components/modal/Modal";
+import { PromptModal, links as promptModalLinks } from "./PromptModal";
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: pageStyles },
     ...dividerLinks(),
     ...buttonLinks(),
     ...audioRecLinks(),
+    ...promptModalLinks(),
 ];
 
 export const loader: LoaderFunction = async (context) => {
@@ -36,23 +39,18 @@ export default function EditFoodLogPage() {
     const loaderData = useLoaderData<typeof loader>();
     const submitter = useFetcher();
     const params = useParams();
-    const [hasScrolled, setHasScrolled] = useState(false);
+    const [showPrompt, setShowPrompt] = useState(true);
     const { foodLogItems } = loaderData;
     const foodLogId = params.id as string;
     const isLoading = submitter.state === 'loading' || submitter.state === 'submitting';
+    const promptErrorText = typeof submitter.data === 'string' && submitter.data;
+    const shouldShowPrompt = Boolean(promptErrorText && showPrompt);
 
     useEffect(() => {
-        // Check for scroll position to add background box shadow
-        const handleScroll = () => {
-            if (window.scrollY > 0) {
-                setHasScrolled(true);
-            } else {
-                setHasScrolled(false);
-            }
+        if (promptErrorText) {
+            setShowPrompt(true);
         }
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [])
+    }, [promptErrorText])
 
     // Submits the audio blob to the server but doesn't change page
     const handleNewAudioLog = async (audioBlob: Blob) => {
@@ -76,34 +74,69 @@ export default function EditFoodLogPage() {
             <Text size="md" color="secondary" weight="bold" lineHeight="tight">
                 {`Log Your Meal`}
             </Text>
-            <header>
-                <div className="background-box" data-visible={hasScrolled} />
-                <FlexBox center col width="full" gap="xl">
-                    <FlexBox col gap="md" width="full">
-                        <Text size="xl">
-                            {`1. What did you just eat?`}
-                        </Text>
-                        <Text size="xl">
-                            {`2. Hold mic to speak.`}
-                        </Text>
-                        <Text size="xl">
-                            {`3. Be specific.`}
-                        </Text>
-                    </FlexBox>
-                    <AudioRecorder
-                        onStart={() => console.log('Recording started')}
-                        onStop={handleNewAudioLog}
-                        isLoading={isLoading}
-                    />
-                </FlexBox>
-            </header>
+            <EditLogHeader
+                isLoading={isLoading}
+                handleNewAudioLog={handleNewAudioLog}
+            />
             <section>
                 <FoodLogItemList
                     logItems={foodLogItems}
                     isLoading={isLoading}
                 />
             </section>
+            {shouldShowPrompt && (
+                <PromptModal
+                    promptText={promptErrorText as string}
+                    closeModal={() => setShowPrompt(false)}
+                />
+            )}
         </main>
+    );
+}
+
+interface EditLogHeaderProps {
+    isLoading: boolean;
+    handleNewAudioLog: (audioBlob: Blob) => void;
+}
+
+const EditLogHeader = ({ isLoading, handleNewAudioLog }: EditLogHeaderProps) => {
+    const [hasScrolled, setHasScrolled] = useState(false);
+
+    useEffect(() => {
+        // Check for scroll position to add background box shadow
+        const handleScroll = () => {
+            if (window.scrollY > 0) {
+                setHasScrolled(true);
+            } else {
+                setHasScrolled(false);
+            }
+        }
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [])
+
+    return (
+        <header>
+            <div className="background-box" data-visible={hasScrolled} />
+            <FlexBox center col width="full" gap="xl">
+                <FlexBox col gap="md" width="full">
+                    <Text size="xl">
+                        {`1. What did you just eat?`}
+                    </Text>
+                    <Text size="xl">
+                        {`2. Hold mic to speak.`}
+                    </Text>
+                    <Text size="xl">
+                        {`3. Be specific.`}
+                    </Text>
+                </FlexBox>
+                <AudioRecorder
+                    onStart={() => console.log('Recording started')}
+                    onStop={handleNewAudioLog}
+                    isLoading={isLoading}
+                />
+            </FlexBox>
+        </header>
     );
 }
 

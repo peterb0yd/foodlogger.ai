@@ -30,22 +30,22 @@ const CloseButton = ({ goBackRoute }: { goBackRoute: PageRoutes }) => {
 
 interface ModalProps extends PropsWithChildren {
     goBackRoute?: PageRoutes;
-    title?: string;
+    fullScreen?: boolean;
+    contentWidth?: 'sm' | 'md' | 'lg';
 }
 
-export const Modal = ({ children, title, goBackRoute }: ModalProps) => {
+export const Modal = ({ children, goBackRoute, contentWidth, fullScreen = false }: ModalProps) => {
     return (
-        <div className="Modal">
+        <div
+            className="Modal"
+            data-full-screen={fullScreen}
+        >
             {goBackRoute && <CloseButton goBackRoute={goBackRoute} />}
-            {title && (
-                <div className="title">
-                    <Text size="xl" weight="bold" lineHeight='none'>{title}</Text>
-                </div>
-            )}
-            <div className="container" data-has-title={!!title}>
-                <div className="content">
-                    {children}
-                </div>
+            <div 
+                className="container"
+                data-content-width={contentWidth}
+            >
+                {children}
             </div>
         </div>
     );

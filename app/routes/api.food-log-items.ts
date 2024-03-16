@@ -1,9 +1,10 @@
 import { ActionFunction, LoaderFunction, json } from '@remix-run/node';
 import { FoodLogItemService } from '~/api/modules/food-log-item/food-log-item.service';
-import { convertAudioDataToReadStream, getTranscriptionFromAudioFile } from '~/api/modules/food-log-item/food-log-item.utils.server';
+import { convertAudioDataToReadStream, getTranscriptionFromAudioFile } from '~/api/modules/food-log-item/food-log-item.utils';
 import { RequestMethods } from '~/enums/requests';
 import { deepgram } from '~/utils/deepgram';
 import { SessionService } from '~/api/modules/session/session.service';
+import { BadAudioInputError } from '~/api/modules/food-log-item/food-log-item.errors';
 
 export const loader: LoaderFunction = async () => {
 	return new Response(null, {
@@ -28,7 +29,14 @@ export const action: ActionFunction = async (context) => {
                 console.log({foodItemLog});
 				return json(foodItemLog);
 			} catch (error) {
-				console.error(error);
+				if (error instanceof BadAudioInputError) {
+                    console.log('IS BAD AUDIO INPUT ERROR');
+                    return new Response(error.message, {
+                        status: 400,
+                        statusText: 'Bad Request',
+                    });
+                }
+                console.log('IS REG ERROR');
 				return new Response(null, {
 					status: 500,
 					statusText: 'Internal Server Error',

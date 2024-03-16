@@ -1,40 +1,18 @@
 .Modal {
-	--max-height: 80vh;
-    --max-width: 90vw;
-	--title-height: 50px;
-	--padding: 20px;
-
 	position: fixed;
-	width: max-content;
-	height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
 	max-height: var(--max-height);
 	max-width: var(--max-width);
 	background-color: var(--color-surface);
-	padding: var(--padding);
 	z-index: var(--z-index-modal);
 	box-shadow: 0 5px 10px var(--color-shadow);
 	box-sizing: border-box;
 	transition: all 0.3s ease-out;
-
-	.title {
-		height: var(--title-height);
-	}
-
-	.container {
-		display: flex;
-		max-height: calc(var(--max-height) - var(--padding) * 2);
-		overflow: auto;
-
-		.content {
-			display: flex;
-			flex-direction: column;
-			gap: 10px;
-		}
-
-		&[data-has-title="true"] {
-			max-height: calc(var(--max-height) - var(--title-height) - var(--padding) * 2);
-		}
-	}
 }
 
 .Modal-CloseButton {
@@ -43,4 +21,25 @@
 	right: 10px;
 	height: max-content;
 	width: max-content;
+}
+
+/** Full Screen? **/
+.Modal[data-full-screen='true'] {
+	height: 100vh;
+	width: 100vw;
+}
+.Modal[data-full-screen='false'] {
+	width: max-content;
+	height: max-content;
+}
+
+/** Content Width **/
+.Modal > .container[data-content-width='sm'] {
+    max-width: 50vw;
+}
+.Modal > .container[data-content-width='md'] {
+    max-width: 70vw;
+}
+.Modal > .container[data-content-width='lg'] {
+    max-width: 90vw;
 }

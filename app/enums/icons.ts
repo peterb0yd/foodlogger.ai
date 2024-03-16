@@ -9,5 +9,6 @@ export enum IconNames {
     PlusIcon = 'PlusIcon',
     ChevronUp = 'ChevronUp',
     ChevronDown = 'ChevronDown',
+    RobotHead = 'RobotHead',
     LoadingDots = 'LoadingDots', // Only used for loading animation
 }
