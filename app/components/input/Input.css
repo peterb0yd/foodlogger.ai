@@ -1,7 +1,7 @@
 .Input {
 	display: flex;
 	flex-direction: column;
-    text-transform: uppercase;
+	text-transform: uppercase;
 	gap: var(--input-label-gap);
 	font-weight: 600;
 	font-family: var(--font-primary);
@@ -15,6 +15,7 @@
 		padding: calc(var(--input-padding) + 0.5px); /* added 0.5px to make same height as select */
 		border-radius: var(--input-border-radius);
 		height: var(--input-height);
+        width: 100%;
 	}
 	& input:hover {
 		border: var(--input-border-hover);
@@ -28,18 +29,18 @@
 	display: flex;
 	align-items: center;
 	background-color: var(--color-surface-contrast);
-    padding: calc(var(--input-padding) + 0.5px); /* added 0.5px to make same height as select */
+	padding: calc(var(--input-padding) + 0.5px); /* added 0.5px to make same height as select */
 	border: var(--input-border);
-    border-radius: var(--input-border-radius);
-    height: var(--input-height);
+	border-radius: var(--input-border-radius);
+	height: var(--input-height);
 	color: var(--color-text-contrast);
 	gap: 0.5rem;
 
 	input {
-        background: none;
-        border: none;
-        padding: 0;
-        height: 100%;
+		background: none;
+		border: none;
+		padding: 0;
+		height: 100%;
 	}
 
 	&:hover {
@@ -48,4 +49,10 @@
 	&:focus {
 		border-color: var(--input-border-focus);
 	}
+}
+
+/** Full Width **/
+.Input[data-full-width='true'],
+.InputWithIcon[data-full-width='true'] {
+	width: 100%;
 }

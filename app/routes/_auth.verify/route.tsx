@@ -52,13 +52,15 @@ export default function Login() {
                     required
                     name="code"
                     label="Code"
+                    fullWidth
                     autoComplete="one-time-code"
                 />
                 <Button
                     variant="primary"
                     icon={IconNames.ChevronCircleIcon}
                     iconSize='sm'
-                    size='md'
+                    size='lg'
+                    fullWidth
                     loading={isLoading}
                 >
                     Verify

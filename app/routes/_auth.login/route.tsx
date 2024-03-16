@@ -94,7 +94,8 @@ export default function Login() {
                     variant="primary"
                     icon={IconNames.ChevronCircleIcon}
                     iconSize='sm'
-                    size='md'
+                    size='lg'
+                    fullWidth
                     loading={isLoading}
                 >
                     Login
