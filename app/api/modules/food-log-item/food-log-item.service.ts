@@ -126,7 +126,7 @@ export class FoodLogItemService {
 				const foodName = logItemData.name.toLowerCase();
 				let foodItem = await FoodItemService.findByName(foodName, tx);
 				if (!foodItem) {
-					console.log('Creating food item', foodName, 'for user', foodLog.userId);
+					console.log('Creating food item', foodName, 'for user ', foodLog.userId);
 					foodItem = await FoodItemService.create(foodName, foodLog.userId, tx);
 				}
 				// Check for existing food-log-item and add to our update list if it exists
