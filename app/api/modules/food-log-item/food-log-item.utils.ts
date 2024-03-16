@@ -1,7 +1,5 @@
 import { getOpenAIClient } from '~/utils/openAI';
-import {
-	IFoodLogItemTranscriptionOutput,
-} from './food-log-item.interfaces';
+import { IFoodLogItemTranscriptionOutput } from './food-log-item.interfaces';
 import { PreparationMethods, Units } from '@prisma/client';
 import { AUDIO_FILE_EXT, MIME_TYPE } from '~/utils/constants';
 import fs from 'fs';
@@ -31,7 +29,7 @@ export const parseFoodItemLogData = async (transcription: string) => {
 				{
 					role: 'system',
 					content: `
-                    Your only job is to decipher the sentence from the user and create one or more food log items from it. You need to extract the food item name, preparation method, quantity and unit from the sentence. The food item name must be singular. If they say "eggs", then write "egg". The preparation method must be one of these case sensitive values: ${preparationMethods}. If you don't understand the preparation method or can't find a match to one of those values, omit the field. The unit must be one of these case sensitive values: ${unitValues}. If they say "spoon" match it to "TABLESPOON". If you don't understand the unit or can't find a match, set unit to "NONE". Quantity is a float alue. You can use 0.5 if they say "half" or 2.5 if they say "two and a half". Respond in JSON format as shown in the examples. If you hear more than one food log, respond with an array of food logs.
+                    Your only job is to decipher the sentence from the user and create one or more food log items from it. You need to extract the food item name, preparation method, quantity and unit from the sentence. The food item name must be singular. If they say "eggs", then write "egg". The preparation method must be one of these case sensitive values: ${preparationMethods}. If you don't understand the preparation method or can't find a match to one of those values, omit the field. The unit must be one of these case sensitive values: ${unitValues}. If they say "spoon" match it to "TABLESPOON". If you don't understand the unit or can't find a match, set unit to "NONE". Quantity is a float value. Set the quantity to 0.5 if they say "half" or 2.5 if they say "two and a half". Respond in JSON format as shown in the examples. If you hear more than one food log, respond with an array of food logs.
                     Here are a few examples:
                     |
                     User: "I had 2 eggs for breakfast"
@@ -58,9 +56,13 @@ export const parseFoodItemLogData = async (transcription: string) => {
                         {name:"beans",quantity:1,unit:"CUP"},
                         {name:"chicken",quantity:1,unit:"CUP"}
                     ]
-                    
-                    If you cannot understand the input and cannot create a proper JSON response, respond with a very short and simple helpful suggestion in plain text. The user is speaking the sentence and an audio transcription tool is creating the text content for you to read here. If you cannot create the food item json, let the user know that their surroundings might be too noisy or that they need to be more specific about what they ate. If the text has actual food words, but they were not specific enough, call out the food words and let them know to be more specific about said food words in a friendly manner. Instead of saying "food log" say "meal" if it seems like they said more than one thing or "food item" if only one thing. If the response is too general, i.e. "Salad" or "Taco", ask them to be more specific about what was in the salad or taco and to estimate the quantities of the main ingredients using cups, tablespoons, grams, etc. Keep your response very short!
                 `,
+				},
+				{
+					role: 'system',
+					content: `
+                    If you cannot understand the input and cannot create a proper JSON response, respond with a very short and simple helpful suggestion in plain text. The user is speaking the sentence and an audio transcription tool is creating the text content for you to read here. If you cannot create the food item json, let the user know that their surroundings might be too noisy or that they need to be more specific about what they ate. If the text has actual food words, but they were not specific enough, call out the food words and let them know to be more specific about said food words in a friendly manner. Instead of saying "food log" say "meal" if it seems like they said more than one thing or "food item" if only one thing. If the response is too general, i.e. "Salad" or "Taco", ask them to be more specific about what was in the salad or taco and to estimate the quantities of the main ingredients using cups, tablespoons, grams, etc. Keep your response very short!
+                    `,
 				},
 				{
 					role: 'user',

@@ -19,6 +19,9 @@ import { useEffect, useState } from "react";
 import { Modal } from "~/components/modal/Modal";
 import { PromptModal, links as promptModalLinks } from "./PromptModal";
 
+// This is the response type when a prompt error occurs, but not on success
+type SubmitterBadAudioResponse = { suggestion: string };
+
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: pageStyles },
     ...dividerLinks(),
@@ -37,13 +40,13 @@ export const loader: LoaderFunction = async (context) => {
 
 export default function EditFoodLogPage() {
     const loaderData = useLoaderData<typeof loader>();
-    const submitter = useFetcher();
+    const submitter = useFetcher<SubmitterBadAudioResponse>();
     const params = useParams();
     const [showPrompt, setShowPrompt] = useState(true);
     const { foodLogItems } = loaderData;
     const foodLogId = params.id as string;
     const isLoading = submitter.state === 'loading' || submitter.state === 'submitting';
-    const promptErrorText = typeof submitter.data === 'string' && submitter.data;
+    const promptErrorText = submitter.data?.suggestion;
     const shouldShowPrompt = Boolean(promptErrorText && showPrompt);
 
     useEffect(() => {
@@ -78,12 +81,10 @@ export default function EditFoodLogPage() {
                 isLoading={isLoading}
                 handleNewAudioLog={handleNewAudioLog}
             />
-            <section>
-                <FoodLogItemList
-                    logItems={foodLogItems}
-                    isLoading={isLoading}
-                />
-            </section>
+            <FoodLogItemList
+                logItems={foodLogItems}
+                isLoading={isLoading}
+            />
             {shouldShowPrompt && (
                 <PromptModal
                     promptText={promptErrorText as string}
@@ -151,7 +152,7 @@ const FoodLogItemList = ({ logItems, isLoading }: FoodLogItemsProps) => {
         return <Text align="center">Your food logs will show up here...</Text>;
     }
     return (
-        <FlexBox col gap="md" width="full" padBottom='1/3'>
+        <FlexBox as="section" col gap="md" width="full" padBottom='1/3'>
             {logItems?.map((logItem, i) => (
                 <FoodLogItem
                     key={logItem.id}

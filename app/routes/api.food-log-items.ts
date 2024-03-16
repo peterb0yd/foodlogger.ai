@@ -30,11 +30,9 @@ export const action: ActionFunction = async (context) => {
 				return json(foodItemLog);
 			} catch (error) {
 				if (error instanceof BadAudioInputError) {
-                    console.log('IS BAD AUDIO INPUT ERROR');
-                    return new Response(error.message, {
-                        status: 400,
-                        statusText: 'Bad Request',
-                    });
+                    return json({
+                        suggestion: error.message,
+                    })
                 }
                 console.log('IS REG ERROR');
 				return new Response(null, {
