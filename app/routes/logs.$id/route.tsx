@@ -76,9 +76,6 @@ export default function EditFoodLogPage() {
 
     return (
         <main className="EditLog">
-            <Text size="md" color="secondary" weight="bold" lineHeight="tight">
-                {`Log Your Meal`}
-            </Text>
             <EditLogHeader
                 isLoading={isLoading}
                 handleNewAudioLog={handleNewAudioLog}
@@ -93,7 +90,7 @@ export default function EditFoodLogPage() {
                     closeModal={() => setShowPrompt(false)}
                 />
             )}
-            <BottomBar 
+            <BottomBar
                 primaryActionText="Done"
                 primaryActionIcon={IconNames.CheckMark}
                 primaryAction={() => navigate(PageRoutes.LOGS)}
@@ -129,23 +126,28 @@ const EditLogHeader = ({ isLoading, handleNewAudioLog }: EditLogHeaderProps) => 
     return (
         <header>
             <div className="background-box" data-visible={hasScrolled} />
-            <FlexBox center col width="full" gap="xl">
-                <FlexBox col gap="md" width="full">
-                    <Text size="xl">
-                        {`1. What did you just eat?`}
-                    </Text>
-                    <Text size="xl">
-                        {`2. Hold mic to speak.`}
-                    </Text>
-                    <Text size="xl">
-                        {`3. Be specific.`}
-                    </Text>
+            <FlexBox col gap="sm">
+                <Text size="md" color="secondary" weight="bold" lineHeight="tight">
+                    {`Log Your Meal`}
+                </Text>
+                <FlexBox center col width="full" gap="xl">
+                    <FlexBox col gap="md" width="full">
+                        <Text size="xl">
+                            {`1. What did you just eat?`}
+                        </Text>
+                        <Text size="xl">
+                            {`2. Hold mic to speak.`}
+                        </Text>
+                        <Text size="xl">
+                            {`3. Be specific.`}
+                        </Text>
+                    </FlexBox>
+                    <AudioRecorder
+                        onStart={() => console.log('Recording started')}
+                        onStop={handleNewAudioLog}
+                        isLoading={isLoading}
+                    />
                 </FlexBox>
-                <AudioRecorder
-                    onStart={() => console.log('Recording started')}
-                    onStop={handleNewAudioLog}
-                    isLoading={isLoading}
-                />
             </FlexBox>
         </header>
     );

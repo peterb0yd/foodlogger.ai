@@ -33,7 +33,7 @@ export const BottomBar = ({
                 <Button variant="muted" width="1/2" size="sm" border="muted" borderRadius="md" iconSide="left" icon={secondaryActionIcon} onClick={secondaryAction}>
                     {secondaryActionText}
                 </Button>
-                <Button variant="muted" width="1/2" size="sm" border="muted" borderRadius="md" iconSide="left" icon={primaryActionIcon} onClick={primaryAction}>
+                <Button variant="primary" width="1/2" size="sm" border="muted" borderRadius="md" iconSide="left" icon={primaryActionIcon} onClick={primaryAction}>
                     {primaryActionText}
                 </Button>
             </FlexBox>
