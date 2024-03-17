@@ -20,4 +20,6 @@ if (process.env.NODE_ENV === 'production') {
 	prisma = global.prisma;
 }
 
+export const dbTransaction = prisma.$transaction;
+
 export default prisma;

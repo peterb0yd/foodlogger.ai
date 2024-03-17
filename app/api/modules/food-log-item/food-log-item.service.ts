@@ -3,22 +3,19 @@ import { FoodLogItemRepository } from './food-log-item.repository';
 import { FoodItemService } from '../food-item/food-item.service';
 import {
 	IFoodLogItemTranscriptionOutput,
-	IFoodLogItemUpdateData,
 	IFoodLogItemUpdateInput,
 	IFoodLogItemWithFoodItem,
 } from './food-log-item.interfaces';
 import { FoodLogService } from '../food-log/food-log.service';
-import prisma, { PrismaTxType } from '~/utils/prisma';
+import { PrismaTxType, dbTransaction } from '~/utils/prisma';
 import { FoodLog, Prisma } from '@prisma/client';
 import {
 	foodLogItemDataToCreateInput,
 	foodLogItemDataToUpdateInput,
 } from './food-log-item.mappers';
-import { BadAudioInputError } from './food-log-item.errors';
 
 /** 
  TODO: 
-    - As a user, I want to be able to add food items that don't exist in the database
     - As the owner of the app, I need to be able to see added items clearly and who added them
  */
 
@@ -45,7 +42,7 @@ export class FoodLogItemService {
 		const previousLogItems = await FoodLogItemRepository.findAllByLogId(foodLogId);
 
 		// Wrap the updates in a transaction
-		return await prisma.$transaction(async (tx) => {
+		return await dbTransaction(async (tx) => {
 			try {
 				// If the user said more than one food log, create multiple food logs
 				if (Array.isArray(foodLogItemData) && foodLogItemData.length > 0) {
@@ -55,8 +52,6 @@ export class FoodLogItemService {
 						foodLog,
 						tx
 					);
-
-                    console.log({foodLogItemData, createItems, updateItems})
 
 					// This update can only change the quantity or unit used for the food-log-item
 					for (const updateItem of updateItems) {

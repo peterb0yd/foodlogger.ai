@@ -1,5 +1,5 @@
 
-export interface IFoodLogTemplateCreateInput {
+export interface ITemplateCreateInput {
     name: string;
     userId: string;
     foodLogId: string;
