@@ -16,8 +16,7 @@ export const action: ActionFunction = async ({ request }) => {
                 const data = await request.formData();
                 const foodLogId = data.get('foodLogId') as string;
                 const userId = data.get('userId') as string;
-                const name = data.get('name') as string;
-                const template = await TemplateService.createFromFoodLog({ name, userId, foodLogId });
+                const template = await TemplateService.createFromFoodLog({ userId, foodLogId });
                 return redirect(`/templates/${template.id}`)
             }
             catch (error) {

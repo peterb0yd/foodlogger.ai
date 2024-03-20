@@ -38,12 +38,12 @@ export const loader: LoaderFunction = async ({
 export default function Login() {
     const [error, setError] = useState<string | null>(null);
     const [searchParams,] = useSearchParams();
-    const submitter = useFetcher();
+    const fetcher = useFetcher();
     const phone = searchParams.get('phone') as string;
-    const isLoading = isFetcherLoading(submitter);
+    const isLoading = isFetcherLoading(fetcher);
 
     return (
-        <submitter.Form method={RequestMethods.PATCH} action={APIRoutes.SESSIONS}>
+        <fetcher.Form method={RequestMethods.PATCH} action={APIRoutes.SESSIONS}>
             <FlexBox col gap="xl" center>
                 <input type="hidden" name="phone" value={phone} />
                 <Text size="lg">{`Enter your code.`}</Text>
@@ -67,6 +67,6 @@ export default function Login() {
                 </Button>
                 {error ? <div className="error">{error}</div> : null}
             </FlexBox>
-        </submitter.Form>
+        </fetcher.Form>
     );
 }

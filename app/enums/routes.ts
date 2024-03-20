@@ -10,4 +10,5 @@ export enum APIRoutes {
     FOOD_LOGS = '/api/food-logs',
     FOOD_ITEM_LOGS = '/api/food-log-items',
     SESSIONS = '/api/sessions',
+    TEMPLATES = '/api/templates',
 }

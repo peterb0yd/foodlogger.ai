@@ -18,6 +18,9 @@ import { Divider, links as dividerLinks } from "~/components/divider/Divider";
 import { useEffect, useState } from "react";
 import { PromptModal, links as promptModalLinks } from "./PromptModal";
 import { BottomBar, links as bottomBarLinks } from "~/components/bottom-bar/BottomBar";
+import { FoodLogItemList, links as foodListLinks } from "./FoodLogItemList";
+import { isFetcherLoading } from "~/utils/fetcherLoading";
+
 
 // This is the response type when a prompt error occurs, but not on success
 type SubmitterBadAudioResponse = { suggestion: string };
@@ -29,36 +32,33 @@ export const links: LinksFunction = () => [
     ...audioRecLinks(),
     ...promptModalLinks(),
     ...bottomBarLinks(),
+    ...foodListLinks(),
 ];
 
 export const loader: LoaderFunction = async (context) => {
-    await SessionService.requireAuth(context.request);
+    const userId = await SessionService.requireAuth(context.request);
     const foodLogId = context.params.id as string;
     const foodLogItems = await FoodLogItemService.findAllByLogId(foodLogId);
     console.log({ foodLogItems });
-    return json({ foodLogItems });
+    return json({ userId, foodLogItems });
 }
 
 export default function EditFoodLogPage() {
     const loaderData = useLoaderData<typeof loader>();
-    const submitter = useFetcher<SubmitterBadAudioResponse>();
+    const logFetcher = useFetcher<SubmitterBadAudioResponse>();
+    const submitTemplate = useSubmit();
     const params = useParams();
     const navigate = useNavigate();
     const [showPrompt, setShowPrompt] = useState(true);
-    const { foodLogItems } = loaderData;
+    const { foodLogItems, userId } = loaderData;
     const foodLogId = params.id as string;
-    const isLoading = submitter.state === 'loading' || submitter.state === 'submitting';
-    const promptErrorText = submitter.data?.suggestion ?? null;
+    const isLoading = isFetcherLoading(logFetcher);
+    const promptErrorText = logFetcher.data?.suggestion ?? null;
     const shouldShowPrompt = Boolean(promptErrorText && showPrompt);
     const navigationType = useNavigationType();
     const backLink = navigationType === 'PUSH' ? -1 : PageRoutes.LOGS;
-
-    useEffect(() => {
-        if (promptErrorText) {
-            setShowPrompt(true);
-        }
-    }, [promptErrorText])
-
+    const canSaveAsTemplate = foodLogItems.length > 0;
+    
     // Submits the audio blob to the server but doesn't change page
     const handleNewAudioLog = async (audioBlob: Blob) => {
         if (!audioBlob) return;
@@ -68,12 +68,23 @@ export default function EditFoodLogPage() {
         reader.onloadend = () => {
             formData.append("audio", reader.result as string);
             formData.append("foodLogId", foodLogId)
-            submitter.submit(formData, {
+            logFetcher.submit(formData, {
                 method: RequestMethods.POST,
                 action: APIRoutes.FOOD_ITEM_LOGS,
                 navigate: false
             });
         }
+    }
+
+    // Create a new template and redirect to it
+    const handleCreateTemplate = async () => {
+        const formData = new FormData();
+        formData.append('foodLogId', foodLogId);
+        formData.append('userId', userId);
+        submitTemplate(formData, {
+            method: RequestMethods.POST,
+            action: APIRoutes.TEMPLATES,
+        });
     }
 
     return (
@@ -96,9 +107,12 @@ export default function EditFoodLogPage() {
                 primaryActionText="Done"
                 primaryActionIcon={IconNames.CheckMark}
                 primaryAction={() => navigate(backLink as string)}
+                primaryActionDisabled={isLoading}
                 secondaryActionText="Template"
                 secondaryActionIcon={IconNames.Template}
-                secondaryAction={() => alert('TEMPLATE!!!')}
+                secondaryAction={handleCreateTemplate}
+                secondaryActionDisabled={isLoading || !canSaveAsTemplate}
+                secondaryActionLoading={isLoading}
             />
         </main>
     );
@@ -155,76 +169,3 @@ const EditLogHeader = ({ isLoading, handleNewAudioLog }: EditLogHeaderProps) => 
     );
 }
 
-interface FoodLogItemsProps {
-    logItems: IFoodLogItemWithFoodItem[];
-    isLoading: boolean;
-}
-
-const FoodLogItemList = ({ logItems, isLoading }: FoodLogItemsProps) => {
-    const hasLogItems = Boolean(logItems?.length);
-    if (!hasLogItems && !isLoading) {
-        return <Text align="center">Your food logs will show up here...</Text>;
-    }
-    return (
-        <FlexBox as="section" col gap="md" width="full" padBottom='1/3'>
-            {logItems?.map((logItem, i) => (
-                <FoodLogItem
-                    key={logItem.id}
-                    logItem={logItem}
-                    isFirst={i === 0}
-                />
-            ))}
-            {isLoading && (
-                <Repeater count={3}>
-                    {hasLogItems && <Divider />}
-                    <FlexBox gap="md" width="full">
-                        <Skeleton height="2rem" width="80px" />
-                        <Skeleton height="2rem" width="100px" />
-                        <Skeleton height="2rem" containerClassName="skeleton-flex-grow" />
-                        <Skeleton height="2rem" width="60px" />
-                    </FlexBox>
-                </Repeater>
-            )}
-        </FlexBox>
-    );
-}
-
-const FoodLogItem = ({ logItem, isFirst }: { logItem: IFoodLogItemWithFoodItem, isFirst: boolean; }) => {
-    const quantity = logItem.quantity;
-    const unit = logItem.unit.toLowerCase();
-    const unitText = unit === 'none' ? '' : ` ${unit}`;
-    const name = startCase(logItem.foodItem.name);
-    const preparation = logItem.preparation.toLowerCase();
-
-    return (
-        <>
-            {!isFirst && <Divider />}
-            <FlexBox align="center" justify="between" width="full">
-                <FlexBox gap="md" align="center">
-                    <Text weight="bold" lineHeight="none">
-                        {name}
-                    </Text>
-                    <Text>{` • `}</Text>
-                    <Text lineHeight="none">
-                        {quantity}{unitText}
-                    </Text>
-                    <Text>{` • `}</Text>
-                    <Text lineHeight="none">
-                        {preparation}
-                    </Text>
-                </FlexBox>
-
-                <Form method={RequestMethods.DELETE} action={APIRoutes.FOOD_ITEM_LOGS} navigate={false}>
-                    <input type="hidden" name="id" value={logItem.id} />
-                    <Button
-                        icon={IconNames.TrashIcon}
-                        iconColor="destructive"
-                        borderRadius="sm"
-                        size="sm"
-                        variant="muted"
-                    />
-                </Form>
-            </FlexBox>
-        </>
-    );
-}

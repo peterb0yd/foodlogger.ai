@@ -1,7 +1,15 @@
-import { json } from '@remix-run/node';
 
-/**
- * This helper function helps us to return the accurate HTTP status,
- * 400 Bad Request, to the client.
- */
-export const badRequest = <T>(data: T) => json<T>(data, { status: 400 });
+class CustomError extends Error {
+    status: number;
+    constructor(message: string, status: number) {
+        super(message);
+        this.name = this.constructor.name;
+        this.status = status;
+    }
+}
+
+export class BadRequestError extends CustomError {
+    constructor(message = "Bad Request") {
+        super(message, 400);
+    }
+}

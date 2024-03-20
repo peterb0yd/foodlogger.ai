@@ -20,5 +20,5 @@ export const foodLogWithItemsToDto = (foodLogs: IFoodLogWithNestedSelectedItems[
         foods: foodLog.foodLogItems.map(foodLogItem => ({
             name: foodLogItem.foodItem.name
         }))
-    }));
+    })) as IFoodLogWithNestedFoods[];
 }

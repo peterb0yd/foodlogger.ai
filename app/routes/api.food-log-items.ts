@@ -34,7 +34,7 @@ export const action: ActionFunction = async (context) => {
                         suggestion: error.message,
                     })
                 }
-                console.log('IS REG ERROR');
+                console.log('IS REG ERROR', error);
 				return new Response(null, {
 					status: 500,
 					statusText: 'Internal Server Error',

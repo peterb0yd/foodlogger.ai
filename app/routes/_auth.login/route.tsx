@@ -46,8 +46,8 @@ export const loader: LoaderFunction = async ({
 export default function Login() {
     const { error } = useLoaderData<typeof loader>();
     const [countryCode, setCountryCode] = useState<string>(countryCodes[0].code);
-    const submitter = useFetcher();
-    const isLoading = isFetcherLoading(submitter);
+    const fetcher = useFetcher();
+    const isLoading = isFetcherLoading(fetcher);
 
     const countryCodeOptions = countryCodes.map(({ code, name }) => ({
         value: code,
@@ -61,7 +61,7 @@ export default function Login() {
         const phone = phoneNumber.replace(/[^0-9]*/g, '');
         const formDataToSubmit = new FormData();
         formDataToSubmit.set("phone", `${countryCode}${phone}`);
-        submitter.submit(formDataToSubmit, {
+        fetcher.submit(formDataToSubmit, {
             method: RequestMethods.POST,
             action: APIRoutes.SESSIONS,
         });

@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import prisma from '~/utils/prisma';
+import prisma, { PrismaTxType } from '~/utils/prisma';
 import { DateTime } from "luxon";
 
 export class FoodLogRepository {

@@ -29,7 +29,7 @@ interface AddOrEditFoodLogProps {
 // Displays a time-block with a button to add a food log 
 // or a summary of a saved food log and a button to edit it
 export const AddOrEditFoodLog = ({ time, foodLog }: AddOrEditFoodLogProps) => {
-    const submitter = useFetcher();
+    const fetcher = useFetcher();
     const { userId } = useTimelineContext();
 
     if (foodLog) {
@@ -62,7 +62,7 @@ export const AddOrEditFoodLog = ({ time, foodLog }: AddOrEditFoodLogProps) => {
     }
 
     return (
-        <submitter.Form
+        <fetcher.Form
             method={RequestMethods.POST}
             action={APIRoutes.FOOD_LOGS}
         >
@@ -85,6 +85,6 @@ export const AddOrEditFoodLog = ({ time, foodLog }: AddOrEditFoodLogProps) => {
                     </FlexBox>
                 </FlexBox>
             </Button>
-        </submitter.Form>
+        </fetcher.Form>
     );
 }
