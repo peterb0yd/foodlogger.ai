@@ -43,7 +43,7 @@ export default function FoodLogsPage() {
     const { userId, foodLogs } = useLoaderData<LoaderDataProps>();
 
     return (
-        <FlexBox col center width="full">
+        <FlexBox as="main" col center width="full">
             <div className="timeline">
                 <FlexBox col gap="xl" width="full" padBottom='1/3'>
                     <Timeline userId={userId} foodLogs={foodLogs}>

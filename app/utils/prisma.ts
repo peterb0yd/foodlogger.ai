@@ -2,8 +2,7 @@ declare global {
 	var prisma: PrismaClient; // This must be a `var` and not a `let / const`
 }
 
-import { Prisma, PrismaClient } from '@prisma/client';
-import { DefaultArgs } from '@prisma/client/runtime/library';
+import { PrismaClient } from '@prisma/client';
 
 let prisma: PrismaClient;
 
@@ -19,7 +18,5 @@ if (process.env.NODE_ENV === 'production') {
 	}
 	prisma = global.prisma;
 }
-
-export const dbTransaction = prisma.$transaction;
 
 export default prisma;

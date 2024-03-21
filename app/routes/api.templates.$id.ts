@@ -3,6 +3,7 @@ import { BadRequestError } from '~/api/errors/errors.server';
 import { SessionService } from '~/api/modules/session/session.service';
 import { TemplateService } from '~/api/modules/template/template.service';
 import { RequestMethods } from '~/enums/requests';
+import { PageRoutes } from '~/enums/routes';
 
 export const loader: LoaderFunction = async () => {
 	return { message: 'Hello, World!' };
@@ -39,7 +40,7 @@ export const action: ActionFunction = async ({ request, params }) => {
                 const data = await request.formData();
                 const name = data.get('name') as string;
                 await TemplateService.update(id, { name });
-                return redirect(`/templates/${id}`);
+                return redirect(PageRoutes.LOGS);
             }
             catch (error) {
                 if (error instanceof BadRequestError) {

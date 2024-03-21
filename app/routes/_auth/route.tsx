@@ -10,13 +10,8 @@ export const links: LinksFunction = () => [
 
 export default function AuthLayout() {
     return (
-        <MainLayout>
-            <MainLayout.Header />
-            <MainLayout.Content>
-                <div className="AuthLayout">
-                    <Outlet />
-                </div>
-            </MainLayout.Content>
-        </MainLayout>
+        <main className="AuthLayout">
+            <Outlet />
+        </main>
     );
 }

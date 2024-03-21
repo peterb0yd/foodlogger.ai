@@ -11,6 +11,7 @@ import { useSWEffect, LiveReload } from '@remix-pwa/sw';
 import globalStyles from "~/styles/global.css";
 import variables from "~/styles/variables.css";
 import fonts from "~/styles/fonts.css";
+import { MainLayout, links as mainLayoutLinks } from "~/layout/main-layout/MainLayout";
 import 'react-loading-skeleton/dist/skeleton.css';
 import { SkeletonTheme } from "react-loading-skeleton";
 
@@ -19,6 +20,7 @@ export const links: LinksFunction = () => [
     { rel: "stylesheet", href: globalStyles },
     { rel: "stylesheet", href: variables },
     { rel: "stylesheet", href: fonts },
+    ...mainLayoutLinks(),
 ];
 
 export default function App() {
@@ -37,7 +39,12 @@ export default function App() {
                     baseColor="var(--color-surface-muted)"
                     highlightColor="var(--color-surface-highlight)"
                 >
-                    <Outlet />
+                    <MainLayout>
+                        <MainLayout.Header />
+                        <MainLayout.Content>
+                            <Outlet />
+                        </MainLayout.Content>
+                    </MainLayout>
                 </SkeletonTheme>
                 <ScrollRestoration />
                 <Scripts />

@@ -1,8 +1,6 @@
 import { ActionFunction, LoaderFunction, json } from '@remix-run/node';
 import { FoodLogItemService } from '~/api/modules/food-log-item/food-log-item.service';
-import { convertAudioDataToReadStream, getTranscriptionFromAudioFile } from '~/api/modules/food-log-item/food-log-item.utils';
 import { RequestMethods } from '~/enums/requests';
-import { deepgram } from '~/utils/deepgram';
 import { SessionService } from '~/api/modules/session/session.service';
 import { BadAudioInputError } from '~/api/modules/food-log-item/food-log-item.errors';
 
@@ -24,40 +22,21 @@ export const action: ActionFunction = async (context) => {
 				const formData = await request.formData();
                 const foodLogId = formData.get('foodLogId') as string;
 				const audioData = formData.get('audio') as string;
-                const transcription = await getTranscriptionFromAudioFile(audioData);
-				const foodItemLog = await FoodLogItemService.create(transcription, foodLogId);
+				const foodItemLog = await FoodLogItemService.create(audioData, foodLogId);
 				return json(foodItemLog ?? {});
 			} catch (error) {
 				if (error instanceof BadAudioInputError) {
-                    console.log('IS BAD AUDIO ERROR');
                     return json({
                         suggestion: error.message,
                     })
                 }
-                console.log('IS REG ERROR', error);
+                console.log('API FOOD LOG ITEMS ERROR', error);
 				return new Response(null, {
 					status: 500,
 					statusText: 'Internal Server Error',
 				});
 			}
 		}
-        case RequestMethods.DELETE: {
-            try {
-                const formData = await request.formData();
-                const foodLogItemId = formData.get('id') as string;
-                await FoodLogItemService.delete(foodLogItemId);
-                return new Response(null, {
-                    status: 204,
-                    statusText: 'No Content',
-                });
-            } catch (error) {
-                console.error(error);
-                return new Response(null, {
-                    status: 500,
-                    statusText: 'Internal Server Error',
-                });
-            }
-        }
 		default: {
 			return new Response('Method not allowed', { status: 405 });
 		}

@@ -2017,13 +2017,6 @@ var require_route7 = __commonJS({
   }
 });
 
-// routes-module:routes/logs/route.tsx?worker
-var require_route8 = __commonJS({
-  "routes-module:routes/logs/route.tsx?worker"(exports, module) {
-    module.exports = {};
-  }
-});
-
 // node_modules/@remix-run/router/dist/router.js
 var router_exports = {};
 __export(router_exports, {
@@ -6562,10 +6555,9 @@ var route11 = __toESM(require_route4());
 var route12 = __toESM(require_route5());
 var route13 = __toESM(require_route6());
 var route14 = __toESM(require_route7());
-var route15 = __toESM(require_route8());
 
 // assets-module:@remix-pwa/dev?assets
-var assets = ["/build/root-RXKBKVII.css", "/build/root-4UEVJNFB.js", "/build/manifest-FB4CD4F8.js", "/build/entry.client-RKV3IPUL.js", "/build/css-bundle-46UMMAO5.css", "/build/__remix_entry_dev-2MIMZLGE.js", "/build/routes/templates.$id-KTNUR7GA.js", "/build/routes/manifest[.]webmanifest-J3KYYY3Q.js", "/build/routes/logs._index-ZQSU4GVK.js", "/build/routes/logs.$id-Q6GTORL6.js", "/build/routes/logs-GI36RAQT.js", "/build/routes/api.templates.$id-DHIFMQDU.js", "/build/routes/api.templates-TEF422FO.js", "/build/routes/api.sessions-ROOW2LGU.js", "/build/routes/api.food-logs-L6TUWRWI.js", "/build/routes/api.food-log-items.$id-EJK4PBV6.js", "/build/routes/api.food-log-items-HJIPGALR.js", "/build/routes/_index-VCADT2RV.js", "/build/routes/_auth.verify-CK7ASOL6.js", "/build/routes/_auth.login-JMPFCO7R.js", "/build/routes/_auth-TCEPNRF6.js", "/build/_shared/runtime-GC7QIU56.js", "/build/_shared/remix_hmr-LUVYR5BJ.js", "/build/_shared/react-dom-BEFB7ICU.js", "/build/_shared/react-3OYUNTOK.js", "/build/_shared/jsx-runtime-7NXSP56X.js", "/build/_shared/jsx-dev-runtime-RDH4Y5YT.js", "/build/_shared/esm-QFN2CM4M.js", "/build/_shared/client-DFZR44C7.js", "/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-YAGDXAHG.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-TBKDW64C.js", "/build/_shared/chunk-RHZ2X2HT.js", "/build/_shared/chunk-PNG5AS42.js", "/build/_shared/chunk-ODSS4IB4.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-BNXS44D7.js", "/build/_shared/chunk-BE5P5ZXR.js", "/build/_shared/chunk-6RHSZK5V.js", "/build/_shared/chunk-4FKKV6UW.js", "/build/_shared/chunk-46EKXQNK.js", "/build/_shared/chunk-25RXGT6Q.js", "/build/_shared/browser-ponyfill-HHJCH4WC.js", "/build/_assets/variables-KLIU7SKT.css", "/build/_assets/logs._index-AE7XRFN6.css", "/build/_assets/logs.$id-6VFUYGIN.css", "/build/_assets/home.styles-REFFGVN3.css", "/build/_assets/global-P2U5QJ66.css", "/build/_assets/fonts-TVTSVZVD.css", "/build/_assets/authLayout.styles-T4QKPAPD.css", "/build/_assets/TimelineBlock-Y2AJJHPX.css", "/build/_assets/Text-L5VKN6G4.css", "/build/_assets/Select-AVHJ2EJY.css", "/build/_assets/Modal-EFICZHJM.css", "/build/_assets/MainLayout-EIWI4Z5D.css", "/build/_assets/Logo-FCYZPVPX.css", "/build/_assets/LoadingSpinner-XDS4HRD2.css", "/build/_assets/Input-2JDPG7HB.css", "/build/_assets/Icon-VYMIEF2V.css", "/build/_assets/FlexBox-W7BC5T4X.css", "/build/_assets/Divider-BL5D63YI.css", "/build/_assets/Button-4CO5UIMM.css", "/build/_assets/BottomBar-RWUXV6LM.css", "/build/_assets/AudioRecorder-CNPFDEXJ.css"];
+var assets = ["/build/root-RXKBKVII.css", "/build/root-JFKNQTVZ.js", "/build/manifest-1DF5DA99.js", "/build/entry.client-HUUA4BA7.js", "/build/css-bundle-46UMMAO5.css", "/build/__remix_entry_dev-N4FNXY7J.js", "/build/routes/templates.$id-55CH6XIC.js", "/build/routes/manifest[.]webmanifest-J3KYYY3Q.js", "/build/routes/logs._index-HTB2QWB2.js", "/build/routes/logs.$id-CI5SSVUM.js", "/build/routes/api.templates.$id-DHIFMQDU.js", "/build/routes/api.templates-TEF422FO.js", "/build/routes/api.sessions-ROOW2LGU.js", "/build/routes/api.food-logs-L6TUWRWI.js", "/build/routes/api.food-log-items.$id-EJK4PBV6.js", "/build/routes/api.food-log-items-HJIPGALR.js", "/build/routes/_index-SKZENFUC.js", "/build/routes/_auth.verify-MRINU5K3.js", "/build/routes/_auth.login-7LXLHJ66.js", "/build/routes/_auth-FC7CTK33.js", "/build/_shared/runtime-GC7QIU56.js", "/build/_shared/remix_hmr-LUVYR5BJ.js", "/build/_shared/react-dom-BEFB7ICU.js", "/build/_shared/react-3OYUNTOK.js", "/build/_shared/jsx-runtime-7NXSP56X.js", "/build/_shared/jsx-dev-runtime-RDH4Y5YT.js", "/build/_shared/esm-QFN2CM4M.js", "/build/_shared/client-DFZR44C7.js", "/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-YAGDXAHG.js", "/build/_shared/chunk-XV4BMNWJ.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-SQMJC2EE.js", "/build/_shared/chunk-RHZ2X2HT.js", "/build/_shared/chunk-PNG5AS42.js", "/build/_shared/chunk-ODSS4IB4.js", "/build/_shared/chunk-NPLF3UIN.js", "/build/_shared/chunk-M6TJPD4V.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-FMXMAWMM.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-BNXS44D7.js", "/build/_shared/chunk-6RHSZK5V.js", "/build/_shared/browser-ponyfill-HHJCH4WC.js", "/build/_assets/variables-KLIU7SKT.css", "/build/_assets/logs._index-AE7XRFN6.css", "/build/_assets/logs.$id-6VFUYGIN.css", "/build/_assets/home.styles-REFFGVN3.css", "/build/_assets/global-P2U5QJ66.css", "/build/_assets/fonts-TVTSVZVD.css", "/build/_assets/authLayout.styles-T4QKPAPD.css", "/build/_assets/TimelineBlock-Y2AJJHPX.css", "/build/_assets/Text-L5VKN6G4.css", "/build/_assets/Select-AVHJ2EJY.css", "/build/_assets/Modal-EFICZHJM.css", "/build/_assets/MainLayout-EIWI4Z5D.css", "/build/_assets/Logo-FCYZPVPX.css", "/build/_assets/LoadingSpinner-XDS4HRD2.css", "/build/_assets/Input-2JDPG7HB.css", "/build/_assets/Icon-VYMIEF2V.css", "/build/_assets/FlexBox-W7BC5T4X.css", "/build/_assets/Divider-BL5D63YI.css", "/build/_assets/Button-4CO5UIMM.css", "/build/_assets/BottomBar-RWUXV6LM.css", "/build/_assets/AudioRecorder-CNPFDEXJ.css"];
 
 // entry-module:@remix-pwa/build/magic
 var routes = {
@@ -6659,16 +6651,16 @@ var routes = {
   },
   "routes/logs._index": {
     id: "routes/logs._index",
-    parentId: "routes/logs",
-    path: void 0,
+    parentId: "root",
+    path: "logs",
     index: true,
     caseSensitive: void 0,
     module: route11
   },
   "routes/logs.$id": {
     id: "routes/logs.$id",
-    parentId: "routes/logs",
-    path: ":id",
+    parentId: "root",
+    path: "logs/:id",
     index: void 0,
     caseSensitive: void 0,
     module: route12
@@ -6688,14 +6680,6 @@ var routes = {
     index: void 0,
     caseSensitive: void 0,
     module: route14
-  },
-  "routes/logs": {
-    id: "routes/logs",
-    parentId: "root",
-    path: "logs",
-    index: void 0,
-    caseSensitive: void 0,
-    module: route15
   }
 };
 var entry = { module: entry_worker_exports };

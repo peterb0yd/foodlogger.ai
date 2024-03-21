@@ -1,4 +1,4 @@
-import { parseFoodItemLogData } from './food-log-item.utils';
+import { getTranscriptionFromAudioFile, parseFoodItemLogData } from './food-log-item.utils';
 import { FoodLogItemRepository } from './food-log-item.repository';
 import { FoodItemService } from '../food-item/food-item.service';
 import {
@@ -7,7 +7,7 @@ import {
 	IFoodLogItemWithFoodItem,
 } from './food-log-item.interfaces';
 import { FoodLogService } from '../food-log/food-log.service';
-import { PrismaTxType, dbTransaction } from '~/utils/prisma';
+import prisma, { PrismaTxType } from '~/utils/prisma';
 import { FoodLog, Prisma } from '@prisma/client';
 import {
 	foodLogItemDataToCreateInput,
@@ -24,16 +24,18 @@ export class FoodLogItemService {
 		return FoodLogItemRepository.findAllByLogId(logId);
 	}
 
-	// Add a food-log-item to a food-log given the user's text transcription
-	static async create(transcription: string, foodLogId: string) {
+	// Add a food-log-item to a food-log given the user's audio input
+	static async create(audioData: string, foodLogId: string) {
+        const transcription = await getTranscriptionFromAudioFile(audioData);
+        console.log({ transcription });
         let foodLogItemData;
         try {
             foodLogItemData = await parseFoodItemLogData(transcription);
         } catch (error) {
             throw error;
         }
-		const foodLog = await FoodLogService.findById(foodLogId);
 
+		const foodLog = await FoodLogService.findById(foodLogId);
 		if (!foodLog) {
 			throw new Error(`Food log with id "${foodLogId}" not found`);
 		}
@@ -42,7 +44,7 @@ export class FoodLogItemService {
 		const previousLogItems = await FoodLogItemRepository.findAllByLogId(foodLogId);
 
 		// Wrap the updates in a transaction
-		return await dbTransaction(async (tx) => {
+		return await prisma.$transaction(async (tx) => {
 			try {
 				// If the user said more than one food log, create multiple food logs
 				if (Array.isArray(foodLogItemData) && foodLogItemData.length > 0) {

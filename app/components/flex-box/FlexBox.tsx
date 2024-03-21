@@ -17,7 +17,7 @@ interface FlexBoxProps extends PropsWithChildren {
     borderRadius?: 'xs' | 'sm' | 'md' | 'rounded' | 'full';
     width?: 'full' | 'max';
     height?: 'full' | 'max';
-    as?: 'div' | 'ul' | 'ol' | 'span' | 'li' | 'section' | 'header' | 'aside';
+    as?: 'main' | 'div' | 'ul' | 'ol' | 'span' | 'li' | 'section' | 'header' | 'aside';
 }
 
 export const links: LinksFunction = () => [

@@ -15,6 +15,7 @@ interface InputProps {
     icon?: IconNames;
     required?: boolean;
     fullWidth?: boolean;
+    defaultValue?: string;
     grow?: boolean;
     onChange?: (value: string) => void;
 }
@@ -23,7 +24,7 @@ export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: inputStyles },
 ];
 
-export const Input = ({ value, icon, size = 'md', type = 'text', name, label, pattern, grow, autoComplete, required, fullWidth, onChange }: InputProps) => {
+export const Input = ({ value, icon, size = 'md', type = 'text', defaultValue, name, label, pattern, grow, autoComplete, required, fullWidth, onChange }: InputProps) => {
     return (
         <Container icon={icon}>
             <label
@@ -37,6 +38,7 @@ export const Input = ({ value, icon, size = 'md', type = 'text', name, label, pa
                     name={name}
                     type={type}
                     value={value}
+                    defaultValue={defaultValue}
                     pattern={pattern}
                     required={required}
                     onChange={(e) => onChange?.(e.target.value)}
