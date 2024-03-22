@@ -18,7 +18,7 @@ import { Divider, links as dividerLinks } from "~/components/divider/Divider";
 import { useEffect, useState } from "react";
 import { PromptModal, links as promptModalLinks } from "./PromptModal";
 import { BottomBar, links as bottomBarLinks } from "~/components/bottom-bar/BottomBar";
-import { FoodLogItemList, links as foodListLinks } from "./FoodLogItemList";
+import { FoodItemList, links as foodListLinks } from "~/components/food-item-list/FoodItemList";
 import { isFetcherLoading } from "~/utils/fetcherLoading";
 
 
@@ -39,7 +39,6 @@ export const loader: LoaderFunction = async (context) => {
     const userId = await SessionService.requireAuth(context.request);
     const foodLogId = context.params.id as string;
     const foodLogItems = await FoodLogItemService.findAllByLogId(foodLogId);
-    console.log({ foodLogItems });
     return json({ userId, foodLogItems });
 }
 
@@ -54,11 +53,11 @@ export default function EditFoodLogPage() {
     const foodLogId = params.id as string;
     const isLoading = isFetcherLoading(logFetcher);
     const promptErrorText = logFetcher.data?.suggestion ?? null;
-    const shouldShowPrompt = Boolean(promptErrorText && showPrompt);
     const navigationType = useNavigationType();
     const backLink = navigationType === 'PUSH' ? -1 : PageRoutes.LOGS;
-    const canSaveAsTemplate = foodLogItems.length > 0;
-    
+    const shouldShowPrompt = Boolean(promptErrorText && showPrompt);
+    const canSaveAsTemplate = Boolean(foodLogItems?.length > 0);
+
     // Submits the audio blob to the server but doesn't change page
     const handleNewAudioLog = async (audioBlob: Blob) => {
         if (!audioBlob) return;
@@ -93,8 +92,8 @@ export default function EditFoodLogPage() {
                 isLoading={isLoading}
                 handleNewAudioLog={handleNewAudioLog}
             />
-            <FoodLogItemList
-                logItems={foodLogItems}
+            <FoodItemList
+                items={foodLogItems}
                 isLoading={isLoading}
             />
             {shouldShowPrompt && (
@@ -103,17 +102,21 @@ export default function EditFoodLogPage() {
                     closeModal={() => setShowPrompt(false)}
                 />
             )}
-            <BottomBar
-                primaryActionText="Done"
-                primaryActionIcon={IconNames.CheckMark}
-                primaryAction={() => navigate(backLink as string)}
-                primaryActionDisabled={isLoading}
-                secondaryActionText="Template"
-                secondaryActionIcon={IconNames.Template}
-                secondaryAction={handleCreateTemplate}
-                secondaryActionDisabled={isLoading || !canSaveAsTemplate}
-                secondaryActionLoading={isLoading}
-            />
+            <BottomBar>
+                <BottomBar.PrimaryButton
+                    text="Done"
+                    icon={IconNames.CheckMark}
+                    onClick={() => navigate(backLink as string)}
+                    disabled={isLoading}
+                />
+                <BottomBar.SecondaryButton
+                    text="Template"
+                    icon={IconNames.Template}
+                    onClick={handleCreateTemplate}
+                    disabled={isLoading || !canSaveAsTemplate}
+                    loading={isLoading}
+                />
+            </BottomBar>
         </main>
     );
 }

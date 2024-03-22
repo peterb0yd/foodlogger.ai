@@ -5,19 +5,21 @@ import { useFetcher } from "react-router-dom";
 import { SessionService } from "~/api/modules/session/session.service";
 import { TemplateService } from "~/api/modules/template/template.service";
 import { BottomBar, links as bottomBarLinks } from "~/components/bottom-bar/BottomBar";
-import { Input, links as inputLinks  } from "~/components/input/Input";
-import { FlexBox, links as flexboxLinks  } from "~/components/flex-box/FlexBox";
+import { Input, links as inputLinks } from "~/components/input/Input";
+import { FlexBox, links as flexboxLinks } from "~/components/flex-box/FlexBox";
 import { Text, links as textLinks } from "~/components/text/Text";
 import { RequestMethods } from "~/enums/requests";
 import { APIRoutes, PageRoutes } from "~/enums/routes";
 import { IconNames } from "~/enums/icons";
 import { isFetcherLoading } from "~/utils/fetcherLoading";
+import { FoodItemList, links as foodListLinks } from "~/components/food-item-list/FoodItemList";
 
 export const links: LinksFunction = () => [
     ...bottomBarLinks(),
     ...inputLinks(),
     ...flexboxLinks(),
     ...textLinks(),
+    ...foodListLinks(),
 ];
 
 export const loader: LoaderFunction = async (context) => {
@@ -57,18 +59,25 @@ export default function TemplateCreatePage() {
                 <fetcher.Form onSubmit={handleFormSubmission} ref={formRef}>
                     <Input type="text" name="name" label="Name" defaultValue={template.name} />
                 </fetcher.Form>
-                {/* TODO: add template items and make them editable? */}
+                <FoodItemList
+                    items={template.items}
+                    isLoading={false}
+                />
             </FlexBox>
-            <BottomBar
-                primaryActionText="Save"
-                primaryActionIcon={IconNames.CheckMark}
-                primaryAction={handleSubmit}
-                primaryActionLoading={isLoading}
-                secondaryActionText="Cancel"
-                secondaryActionIcon={IconNames.ChevronLeft}
-                secondaryActionDisabled={isLoading}
-                secondaryAction={() => navigate(PageRoutes.LOGS)}
-            />
+            <BottomBar>
+                <BottomBar.PrimaryButton
+                    text="Save"
+                    icon={IconNames.CheckMark}
+                    onClick={handleSubmit}
+                    loading={isLoading}
+                />
+                <BottomBar.SecondaryButton
+                    text="Cancel"
+                    icon={IconNames.ChevronLeft}
+                    onClick={() => navigate(PageRoutes.LOGS)}
+                    disabled={isLoading}
+                />
+            </BottomBar>
         </FlexBox>
     );
 }

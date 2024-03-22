@@ -3,6 +3,7 @@ import { Button, links as buttonLinks } from "../button/Button";
 import { FlexBox, links as flexboxLinks } from "../flex-box/FlexBox";
 import bottomBarStyles from './BottomBar.css'
 import { LinksFunction } from "@remix-run/node";
+import { PropsWithChildren } from "react";
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: bottomBarStyles },
@@ -10,63 +11,56 @@ export const links: LinksFunction = () => [
     ...flexboxLinks(),
 ];
 
-interface BottomBarProps {
-    primaryActionText?: string;
-    secondaryActionText?: string;
-    primaryActionIcon?: IconNames;
-    secondaryActionIcon?: IconNames;
-    primaryActionDisabled?: boolean;
-    secondaryActionDisabled?: boolean;
-    primaryActionLoading?: boolean;
-    secondaryActionLoading?: boolean;
-    primaryAction?: () => void;
-    secondaryAction?: () => void;
-}
-
 export const BottomBar = ({
-    primaryActionText,
-    secondaryActionText,
-    primaryActionIcon,
-    secondaryActionIcon,
-    primaryActionDisabled,
-    secondaryActionDisabled,
-    primaryActionLoading,
-    secondaryActionLoading,
-    primaryAction,
-    secondaryAction
-}: BottomBarProps) => {
+    children
+}: PropsWithChildren) => {
     return (
         <footer className="BottomBar">
             <FlexBox gap="lg" width="full" padX="md">
-                <Button
-                    variant="muted"
-                    width="1/2"
-                    size="sm"
-                    border="muted"
-                    borderRadius="md"
-                    iconSide="left"
-                    icon={secondaryActionIcon}
-                    onClick={secondaryAction}
-                    disabled={secondaryActionDisabled}
-                    loading={secondaryActionLoading}
-                >
-                    {secondaryActionText}
-                </Button>
-                <Button
-                    variant="primary"
-                    width="1/2"
-                    size="sm"
-                    border="muted"
-                    borderRadius="md"
-                    iconSide="left"
-                    icon={primaryActionIcon}
-                    onClick={primaryAction}
-                    disabled={primaryActionDisabled}
-                    loading={primaryActionLoading}
-                >
-                    {primaryActionText}
-                </Button>
+                {children}
             </FlexBox>
         </footer>
     );
 }
+
+interface ButtonProps {
+    text: string;
+    icon: IconNames;
+    onClick: () => void;
+    disabled?: boolean;
+    loading?: boolean;
+}
+
+BottomBar.PrimaryButton = ({ text, icon, onClick, disabled, loading }: ButtonProps) => (
+    <Button
+        variant="primary"
+        width="1/2"
+        size="sm"
+        border="muted"
+        borderRadius="md"
+        iconSide="left"
+        icon={icon}
+        onClick={onClick}
+        disabled={disabled}
+        loading={loading}
+    >
+        {text}
+    </Button>
+)
+
+BottomBar.SecondaryButton = ({ text, icon, onClick, disabled, loading }: ButtonProps) => (
+    <Button
+        variant="muted"
+        width="1/2"
+        size="sm"
+        border="muted"
+        borderRadius="md"
+        iconSide="left"
+        icon={icon}
+        onClick={onClick}
+        disabled={disabled}
+        loading={loading}
+    >
+        {text}
+    </Button>
+)

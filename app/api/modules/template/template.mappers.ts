@@ -10,6 +10,7 @@ export const templateWithItemsDto = (template: ITemplateWithNestedSelectedItems)
     return {
         ...template,
         items: template.foodLogTemplateItems.map(item => ({
+            id: item.id,
             name: item.foodItem.name,
             quantity: item.quantity,
             unit: item.unit,
