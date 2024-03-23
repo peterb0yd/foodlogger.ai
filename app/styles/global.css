@@ -60,6 +60,18 @@ select {
 [data-border='contrast'] {
 	border: 1px solid var(--color-text-contrast);
 }
+[data-border='dotted'] {
+    border: 1px dotted var(--color-text);
+}
+[data-border='dotted-muted'] {
+    border: 1px dotted var(--color-text-muted);
+}
+[data-border='dotted-thick'] {
+    border: 2px dashed var(--color-text);
+}
+[data-border='dotted-thick-muted'] {
+    border: 2px dashed var(--color-text-muted);
+}
 
 /** Border Radius **/
 [data-border-radius='xs'] {

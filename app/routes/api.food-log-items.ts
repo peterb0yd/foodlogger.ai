@@ -12,25 +12,31 @@ export const loader: LoaderFunction = async () => {
 };
 
 export const action: ActionFunction = async (context) => {
-    await SessionService.requireAuth(context.request);
-    
+	await SessionService.requireAuth(context.request);
+
 	const { request, params } = context;
 	switch (request.method) {
 		case RequestMethods.POST: {
 			try {
 				// Find out what the user said and create one or more food logs from it
 				const formData = await request.formData();
-                const foodLogId = formData.get('foodLogId') as string;
+				const foodLogId = formData.get('foodLogId') as string;
 				const audioData = formData.get('audio') as string;
-				const foodItemLog = await FoodLogItemService.create(audioData, foodLogId);
-				return json(foodItemLog ?? {});
+				const templateId = formData.get('templateId') as string;
+				if (templateId) {
+					// TODO: create from template
+				} else {
+					const foodItemLog = await FoodLogItemService.create(audioData, foodLogId);
+					return json(foodItemLog ?? {});
+				}
+                throw new BadAudioInputError('No audio data provided');
 			} catch (error) {
 				if (error instanceof BadAudioInputError) {
-                    return json({
-                        suggestion: error.message,
-                    })
-                }
-                console.log('API FOOD LOG ITEMS ERROR', error);
+					return json({
+						suggestion: error.message,
+					});
+				}
+				console.log('API FOOD LOG ITEMS ERROR', error);
 				return new Response(null, {
 					status: 500,
 					statusText: 'Internal Server Error',

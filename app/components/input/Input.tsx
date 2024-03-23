@@ -3,6 +3,7 @@ import inputStyles from './Input.css';
 import { IconNames } from '~/enums/icons';
 import { PropsWithChildren } from 'react';
 import { Icon } from '../icon/Icon';
+import { Label, links as labelLinks } from '../label/Label';
 
 interface InputProps {
     value?: string;
@@ -22,13 +23,14 @@ interface InputProps {
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: inputStyles },
+    ...labelLinks(),
 ];
 
 export const Input = ({ value, icon, size = 'md', type = 'text', defaultValue, name, label, pattern, grow, autoComplete, required, fullWidth, onChange }: InputProps) => {
     return (
         <Container icon={icon}>
-            <label
-                className="Input"
+            <Label
+                name='Input-Label'
                 data-full-width={fullWidth}
                 data-flex-grow={grow}
             >
@@ -44,7 +46,7 @@ export const Input = ({ value, icon, size = 'md', type = 'text', defaultValue, n
                     onChange={(e) => onChange?.(e.target.value)}
                     autoComplete={autoComplete}
                 />
-            </label>
+            </Label>
         </Container>
     );
 }

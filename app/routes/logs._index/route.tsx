@@ -7,6 +7,7 @@ import { links as buttonLinks } from '~/components/button/Button';
 import { Timeline, links as timelineLinks } from "./timeline/Timeline";
 import { IFoodLogWithNestedFoods } from "~/api/modules/food-log/food-log.interfaces";
 import logsStyles from './logs._index.css';
+import { Main, links as mainLinks } from "~/components/main/Main";
 
 const TIMES = [
     '12:00 AM', '1:00 AM', '2:00 AM', '3:00 AM', '4:00 AM', '5:00 AM',
@@ -25,6 +26,7 @@ export const links: LinksFunction = () => [
     ...flexBoxLinks(),
     ...buttonLinks(),
     ...timelineLinks(),
+    ...mainLinks(),
 ];
 
 interface LoaderDataProps {
@@ -43,8 +45,8 @@ export default function FoodLogsPage() {
     const { userId, foodLogs } = useLoaderData<LoaderDataProps>();
 
     return (
-        <FlexBox as="main" col center width="full">
-            <div className="timeline">
+        <Main name="FoodLogs" title={`Today's Food Logs`}>
+            <FlexBox col center width="full">
                 <FlexBox col gap="xl" width="full" padBottom='1/3'>
                     <Timeline userId={userId} foodLogs={foodLogs}>
                         {/* <Timeline.Block times={EARLY_MORNING_BLOCK} name="Early Morning" /> */}
@@ -53,7 +55,7 @@ export default function FoodLogsPage() {
                         <Timeline.Block times={EVENING_BLOCK} name="Evening" />
                     </Timeline>
                 </FlexBox>
-            </div>
-        </FlexBox>
+            </FlexBox>
+        </Main>
     );
 }

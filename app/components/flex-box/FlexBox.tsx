@@ -4,6 +4,7 @@ import flexBoxStyles from './FlexBox.css';
 
 interface FlexBoxProps extends PropsWithChildren {
     col?: boolean;
+    name?: string;
     padBottom?: '1/4' | '1/3' | '1/2';
     center?: boolean;
     grow?: boolean;
@@ -26,6 +27,7 @@ export const links: LinksFunction = () => [
 
 export const FlexBox = ({
     col = false,
+    name,
     justify = 'start',
     align = 'start',
     wrap = 'nowrap',
@@ -49,7 +51,7 @@ export const FlexBox = ({
     const Component = as;
     return (
         <Component
-            className="FlexBox"
+            className={`FlexBox ${name}`}
             data-col={col}
             data-grow={grow}
             data-width={width}

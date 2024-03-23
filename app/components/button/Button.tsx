@@ -5,7 +5,7 @@ import { PageRoutes } from '~/enums/routes';
 import buttonStyles from './Button.css';
 import { Icon, IconProps } from '../icon/Icon';
 import { LoadingSpinner, links as loadingSpinnerLinks } from '../loading-spinner/LoadingSpinner';
-import { ColorTypes, FontWeights } from '~/types/propTypes';
+import { BorderTypes, ColorTypes, FontWeights } from '~/types/propTypes';
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: buttonStyles },
@@ -32,7 +32,7 @@ interface ButtonProps extends BaseButtonProps, Omit<React.HTMLProps<HTMLButtonEl
     grow?: boolean;
     width?: 'full' | 'max' | '1/2' | '1/3' | '1/4';
     size?: 'flush' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-    border?: 'none' | 'thin' | 'base' | 'thick' | 'muted' | 'contrast';
+    border?: BorderTypes;
     borderRadius?: 'xs' | 'sm' | 'md' | 'rounded' | 'full';
     onClick?: () => void;
 }

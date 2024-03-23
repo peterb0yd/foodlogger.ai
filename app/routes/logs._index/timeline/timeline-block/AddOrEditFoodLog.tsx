@@ -47,16 +47,11 @@ export const AddOrEditFoodLog = ({ time, foodLog }: AddOrEditFoodLogProps) => {
                 href={`/logs/${foodLog.id}`}
                 width="full"
             >
-                <FlexBox as='li' key={time} gap="sm" align="center" justify="between" width="full">
-                    <FlexBox col gap="sm" align="start" width="full">
-                        <Text size="sm" color="muted">{time}</Text>
-                        <Text width="full" align="left" size="sm" truncate>{foodSummary}</Text>
-                    </FlexBox>
-                    <FlexBox gap="md" align="center" justify="end" width="full">
-                        <Text size="sm" color="primary" weight="bold">Edit Meal</Text>
-                        <Icon name={IconNames.PencilIcon} size="sm" color="primary" />
-                    </FlexBox>
-                </FlexBox>
+                <LogContent
+                    showEditContent={Boolean(foodLog.foods?.length)}
+                    time={time}
+                    foodSummary={foodSummary}
+                />
             </Button>
         );
     }
@@ -74,17 +69,47 @@ export const AddOrEditFoodLog = ({ time, foodLog }: AddOrEditFoodLogProps) => {
                 borderRadius="md"
                 name="AddFoodLog"
             >
-                <FlexBox as='li' key={time} gap="xl" align="center" justify="between" width="full">
-                    <FlexBox as="span" gap="md" align="center">
-                        <div className="time-dot" />
-                        <Text size="sm" color="muted">{time}</Text>
-                    </FlexBox>
-                    <FlexBox gap="md" align="center">
-                        <Text size="sm" color="soft" weight="bold">Log Meal</Text>
-                        <Icon name={IconNames.ChevronRight} size="sm" color="soft" />
-                    </FlexBox>
-                </FlexBox>
+                <LogContent time={time} />
             </Button>
         </fetcher.Form>
     );
 }
+
+interface LogContentProps {
+    showEditContent?: boolean;
+    time: string;
+    foodSummary?: string;
+}
+
+const LogContent = ({ showEditContent, time, foodSummary }: LogContentProps) => {
+    if (showEditContent) {
+        return <EditFoodLogContent time={time} foodSummary={foodSummary!} />;
+    }
+    return <AddFoodLogContent time={time} />;
+}
+
+const AddFoodLogContent = ({ time }: { time: string }) => (
+    <FlexBox as='li' key={time} gap="xl" align="center" justify="between" width="full">
+        <FlexBox as="span" gap="md" align="center">
+            <div className="time-dot" />
+            <Text size="sm" color="muted">{time}</Text>
+        </FlexBox>
+        <FlexBox gap="md" align="center">
+            <Text size="sm" color="soft" weight="bold">Log Meal</Text>
+            <Icon name={IconNames.ChevronRight} size="sm" color="soft" />
+        </FlexBox>
+    </FlexBox>
+)
+
+const EditFoodLogContent = ({ time, foodSummary }: { time: string, foodSummary: string }) => (
+    <FlexBox as='li' key={time} gap="sm" align="center" justify="between" width="full">
+        <FlexBox col gap="sm" align="start" width="full">
+            <Text size="sm" color="muted">{time}</Text>
+            <Text width="full" align="left" size="sm" truncate>{foodSummary}</Text>
+        </FlexBox>
+        <FlexBox gap="md" align="center" justify="end" width="full">
+            <Text size="sm" color="primary" weight="bold">Edit Meal</Text>
+            <Icon name={IconNames.PencilIcon} size="sm" color="primary" />
+        </FlexBox>
+    </FlexBox>
+)

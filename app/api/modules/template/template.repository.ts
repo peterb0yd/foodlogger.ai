@@ -43,4 +43,22 @@ export class TemplateRepository {
 			throw new Error(`Error finding food log template by id: ${error}`);
 		}
 	}
+
+    static async findAllByUserId(userId: string, tx: PrismaTxType = prisma) {
+        try {
+            const templates = await tx.template.findMany({
+                where: { userId },
+                include: {
+                    foodLogTemplateItems: {
+                        include: {
+                            foodItem: true,
+                        },
+                    },
+                },
+            });
+            return templates;
+        } catch (error) {
+            throw new Error(`Error finding food log templates by user id: ${error}`);
+        }
+    }
 }

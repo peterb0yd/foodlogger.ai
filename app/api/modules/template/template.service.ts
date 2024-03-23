@@ -1,4 +1,4 @@
-import prisma from '~/utils/prisma';
+import prisma, { PrismaTxType } from '~/utils/prisma';
 import { FoodLogItemService } from '../food-log-item/food-log-item.service';
 import {
 	ITemplateCreateData,
@@ -12,7 +12,7 @@ import { TemplateFoodLogItemService } from '../template-food-log-item/template-f
 
 export class TemplateService {
 	// Create a template by finding all food log items and creating a new template with the same items
-	static async createFromFoodLog(createData: ITemplateCreateData) {
+	static async create(createData: ITemplateCreateData) {
 		// Find all food log items
 		const foodLogItems = await FoodLogItemService.findAllByLogId(createData.foodLogId);
 		if (!foodLogItems) {
@@ -20,31 +20,34 @@ export class TemplateService {
 		}
 
 		return await prisma.$transaction(async (tx) => {
-			// Create a food log template
-			const template = await TemplateRepository.create(templateDataToCreateInput(createData), tx);
+			try {
+				// Create a food log template
+				const createInput = templateDataToCreateInput(createData);
+				const template = await TemplateRepository.create(createInput, tx);
 
-			// Create food log template items
-			await TemplateFoodLogItemService.createMany(
-				foodLogItems,
-				template,
-				tx
-			);
+				// Create food log template items
+				await TemplateFoodLogItemService.createMany(foodLogItems, template, tx);
 
-			return this.findById(template.id);
+				return await this.findById(template.id, tx);
+			} catch (error) {
+				throw new Error('Failed to create template from food log');
+			}
 		});
 	}
 
-	static async update(id: string, updateData: ITemplateUpdateInput) {
-		return TemplateRepository.update(id, updateData);
+	static async update(id: string, updateInput: ITemplateUpdateInput, tx?: PrismaTxType) {
+		return TemplateRepository.update(id, updateInput, tx);
 	}
 
-	static async findById(id: string) {
-		const template = (await TemplateRepository.findById(
-			id
-		)) as ITemplateWithNestedSelectedItems | null;
-        console.log({template});
+	static async findById(id: string, tx?: PrismaTxType) {
+		const template = await TemplateRepository.findById(id, tx);
 		if (template) {
 			return templateWithItemsDto(template);
 		}
+	}
+
+	static async findAllByUserId(userId: string) {
+		const templates = await TemplateRepository.findAllByUserId(userId);
+		return templates.map(templateWithItemsDto);
 	}
 }

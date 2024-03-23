@@ -1,11 +1,7 @@
-.Input {
+.Input-Label {
 	display: flex;
 	flex-direction: column;
-	text-transform: uppercase;
 	gap: var(--input-label-gap);
-	font-weight: 600;
-	font-family: var(--font-primary);
-	color: var(--color-primary);
 
 	input {
 		background-color: var(--color-surface-contrast);
@@ -52,7 +48,7 @@
 }
 
 /** Flex Grow **/
-.Input[data-flex-grow='true'],
+.Input-Label[data-flex-grow='true'],
 .InputWithIcon[data-flex-grow='true'] {
     flex-grow: 1;
 
@@ -62,7 +58,7 @@
 }
 
 /** Full Width **/
-.Input[data-full-width='true'],
+.Input-Label[data-full-width='true'],
 .InputWithIcon[data-full-width='true'] {
 	width: 100%;
 

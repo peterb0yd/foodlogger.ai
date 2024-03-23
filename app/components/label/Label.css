@@ -1,0 +1,6 @@
+.Label {
+	text-transform: uppercase;
+	font-weight: 600;
+	font-family: var(--font-primary);
+	color: var(--color-primary);
+}

@@ -13,13 +13,17 @@ import { APIRoutes, PageRoutes } from "~/enums/routes";
 import { IconNames } from "~/enums/icons";
 import { isFetcherLoading } from "~/utils/fetcherLoading";
 import { FoodItemList, links as foodListLinks } from "~/components/food-item-list/FoodItemList";
+import { Label, links as labelLinks } from "~/components/label/Label";
+import { Main, links as mainLinks } from "~/components/main/Main";
 
 export const links: LinksFunction = () => [
+    ...mainLinks(),
     ...bottomBarLinks(),
     ...inputLinks(),
     ...flexboxLinks(),
     ...textLinks(),
     ...foodListLinks(),
+    ...labelLinks(),
 ];
 
 export const loader: LoaderFunction = async (context) => {
@@ -53,31 +57,35 @@ export default function TemplateCreatePage() {
     }
 
     return (
-        <FlexBox height="full" center>
-            <FlexBox col>
-                <Text size="lg">Your Template</Text>
-                <fetcher.Form onSubmit={handleFormSubmission} ref={formRef}>
-                    <Input type="text" name="name" label="Name" defaultValue={template.name} />
-                </fetcher.Form>
-                <FoodItemList
-                    items={template.items}
-                    isLoading={false}
-                />
+        <Main name="Edit Template" title="Edit Your Template">
+            <FlexBox height="full" center>
+                <FlexBox col gap="lg">
+                    <fetcher.Form onSubmit={handleFormSubmission} ref={formRef}>
+                        <Input type="text" name="name" label="Name" defaultValue={template.name} />
+                    </fetcher.Form>
+                    <FlexBox col>
+                        <Label>Food Items</Label>
+                        <FoodItemList
+                            items={template.items}
+                        />
+                    </FlexBox>
+                </FlexBox>
+
+                <BottomBar>
+                    <BottomBar.SecondaryButton
+                        text="Cancel"
+                        icon={IconNames.ChevronLeft}
+                        onClick={() => navigate(PageRoutes.LOGS)}
+                        disabled={isLoading}
+                    />
+                    <BottomBar.PrimaryButton
+                        text="Save"
+                        icon={IconNames.CheckMark}
+                        onClick={handleSubmit}
+                        loading={isLoading}
+                    />
+                </BottomBar>
             </FlexBox>
-            <BottomBar>
-                <BottomBar.PrimaryButton
-                    text="Save"
-                    icon={IconNames.CheckMark}
-                    onClick={handleSubmit}
-                    loading={isLoading}
-                />
-                <BottomBar.SecondaryButton
-                    text="Cancel"
-                    icon={IconNames.ChevronLeft}
-                    onClick={() => navigate(PageRoutes.LOGS)}
-                    disabled={isLoading}
-                />
-            </BottomBar>
-        </FlexBox>
+        </Main>
     );
 }

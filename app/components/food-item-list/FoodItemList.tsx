@@ -23,10 +23,11 @@ export const links: LinksFunction = () => [
 
 interface FoodItemListProps {
     items: IFoodLogItemWithFoodItem[] | ITemplateWithNestedItems[];
-    isLoading: boolean;
+    isLoading?: boolean;
+    canDelete?: boolean;
 }
 
-export const FoodItemList = ({ items, isLoading }: FoodItemListProps) => {
+export const FoodItemList = ({ items, isLoading, canDelete }: FoodItemListProps) => {
     const hasItems = Boolean(items?.length);
     if (!hasItems && !isLoading) {
         return <Text align="center">Your food logs will show up here...</Text>;
@@ -38,6 +39,7 @@ export const FoodItemList = ({ items, isLoading }: FoodItemListProps) => {
                     key={item.id}
                     item={item as IFoodLogItemWithFoodItem | ITemplateFoodItem}
                     isFirst={i === 0}
+                    canDelete={canDelete}
                 />
             ))}
             {isLoading && (
@@ -58,9 +60,10 @@ export const FoodItemList = ({ items, isLoading }: FoodItemListProps) => {
 interface FoodListItemProps {
     item: IFoodLogItemWithFoodItem | ITemplateFoodItem;
     isFirst: boolean;
+    canDelete?: boolean;
 }
 
-const FoodListItem = ({ item, isFirst }: FoodListItemProps) => {
+const FoodListItem = ({ item, isFirst, canDelete }: FoodListItemProps) => {
     const quantity = item.quantity;
     const unit = item.unit.toLowerCase();
     const unitText = unit === 'none' ? '' : ` ${unit}`;
@@ -86,16 +89,18 @@ const FoodListItem = ({ item, isFirst }: FoodListItemProps) => {
                     </Text>
                 </FlexBox>
 
-                <Form method={RequestMethods.DELETE} action={`${APIRoutes.FOOD_ITEM_LOGS}/${item.id}`} navigate={false}>
-                    <input type="hidden" name="id" value={item.id} />
-                    <Button
-                        icon={IconNames.TrashIcon}
-                        iconColor="destructive"
-                        borderRadius="sm"
-                        size="sm"
-                        variant="muted"
-                    />
-                </Form>
+                {canDelete && (
+                    <Form method={RequestMethods.DELETE} action={`${APIRoutes.FOOD_ITEM_LOGS}/${item.id}`} navigate={false}>
+                        <input type="hidden" name="id" value={item.id} />
+                        <Button
+                            icon={IconNames.TrashIcon}
+                            iconColor="destructive"
+                            borderRadius="sm"
+                            size="sm"
+                            variant="muted"
+                        />
+                    </Form>
+                )}
             </FlexBox>
         </>
     );

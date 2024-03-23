@@ -14,9 +14,11 @@ export class TemplateFoodLogItemService {
 		template: Template,
 		tx?: PrismaTxType
 	) {
-		return TemplateFoodLogItemRepository.createMany(
-			templateItemDataToItemCreateInput(foodLogItems, template),
-			tx
-		);
+        const items = templateItemDataToItemCreateInput(foodLogItems, template);
+		return TemplateFoodLogItemRepository.createMany(items, tx);
 	}
+
+    static async delete(templateId: string) {
+        return TemplateFoodLogItemRepository.delete(templateId);
+    }
 }

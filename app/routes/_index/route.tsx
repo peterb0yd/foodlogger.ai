@@ -5,10 +5,12 @@ import { Text, links as textLinks } from "~/components/text/Text";
 import { PageRoutes } from "~/enums/routes";
 import styles from './home.styles.css';
 import { IconNames } from "~/enums/icons";
-import { MainLayout, links as layoutLinks } from "~/layout/main-layout/MainLayout";
+import { links as layoutLinks } from "~/layout/main-layout/MainLayout";
+import { Main, links as mainLinks } from "~/components/main/Main";
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: styles },
+    ...mainLinks(),
     ...layoutLinks(),
     ...textLinks(),
     ...flexBoxLinks(),
@@ -17,7 +19,7 @@ export const links: LinksFunction = () => [
 
 export default function Home() {
     return (
-        <main className="Home">
+        <Main name="Home">
             <FlexBox center col gap="xl" width="full">
                 <FlexBox col gap="md" align="center" width="full">
                     <Text size="lg" align="center" weight="black" lineHeight="tight">{`Meal tracking made simple.`}</Text>
@@ -33,6 +35,6 @@ export default function Home() {
                     Go to Logs
                 </Button>
             </FlexBox>
-        </main>
+        </Main>
     );
 }

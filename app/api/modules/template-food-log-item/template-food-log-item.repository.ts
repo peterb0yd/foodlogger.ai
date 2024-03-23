@@ -22,4 +22,14 @@ export class TemplateFoodLogItemRepository {
             throw new Error(`Error creating food log template items: ${error}`);
         }
     }
+
+    static async delete(id: string, tx: PrismaTxType = prisma) {
+        try {
+            await tx.templateFoodLogItem.delete({
+                where: { id },
+            });
+        } catch (error) {
+            throw new Error(`Error deleting food log template items: ${error}`);
+        }
+    }
 }
