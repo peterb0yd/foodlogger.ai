@@ -20,13 +20,14 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({ templates, o
     if (!templates) return null;
 
     return (
-        <FlexBox as="ul" name="TemplateSelector" col gap="md">
+        <FlexBox as="ul" name="TemplateSelector" col gap="md" width="full">
             {templates?.map(template => (
                 <Button
                     key={template.id}
                     variant="base"
                     color="muted"
-                    border="dotted-thick-muted"
+                    width="full"
+                    border="dotted-muted"
                     onClick={() => onSelect(template)}
                 >
                     {template.name}

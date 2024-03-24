@@ -15,6 +15,7 @@ export const templateWithItemsDto = (template: ITemplateWithNestedSelectedItems)
             quantity: item.quantity,
             unit: item.unit,
             preparation: item.preparation,
+            foodItemId: item.foodItemId,
         })),
     };
 }

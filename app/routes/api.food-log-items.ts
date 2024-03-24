@@ -24,12 +24,13 @@ export const action: ActionFunction = async (context) => {
 				const audioData = formData.get('audio') as string;
 				const templateId = formData.get('templateId') as string;
 				if (templateId) {
-					// TODO: create from template
+					const foodItemLogs = await FoodLogItemService.createFromTemplate(foodLogId, templateId);
+					return json(foodItemLogs ?? {});
 				} else {
 					const foodItemLog = await FoodLogItemService.create(audioData, foodLogId);
 					return json(foodItemLog ?? {});
 				}
-                throw new BadAudioInputError('No audio data provided');
+				throw new BadAudioInputError('No audio data provided');
 			} catch (error) {
 				if (error instanceof BadAudioInputError) {
 					return json({

@@ -12,7 +12,9 @@ import { FoodLog, Prisma } from '@prisma/client';
 import {
 	foodLogItemDataToCreateInput,
 	foodLogItemDataToUpdateInput,
+    templateToCreateInput,
 } from './food-log-item.mappers';
+import { TemplateService } from '../template/template.service';
 
 /** 
  TODO: 
@@ -99,6 +101,22 @@ export class FoodLogItemService {
 			}
 		});
 	}
+
+    // Given a template, create a food-log-item for each item in the template
+    static async createFromTemplate(foodLogId: string, templateId: string) {
+        const foodLog = await FoodLogService.findById(foodLogId);
+        if (!foodLog) {
+            throw new Error(`Food log with id "${foodLogId}" not found`);
+        }
+
+        const template = await TemplateService.findById(templateId);
+        if (!template) {
+            throw new Error(`Template with id "${templateId}" not found`);
+        }
+
+        const createInputs = templateToCreateInput(template, foodLogId);
+        return FoodLogItemRepository.createMany(createInputs);
+    }   
 
 	// Remove a food-log-item from a food-log
 	static async delete(foodLogItemId: string) {

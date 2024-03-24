@@ -7,13 +7,9 @@ import { Form, useFetcher, useLoaderData, useNavigate, useNavigationType, usePar
 import { FoodLogItemService } from "~/api/modules/food-log-item/food-log-item.service";
 import { IFoodLogItemWithFoodItem } from "~/api/modules/food-log-item/food-log-item.interfaces";
 import { SessionService } from "~/api/modules/session/session.service";
-import { startCase } from "lodash-es";
-import { Button, links as buttonLinks } from "~/components/button/Button";
 import { IconNames } from "~/enums/icons";
 import { RequestMethods } from "~/enums/requests";
 import pageStyles from './logs.$id.css';
-import { Repeater } from "~/components/repeater/Repeater";
-import Skeleton from "react-loading-skeleton";
 import { Divider, links as dividerLinks } from "~/components/divider/Divider";
 import { useEffect, useState } from "react";
 import { PromptModal, links as promptModalLinks } from "./PromptModal";
@@ -24,15 +20,14 @@ import { Main, links as mainLinks } from "~/components/main/Main";
 import { TemplateService } from "~/api/modules/template/template.service";
 import { TemplateSelector } from "./template-selector/TemplateSelector";
 
-
 // This is the response type when a prompt error occurs, but not on success
-type SubmitterBadAudioResponse = { suggestion: string };
+type BadAudioResponse = { suggestion: string };
+type SubmitterResponse = IFoodLogItemWithFoodItem | BadAudioResponse;
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: pageStyles },
     ...mainLinks(),
     ...dividerLinks(),
-    ...buttonLinks(),
     ...audioRecLinks(),
     ...promptModalLinks(),
     ...bottomBarLinks(),
@@ -51,21 +46,20 @@ export const loader: LoaderFunction = async (context) => {
 export default function EditFoodLogPage() {
     const loaderData = useLoaderData<typeof loader>();
     const { foodLogItems, userId, templates } = loaderData;
-    const logFetcher = useFetcher<SubmitterBadAudioResponse>();
+    const fetcher = useFetcher<SubmitterResponse>();
     const navigate = useNavigate();
     const submitTemplate = useSubmit();
     const params = useParams();
     const [showPrompt, setShowPrompt] = useState(true);
     const foodLogId = params.id as string;
-    const isLoading = isFetcherLoading(logFetcher);
-    const promptErrorText = logFetcher.data?.suggestion ?? null;
+    const isLoading = isFetcherLoading(fetcher);
+    const promptErrorText = (fetcher.data as BadAudioResponse)?.suggestion ?? null;
     const navigationType = useNavigationType();
     const backLink = navigationType === 'PUSH' ? -1 : PageRoutes.LOGS;
     const shouldShowPrompt = Boolean(promptErrorText && showPrompt);
     const hasFoodItems = Boolean(foodLogItems?.length > 0);
     const hasTemplates = Boolean(templates?.length > 0);
     const canShowTemplates = hasTemplates && !hasFoodItems;
-
 
     // Submits the audio blob to the server but doesn't change page
     const handleNewAudioLog = async (audioBlob: Blob) => {
@@ -76,12 +70,24 @@ export default function EditFoodLogPage() {
         reader.onloadend = () => {
             formData.append("audio", reader.result as string);
             formData.append("foodLogId", foodLogId)
-            logFetcher.submit(formData, {
+            fetcher.submit(formData, {
                 method: RequestMethods.POST,
                 action: APIRoutes.FOOD_ITEM_LOGS,
                 navigate: false
             });
         }
+    }
+
+    // Creates food log items for food log from a template
+    const handleTemplateSelect = async (templateId: string) => {
+        const formData = new FormData();
+        formData.append('templateId', templateId);
+        formData.append('foodLogId', foodLogId);
+        fetcher.submit(formData, {
+            method: RequestMethods.POST,
+            action: APIRoutes.FOOD_ITEM_LOGS,
+            navigate: false,
+        });
     }
 
     // Create a new template and redirect to it
@@ -107,11 +113,15 @@ export default function EditFoodLogPage() {
                 canDelete
             />
             {canShowTemplates && (
-                <FlexBox col gap="sm">
-                    <Text>or select a template</Text>
-                    <TemplateSelector 
+                <FlexBox col gap="sm" width="full">
+                    {/* TODO: fix this */}
+                    <Divider
+                        betweenText="or select a template"
+                        color="muted"
+                    />
+                    <TemplateSelector
                         templates={templates}
-                        onSelect={(template) => navigate(`${PageRoutes.TEMPLATES}/${template.id}`)}
+                        onSelect={(template) => handleTemplateSelect(template.id)}
                     />
                 </FlexBox>
             )}

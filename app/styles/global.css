@@ -109,6 +109,9 @@ select {
 [data-color='secondary'] {
 	color: var(--color-secondary);
 }
+[data-color='highlight'] {
+    color: var(--color-text-highlight);
+}
 
 /** Background Colors **/
 [data-bg='base'] {

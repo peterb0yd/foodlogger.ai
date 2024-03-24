@@ -1,6 +1,15 @@
 .Divider {
 	width: 100%;
 	height: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    .line {
+        width: 100%;
+        height: 1px;
+    }
 }
 
 /** Margins **/
@@ -14,10 +23,22 @@
 /** Color **/
 .Divider[data-color='muted'] {
 	background-color: var(--color-surface-muted);
+
+    .line {
+        background-color: var(--color-surface-muted);
+    }
 }
 .Divider[data-color='highlight'] {
 	background-color: var(--color-surface-highlight);
+
+    .line {
+        background-color: var(--color-surface-highlight);
+    }
 }
 .Divider[data-color='primary'] {
 	background-color: var(--color-primary);
+
+    .line {
+        background-color: var(--color-primary);
+    }
 }

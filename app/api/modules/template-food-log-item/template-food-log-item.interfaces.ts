@@ -10,4 +10,5 @@ export interface ITemplateFoodItem {
 	quantity: number;
 	unit: Units;
 	preparation: PreparationMethods;
+    foodItemId: string;
 }
