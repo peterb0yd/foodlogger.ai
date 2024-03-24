@@ -151,3 +151,19 @@
 	justify-content: center;
 	background: transparent;
 }
+.Button[data-variant='dotted-muted'] {
+    background: var(--color-surface-muted);
+    border: 2px dotted var(--color-surface-highlight);
+    color: var(--color-text-muted);
+    font-weight: 400;
+    &:hover {
+        background-color: var(--color-surface-highlight);
+        box-shadow: 0px 0px 5px 0px var(--color-shadow-light);
+        color: var(--color-text);
+    }
+    &:active {
+        background-color: var(--color-surface-soft);
+        box-shadow: 0px 0px 5px 0px var(--color-shadow-dark);
+        color: var(--color-text-muted);
+    }
+}

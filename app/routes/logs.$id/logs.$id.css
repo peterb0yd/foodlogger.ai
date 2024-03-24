@@ -1,12 +1,10 @@
 .EditLog {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
 }
 
 .EditLog > header {
     position: sticky;
     top: 0;
+    width: 100%;
     background-color: var(--color-surface);
     z-index: var(--z-index-overlay);
     padding-top: 0.5rem;

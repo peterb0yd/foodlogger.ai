@@ -154,6 +154,7 @@ enum Units {
     QUART
     PINT
     SLICE
+    GLASS
     CAN
     SERVING
     HANDFUL

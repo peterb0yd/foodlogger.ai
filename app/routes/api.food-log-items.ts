@@ -27,8 +27,8 @@ export const action: ActionFunction = async (context) => {
 					const foodItemLogs = await FoodLogItemService.createFromTemplate(foodLogId, templateId);
 					return json(foodItemLogs ?? {});
 				} else {
-					const foodItemLog = await FoodLogItemService.create(audioData, foodLogId);
-					return json(foodItemLog ?? {});
+					const result = await FoodLogItemService.create(audioData, foodLogId);
+					return json(result ?? {});
 				}
 				throw new BadAudioInputError('No audio data provided');
 			} catch (error) {

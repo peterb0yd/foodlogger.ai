@@ -51,7 +51,7 @@ export const FlexBox = ({
     const Component = as;
     return (
         <Component
-            className={`FlexBox ${name}`}
+            className={`FlexBox ${name ?? ''}`}
             data-col={col}
             data-grow={grow}
             data-width={width}

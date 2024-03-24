@@ -114,10 +114,10 @@ export default function EditFoodLogPage() {
             />
             {canShowTemplates && (
                 <FlexBox col gap="sm" width="full">
-                    {/* TODO: fix this */}
                     <Divider
                         betweenText="or select a template"
-                        color="muted"
+                        color="highlight"
+                        margin="lg"
                     />
                     <TemplateSelector
                         templates={templates}
@@ -174,19 +174,19 @@ const EditLogHeader = ({ isLoading, handleNewAudioLog }: EditLogHeaderProps) => 
     return (
         <header>
             <div className="background-box" data-visible={hasScrolled} />
-            <FlexBox col gap="sm">
-                <FlexBox center col width="full" gap="xl">
-                    <FlexBox col gap="md" width="full">
-                        <Text size="xl">
-                            {`1. What did you just eat?`}
-                        </Text>
-                        <Text size="xl">
-                            {`2. Hold mic to speak.`}
-                        </Text>
-                        <Text size="xl">
-                            {`3. Be specific.`}
-                        </Text>
-                    </FlexBox>
+            <FlexBox center col gap="xl" width="full">
+                <FlexBox col gap="md" width="full">
+                    <Text size="xl">
+                        {`1. What did you just eat?`}
+                    </Text>
+                    <Text size="xl">
+                        {`2. Hold mic to speak.`}
+                    </Text>
+                    <Text size="xl">
+                        {`3. Be specific.`}
+                    </Text>
+                </FlexBox>
+                <FlexBox center width="full">
                     <AudioRecorder
                         onStart={() => console.log('Recording started')}
                         onStop={handleNewAudioLog}

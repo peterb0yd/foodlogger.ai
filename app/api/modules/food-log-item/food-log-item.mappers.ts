@@ -5,9 +5,9 @@ import { ITemplateWithNestedItems } from '../template/template.interfaces';
 export const foodLogItemDataToCreateInput = ({
 	foodItem,
 	foodLogId,
-	foodLogItemData,
+	transcribedLog,
 }: IFoodLogItemCreateData) => {
-    const { quantity, unit, preparation } = foodLogItemData;
+    const { quantity, unit, preparation } = transcribedLog;
 	return {
 		quantity,
 		unit: unit.toUpperCase() as Units,
@@ -29,9 +29,9 @@ export const templateToCreateInput = (template: ITemplateWithNestedItems, foodLo
 
 export const foodLogItemDataToUpdateInput = ({
     foodLogItem,
-    foodLogItemData,
+    transcribedLog,
 }: IFoodLogItemUpdateData) => {
-    const { quantity, unit } = foodLogItemData;
+    const { quantity, unit } = transcribedLog;
     return {
         id: foodLogItem.id,
         quantity,

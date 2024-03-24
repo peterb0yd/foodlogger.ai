@@ -88,6 +88,7 @@ const LogContent = ({ showEditContent, time, foodSummary }: LogContentProps) => 
     return <AddFoodLogContent time={time} />;
 }
 
+// Default display when no food log is saved or no food items are added
 const AddFoodLogContent = ({ time }: { time: string }) => (
     <FlexBox as='li' key={time} gap="xl" align="center" justify="between" width="full">
         <FlexBox as="span" gap="md" align="center">
@@ -101,6 +102,7 @@ const AddFoodLogContent = ({ time }: { time: string }) => (
     </FlexBox>
 )
 
+// Display when a food log is saved and food items are added
 const EditFoodLogContent = ({ time, foodSummary }: { time: string, foodSummary: string }) => (
     <FlexBox as='li' key={time} gap="sm" align="center" justify="between" width="full">
         <FlexBox col gap="sm" align="start" width="full">

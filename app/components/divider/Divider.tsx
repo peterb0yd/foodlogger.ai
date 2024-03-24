@@ -8,12 +8,12 @@ export const links: LinksFunction = () => [
 ];
 
 interface DividerProps {
-    margin?: 'tight' | 'loose';
+    margin?: 'sm' | 'md' | 'lg'
     color?: 'highlight' | 'muted' | 'primary';
     betweenText?: string;
 }
 
-export const Divider = ({ margin = 'tight', color = 'highlight', betweenText }: DividerProps) => {
+export const Divider = ({ margin = 'sm', color = 'highlight', betweenText }: DividerProps) => {
     if (betweenText) {
         return (
             <div
@@ -21,16 +21,16 @@ export const Divider = ({ margin = 'tight', color = 'highlight', betweenText }: 
                 data-margin={margin}
                 data-color='transparent'
             >
-                <div className='line' />
-                <Text size="sm" color={color}>{betweenText}</Text>
-                <div className='line' />
+                <div className='line' data-color={color} />
+                <Text size="sm" color='muted'>{betweenText}</Text>
+                <div className='line' data-color={color} />
             </div>
         );
     }
 
     return (
         <div
-            className='Divider'
+            className='Divider line'
             data-margin={margin}
             data-color={color}
         />

@@ -4,17 +4,22 @@ export interface IFoodLogItemWithFoodItem extends FoodLogItem {
 	foodItem: FoodItem;
 }
 
+export interface ITranscribedFoodLogItem {
+    name: string;
+    quantity: number;
+    unit: Units;
+    preparation?: PreparationMethods;
+}
+
 export interface IFoodLogItemTranscriptionOutput {
-	name: string;
-	quantity: number;
-	unit: Units;
-	preparation?: PreparationMethods;
+	suggestion?: string;
+	logs?: Array<ITranscribedFoodLogItem>;
 }
 
 export interface IFoodLogItemCreateData {
 	foodItem: Prisma.FoodItemCreateInput;
 	foodLogId: string;
-	foodLogItemData: IFoodLogItemTranscriptionOutput;
+	transcribedLog: ITranscribedFoodLogItem;
 }
 
 export interface IFoodLogItemCreateInput {
@@ -27,7 +32,7 @@ export interface IFoodLogItemCreateInput {
 
 export interface IFoodLogItemUpdateData {
 	foodLogItem: IFoodLogItemWithFoodItem;
-	foodLogItemData: IFoodLogItemTranscriptionOutput;
+	transcribedLog: ITranscribedFoodLogItem;
 }
 
 export interface IFoodLogItemUpdateInput {
