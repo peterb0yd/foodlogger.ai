@@ -114,6 +114,11 @@
         box-shadow: 0px 0px 10px 0px var(--color-surface-muted);
         color: var(--color-text-muted);
 	}
+    &:disabled {
+        background-color: var(--color-surface-muted);
+        color: var(--color-text-muted);
+        cursor: not-allowed;
+    }
 }
 .Button[data-variant='primary'] {
     border-radius: 10px;
@@ -128,6 +133,11 @@
 		background-color: var(--color-primary-dark);
         box-shadow: 0px 0px 10px 0px var(--color-primary-dark);
 	}
+    &:disabled {
+        background-color: var(--color-primary-dark);
+        color: var(--color-text-muted);
+        cursor: not-allowed;
+    }
 }
 .Button[data-variant='secondary'] {
 	border-radius: 10px;
@@ -142,6 +152,11 @@
 		background-color: var(--color-secondary-dark);
         box-shadow: 0px 0px 10px 0px var(--color-secondary-dark);
 	}
+    &:disabled {
+        background-color: var(--color-secondary-dark);
+        color: var(--color-text-muted);
+        cursor: not-allowed;
+    }
 }
 .Button[data-variant='icon'] {
 	width: max-content;
@@ -165,5 +180,10 @@
         background-color: var(--color-surface-soft);
         box-shadow: 0px 0px 5px 0px var(--color-shadow-dark);
         color: var(--color-text-muted);
+    }
+    &:disabled {
+        background-color: var(--color-surface-muted);
+        color: var(--color-text-muted);
+        cursor: not-allowed;
     }
 }

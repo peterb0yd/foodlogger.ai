@@ -42,8 +42,6 @@ export default function Login() {
     const phone = searchParams.get('phone') as string;
     const isLoading = isFetcherLoading(fetcher);
 
-    // TODO: fix login
-    
     return (
         <fetcher.Form method={RequestMethods.PATCH} action={APIRoutes.SESSIONS}>
             <FlexBox col gap="xl" center>

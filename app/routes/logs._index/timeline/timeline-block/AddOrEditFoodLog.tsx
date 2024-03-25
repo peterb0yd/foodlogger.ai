@@ -9,7 +9,7 @@ import { Icon, links as iconLinks } from "~/components/icon/Icon";
 import { IconNames } from "~/enums/icons";
 import { RequestMethods } from "~/enums/requests";
 import { APIRoutes } from "~/enums/routes";
-import { timeStringAsDateISO } from "~/utils/datetime";
+import { timeStringFormatted } from "~/utils/datetime";
 import { useTimelineContext } from "../Timeline";
 import { IFoodLogWithNestedFoods } from "~/api/modules/food-log/food-log.interfaces";
 import { LinksFunction } from "@remix-run/node";
@@ -62,7 +62,7 @@ export const AddOrEditFoodLog = ({ time, foodLog }: AddOrEditFoodLogProps) => {
             action={APIRoutes.FOOD_LOGS}
         >
             <input type="hidden" name="userId" value={userId} />
-            <input type="hidden" name="logTime" value={timeStringAsDateISO(time)} />
+            <input type="hidden" name="logTime" value={timeStringFormatted(time)} />
             <Button
                 variant="base"
                 size="lg"
@@ -91,7 +91,7 @@ const LogContent = ({ showEditContent, time, foodSummary }: LogContentProps) => 
 // Default display when no food log is saved or no food items are added
 const AddFoodLogContent = ({ time }: { time: string }) => (
     <FlexBox as='li' key={time} gap="xl" align="center" justify="between" width="full">
-        <FlexBox as="span" gap="md" align="center">
+        <FlexBox as="span" gap="lg" align="center">
             <div className="time-dot" />
             <Text size="sm" color="muted">{time}</Text>
         </FlexBox>

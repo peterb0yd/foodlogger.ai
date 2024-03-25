@@ -1,4 +1,4 @@
-import { useLoaderData } from "@remix-run/react";
+import { useFetcher, useLoaderData } from "@remix-run/react";
 import { SessionService } from "~/api/modules/session/session.service";
 import { LinksFunction, LoaderFunction, json } from "@remix-run/node";
 import { FlexBox, links as flexBoxLinks } from "~/components/flex-box/FlexBox";
@@ -8,6 +8,10 @@ import { Timeline, links as timelineLinks } from "./timeline/Timeline";
 import { IFoodLogWithNestedFoods } from "~/api/modules/food-log/food-log.interfaces";
 import logsStyles from './logs._index.css';
 import { Main, links as mainLinks } from "~/components/main/Main";
+import { useState } from "react";
+import { APIRoutes } from "~/enums/routes";
+
+type FetcherResponseType = { foodLogs: IFoodLogWithNestedFoods[] };
 
 const TIMES = [
     '12:00 AM', '1:00 AM', '2:00 AM', '3:00 AM', '4:00 AM', '5:00 AM',
@@ -36,19 +40,35 @@ interface LoaderDataProps {
 
 export const loader: LoaderFunction = async ({ request }) => {
     const userId = await SessionService.requireAuth(request);
-    const today = new Date();
-    const foodLogs = await FoodLogService.findLogsForDate(userId, today);
+    // Default to today's logs
+    const foodLogs = await FoodLogService.findLogsForDate(userId, new Date());
     return json({ userId, foodLogs });
 }
 
 export default function FoodLogsPage() {
     const { userId, foodLogs } = useLoaderData<LoaderDataProps>();
+    const [date, setDate] = useState(new Date().toISOString());
+    const fetcher = useFetcher<FetcherResponseType>();
+    const foodLogsForDate = fetcher.data?.foodLogs ?? foodLogs;
+
+    const onDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const date = event.target.value;
+        const formattedDate = new Date(date).toISOString();
+        setDate(formattedDate);
+        fetcher.load(`${APIRoutes.FOOD_LOGS}?date=${formattedDate}&userId=${userId}`);
+    }
 
     return (
-        <Main name="FoodLogs" title={`Today's Food Logs`}>
+        <Main
+            name="FoodLogs"
+            title={`Today's Food Logs`}
+            subtitle={(
+                <input type="date" value={date} onChange={onDateChange} />
+            )}
+        >
             <FlexBox col center width="full">
                 <FlexBox col gap="xl" width="full" padBottom='1/3'>
-                    <Timeline userId={userId} foodLogs={foodLogs}>
+                    <Timeline userId={userId} foodLogs={foodLogsForDate}>
                         {/* <Timeline.Block times={EARLY_MORNING_BLOCK} name="Early Morning" /> */}
                         <Timeline.Block times={MORNING_BLOCK} name="Morning" />
                         <Timeline.Block times={AFTERNOON_BLOCK} name="Afternoon" />

@@ -5,16 +5,16 @@
 	justify-content: center;
 	gap: 0.5rem;
 
-	.line {
-        flex-grow: 1;
-		height: 1px;
-	}
-
     .Text {
         /* nowrap */
         white-space: nowrap;
         width: auto;
     }
+}
+
+.line {
+    flex-grow: 1;
+    height: 1px;
 }
 
 /** Margins (on container) **/

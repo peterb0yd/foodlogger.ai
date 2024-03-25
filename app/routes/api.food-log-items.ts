@@ -14,7 +14,7 @@ export const loader: LoaderFunction = async () => {
 export const action: ActionFunction = async (context) => {
 	await SessionService.requireAuth(context.request);
 
-	const { request, params } = context;
+	const { request } = context;
 	switch (request.method) {
 		case RequestMethods.POST: {
 			try {
