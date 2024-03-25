@@ -10,6 +10,8 @@ import logsStyles from './logs._index.css';
 import { Main, links as mainLinks } from "~/components/main/Main";
 import { useState } from "react";
 import { APIRoutes } from "~/enums/routes";
+import { isFetcherLoading } from "~/utils/fetcherLoading";
+import { localDateToWebString } from "~/utils/datetime";
 
 type FetcherResponseType = { foodLogs: IFoodLogWithNestedFoods[] };
 
@@ -41,21 +43,23 @@ interface LoaderDataProps {
 export const loader: LoaderFunction = async ({ request }) => {
     const userId = await SessionService.requireAuth(request);
     // Default to today's logs
-    const foodLogs = await FoodLogService.findLogsForDate(userId, new Date());
+    const todayIso = new Date().toISOString();
+    const foodLogs = await FoodLogService.findLogsForDate(userId, todayIso);
     return json({ userId, foodLogs });
 }
 
 export default function FoodLogsPage() {
     const { userId, foodLogs } = useLoaderData<LoaderDataProps>();
-    const [date, setDate] = useState(new Date().toISOString());
+    const [date, setDate] = useState(localDateToWebString(new Date()));
     const fetcher = useFetcher<FetcherResponseType>();
     const foodLogsForDate = fetcher.data?.foodLogs ?? foodLogs;
+    const isLoading = isFetcherLoading(fetcher);
 
     const onDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const date = event.target.value;
-        const formattedDate = new Date(date).toISOString();
-        setDate(formattedDate);
-        fetcher.load(`${APIRoutes.FOOD_LOGS}?date=${formattedDate}&userId=${userId}`);
+        const dateVal = event.target.value;
+        setDate(dateVal);
+        const formattedDate = new Date(dateVal).toISOString();
+        fetcher.load(`${APIRoutes.FOOD_LOGS}?isoDate=${formattedDate}&userId=${userId}`);
     }
 
     return (
@@ -68,7 +72,7 @@ export default function FoodLogsPage() {
         >
             <FlexBox col center width="full">
                 <FlexBox col gap="xl" width="full" padBottom='1/3'>
-                    <Timeline userId={userId} foodLogs={foodLogsForDate}>
+                    <Timeline userId={userId} foodLogs={foodLogsForDate} isLoading={false}>
                         {/* <Timeline.Block times={EARLY_MORNING_BLOCK} name="Early Morning" /> */}
                         <Timeline.Block times={MORNING_BLOCK} name="Morning" />
                         <Timeline.Block times={AFTERNOON_BLOCK} name="Afternoon" />

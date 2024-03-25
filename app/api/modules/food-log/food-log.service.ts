@@ -1,13 +1,7 @@
-import { DateTime } from "luxon";
 import { IFoodLogRequestData } from "./food-log.interfaces";
 import { foodLogDataToFoodLog, foodLogWithItemsToDto } from "./food-log.mappers";
 import { FoodLogRepository } from "./food-log.repository";
-import { startOfDate } from "~/utils/datetime";
-
-/** 
- TODO: 
-    - As a user, I want to be able to store a set of food items as a meal that I can refer to later using my given name of the meal
- */
+import { startOfIsoDate } from "~/utils/datetime";
 
 export class FoodLogService {
     static async create(foodLogData: IFoodLogRequestData) {
@@ -24,11 +18,8 @@ export class FoodLogService {
         return FoodLogRepository.findById(id);
     }
 
-    static async findLogsForDate(userId: string, date: Date | string) {
-        if (typeof date === 'string') {
-            date = new Date(date);
-        }
-        const startTime = startOfDate(date);
+    static async findLogsForDate(userId: string, isoDate: string) {
+        const startTime = startOfIsoDate(isoDate);
         const foodLogsWithItems = await FoodLogRepository.findLogsForDate(userId, startTime);
         return foodLogWithItemsToDto(foodLogsWithItems);
     }

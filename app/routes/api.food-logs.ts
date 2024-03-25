@@ -3,20 +3,18 @@ import { FoodLogService } from '~/api/modules/food-log/food-log.service';
 import { SessionService } from '~/api/modules/session/session.service';
 import { RequestMethods } from '~/enums/requests';
 
-// TODO: get this working!
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ request }) => {
     try {
-        console.log({params});
-		const { userId, date } = params;
-        console.log('userId', userId);
-        console.log('date', date);
-		if (!userId || !date) {
+        const params = new URL(request.url).searchParams;
+        const userId = params.get('userId');
+        const isoDate = params.get('isoDate');
+		if (!userId || !isoDate) {
 			return new Response(null, {
 				status: 400,
 				statusText: 'Bad Request',
 			});
 		}
-		const foodLogs = await FoodLogService.findLogsForDate(userId, date);
+		const foodLogs = await FoodLogService.findLogsForDate(userId, isoDate);
 		return json({ foodLogs });
 	} catch (error) {
 		console.error(error);
@@ -33,6 +31,7 @@ export const action: ActionFunction = async ({ request }) => {
 	switch (request.method) {
 		case RequestMethods.POST: {
 			try {
+                // TODO: fix timezone issue
 				const data = await request.formData();
 				const userId = data.get('userId') as string;
 				const logTime = data.get('logTime') as string;

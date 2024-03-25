@@ -11,6 +11,7 @@ import { useSearchParams } from "@remix-run/react";
 import { useTimelineContext } from "../Timeline";
 import { IFoodLogWithNestedFoods } from "~/api/modules/food-log/food-log.interfaces";
 import { AddOrEditFoodLog, links as addEditButtonLinks } from "./AddOrEditFoodLog";
+import Skeleton from "react-loading-skeleton";
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: styles },
@@ -31,7 +32,7 @@ export const TimelineBlock = ({ times, name }: TimelineBlockProps) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const nameParam = searchParams.get(name.toLowerCase());
     const [isExpanded, setIsExpanded] = useState(nameParam === 'true');
-    const { userId, foodLogs } = useTimelineContext();
+    const { userId, foodLogs, isLoading } = useTimelineContext();
     const actionText = isExpanded ? 'Collapse' : 'Expand';
 
     const toggleExpand = () => {
@@ -43,6 +44,12 @@ export const TimelineBlock = ({ times, name }: TimelineBlockProps) => {
         }, {
             preventScrollReset: true,
         });
+    }
+
+    if (isLoading) {
+        return (
+            <Skeleton height={200} width="100%" />
+        );
     }
 
     return (
