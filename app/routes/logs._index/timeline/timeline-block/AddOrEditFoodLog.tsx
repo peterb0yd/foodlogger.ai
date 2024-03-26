@@ -9,7 +9,7 @@ import { Icon, links as iconLinks } from "~/components/icon/Icon";
 import { IconNames } from "~/enums/icons";
 import { RequestMethods } from "~/enums/requests";
 import { APIRoutes } from "~/enums/routes";
-import { timeStringFormatted } from "~/utils/datetime";
+import { timeStringAsIso } from "~/utils/datetime";
 import { useTimelineContext } from "../Timeline";
 import { IFoodLogWithNestedFoods } from "~/api/modules/food-log/food-log.interfaces";
 import { LinksFunction } from "@remix-run/node";
@@ -32,6 +32,7 @@ export const AddOrEditFoodLog = ({ time, foodLog }: AddOrEditFoodLogProps) => {
     const fetcher = useFetcher();
     const { userId } = useTimelineContext();
 
+    // Edit an existing food log
     if (foodLog) {
         let foodSummary = 'No foods added yet...';
         if (Boolean(foodLog.foods.length)) {
@@ -56,13 +57,14 @@ export const AddOrEditFoodLog = ({ time, foodLog }: AddOrEditFoodLogProps) => {
         );
     }
 
+    // Add a new food log
     return (
         <fetcher.Form
             method={RequestMethods.POST}
             action={APIRoutes.FOOD_LOGS}
         >
             <input type="hidden" name="userId" value={userId} />
-            <input type="hidden" name="logTime" value={timeStringFormatted(time)} />
+            <input type="hidden" name="logTime" value={timeStringAsIso(time)} />
             <Button
                 variant="base"
                 size="lg"

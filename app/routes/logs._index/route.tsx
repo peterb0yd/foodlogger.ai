@@ -1,4 +1,4 @@
-import { useFetcher, useLoaderData } from "@remix-run/react";
+import { useFetcher, useLoaderData, useSearchParams } from "@remix-run/react";
 import { SessionService } from "~/api/modules/session/session.service";
 import { LinksFunction, LoaderFunction, json } from "@remix-run/node";
 import { FlexBox, links as flexBoxLinks } from "~/components/flex-box/FlexBox";
@@ -11,7 +11,7 @@ import { Main, links as mainLinks } from "~/components/main/Main";
 import { useState } from "react";
 import { APIRoutes } from "~/enums/routes";
 import { isFetcherLoading } from "~/utils/fetcherLoading";
-import { localDateToWebString } from "~/utils/datetime";
+import { dateInLocalZoneIso, localDateToWebString } from "~/utils/datetime";
 
 type FetcherResponseType = { foodLogs: IFoodLogWithNestedFoods[] };
 
@@ -43,14 +43,18 @@ interface LoaderDataProps {
 export const loader: LoaderFunction = async ({ request }) => {
     const userId = await SessionService.requireAuth(request);
     // Default to today's logs
-    const todayIso = new Date().toISOString();
-    const foodLogs = await FoodLogService.findLogsForDate(userId, todayIso);
+    const params = new URL(request.url).searchParams;
+    const dateParam = params.get('date');
+    const isoDate = dateInLocalZoneIso(dateParam ? new Date(dateParam) : new Date());
+    const foodLogs = await FoodLogService.findLogsForDate(userId, isoDate);
     return json({ userId, foodLogs });
 }
 
 export default function FoodLogsPage() {
     const { userId, foodLogs } = useLoaderData<LoaderDataProps>();
-    const [date, setDate] = useState(localDateToWebString(new Date()));
+    const [searchParams, setSearchParams] = useSearchParams();
+    const startDate = searchParams.get('date') ?? localDateToWebString(new Date());
+    const [date, setDate] = useState(startDate);
     const fetcher = useFetcher<FetcherResponseType>();
     const foodLogsForDate = fetcher.data?.foodLogs ?? foodLogs;
     const isLoading = isFetcherLoading(fetcher);
@@ -58,8 +62,12 @@ export default function FoodLogsPage() {
     const onDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const dateVal = event.target.value;
         setDate(dateVal);
-        const formattedDate = new Date(dateVal).toISOString();
-        fetcher.load(`${APIRoutes.FOOD_LOGS}?isoDate=${formattedDate}&userId=${userId}`);
+        const isoDate = dateInLocalZoneIso(new Date(dateVal));
+        fetcher.load(`${APIRoutes.FOOD_LOGS}?isoDate=${isoDate}&userId=${userId}`);
+        setSearchParams(prev => {
+            prev.set('date', dateVal);
+            return prev;
+        });
     }
 
     return (

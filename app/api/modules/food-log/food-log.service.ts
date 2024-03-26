@@ -1,5 +1,5 @@
 import { IFoodLogRequestData } from "./food-log.interfaces";
-import { foodLogDataToFoodLog, foodLogWithItemsToDto } from "./food-log.mappers";
+import { foodLogDataToCreateInput, foodLogWithItemsToDto } from "./food-log.mappers";
 import { FoodLogRepository } from "./food-log.repository";
 import { startOfIsoDate } from "~/utils/datetime";
 
@@ -9,9 +9,8 @@ export class FoodLogService {
         if (!userId || !logTime) {
             throw new Error('User ID and a LogTime is required');
         }
-        return FoodLogRepository.create(
-            foodLogDataToFoodLog({ userId, logTime }),
-        );
+        const createInput = foodLogDataToCreateInput(foodLogData);
+        return FoodLogRepository.create(createInput);
     }
 
     static findById(id: string) {
