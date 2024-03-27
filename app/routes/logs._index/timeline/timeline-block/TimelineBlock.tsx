@@ -136,7 +136,7 @@ interface ExpandedSectionProps {
 const ExpandedSection = ({ times, foodLogs, userId }: ExpandedSectionProps) => {
 
     const findFoodLogForTime = (time: string) => {
-        const foodLog = foodLogs.find(log => log.logTimeFormatted === time);
+        const foodLog = foodLogs.find(log => log.loggedAtFormatted === time);
         return foodLog ?? null;
     }
 

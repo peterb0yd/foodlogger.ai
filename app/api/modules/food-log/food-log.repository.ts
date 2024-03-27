@@ -19,15 +19,15 @@ export class FoodLogRepository {
         });
     }
 
-    static findLogsForDate(userId: string, date: Date, tx: PrismaTxType = prisma) {
-        const tomorrowDate = DateTime.fromJSDate(date).plus({ days: 1 }).toJSDate();        
+    static findLogsForDate(userId: string, isoDate: string, tx: PrismaTxType = prisma) {
+        const tomorrowDateIso = DateTime.fromISO(isoDate).plus({ days: 1 }).toISO() as string;       
         return tx.foodLog.findMany({
             relationLoadStrategy: "join",
             where: {
                 userId,
                 createdAt: {
-                    gte: date,
-                    lt: tomorrowDate,
+                    gte: isoDate,
+                    lt: tomorrowDateIso,
                 },
             },
             include: {

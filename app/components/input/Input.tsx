@@ -8,17 +8,20 @@ import { Label, links as labelLinks } from '../label/Label';
 interface InputProps {
     value?: string;
     name: string;
-    label: string;
+    label?: string;
     size?: 'sm' | 'md' | 'lg';
     autoComplete?: string;
     pattern?: string;
-    type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url';
+    type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'date';
     icon?: IconNames;
     required?: boolean;
     fullWidth?: boolean;
     defaultValue?: string;
     grow?: boolean;
-    onChange?: (value: string) => void;
+    dark?: boolean;
+    min?: number | string;
+    max?: number | string;
+    onChange?: (val: string) => void;
 }
 
 export const links: LinksFunction = () => [
@@ -26,15 +29,16 @@ export const links: LinksFunction = () => [
     ...labelLinks(),
 ];
 
-export const Input = ({ value, icon, size = 'md', type = 'text', defaultValue, name, label, pattern, grow, autoComplete, required, fullWidth, onChange }: InputProps) => {
+export const Input = ({ value, icon, dark, min, max, size = 'md', type = 'text', defaultValue, name, label, pattern, grow, autoComplete, required, fullWidth, onChange }: InputProps) => {
     return (
         <Container icon={icon}>
             <Label
                 name='Input-Label'
                 data-full-width={fullWidth}
                 data-flex-grow={grow}
+            // data-dark={dark} TODO: Fix dark mode
             >
-                {label}
+                {label ?? null}
                 <input
                     data-size={size}
                     name={name}
@@ -45,6 +49,8 @@ export const Input = ({ value, icon, size = 'md', type = 'text', defaultValue, n
                     required={required}
                     onChange={(e) => onChange?.(e.target.value)}
                     autoComplete={autoComplete}
+                    min={min}
+                    max={max}
                 />
             </Label>
         </Container>
@@ -55,15 +61,17 @@ interface ContainerProps extends PropsWithChildren {
     icon?: IconNames;
     grow?: boolean;
     fullWidth?: boolean;
+    dark?: boolean;
 }
 
-const Container = ({ icon, children, grow, fullWidth }: ContainerProps) => {
+const Container = ({ icon, children, dark, grow, fullWidth }: ContainerProps) => {
     if (icon) {
         return (
             <div
                 className="InputWithIcon"
                 data-full-width={fullWidth}
                 data-flex-grow={grow}
+                // data-dark={dark} TODO: Fix dark mode
             >
                 <Icon name={icon} size="lg" color="contrast" />
                 {children}

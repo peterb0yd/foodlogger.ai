@@ -64,7 +64,7 @@ export const AddOrEditFoodLog = ({ time, foodLog }: AddOrEditFoodLogProps) => {
             action={APIRoutes.FOOD_LOGS}
         >
             <input type="hidden" name="userId" value={userId} />
-            <input type="hidden" name="logTime" value={timeStringAsIso(time)} />
+            <input type="hidden" name="loggedAt" value={timeStringAsIso(time)} />
             <Button
                 variant="base"
                 size="lg"

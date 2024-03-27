@@ -1,10 +1,10 @@
 import { FoodLog, Prisma } from "@prisma/client";
 import { IFoodLogRequestData, IFoodLogWithNestedFoods, IFoodLogWithNestedSelectedItems } from "./food-log.interfaces";
-import { dateAsTimeString, isoToLocalDate } from "~/utils/datetime";
+import { dateAsTimeUIString } from "~/utils/datetime";
 
 export const foodLogDataToCreateInput = (foodLogData: IFoodLogRequestData) => {
     return {
-        logTime: isoToLocalDate(foodLogData.logTime),
+        loggedAt: new Date(foodLogData.loggedAt),
         user: {
             connect: {
                 id: foodLogData.userId
@@ -16,7 +16,7 @@ export const foodLogDataToCreateInput = (foodLogData: IFoodLogRequestData) => {
 export const foodLogWithItemsToDto = (foodLogs: IFoodLogWithNestedSelectedItems[]): IFoodLogWithNestedFoods[] => {
     return (foodLogs ?? []).map(foodLog => ({
         ...foodLog,
-        logTimeFormatted: dateAsTimeString(foodLog.logTime as Date),
+        loggedAtFormatted: dateAsTimeUIString(foodLog.loggedAt as Date),
         foods: foodLog.foodLogItems.map(foodLogItem => ({
             name: foodLogItem.foodItem.name
         }))

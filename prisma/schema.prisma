@@ -69,7 +69,7 @@ model FoodLog {
     userId       String
     foodItems    FoodItem[]
     image        String?
-    logTime      DateTime?
+    loggedAt      DateTime?
     status       FoodLogStatuses @default(DRAFT)
     foodLogItems FoodLogItem[]
     createdAt    DateTime        @default(now())

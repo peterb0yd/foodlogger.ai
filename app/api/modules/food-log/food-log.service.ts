@@ -5,9 +5,9 @@ import { startOfIsoDate } from "~/utils/datetime";
 
 export class FoodLogService {
     static async create(foodLogData: IFoodLogRequestData) {
-        const { userId, logTime } = foodLogData;
-        if (!userId || !logTime) {
-            throw new Error('User ID and a LogTime is required');
+        const { userId, loggedAt } = foodLogData;
+        if (!userId || !loggedAt) {
+            throw new Error('userId and a loggedAt is required');
         }
         const createInput = foodLogDataToCreateInput(foodLogData);
         return FoodLogRepository.create(createInput);

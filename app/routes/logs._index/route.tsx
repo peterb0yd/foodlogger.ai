@@ -11,7 +11,8 @@ import { Main, links as mainLinks } from "~/components/main/Main";
 import { useState } from "react";
 import { APIRoutes } from "~/enums/routes";
 import { isFetcherLoading } from "~/utils/fetcherLoading";
-import { dateInLocalZoneIso, localDateToWebString } from "~/utils/datetime";
+import { webDateAsHumanString, localDateToWebString } from "~/utils/datetime";
+import { Input, links as labelLinks } from "~/components/input/Input";
 
 type FetcherResponseType = { foodLogs: IFoodLogWithNestedFoods[] };
 
@@ -29,10 +30,11 @@ const EVENING_BLOCK = TIMES.slice(18, 24);
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: logsStyles },
+    ...mainLinks(),
     ...flexBoxLinks(),
     ...buttonLinks(),
     ...timelineLinks(),
-    ...mainLinks(),
+    ...labelLinks(),
 ];
 
 interface LoaderDataProps {
@@ -45,7 +47,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     // Default to today's logs
     const params = new URL(request.url).searchParams;
     const dateParam = params.get('date');
-    const isoDate = dateInLocalZoneIso(dateParam ? new Date(dateParam) : new Date());
+    const date = dateParam ? new Date(dateParam) : new Date();
+    const isoDate = date.toISOString();
     const foodLogs = await FoodLogService.findLogsForDate(userId, isoDate);
     return json({ userId, foodLogs });
 }
@@ -59,10 +62,10 @@ export default function FoodLogsPage() {
     const foodLogsForDate = fetcher.data?.foodLogs ?? foodLogs;
     const isLoading = isFetcherLoading(fetcher);
 
-    const onDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const dateVal = event.target.value;
+    const onDateChange = (dateVal: string) => {
+        if (new Date(dateVal) > new Date()) return;
         setDate(dateVal);
-        const isoDate = dateInLocalZoneIso(new Date(dateVal));
+        const isoDate = new Date(dateVal).toISOString();
         fetcher.load(`${APIRoutes.FOOD_LOGS}?isoDate=${isoDate}&userId=${userId}`);
         setSearchParams(prev => {
             prev.set('date', dateVal);
@@ -73,9 +76,15 @@ export default function FoodLogsPage() {
     return (
         <Main
             name="FoodLogs"
-            title={`Today's Food Logs`}
+            title={`${webDateAsHumanString(date)}'s Food Logs`}
             subtitle={(
-                <input type="date" value={date} onChange={onDateChange} />
+                <Input
+                    type="date"
+                    name={"Date"}
+                    value={date}
+                    max={localDateToWebString(new Date())}
+                    onChange={onDateChange}
+                />
             )}
         >
             <FlexBox col center width="full">
