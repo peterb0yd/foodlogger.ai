@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import prisma from '~/utils/prisma';
+import prisma, { PrismaTxType } from '~/utils/prisma';
 
 export class UserRepository {
 	static async findById(id: string, tx: PrismaTxType = prisma) {
@@ -11,6 +11,19 @@ export class UserRepository {
 			return null;
 		}
 	}
+
+    static async findByIdWithSettings (id: string, tx: PrismaTxType = prisma) {
+        try {
+            return await tx.user.findUnique({
+                where: { id },
+                include: {
+                    settings: true,
+                },
+            });
+        } catch (error) {
+            return null;
+        }
+    }
 
     static async findByPhone(phone: string, tx: PrismaTxType = prisma) {
         try {

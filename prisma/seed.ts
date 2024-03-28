@@ -15,13 +15,19 @@ async function runSeeder() {
 		}
         
         // Peter Boyd user
-        await prisma.user.create({
+        const user = await prisma.user.create({
             data: {
                 email: 'peterboyd192@gmail.com',
                 phone: '2407235209',
                 name: 'Peter Boyd',
             },
         });
+        await prisma.userSettings.create({
+            data: {
+                userId: user.id,
+            }
+        });
+
 	} catch (error) {
 		console.error(error);
 		await prisma.$disconnect();

@@ -16,6 +16,7 @@ button.EditFoodLog {
 	display: block;
 	flex-grow: 1;
 	background-color: var(--color-surface-muted);
+    z-index: 1;
 
 	&:hover {
 		background-color: var(--color-surface-highlight);
@@ -43,21 +44,6 @@ button.EditFoodLog {
 				box-shadow: 0 0 calc(var(--dot-size) / 2) var(--color-shadow-light);
 				z-index: 2;
 			}
-		}
-
-		&:before {
-			position: absolute;
-			left: calc(calc(var(--dot-size) / 2) - 1px);
-			top: 50%;
-			content: '';
-			z-index: 1;
-			height: calc(100% + 1rem);
-			width: 0;
-			border-left: 2px solid var(--color-tertiary-dark);
-		}
-
-		&:last-of-type:before {
-			border: none;
 		}
 	}
 }

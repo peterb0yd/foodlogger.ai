@@ -4,6 +4,7 @@ import { DateTime } from 'luxon';
 const UI_FORMAT = 'h:mm a';
 const WEB_DATE_FORMAT = 'yyyy-MM-dd';
 const TIMEZONE = 'America/New_York';
+const HUMAN_DAY_FORMAT = 'MMM d';
 
 // as ISO in UTC
 export const timeStringAsIso = (time: string) => {
@@ -24,12 +25,12 @@ export const webDateAsHumanString = (webDate: string) => {
     // just Today, Yesterday, or the date
     const today = DateTime.local().startOf('day');
     const yesterday = today.minus({ days: 1 });
-    const date = DateTime.fromJSDate(new Date(webDate)).toJSDate();
+    const date = DateTime.fromFormat(webDate, WEB_DATE_FORMAT).startOf('day').toJSDate();
     if (date >= today.toJSDate()) {
         return 'Today';
     }
     if (date >= yesterday.toJSDate()) {
         return 'Yesterday';
     }
-    return DateTime.fromJSDate(date).toFormat('MMM d');
+    return DateTime.fromJSDate(date).toFormat(HUMAN_DAY_FORMAT);
 }

@@ -1,28 +1,35 @@
-import { Prisma } from "@prisma/client";
-import { sendVerificationText } from "./user.utils";
+import { Prisma, User } from "@prisma/client";
 import { UserRepository } from "./user.repository";
+import { UserSettingsService } from "../settings/settings.service";
+import { userToUserWithSettings } from "./user.mappers";
+import { ISettingsCreateInput } from "../settings/settings.interfaces";
 
 export class UserService {
     static async findById(id: string) {
         return UserRepository.findById(id);
     }
 
+    static async findByIdWithSettings(id: string) {
+        return UserRepository.findByIdWithSettings(id);
+    }
+
     static async findByPhone(phone: string) {
         return UserRepository.findByPhone(phone);
     }
 
-    // Creates a new user
+    // Creates a new user and settings
     static async create(user: Prisma.UserCreateInput) {
-        return UserRepository.create(user);
+        const newUser = await UserRepository.create(user) as User;
+        const settings = await UserSettingsService.create({ userId: newUser.id });
+        return userToUserWithSettings(newUser, settings);
     }
 
-    // Sends a verification code to the user's phone number
-    static async login(phone: string) {
-
-    }
-
-    // Verifies the verification code sent to the user's phone number
-    static async verify(phone: string, code: string) {
-
+    static async updateSettings(userId: string, settingsData: ISettingsCreateInput) {
+        const user = await this.findById(userId);
+        if (!user) {
+            throw new Error("User not found");
+        }
+        const settings = await UserSettingsService.update(user.settingsId, settingsData);
+        return userToUserWithSettings(user, settings);
     }
 }
