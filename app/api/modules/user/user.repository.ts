@@ -35,7 +35,7 @@ export class UserRepository {
         }
     }
 
-	static async create(user: Prisma.UserCreateInput, tx: PrismaTxType = prisma) {
+	static async create(user: Prisma.UserUncheckedCreateInput, tx: PrismaTxType = prisma) {
         try {
             return await tx.user.create({
                 data: user,

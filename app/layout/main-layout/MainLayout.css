@@ -9,9 +9,22 @@
 .MainLayout-Header {
     grid-row: 1;
     height: var(--header-height);
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
+    z-index: var(--z-index-notification);
+
+    & > .Logo-Container {
+        grid-column: 2;
+        display: flex;
+        justify-content: center;
+    }
+
+    & > .Menu-Container {
+        grid-column: 3;
+        display: flex;
+        justify-content: flex-end;
+    }
 }
 
 .MainLayout-Content {

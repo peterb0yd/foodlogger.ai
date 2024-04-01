@@ -1,5 +1,6 @@
 export enum PageRoutes {
     HOME = '/',
+    SETTINGS = '/settings',
     LOGS = '/logs',
     LOGIN = '/login',
     VERIFY = '/verify',

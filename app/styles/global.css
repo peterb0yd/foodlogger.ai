@@ -32,6 +32,9 @@ select {
 [data-width='max'] {
 	width: max-content;
 }
+[data-width='global-max'] {
+    width: var(--global-max-width);
+}
 
 /** Heights **/
 [data-height='full'] {

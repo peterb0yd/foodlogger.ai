@@ -76,12 +76,14 @@ export default function FoodLogsPage() {
     return (
         <Main
             name="FoodLogs"
+            hasMenu
             title={`Food Logs from ${webDateAsHumanString(date)}`}
             subtitle={(
                 <Input
                     type="date"
                     name={"Date"}
                     value={date}
+                    size="sm"
                     max={localDateToWebString(new Date())}
                     onChange={onDateChange}
                 />

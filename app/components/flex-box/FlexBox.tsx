@@ -16,9 +16,9 @@ interface FlexBoxProps extends PropsWithChildren {
     padX?: 'xs' | 'sm' | 'md' | 'lg';
     border?: 'thin' | 'base' | 'muted' | 'contrast';
     borderRadius?: 'xs' | 'sm' | 'md' | 'rounded' | 'full';
-    width?: 'full' | 'max';
+    width?: 'full' | 'max' | 'global-max';
     height?: 'full' | 'max';
-    as?: 'main' | 'div' | 'ul' | 'ol' | 'span' | 'li' | 'section' | 'header' | 'aside';
+    as?: 'main' | 'nav' | 'div' | 'ul' | 'ol' | 'span' | 'li' | 'section' | 'header' | 'aside';
 }
 
 export const links: LinksFunction = () => [
@@ -43,6 +43,7 @@ export const FlexBox = ({
     borderRadius,
     padBottom,
     children,
+    ...rest
 }: FlexBoxProps) => {
     if (center) {
         align = "center";
@@ -65,6 +66,7 @@ export const FlexBox = ({
             data-border={border}
             data-border-radius={borderRadius}
             data-bottom-padding={padBottom}
+            {...rest}
         >
             {children}
         </Component>

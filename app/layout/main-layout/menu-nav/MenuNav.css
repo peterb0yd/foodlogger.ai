@@ -1,0 +1,28 @@
+
+.MenuNav {
+    opacity: 0;
+    position: fixed;
+    pointer-events: none;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    top: 0;
+    left: -100%;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-surface-muted);
+    box-shadow: 0 0 10px 0 var(--color-shadow-dark);
+    z-index: var(--z-index-modal);
+    transition: left 0.3s, opacity 0.3s;
+}
+
+.MenuNav[data-visible=true] {
+    display: flex;
+    pointer-events: auto;
+    opacity: 1;
+    left: 0;
+}
+
+.MenuNav > .Content {
+}

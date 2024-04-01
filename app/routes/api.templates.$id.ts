@@ -6,7 +6,7 @@ import { RequestMethods } from '~/enums/requests';
 import { PageRoutes } from '~/enums/routes';
 
 export const loader: LoaderFunction = async () => {
-	return { message: 'Hello, World!' };
+    return redirect('/404');
 };
 
 export const action: ActionFunction = async ({ request, params }) => {

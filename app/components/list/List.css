@@ -1,0 +1,50 @@
+.List {
+	display: flex;
+	flex-direction: column;
+    background-color: var(--color-surface-muted);
+    border-radius: 10px;
+}
+
+.List-Item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+	&:last-of-type {
+		border-bottom: none;
+	}
+}
+
+/** Variants **/
+.List[data-variant='base'] {
+	gap: 0.5rem;
+
+	.ListItem {
+		padding: 0.5rem;
+	}
+}
+.List[data-variant='compact'] {
+	gap: 0.25rem;
+
+	.ListItem {
+		padding: 0.25rem;
+	}
+}
+.List[data-variant='spacious'] {
+	gap: 1rem;
+
+	.ListItem {
+		padding: 1rem;
+	}
+}
+
+/** Divider **/
+.List[data-divider='none'] .List-Item {
+	border-bottom: none;
+}
+.List[data-divider='base'] .List-Item {
+	border-bottom: 1px solid var(--color-surface);
+}
+.List[data-divider='strong'] .List-Item {
+    border-bottom: 2px solid var(--color-surface);
+}

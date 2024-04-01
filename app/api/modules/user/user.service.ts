@@ -1,8 +1,9 @@
 import { Prisma, User } from "@prisma/client";
 import { UserRepository } from "./user.repository";
 import { UserSettingsService } from "../settings/settings.service";
-import { userToUserWithSettings } from "./user.mappers";
+import { userDataToCreateInput, userToUserWithSettings } from "./user.mappers";
 import { ISettingsCreateInput } from "../settings/settings.interfaces";
+import { IUserCreateData } from "./user.interfaces";
 
 export class UserService {
     static async findById(id: string) {
@@ -18,9 +19,10 @@ export class UserService {
     }
 
     // Creates a new user and settings
-    static async create(user: Prisma.UserCreateInput) {
-        const newUser = await UserRepository.create(user) as User;
-        const settings = await UserSettingsService.create({ userId: newUser.id });
+    static async create(createData: IUserCreateData) {
+        const settings = await UserSettingsService.create();
+        const userCreateInput = userDataToCreateInput(createData, settings);
+        const newUser = await UserRepository.create(userCreateInput) as User;
         return userToUserWithSettings(newUser, settings);
     }
 

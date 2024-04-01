@@ -1933,6 +1933,13 @@ var require_api_food_log_items_id = __commonJS({
   }
 });
 
+// routes-module:routes/api.users.$id.settings.ts?worker
+var require_api_users_id_settings = __commonJS({
+  "routes-module:routes/api.users.$id.settings.ts?worker"(exports, module) {
+    module.exports = {};
+  }
+});
+
 // routes-module:routes/manifest[.]webmanifest.ts?worker
 var require_manifest_webmanifest = __commonJS({
   "routes-module:routes/manifest[.]webmanifest.ts?worker"(exports, module) {
@@ -1964,6 +1971,13 @@ var require_api_food_logs = __commonJS({
 // routes-module:routes/api.templates.ts?worker
 var require_api_templates = __commonJS({
   "routes-module:routes/api.templates.ts?worker"(exports, module) {
+    module.exports = {};
+  }
+});
+
+// routes-module:routes/api.users.$id.ts?worker
+var require_api_users_id = __commonJS({
+  "routes-module:routes/api.users.$id.ts?worker"(exports, module) {
     module.exports = {};
   }
 });
@@ -2010,15 +2024,22 @@ var require_route5 = __commonJS({
   }
 });
 
-// routes-module:routes/_index/route.tsx?worker
+// routes-module:routes/settings/route.tsx?worker
 var require_route6 = __commonJS({
+  "routes-module:routes/settings/route.tsx?worker"(exports, module) {
+    module.exports = {};
+  }
+});
+
+// routes-module:routes/_index/route.tsx?worker
+var require_route7 = __commonJS({
   "routes-module:routes/_index/route.tsx?worker"(exports, module) {
     module.exports = {};
   }
 });
 
 // routes-module:routes/_auth/route.tsx?worker
-var require_route7 = __commonJS({
+var require_route8 = __commonJS({
   "routes-module:routes/_auth/route.tsx?worker"(exports, module) {
     module.exports = {};
   }
@@ -6550,22 +6571,25 @@ self.addEventListener("message", (event) => {
 var route0 = __toESM(require_root());
 var route1 = __toESM(require_api_template_food_log_items_id());
 var route2 = __toESM(require_api_food_log_items_id());
-var route3 = __toESM(require_manifest_webmanifest());
-var route4 = __toESM(require_api_food_log_items());
-var route5 = __toESM(require_api_templates_id());
-var route6 = __toESM(require_api_food_logs());
-var route7 = __toESM(require_api_templates());
-var route8 = __toESM(require_route());
-var route9 = __toESM(require_route2());
-var route10 = __toESM(require_api_sessions());
-var route11 = __toESM(require_route3());
-var route12 = __toESM(require_route4());
-var route13 = __toESM(require_route5());
-var route14 = __toESM(require_route6());
-var route15 = __toESM(require_route7());
+var route3 = __toESM(require_api_users_id_settings());
+var route4 = __toESM(require_manifest_webmanifest());
+var route5 = __toESM(require_api_food_log_items());
+var route6 = __toESM(require_api_templates_id());
+var route7 = __toESM(require_api_food_logs());
+var route8 = __toESM(require_api_templates());
+var route9 = __toESM(require_api_users_id());
+var route10 = __toESM(require_route());
+var route11 = __toESM(require_route2());
+var route12 = __toESM(require_api_sessions());
+var route13 = __toESM(require_route3());
+var route14 = __toESM(require_route4());
+var route15 = __toESM(require_route5());
+var route16 = __toESM(require_route6());
+var route17 = __toESM(require_route7());
+var route18 = __toESM(require_route8());
 
 // assets-module:@remix-pwa/dev?assets
-var assets = ["/build/root-RXKBKVII.css", "/build/root-QL5EMRUD.js", "/build/manifest-129FF579.js", "/build/entry.client-EQQD6RZW.js", "/build/css-bundle-46UMMAO5.css", "/build/__remix_entry_dev-2MIMZLGE.js", "/build/routes/templates.$id-EPKQCIF2.js", "/build/routes/manifest[.]webmanifest-J3KYYY3Q.js", "/build/routes/logs._index-MMVR25QM.js", "/build/routes/logs.$id-EN32JHQ5.js", "/build/routes/api.templates.$id-DHIFMQDU.js", "/build/routes/api.templates-TEF422FO.js", "/build/routes/api.template-food-log-items.$id-NKZD2BTP.js", "/build/routes/api.sessions-ROOW2LGU.js", "/build/routes/api.food-logs-L6TUWRWI.js", "/build/routes/api.food-log-items.$id-EJK4PBV6.js", "/build/routes/api.food-log-items-HJIPGALR.js", "/build/routes/_index-G4JU5POP.js", "/build/routes/_auth.verify-LXSB3AZN.js", "/build/routes/_auth.login-Y3DZBEOE.js", "/build/routes/_auth-IMDQOZXW.js", "/build/_assets/variables-KLIU7SKT.css", "/build/_assets/logs._index-UZMTNWNQ.css", "/build/_assets/logs.$id-4U4VUG3W.css", "/build/_assets/home.styles-REFFGVN3.css", "/build/_assets/global-SHVFGGDU.css", "/build/_assets/fonts-TVTSVZVD.css", "/build/_assets/authLayout.styles-T4QKPAPD.css", "/build/_assets/TimelineBlock-N2WVCRY7.css", "/build/_assets/Text-L5VKN6G4.css", "/build/_assets/Select-AVHJ2EJY.css", "/build/_assets/Modal-EFICZHJM.css", "/build/_assets/MainLayout-EIWI4Z5D.css", "/build/_assets/Main-5IH2XR34.css", "/build/_assets/Logo-FCYZPVPX.css", "/build/_assets/LoadingSpinner-XDS4HRD2.css", "/build/_assets/Label-EK5ZYFGC.css", "/build/_assets/Input-JNUTECXN.css", "/build/_assets/Icon-VYMIEF2V.css", "/build/_assets/FlexBox-W7BC5T4X.css", "/build/_assets/Divider-LNSTD7NR.css", "/build/_assets/Button-XVZ5MUMD.css", "/build/_assets/BottomBar-RWUXV6LM.css", "/build/_assets/AudioRecorder-CNPFDEXJ.css", "/build/_shared/runtime-GC7QIU56.js", "/build/_shared/remix_hmr-LUVYR5BJ.js", "/build/_shared/react-dom-BEFB7ICU.js", "/build/_shared/react-3OYUNTOK.js", "/build/_shared/jsx-runtime-7NXSP56X.js", "/build/_shared/jsx-dev-runtime-RDH4Y5YT.js", "/build/_shared/esm-QFN2CM4M.js", "/build/_shared/client-DFZR44C7.js", "/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-YW33JJNA.js", "/build/_shared/chunk-YAGDXAHG.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-PNG5AS42.js", "/build/_shared/chunk-ODSS4IB4.js", "/build/_shared/chunk-M3GADT7V.js", "/build/_shared/chunk-LYKVAV6L.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-G26NRSCD.js", "/build/_shared/chunk-D7LA5G6E.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-BNXS44D7.js", "/build/_shared/chunk-B2DUH6KL.js", "/build/_shared/chunk-6RHSZK5V.js", "/build/_shared/chunk-3RNE65J2.js", "/build/_shared/browser-ponyfill-HHJCH4WC.js"];
+var assets = ["/build/root-RXKBKVII.css", "/build/root-DCG5X3HD.js", "/build/manifest-C43708F0.js", "/build/entry.client-UROL5XIY.js", "/build/css-bundle-46UMMAO5.css", "/build/__remix_entry_dev-WGJKL5RQ.js", "/build/routes/templates.$id-XE3IIQVJ.js", "/build/routes/settings-WYOQFYZQ.js", "/build/routes/manifest[.]webmanifest-J3KYYY3Q.js", "/build/routes/logs._index-5VKYAKC4.js", "/build/routes/logs.$id-SXDOLOC3.js", "/build/routes/api.users.$id.settings-CEYDWKGQ.js", "/build/routes/api.users.$id-K4UHONCU.js", "/build/routes/api.templates.$id-DHIFMQDU.js", "/build/routes/api.templates-TEF422FO.js", "/build/routes/api.template-food-log-items.$id-NKZD2BTP.js", "/build/routes/api.sessions-ROOW2LGU.js", "/build/routes/api.food-logs-L6TUWRWI.js", "/build/routes/api.food-log-items.$id-EJK4PBV6.js", "/build/routes/api.food-log-items-HJIPGALR.js", "/build/routes/_index-2GDX7JNS.js", "/build/routes/_auth.verify-KEXKBZJK.js", "/build/routes/_auth.login-RYSXFWGE.js", "/build/routes/_auth-A6R5J2SV.js", "/build/_assets/variables-KLIU7SKT.css", "/build/_assets/settings-H5GVFLDC.css", "/build/_assets/logs._index-UZMTNWNQ.css", "/build/_assets/logs.$id-4U4VUG3W.css", "/build/_assets/home.styles-REFFGVN3.css", "/build/_assets/global-HYTXL2UE.css", "/build/_assets/fonts-TVTSVZVD.css", "/build/_assets/authLayout.styles-T4QKPAPD.css", "/build/_assets/TimelineBlock-N2WVCRY7.css", "/build/_assets/Text-L5VKN6G4.css", "/build/_assets/Select-AVHJ2EJY.css", "/build/_assets/Modal-EFICZHJM.css", "/build/_assets/MenuNav-XZ6AXSMO.css", "/build/_assets/MainLayout-TFGPYBXI.css", "/build/_assets/Main-5IH2XR34.css", "/build/_assets/Logo-FCYZPVPX.css", "/build/_assets/LoadingSpinner-XDS4HRD2.css", "/build/_assets/List-5ECLWGGT.css", "/build/_assets/Label-EK5ZYFGC.css", "/build/_assets/Input-JNUTECXN.css", "/build/_assets/Icon-VYMIEF2V.css", "/build/_assets/FlexBox-W7BC5T4X.css", "/build/_assets/Divider-LNSTD7NR.css", "/build/_assets/Checkbox-6R32V357.css", "/build/_assets/Button-XVZ5MUMD.css", "/build/_assets/BottomBar-RWUXV6LM.css", "/build/_assets/AudioRecorder-CNPFDEXJ.css", "/build/_shared/runtime-GC7QIU56.js", "/build/_shared/remix_hmr-LUVYR5BJ.js", "/build/_shared/react-dom-BEFB7ICU.js", "/build/_shared/react-3OYUNTOK.js", "/build/_shared/jsx-runtime-7NXSP56X.js", "/build/_shared/jsx-dev-runtime-RDH4Y5YT.js", "/build/_shared/esm-DPOXID3G.js", "/build/_shared/client-DFZR44C7.js", "/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-TCLOYFBL.js", "/build/_shared/chunk-SWZLBIZQ.js", "/build/_shared/chunk-QVGRNGAI.js", "/build/_shared/chunk-PNG5AS42.js", "/build/_shared/chunk-ODSS4IB4.js", "/build/_shared/chunk-NLEVNI6A.js", "/build/_shared/chunk-NFCU7PVV.js", "/build/_shared/chunk-IEQYF4ID.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-G26NRSCD.js", "/build/_shared/chunk-D5F3QZNH.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-BNXS44D7.js", "/build/_shared/chunk-BNGFYGM7.js", "/build/_shared/chunk-6P3DBEH7.js", "/build/_shared/browser-ponyfill-HHJCH4WC.js"];
 
 // entry-module:@remix-pwa/build/magic
 var routes = {
@@ -6593,13 +6617,21 @@ var routes = {
     caseSensitive: void 0,
     module: route2
   },
+  "routes/api.users.$id.settings": {
+    id: "routes/api.users.$id.settings",
+    parentId: "routes/api.users.$id",
+    path: "settings",
+    index: void 0,
+    caseSensitive: void 0,
+    module: route3
+  },
   "routes/manifest[.]webmanifest": {
     id: "routes/manifest[.]webmanifest",
     parentId: "root",
     path: "manifest.webmanifest",
     index: void 0,
     caseSensitive: void 0,
-    module: route3
+    module: route4
   },
   "routes/api.food-log-items": {
     id: "routes/api.food-log-items",
@@ -6607,7 +6639,7 @@ var routes = {
     path: "api/food-log-items",
     index: void 0,
     caseSensitive: void 0,
-    module: route4
+    module: route5
   },
   "routes/api.templates.$id": {
     id: "routes/api.templates.$id",
@@ -6615,7 +6647,7 @@ var routes = {
     path: ":id",
     index: void 0,
     caseSensitive: void 0,
-    module: route5
+    module: route6
   },
   "routes/api.food-logs": {
     id: "routes/api.food-logs",
@@ -6623,7 +6655,7 @@ var routes = {
     path: "api/food-logs",
     index: void 0,
     caseSensitive: void 0,
-    module: route6
+    module: route7
   },
   "routes/api.templates": {
     id: "routes/api.templates",
@@ -6631,7 +6663,15 @@ var routes = {
     path: "api/templates",
     index: void 0,
     caseSensitive: void 0,
-    module: route7
+    module: route8
+  },
+  "routes/api.users.$id": {
+    id: "routes/api.users.$id",
+    parentId: "root",
+    path: "api/users/:id",
+    index: void 0,
+    caseSensitive: void 0,
+    module: route9
   },
   "routes/templates.$id": {
     id: "routes/templates.$id",
@@ -6639,7 +6679,7 @@ var routes = {
     path: "templates/:id",
     index: void 0,
     caseSensitive: void 0,
-    module: route8
+    module: route10
   },
   "routes/_auth.verify": {
     id: "routes/_auth.verify",
@@ -6647,7 +6687,7 @@ var routes = {
     path: "verify",
     index: void 0,
     caseSensitive: void 0,
-    module: route9
+    module: route11
   },
   "routes/api.sessions": {
     id: "routes/api.sessions",
@@ -6655,7 +6695,7 @@ var routes = {
     path: "api/sessions",
     index: void 0,
     caseSensitive: void 0,
-    module: route10
+    module: route12
   },
   "routes/_auth.login": {
     id: "routes/_auth.login",
@@ -6663,7 +6703,7 @@ var routes = {
     path: "login",
     index: void 0,
     caseSensitive: void 0,
-    module: route11
+    module: route13
   },
   "routes/logs._index": {
     id: "routes/logs._index",
@@ -6671,7 +6711,7 @@ var routes = {
     path: "logs",
     index: true,
     caseSensitive: void 0,
-    module: route12
+    module: route14
   },
   "routes/logs.$id": {
     id: "routes/logs.$id",
@@ -6679,7 +6719,15 @@ var routes = {
     path: "logs/:id",
     index: void 0,
     caseSensitive: void 0,
-    module: route13
+    module: route15
+  },
+  "routes/settings": {
+    id: "routes/settings",
+    parentId: "root",
+    path: "settings",
+    index: void 0,
+    caseSensitive: void 0,
+    module: route16
   },
   "routes/_index": {
     id: "routes/_index",
@@ -6687,7 +6735,7 @@ var routes = {
     path: void 0,
     index: true,
     caseSensitive: void 0,
-    module: route14
+    module: route17
   },
   "routes/_auth": {
     id: "routes/_auth",
@@ -6695,7 +6743,7 @@ var routes = {
     path: void 0,
     index: void 0,
     caseSensitive: void 0,
-    module: route15
+    module: route18
   }
 };
 var entry = { module: entry_worker_exports };

@@ -14,5 +14,8 @@ export enum IconNames {
     RobotHead = 'RobotHead',
     CheckMark = 'CheckMark',
     Template = 'Template',
+    Menu = 'Menu',
+    LogOut = 'LogOut',
+    Settings = 'Settings',
     LoadingDots = 'LoadingDots', // Only used for loading animation
 }

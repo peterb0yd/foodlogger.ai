@@ -18,6 +18,9 @@ import { ChevronLeft } from "./ChevronLeft";
 import { ChevronRight } from "./ChevronRight";
 import { CheckMark } from "./CheckMark";
 import { Template } from "./Template";
+import { Menu } from "./Menu";
+import { LogOut } from "./LogOut";
+import { Settings } from "./Settings";
 
 const sizeMap = {
     xs: 16,
@@ -60,6 +63,9 @@ export const Icon = forwardRef(({ name, size = 'md', color }: IconProps, ref: Fo
             case IconNames.CheckMark: return CheckMark;
             case IconNames.Template: return Template;
             case IconNames.RobotHead: return RobotHead;
+            case IconNames.Menu: return Menu;
+            case IconNames.LogOut: return LogOut;
+            case IconNames.Settings: return Settings;
             default: return Fragment;
         }
     })();
