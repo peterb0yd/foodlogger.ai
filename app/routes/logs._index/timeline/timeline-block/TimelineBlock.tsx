@@ -122,7 +122,7 @@ const CollapsedSection = ({ name, onClick }: AddFoodLogToBlockProps) => (
     >
         <FlexBox gap="md" align="center" justify="between" width="full">
             <Text size="lg" color="primary">{`Add ${name} Meal or Snack`}</Text>
-            <Icon name={IconNames.PlusIcon} size="md" color="primary" />
+            <Icon name={IconNames.Plus} size="md" color="primary" />
         </FlexBox>
     </Button>
 );

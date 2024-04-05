@@ -113,7 +113,7 @@ const EditFoodLogContent = ({ time, foodSummary }: { time: string, foodSummary: 
         </FlexBox>
         <FlexBox gap="md" align="center" justify="end" width="full">
             <Text size="sm" color="primary" weight="bold">Edit Meal</Text>
-            <Icon name={IconNames.PencilIcon} size="sm" color="primary" />
+            <Icon name={IconNames.Pencil} size="sm" color="primary" />
         </FlexBox>
     </FlexBox>
 )

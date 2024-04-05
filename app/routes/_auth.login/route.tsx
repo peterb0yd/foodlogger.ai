@@ -93,7 +93,7 @@ export default function Login() {
                 </FlexBox>
                 <Button
                     variant="primary"
-                    icon={IconNames.ChevronCircleIcon}
+                    icon={IconNames.ChevronCircle}
                     iconSize='sm'
                     size='lg'
                     width="full"

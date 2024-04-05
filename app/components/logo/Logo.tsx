@@ -31,7 +31,7 @@ export const Logo = ({ size = 'sm' }: LogoProps) => {
             >
                 <FlexBox align="center" gap="sm">
                     <h4>foodlogger.ai</h4>
-                    <Icon name={IconNames.PencilIcon} size="sm" color="secondary" />
+                    <Icon name={IconNames.Pencil} size="sm" color="secondary" />
                 </FlexBox>
             </Button>
         </div>

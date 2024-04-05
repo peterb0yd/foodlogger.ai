@@ -3,25 +3,27 @@
     opacity: 0;
     position: fixed;
     pointer-events: none;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2rem;
+    align-items: flex-start;
+    padding: 6rem 0;
     top: 0;
-    left: -100%;
+    left: 0;
+    transform: translateX(-100%);
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - 10rem);
     background-color: var(--color-surface-muted);
     box-shadow: 0 0 10px 0 var(--color-shadow-dark);
     z-index: var(--z-index-modal);
-    transition: left 0.3s, opacity 0.3s;
+    transition: transform 0.3s, opacity 0.3s;
+
+    .Content {
+        margin: 0 auto;
+    }
 }
 
 .MenuNav[data-visible=true] {
-    display: flex;
     pointer-events: auto;
     opacity: 1;
-    left: 0;
+    transform: translateX(0);
 }
 
 .MenuNav > .Content {

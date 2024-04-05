@@ -31,24 +31,31 @@ MainLayout.Content = ({ children }: PropsWithChildren) => {
 
 MainLayout.Header = () => {
     const [menuVisible, setMenuVisible] = useState(false);
+    const menuIconName = menuVisible ? IconNames.Close : IconNames.Menu;
+
     return (
-        <div className="MainLayout-Header">
-            <div className="Logo-Container">
-                <Logo />
+        <>
+            <div className="MainLayout-Header">
+                <div className="Logo-Container">
+                    <Logo />
+                </div>
+                <div className="Menu-Container">
+                    <Button
+                        variant="icon"
+                        name="Menu-Button"
+                        icon={menuIconName}
+                        iconColor='base'
+                        iconSize='lg'
+                        borderRadius='sm'
+                        size="flush"
+                        onClick={() => setMenuVisible(!menuVisible)}
+                    />
+                </div>
             </div>
-            <div className="Menu-Container">
-                <Button
-                    variant="icon"
-                    name="Menu-Button"
-                    icon={IconNames.Menu}
-                    iconColor='base'
-                    iconSize='lg'
-                    borderRadius='sm'
-                    size="flush"
-                    onClick={() => setMenuVisible(!menuVisible)}
-                />
-                <MenuNav visible={menuVisible} />
-            </div>
-        </div>
+            <MenuNav
+                visible={menuVisible}
+                setIsVisible={setMenuVisible}
+            />
+        </>
     );
 }

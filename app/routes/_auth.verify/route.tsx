@@ -57,7 +57,7 @@ export default function Login() {
                 />
                 <Button
                     variant="primary"
-                    icon={IconNames.ChevronCircleIcon}
+                    icon={IconNames.ChevronCircle}
                     iconSize='sm'
                     size='lg'
                     width="full"

@@ -19,7 +19,7 @@ const CloseButton = ({ goBackRoute }: { goBackRoute: PageRoutes }) => {
         <div className="Modal-CloseButton">
             <Button
                 variant="icon"
-                icon={IconNames.CloseIcon}
+                icon={IconNames.Close}
                 iconColor="contrast"
                 iconSize='sm'
                 onClick={() => navigate(goBackRoute)}

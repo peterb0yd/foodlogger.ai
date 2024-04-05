@@ -93,7 +93,7 @@ const FoodListItem = ({ item, isFirst, canDelete }: FoodListItemProps) => {
                     <Form method={RequestMethods.DELETE} action={`${APIRoutes.FOOD_ITEM_LOGS}/${item.id}`} navigate={false}>
                         <input type="hidden" name="id" value={item.id} />
                         <Button
-                            icon={IconNames.TrashIcon}
+                            icon={IconNames.Trash}
                             iconColor="destructive"
                             borderRadius="sm"
                             size="sm"

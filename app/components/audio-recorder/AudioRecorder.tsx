@@ -64,7 +64,7 @@ export const AudioRecorder = ({ onStart, onStop, isLoading }: AudioRecorderProps
                 onMouseLeave={handleStopRecording}
                 size="flush"
                 borderRadius="full"
-                icon={IconNames.RecordIcon}
+                icon={IconNames.Record}
                 iconColor={color as ColorTypes}
                 iconSize="2xl"
             />
@@ -79,5 +79,5 @@ const IconContent = ({ isLoading }: { isLoading: boolean }) => {
             <LoadingSpinner color="contrast" />
         );
     }
-    return <Icon name={IconNames.MicIcon} size="lg" color="contrast" />;
+    return <Icon name={IconNames.Mic} size="lg" color="contrast" />;
 }

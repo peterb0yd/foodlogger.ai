@@ -18,6 +18,7 @@
     --z-index-overlay: 10;
     --z-index-modal: 20;
     --z-index-notification: 30;
+    --z-index-top: 40;
 
     /* Widths */
     --global-max-width: 400px;

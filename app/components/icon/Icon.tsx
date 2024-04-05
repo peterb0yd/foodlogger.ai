@@ -48,14 +48,14 @@ export const Icon = forwardRef(({ name, size = 'md', color }: IconProps, ref: Fo
 
     const IconData = (() => {
         switch (name) {
-            case IconNames.CloseIcon: return Close;
-            case IconNames.RecordIcon: return Record;
-            case IconNames.TrashIcon: return Trash;
-            case IconNames.ChevronCircleIcon: return ChevronCircle;
-            case IconNames.PencilIcon: return Pencil;
-            case IconNames.MicIcon: return Mic;
+            case IconNames.Close: return Close;
+            case IconNames.Record: return Record;
+            case IconNames.Trash: return Trash;
+            case IconNames.ChevronCircle: return ChevronCircle;
+            case IconNames.Pencil: return Pencil;
+            case IconNames.Mic: return Mic;
             case IconNames.LoadingDots: return LoadingDots;
-            case IconNames.PlusIcon: return Plus;
+            case IconNames.Plus: return Plus;
             case IconNames.ChevronUp: return ChevronUp;
             case IconNames.ChevronDown: return ChevronDown;
             case IconNames.ChevronLeft: return ChevronLeft;

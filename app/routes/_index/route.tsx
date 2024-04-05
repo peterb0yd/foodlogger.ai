@@ -29,7 +29,7 @@ export default function Home() {
                     to={PageRoutes.LOGS}
                     variant="secondary"
                     size="lg"
-                    icon={IconNames.ChevronCircleIcon}
+                    icon={IconNames.ChevronCircle}
                     iconSide="right"
                 >
                     Go to Logs
