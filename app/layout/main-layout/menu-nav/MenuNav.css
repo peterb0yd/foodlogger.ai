@@ -1,21 +1,23 @@
 
 .MenuNav {
+    --padding-top: 4rem;
+
     opacity: 0;
     position: fixed;
     pointer-events: none;
     align-items: flex-start;
-    padding: 6rem 0;
+    padding: var(--padding-top) 0;
     top: 0;
     left: 0;
     transform: translateX(-100%);
     width: 100vw;
-    height: calc(100vh - 10rem);
+    height: calc(100vh - var(--padding-top) - 1rem);
     background-color: var(--color-surface-muted);
     box-shadow: 0 0 10px 0 var(--color-shadow-dark);
     z-index: var(--z-index-modal);
     transition: transform 0.3s, opacity 0.3s;
 
-    .Content {
+    .Menu-Content {
         margin: 0 auto;
     }
 }

@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import foodList from './foodList.json';
+import { UserService } from '~/api/modules/user/user.service';
 
 const prisma = new PrismaClient();
 
@@ -15,19 +16,11 @@ async function runSeeder() {
 		}
         
         // Peter Boyd user
-        const user = await prisma.user.create({
-            data: {
-                email: 'peterboyd192@gmail.com',
-                phone: '2407235209',
-                name: 'Peter Boyd',
-            },
-        });
-        await prisma.userSettings.create({
-            data: {
-                userId: user.id,
-            }
-        });
-
+        await UserService.create({
+            email: 'peterboyd192@gmail.com',
+            phone: '2407235209',
+        })
+        
 	} catch (error) {
 		console.error(error);
 		await prisma.$disconnect();

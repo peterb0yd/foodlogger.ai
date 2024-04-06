@@ -1,6 +1,7 @@
 import { LinksFunction } from '@remix-run/node';
 import styles from './Checkbox.css';
 import { FlexBox } from '../flex-box/FlexBox';
+import { Label } from '../label/Label';
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: styles }
@@ -11,12 +12,18 @@ interface CheckboxProps {
     name: string;
     disabled?: boolean;
     checked: boolean;
+    gap?: 'sm' | 'md' | 'lg' | 'xl';
     onChange?: (checked: boolean) => void;
 }
 
-export const Checkbox = ({ label, name, disabled, checked, onChange }: CheckboxProps) => {
+export const Checkbox = ({ label, name, gap = "sm", disabled, checked, onChange }: CheckboxProps) => {
+
+    const handleClick = () => {
+        onChange?.(!checked);
+    }
+
     return (
-        <FlexBox gap="sm" name="Checkbox-Container">
+        <FlexBox gap={gap} name="Checkbox-Container" width="full" align="center" onClick={handleClick}>
             <input
                 className="Checkbox"
                 type="checkbox"
@@ -27,7 +34,7 @@ export const Checkbox = ({ label, name, disabled, checked, onChange }: CheckboxP
                 onChange={(e) => onChange?.(e.target.checked)}
             />
             {label && (
-                <label htmlFor={name}>{label}</label>
+                <Label htmlFor={name}>{label}</Label>
             )}
         </FlexBox>
     );

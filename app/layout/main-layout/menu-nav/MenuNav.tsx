@@ -53,7 +53,7 @@ export const MenuNav = ({ visible, setIsVisible }: MenuNavProps) => {
             data-visible={visible}
         >
             <FlexBox
-                name="Content"
+                name="Menu-Content"
                 width="global-max"
                 justify="between"
                 height="full"
@@ -67,7 +67,7 @@ export const MenuNav = ({ visible, setIsVisible }: MenuNavProps) => {
                             onClick={() => navigateTo(PageRoutes.LOGS)}
                             name="Logs"
                             variant="menu"
-                            size="xl"
+                            size="lg"
                             iconSize="lg"
                             iconSide="left"
                         >
@@ -79,7 +79,7 @@ export const MenuNav = ({ visible, setIsVisible }: MenuNavProps) => {
                             icon={IconNames.Settings}
                             onClick={() => navigateTo(PageRoutes.SETTINGS)}
                             name="Settings"
-                            size="xl"
+                            size="lg"
                             variant="menu"
                             iconSize="lg"
                             iconSide="left"

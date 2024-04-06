@@ -45,11 +45,20 @@ export class UserRepository {
         }
     }
 
+    static async update(id: string, user: Prisma.UserUpdateInput, tx: PrismaTxType = prisma) {
+        try {
+            return await tx.user.update({
+                where: { id },
+                data: user,
+            });
+        } catch (error) {
+            return null;
+        }
+    }
+
 	static async findUnique(where: Prisma.UserWhereUniqueInput, tx: PrismaTxType = prisma) {}
 
 	static async findMany() {}
-
-	static async update(where: Prisma.UserWhereUniqueInput, data: Prisma.UserUpdateInput, tx: PrismaTxType = prisma) {}
 
 	static async delete(where: Prisma.UserWhereUniqueInput, tx: PrismaTxType = prisma) {}
 }

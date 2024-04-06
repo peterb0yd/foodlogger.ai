@@ -110,3 +110,8 @@
     padding-left: 1rem;
     padding-right: 1rem;
 }
+
+/** Clickable **/
+.FlexBox[data-clickable='true'] {
+    cursor: pointer;
+}

@@ -26,6 +26,11 @@ export class UserService {
         return userToUserWithSettings(newUser, settings);
     }
 
+    static async update(id: string, updateData: Prisma.UserUpdateInput) {
+        await UserRepository.update(id, updateData);
+        return this.findByIdWithSettings(id);
+    }
+
     static async updateSettings(userId: string, settingsData: ISettingsCreateInput) {
         const user = await this.findById(userId);
         if (!user) {

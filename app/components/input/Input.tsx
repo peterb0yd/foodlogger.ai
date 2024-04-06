@@ -17,6 +17,7 @@ interface InputProps {
     required?: boolean;
     fullWidth?: boolean;
     defaultValue?: string;
+    placeholder?: string;
     grow?: boolean;
     dark?: boolean;
     min?: number | string;
@@ -29,7 +30,7 @@ export const links: LinksFunction = () => [
     ...labelLinks(),
 ];
 
-export const Input = ({ value, icon, dark, min, max, size = 'md', type = 'text', defaultValue, name, label, pattern, grow, autoComplete, required, fullWidth, onChange }: InputProps) => {
+export const Input = ({ value, icon, placeholder, dark, min, max, size = 'md', type = 'text', defaultValue, name, label, pattern, grow, autoComplete, required, fullWidth, onChange }: InputProps) => {
     return (
         <Container icon={icon}>
             <Label
@@ -49,6 +50,7 @@ export const Input = ({ value, icon, dark, min, max, size = 'md', type = 'text',
                     required={required}
                     onChange={(e) => onChange?.(e.target.value)}
                     autoComplete={autoComplete}
+                    placeholder={placeholder}
                     min={min}
                     max={max}
                 />
