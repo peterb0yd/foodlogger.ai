@@ -46,13 +46,20 @@ export const MenuNav = ({ visible, setIsVisible }: MenuNavProps) => {
         setIsVisible(false);
         navigate(route);
     }
-        
+
     return (
         <nav
             className="MenuNav"
             data-visible={visible}
         >
-            <FlexBox name="Content" width="global-max" justify="between" height="full" col gap="lg">
+            <FlexBox
+                name="Content"
+                width="global-max"
+                justify="between"
+                height="full"
+                gap="lg"
+                col
+            >
                 <List>
                     <List.Item>
                         <Button

@@ -1,5 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { PrismaTxType } from "~/utils/prisma";
+import prisma from "~/utils/prisma";
 
 export class SettingsRepository {
     static async create(createInput: Prisma.SettingsUncheckedCreateInput, tx: PrismaTxType = prisma) {
