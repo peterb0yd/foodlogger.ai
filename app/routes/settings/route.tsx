@@ -41,9 +41,6 @@ export default function Settings() {
     const updateUserUrl = `${APIRoutes.USERS}/${user.id}`;
     const updateSettingsUrl = `${APIRoutes.USERS}/${user.id}/settings`;
 
-    useEffect(() => handleChange(updateUserUrl, userData as IUserCreateData), [userData]);
-    useEffect(() => handleChange(updateSettingsUrl, settingsData as ISettingsCreateData), [settingsData]);
-
     const handleChange = useCallback(debounce((action: string, data: IUserCreateData | ISettingsCreateData) => {
         const updateData = { json: JSON.stringify(data) };
         fetcher.submit(updateData, {
@@ -51,15 +48,16 @@ export default function Settings() {
             method: RequestMethods.PATCH,
             navigate: true,
         })
-        // TODO: handle error?
     }, 500), []);
 
     const handleUserChange = (key: string, val: string | boolean) => {
         setUserData({ ...userData, [key]: val });
+        handleChange(updateUserUrl, userData as IUserCreateData)
     };
 
     const handleSettingsChange = (key: string, val: string | boolean) => {
         setSettingsData({ ...settingsData, [key]: val });
+        handleChange(updateSettingsUrl, settingsData as ISettingsCreateData)
     };
 
     return (
