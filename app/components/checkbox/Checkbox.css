@@ -1,18 +1,19 @@
-
 .Checkbox-Container > .Checkbox {
-    display: inline-block;
-    position: relative;
-    cursor: pointer;
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
+	height: 20px;
+	width: 20px;
 }
 .Checkbox-Container > .Checkbox > label {
-    size: 1rem;
-    color: var(--text-color);
+	size: 1rem;
+	color: var(--text-color);
 }
 
 /** Disabled **/
-.Checkbox-Container[data-disabled=true] {
-    cursor: not-allowed;
+.Checkbox-Container[data-disabled='true'] {
+	cursor: not-allowed;
 }
-.Checkbox-Container[data-disabled=false] {
-    cursor: pointer;
+.Checkbox-Container[data-disabled='false'] {
+	cursor: pointer;
 }

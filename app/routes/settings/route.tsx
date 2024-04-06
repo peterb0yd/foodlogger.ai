@@ -2,7 +2,7 @@ import { LinksFunction, LoaderFunction } from "@remix-run/node";
 import { SessionService } from "~/api/modules/session/session.service";
 import { UserService } from "~/api/modules/user/user.service";
 import { useFetcher, useLoaderData } from "@remix-run/react";
-import { IUserWithSettings } from "~/api/modules/user/user.interfaces";
+import { IUserCreateData, IUserWithSettings } from "~/api/modules/user/user.interfaces";
 import { RequestMethods } from "~/enums/requests";
 import { Main, links as mainLinks } from "~/components/main/Main";
 import { FlexBox, links as flexboxLinks } from "~/components/flex-box/FlexBox";
@@ -12,8 +12,9 @@ import { Checkbox, links as checkboxLinks } from "~/components/checkbox/Checkbox
 import { Input, links as inputLinks } from "~/components/input/Input";
 import styles from './settings.css';
 import { APIRoutes } from "~/enums/routes";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { debounce } from "lodash-es";
+import { ISettingsCreateData } from "~/api/modules/settings/settings.interfaces";
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: styles },
@@ -35,24 +36,31 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function Settings() {
     const { user } = useLoaderData<{ user: IUserWithSettings }>();
     const fetcher = useFetcher();
+    const [userData, setUserData] = useState(user);
+    const [settingsData, setSettingsData] = useState(user.settings);
+    const updateUserUrl = `${APIRoutes.USERS}/${user.id}`;
+    const updateSettingsUrl = `${APIRoutes.USERS}/${user.id}/settings`;
 
-    const handleChange = (action: string, key: string, val: string | boolean) => {
-        const updateData = { json: JSON.stringify({ [key]: val }) };
+    useEffect(() => handleChange(updateUserUrl, userData as IUserCreateData), [userData]);
+    useEffect(() => handleChange(updateSettingsUrl, settingsData as ISettingsCreateData), [settingsData]);
+
+    const handleChange = useCallback(debounce((action: string, data: IUserCreateData | ISettingsCreateData) => {
+        const updateData = { json: JSON.stringify(data) };
         fetcher.submit(updateData, {
             action,
             method: RequestMethods.PATCH,
             navigate: true,
         })
         // TODO: handle error?
-    }
+    }, 500), []);
 
-    const handleUserChange = debounce((key: string, val: string | boolean) => {
-        handleChange(`${APIRoutes.USERS}/${user.id}`, key, val);
-    }, 500);
+    const handleUserChange = (key: string, val: string | boolean) => {
+        setUserData({ ...userData, [key]: val });
+    };
 
-    const handleSettingsChange = debounce((key: string, val: string | boolean) => {
-        handleChange(`${APIRoutes.USERS}/${user.id}/settings`, key, val);
-    }, 500);
+    const handleSettingsChange = (key: string, val: string | boolean) => {
+        setSettingsData({ ...settingsData, [key]: val });
+    };
 
     return (
         <Main
@@ -70,7 +78,7 @@ export default function Settings() {
                                 label="Name"
                                 fullWidth
                                 placeholder="Your name..."
-                                defaultValue={user.name as string}
+                                value={userData.name as string}
                                 onChange={(val) => handleUserChange('name', val)}
                             />
                         </List.Item>
@@ -80,7 +88,7 @@ export default function Settings() {
                                 label="Email"
                                 fullWidth
                                 placeholder="Your email..."
-                                defaultValue={user.email as string}
+                                value={userData.email as string}
                                 onChange={(val) => handleUserChange('email', val)}
                             />
                         </List.Item>
@@ -90,7 +98,7 @@ export default function Settings() {
                                 label="Phone"
                                 fullWidth
                                 placeholder="Your phone..."
-                                defaultValue={user.phone as string}
+                                value={userData.phone as string}
                                 onChange={(val) => handleUserChange('phone', val)}
                             />
                         </List.Item>
@@ -108,7 +116,7 @@ export default function Settings() {
                                     name="exercise"
                                     label="Track Exercise"
                                     gap="md"
-                                    checked={user.settings.isTrackingExercise}
+                                    checked={settingsData.isTrackingExercise}
                                     onChange={(val) => handleSettingsChange('isTrackingExercise', val)}
                                 />
                             </List.Item>
@@ -117,7 +125,7 @@ export default function Settings() {
                                     name="energy"
                                     label="Track Energy"
                                     gap="md"
-                                    checked={user.settings.isTrackingEnergy}
+                                    checked={settingsData.isTrackingEnergy}
                                     onChange={(val) => handleSettingsChange('isTrackingEnergy', val)}
                                 />
                             </List.Item>
@@ -126,7 +134,7 @@ export default function Settings() {
                                     name="poop"
                                     label="Track Poop"
                                     gap="md"
-                                    checked={user.settings.isTrackingPoop}
+                                    checked={settingsData.isTrackingPoop}
                                     onChange={(val) => handleSettingsChange('isTrackingPoop', val)}
                                 />
                             </List.Item>
@@ -135,7 +143,7 @@ export default function Settings() {
                                     name="mood"
                                     label="Track Mood"
                                     gap="md"
-                                    checked={user.settings.isTrackingMood}
+                                    checked={settingsData.isTrackingMood}
                                     onChange={(val) => handleSettingsChange('isTrackingMood', val)}
                                 />
                             </List.Item>
@@ -144,7 +152,7 @@ export default function Settings() {
                                     name="anxiety"
                                     label="Track Anxiety"
                                     gap="md"
-                                    checked={user.settings.isTrackingAnxiety}
+                                    checked={settingsData.isTrackingAnxiety}
                                     onChange={(val) => handleSettingsChange('isTrackingAnxiety', val)}
                                 />
                             </List.Item>
@@ -153,7 +161,7 @@ export default function Settings() {
                                     name="sleep"
                                     label="Track Sleep"
                                     gap="md"
-                                    checked={user.settings.isTrackingSleep}
+                                    checked={settingsData.isTrackingSleep}
                                     onChange={(val) => handleSettingsChange('isTrackingSleep', val)}
                                 />
                             </List.Item>
