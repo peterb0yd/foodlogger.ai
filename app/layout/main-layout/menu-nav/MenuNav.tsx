@@ -6,6 +6,8 @@ import { IconNames } from "~/enums/icons";
 import { FlexBox, links as flexboxLinks } from "~/components/flex-box/FlexBox";
 import { Logo, links as logoLinks } from "~/components/logo/Logo";
 import { useEffect } from "react";
+import { PageRoutes } from "~/enums/routes";
+import { useNavigate } from "@remix-run/react";
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: styles },
@@ -21,6 +23,7 @@ interface MenuNavProps {
 }
 
 export const MenuNav = ({ visible, setIsVisible }: MenuNavProps) => {
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (visible) {
@@ -34,26 +37,32 @@ export const MenuNav = ({ visible, setIsVisible }: MenuNavProps) => {
     }, [visible])
 
     const onKeyUp = (e: KeyboardEvent) => {
-        console.log(e.key);
         if (e.key === 'Escape') {
             setIsVisible(false);
         }
     }
 
+    const navigateTo = (route: PageRoutes) => {
+        setIsVisible(false);
+        navigate(route);
+    }
+        
     return (
         <nav
             className="MenuNav"
             data-visible={visible}
         >
-            <FlexBox name="Content" width="global-max" justify="between" col gap="lg">
+            <FlexBox name="Content" width="global-max" justify="between" height="full" col gap="lg">
                 <List>
                     <List.Item>
                         <Button
-                            icon={IconNames.Pencil}
+                            icon={IconNames.Logs}
+                            onClick={() => navigateTo(PageRoutes.LOGS)}
                             name="Logs"
-                            color="base"
+                            variant="menu"
                             size="xl"
-                            iconColor="base"
+                            iconSize="lg"
+                            iconSide="left"
                         >
                             Logs
                         </Button>
@@ -61,10 +70,12 @@ export const MenuNav = ({ visible, setIsVisible }: MenuNavProps) => {
                     <List.Item>
                         <Button
                             icon={IconNames.Settings}
+                            onClick={() => navigateTo(PageRoutes.SETTINGS)}
                             name="Settings"
                             size="xl"
-                            color="base"
-                            iconColor="base"
+                            variant="menu"
+                            iconSize="lg"
+                            iconSide="left"
                         >
                             Settings
                         </Button>
@@ -73,8 +84,10 @@ export const MenuNav = ({ visible, setIsVisible }: MenuNavProps) => {
                 <Button
                     icon={IconNames.LogOut}
                     name="Sign Out"
-                    color="base"
-                    iconColor="base"
+                    size="md"
+                    variant="menu"
+                    iconSize="sm"
+                    iconSide="left"
                 >
                     Sign Out
                 </Button>

@@ -21,6 +21,7 @@ import { Template } from "./Template";
 import { Menu } from "./Menu";
 import { LogOut } from "./LogOut";
 import { Settings } from "./Settings";
+import { Logs } from "./Logs";
 
 const sizeMap = {
     xs: 16,
@@ -66,6 +67,7 @@ export const Icon = forwardRef(({ name, size = 'md', color }: IconProps, ref: Fo
             case IconNames.Menu: return Menu;
             case IconNames.LogOut: return LogOut;
             case IconNames.Settings: return Settings;
+            case IconNames.Logs: return Logs;
             default: return Fragment;
         }
     })();

@@ -17,7 +17,7 @@ interface BaseButtonProps extends PropsWithChildren {
     iconColor?: IconProps['color'];
     iconSize?: IconProps['size'];
     iconSide?: 'left' | 'right';
-    variant?: 'base' | 'primary' | 'secondary' | 'muted' | 'icon' | 'dotted-muted';
+    variant?: 'menu' | 'base' | 'primary' | 'secondary' | 'muted' | 'icon' | 'dotted-muted';
     loading?: boolean;
     color?: ColorTypes;
     contentSize?: {

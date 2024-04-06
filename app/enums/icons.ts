@@ -4,6 +4,7 @@ export enum IconNames {
 	Trash = 'Trash',
 	ChevronCircle = 'ChevronCircle',
 	Pencil = 'Pencil',
+    Logs = 'Logs',
 	Mic = 'Mic',
 	Plus = 'Plus',
 	ChevronUp = 'ChevronUp',

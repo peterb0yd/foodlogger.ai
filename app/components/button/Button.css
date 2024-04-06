@@ -187,3 +187,34 @@
         cursor: not-allowed;
     }
 }
+.Button[data-variant='menu'] {
+    background-color: none;
+    color: var(--color-text);
+
+    .Icon {
+        color: var(--color-text);
+    }
+
+    &:hover {
+        color: var(--color-primary);
+
+        .Icon {
+            color: var(--color-primary);
+        }
+    }
+    &:active {
+        color: var(--color-primary-dark);
+
+        .Icon {
+            color: var(--color-primary-dark);
+        }
+    }
+    &:disabled {
+        color: var(--color-text-muted);
+        cursor: not-allowed;
+
+        .Icon {
+            color: var(--color-text-muted);
+        }
+    }
+}

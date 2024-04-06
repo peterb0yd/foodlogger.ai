@@ -41,12 +41,10 @@ MainLayout.Header = () => {
                 </div>
                 <div className="Menu-Container">
                     <Button
-                        variant="icon"
                         name="Menu-Button"
                         icon={menuIconName}
-                        iconColor='base'
+                        variant="menu"
                         iconSize='lg'
-                        borderRadius='sm'
                         size="flush"
                         onClick={() => setMenuVisible(!menuVisible)}
                     />
