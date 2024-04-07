@@ -22,6 +22,7 @@ interface InputProps {
     dark?: boolean;
     min?: number | string;
     max?: number | string;
+    row?: boolean;
     onChange?: (val: string) => void;
 }
 

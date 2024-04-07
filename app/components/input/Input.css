@@ -4,9 +4,10 @@
 	gap: var(--input-label-gap);
 
 	input {
-		background-color: var(--color-surface-contrast);
+		background-color: var(--color-surface-muted);
 		border: var(--input-border);
-		color: var(--color-text-contrast);
+        box-sizing: border-box;
+		color: var(--color-text);
 		font-size: var(--md-font-size);
 		padding: calc(var(--input-padding) + 0.5px); /* added 0.5px to make same height as select */
 		border-radius: var(--input-border-radius);
@@ -24,12 +25,12 @@
 .InputWithIcon {
 	display: flex;
 	align-items: center;
-	background-color: var(--color-surface-contrast);
+	background-color: var(--color-surface-muted);
 	padding: calc(var(--input-padding) + 0.5px); /* added 0.5px to make same height as select */
 	border: var(--input-border);
 	border-radius: var(--input-border-radius);
 	height: var(--input-height);
-	color: var(--color-text-contrast);
+	color: var(--color-text);
 	gap: 0.5rem;
 
 	input {

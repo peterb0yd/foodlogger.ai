@@ -28,7 +28,7 @@
     --bottom-bar-height: 60px;
 
     /* Inputs */
-    --input-border: 3px solid var(--color-surface-contrast);
+    --input-border: 3px solid var(--color-surface-soft);
     --input-border-hover: 3px solid var(--color-primary-dark);
     --input-border-focus: 3px solid var(--color-primary-light);
     --input-padding: 0.5rem;
