@@ -38,8 +38,8 @@
     "twilio": "^4.22.0"
   },
   "devDependencies": {
-    "@remix-pwa/dev": "2.0.31",
-    "@remix-pwa/worker-runtime": "^2.0.8",
+    "@remix-pwa/dev": "^2.0.31",
+    "@remix-pwa/worker-runtime": "^2.1.1",
     "@remix-run/dev": "^2.6.0",
     "@types/lodash-es": "^4.17.12",
     "@types/luxon": "^3.4.2",
