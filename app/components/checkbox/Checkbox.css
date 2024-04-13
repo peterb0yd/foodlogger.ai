@@ -16,3 +16,17 @@
 .Checkbox-Container[data-disabled='false'] {
 	cursor: pointer;
 }
+
+/** Padding **/
+.Checkbox-Container[data-pad-x='sm'] {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+}
+.Checkbox-Container[data-pad-x='md'] {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+.Checkbox-Container[data-pad-x='lg'] {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}

@@ -197,6 +197,7 @@ const SettingsCheckbox = ({ name, label, checked, onChange }: SettingsCheckboxPr
             name={name}
             label={label}
             gap="md"
+            padX="lg"
             checkSide="right"
             spaced
             checked={checked}

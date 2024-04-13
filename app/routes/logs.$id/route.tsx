@@ -132,14 +132,14 @@ export default function EditFoodLogPage() {
             )}
             <BottomBar>
                 <BottomBar.SecondaryButton
-                    text="Template"
+                    text="Create Template"
                     icon={IconNames.Template}
                     onClick={handleCreateTemplate}
                     disabled={isLoading || !hasFoodItems}
                     loading={isLoading}
                 />
                 <BottomBar.PrimaryButton
-                    text="Done"
+                    text="Done Editing"
                     icon={IconNames.CheckMark}
                     onClick={() => navigate(backLink as string)}
                     disabled={isLoading}

@@ -3,11 +3,10 @@
     width: 94vw;
     max-width: var(--global-max-width);
     margin: 0 auto;
-    display: grid;
+    min-height: 100vh;
 }
 
 .MainLayout-Header {
-    grid-row: 1;
     height: var(--header-height);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -46,8 +45,8 @@
 }
 
 .MainLayout-Content {
-    grid-row: 2;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
 }
 

@@ -8,11 +8,16 @@ export const links: LinksFunction = () => [
 
 interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement>, PropsWithChildren {
     name?: string;
+    uppercase?: boolean;
 }
 
-export const Label = ({ children, name, ...props }: LabelProps) => {
+export const Label = ({ children, uppercase = true, name, ...props }: LabelProps) => {
     return (
-        <label className={`Label ${name}`} {...props}>
+        <label 
+            className={`Label ${name}`} 
+            data-uppercase={uppercase}
+            {...props}
+            >
             {children}
         </label>
     );

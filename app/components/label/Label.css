@@ -1,7 +1,12 @@
 .Label {
-	text-transform: uppercase;
 	font-weight: 600;
     font-size: var(--font-size-sm);
 	font-family: var(--font-primary);
 	color: var(--color-text-muted);
+    line-height: 1em;
+    pointer-events: none;
+}
+
+.Label[data-uppercase='true'] {
+    text-transform: uppercase;
 }

@@ -67,3 +67,10 @@
         width: 100%;
     }
 }
+
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.9);
+    cursor: pointer;
+    scale: 1.4;
+}

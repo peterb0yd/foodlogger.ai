@@ -15,10 +15,11 @@ interface CheckboxProps {
     gap?: 'sm' | 'md' | 'lg' | 'xl';
     spaced?: boolean;
     checkSide?: 'left' | 'right';
+    padX?: 'sm' | 'md' | 'lg';
     onChange?: (checked: boolean) => void;
 }
 
-export const Checkbox = ({ label, name, gap = "sm", checkSide = 'left', spaced, disabled, checked, onChange }: CheckboxProps) => {
+export const Checkbox = ({ label, name, gap = "sm", checkSide = 'left', spaced, padX = 'sm', disabled, checked, onChange }: CheckboxProps) => {
     const isReverse = checkSide === 'right';
     const justify = spaced ? 'between' : 'start';
 
@@ -35,6 +36,7 @@ export const Checkbox = ({ label, name, gap = "sm", checkSide = 'left', spaced, 
             align="center"
             reverse={isReverse}
             onClick={handleClick}
+            data-pad-x={padX}
         >
             <input
                 className="Checkbox"
@@ -46,7 +48,7 @@ export const Checkbox = ({ label, name, gap = "sm", checkSide = 'left', spaced, 
                 onChange={(e) => onChange?.(e.target.checked)}
             />
             {label && (
-                <Label htmlFor={name}>{label}</Label>
+                <Label htmlFor={name} uppercase={false}>{label}</Label>
             )}
         </FlexBox>
     );
