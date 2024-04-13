@@ -13,17 +13,29 @@ interface CheckboxProps {
     disabled?: boolean;
     checked: boolean;
     gap?: 'sm' | 'md' | 'lg' | 'xl';
+    spaced?: boolean;
+    checkSide?: 'left' | 'right';
     onChange?: (checked: boolean) => void;
 }
 
-export const Checkbox = ({ label, name, gap = "sm", disabled, checked, onChange }: CheckboxProps) => {
+export const Checkbox = ({ label, name, gap = "sm", checkSide = 'left', spaced, disabled, checked, onChange }: CheckboxProps) => {
+    const isReverse = checkSide === 'right';
+    const justify = spaced ? 'between' : 'start';
 
     const handleClick = () => {
         onChange?.(!checked);
     }
 
     return (
-        <FlexBox gap={gap} name="Checkbox-Container" width="full" align="center" onClick={handleClick}>
+        <FlexBox
+            gap={gap}
+            name="Checkbox-Container"
+            width="full"
+            justify={justify}
+            align="center"
+            reverse={isReverse}
+            onClick={handleClick}
+        >
             <input
                 className="Checkbox"
                 type="checkbox"

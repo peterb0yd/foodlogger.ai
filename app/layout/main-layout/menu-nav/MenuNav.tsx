@@ -6,8 +6,8 @@ import { IconNames } from "~/enums/icons";
 import { FlexBox, links as flexboxLinks } from "~/components/flex-box/FlexBox";
 import { Logo, links as logoLinks } from "~/components/logo/Logo";
 import { useEffect } from "react";
-import { PageRoutes } from "~/enums/routes";
-import { useNavigate } from "@remix-run/react";
+import { APIRoutes, PageRoutes } from "~/enums/routes";
+import { Form, useNavigate } from "@remix-run/react";
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: styles },
@@ -88,16 +88,19 @@ export const MenuNav = ({ visible, setIsVisible }: MenuNavProps) => {
                         </Button>
                     </List.Item>
                 </List>
-                <Button
-                    icon={IconNames.LogOut}
-                    name="Sign Out"
-                    size="md"
-                    variant="menu"
-                    iconSize="sm"
-                    iconSide="left"
-                >
-                    Sign Out
-                </Button>
+                <Form method="delete" action={APIRoutes.SESSIONS}>
+                    <Button
+                        icon={IconNames.LogOut}
+                        name="Sign Out"
+                        size="md"
+                        type="submit"
+                        variant="menu"
+                        iconSize="sm"
+                        iconSide="left"
+                    >
+                        Sign Out
+                    </Button>
+                </Form>
             </FlexBox>
         </nav>
     );

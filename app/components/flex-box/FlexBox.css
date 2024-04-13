@@ -16,8 +16,17 @@
 }
 
 /** Direction **/
-.FlexBox[data-col=true] {
+.FlexBox[data-direction='row'] {
+    flex-direction: row;
+}
+.FlexBox[data-direction='row-reverse'] {
+    flex-direction: row-reverse;
+}
+.FlexBox[data-direction='col'] {
     flex-direction: column;
+}
+.FlexBox[data-direction='col-reverse'] {
+    flex-direction: column-reverse;
 }
 
 /** Grow **/

@@ -18,7 +18,6 @@ export const action: ActionFunction = async ({ request, params }) => {
 			try {
                 const userId = params.id as string;
                 const data = await request.formData();
-                console.log({ data })
                 const userData = JSON.parse(data.get('json') as string);
                 const user = await UserService.update(userId, userData);
 				if (!user) {

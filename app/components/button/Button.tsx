@@ -30,6 +30,7 @@ interface ButtonProps extends BaseButtonProps, Omit<React.HTMLProps<HTMLButtonEl
     href?: string;
     to?: PageRoutes;
     grow?: boolean;
+    type?: 'button' | 'submit' | 'reset';
     width?: 'full' | 'max' | '1/2' | '1/3' | '1/4';
     size?: 'flush' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     border?: BorderTypes;
@@ -71,6 +72,7 @@ export const Button = ({
     color,
     width,
     name = '',
+    type = 'button',
     onClick,
     ...rest
 }: ButtonProps) => {

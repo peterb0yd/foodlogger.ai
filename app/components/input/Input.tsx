@@ -38,7 +38,6 @@ export const Input = ({ value, icon, placeholder, dark, min, max, size = 'md', t
                 name='Input-Label'
                 data-full-width={fullWidth}
                 data-flex-grow={grow}
-            // data-dark={dark} TODO: Fix dark mode
             >
                 {label ?? null}
                 <input

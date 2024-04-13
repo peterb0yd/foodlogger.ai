@@ -18,6 +18,7 @@ interface FlexBoxProps extends PropsWithChildren {
     borderRadius?: 'xs' | 'sm' | 'md' | 'rounded' | 'full';
     width?: 'full' | 'max' | 'global-max';
     height?: 'full' | 'max';
+    reverse?: boolean;
     as?: 'main' | 'nav' | 'div' | 'ul' | 'ol' | 'span' | 'li' | 'section' | 'header' | 'aside';
     onClick?: () => void;
 }
@@ -40,6 +41,7 @@ export const FlexBox = ({
     center,
     gap,
     bg,
+    reverse,
     border,
     borderRadius,
     padBottom,
@@ -52,10 +54,12 @@ export const FlexBox = ({
         justify = "center";
     }
     const Component = as;
+    const axis = col ? 'col' : 'row';
+    const dir = reverse ? `${axis}-reverse` : axis;
     return (
         <Component
             className={`FlexBox ${name ?? ''}`}
-            data-col={col}
+            data-direction={dir}
             data-grow={grow}
             data-width={width}
             data-height={height}

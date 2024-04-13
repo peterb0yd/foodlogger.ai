@@ -1,11 +1,12 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import {
     Links,
     Meta,
     Outlet,
     Scripts,
     ScrollRestoration,
+    useLoaderData,
 } from "@remix-run/react";
 import { useSWEffect, LiveReload } from '@remix-pwa/sw';
 import globalStyles from "~/styles/global.css";
@@ -14,6 +15,7 @@ import fonts from "~/styles/fonts.css";
 import { MainLayout, links as mainLayoutLinks } from "~/layout/main-layout/MainLayout";
 import 'react-loading-skeleton/dist/skeleton.css';
 import { SkeletonTheme } from "react-loading-skeleton";
+import { SessionService } from "./api/modules/session/session.service";
 
 export const links: LinksFunction = () => [
     ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -23,7 +25,14 @@ export const links: LinksFunction = () => [
     ...mainLayoutLinks(),
 ];
 
+export const loader: LoaderFunction = async (context) => {
+    const userId = await SessionService.getUserIdFromRequest(context.request);
+    return { userId };
+}
+
 export default function App() {
+    const { userId } = useLoaderData<typeof loader>();
+
     useSWEffect();
     return (
         <html lang="en">
@@ -40,7 +49,7 @@ export default function App() {
                     highlightColor="var(--color-surface-highlight)"
                 >
                     <MainLayout>
-                        <MainLayout.Header />
+                        <MainLayout.Header userId={userId} />
                         <MainLayout.Content>
                             <Outlet />
                         </MainLayout.Content>

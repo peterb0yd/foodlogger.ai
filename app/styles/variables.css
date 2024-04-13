@@ -42,6 +42,7 @@
     --color-surface-muted: #2a2637;
     --color-surface-highlight: rgb(68, 62, 88);
     --color-surface-contrast: #ffffff;
+    --color-surface-soft: #3a3547;
     --color-surface-destructive: #e93f41;
     /* - Text */
     --color-text: #ffffff;

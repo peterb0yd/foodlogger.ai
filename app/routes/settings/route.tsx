@@ -48,28 +48,30 @@ export default function Settings() {
             method: RequestMethods.PATCH,
             navigate: true,
         })
-    }, 500), []);
+    }, 1000), []);
 
     const handleUserChange = (key: string, val: string | boolean) => {
-        setUserData({ ...userData, [key]: val });
-        handleChange(updateUserUrl, userData as IUserCreateData)
+        const newUserData = { ...userData, [key]: val };
+        setUserData(newUserData);
+        handleChange(updateUserUrl, newUserData as IUserCreateData)
     };
 
     const handleSettingsChange = (key: string, val: string | boolean) => {
-        setSettingsData({ ...settingsData, [key]: val });
-        handleChange(updateSettingsUrl, settingsData as ISettingsCreateData)
+        const newSettingsData = { ...settingsData, [key]: val };
+        setSettingsData(newSettingsData);
+        handleChange(updateSettingsUrl, newSettingsData as ISettingsCreateData)
     };
 
     return (
         <Main
             name="Settings"
             title="Settings"
-            subtitle={"Customize your experience"}
+            subtitle={"Customize your profile and food logging experience."}
         >
             <FlexBox col gap="xl" width="full">
 
                 <Section title="Account">
-                    <List variant="compact">
+                    <List variant="compact" bg="none">
                         <List.Item>
                             <Input
                                 name="name"
@@ -110,55 +112,49 @@ export default function Settings() {
                     >
                         <List variant="spacious">
                             <List.Item>
-                                <Checkbox
+                                <SettingsCheckbox
                                     name="exercise"
                                     label="Track Exercise"
-                                    gap="md"
                                     checked={settingsData.isTrackingExercise}
                                     onChange={(val) => handleSettingsChange('isTrackingExercise', val)}
                                 />
                             </List.Item>
                             <List.Item>
-                                <Checkbox
+                                <SettingsCheckbox
                                     name="energy"
                                     label="Track Energy"
-                                    gap="md"
                                     checked={settingsData.isTrackingEnergy}
                                     onChange={(val) => handleSettingsChange('isTrackingEnergy', val)}
                                 />
                             </List.Item>
                             <List.Item>
-                                <Checkbox
+                                <SettingsCheckbox
                                     name="poop"
                                     label="Track Poop"
-                                    gap="md"
                                     checked={settingsData.isTrackingPoop}
                                     onChange={(val) => handleSettingsChange('isTrackingPoop', val)}
                                 />
                             </List.Item>
                             <List.Item>
-                                <Checkbox
+                                <SettingsCheckbox
                                     name="mood"
                                     label="Track Mood"
-                                    gap="md"
                                     checked={settingsData.isTrackingMood}
                                     onChange={(val) => handleSettingsChange('isTrackingMood', val)}
                                 />
                             </List.Item>
                             <List.Item>
-                                <Checkbox
+                                <SettingsCheckbox
                                     name="anxiety"
                                     label="Track Anxiety"
-                                    gap="md"
                                     checked={settingsData.isTrackingAnxiety}
                                     onChange={(val) => handleSettingsChange('isTrackingAnxiety', val)}
                                 />
                             </List.Item>
                             <List.Item>
-                                <Checkbox
+                                <SettingsCheckbox
                                     name="sleep"
                                     label="Track Sleep"
-                                    gap="md"
                                     checked={settingsData.isTrackingSleep}
                                     onChange={(val) => handleSettingsChange('isTrackingSleep', val)}
                                 />
@@ -185,5 +181,26 @@ const Section = ({ title, children }: SectionProps) => {
             </Text>
             {children}
         </FlexBox>
+    );
+}
+
+interface SettingsCheckboxProps {
+    name: string;
+    label: string;
+    checked: boolean;
+    onChange: (checked: boolean) => void;
+}
+
+const SettingsCheckbox = ({ name, label, checked, onChange }: SettingsCheckboxProps) => {
+    return (
+        <Checkbox
+            name={name}
+            label={label}
+            gap="md"
+            checkSide="right"
+            spaced
+            checked={checked}
+            onChange={onChange}
+        />
     );
 }

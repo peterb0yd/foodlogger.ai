@@ -30,17 +30,6 @@ export const Main = ({ children, name, title, subtitle, hasMenu }: MainProps) =>
                         <SubtitleContent subtitle={subtitle} />
                     </FlexBox>
                 )}
-                {/* {hasMenu && (
-                    <Button
-                        variant="muted"
-                        name="Menu"
-                        icon={IconNames.Menu}
-                        iconColor='base'
-                        iconSize='lg'
-                        borderRadius='sm'
-                        size="flush"
-                    />
-                )} */}
             </FlexBox>
             {children}
         </main>

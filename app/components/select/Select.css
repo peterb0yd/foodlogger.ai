@@ -1,18 +1,14 @@
-.Select {
+.Select-Label {
 	display: flex;
 	flex-direction: column;
-	text-transform: uppercase;
 	gap: var(--input-label-gap);
-	font-family: var(--font-primary);
-	font-size: var(--font-size-base);
-	font-weight: 600;
-	color: var(--color-primary);
 
 	select {
 		cursor: pointer;
-		background-color: var(--color-surface-contrast);
+		background-color: var(--color-surface-muted);
 		border: var(--input-border);
-		color: var(--color-text-contrast);
+        box-sizing: border-box;
+		color: var(--color-text);
 		padding: var(--input-padding);
 		border-radius: var(--input-border-radius);
 		height: var(--input-height);
@@ -29,12 +25,30 @@
 }
 
 /** Sizes **/
-.Select[data-size='sm'] {
+.Select-Label[data-size='sm'] {
 	width: 120px;
 }
-.Select[data-size='md'] {
+.Select-Label[data-size='md'] {
 	width: 200px;
 }
-.Select[data-size='lg'] {
+.Select-Label[data-size='lg'] {
 	width: 300px;
+}
+
+/** Flex Grow **/
+.Select-Label[data-flex-grow='true'] {
+    flex-grow: 1;
+
+    select {
+        width: 100%;
+    }
+}
+
+/** Full Width **/
+.Select-Label[data-full-width='true'] {
+	width: 100%;
+
+    select {
+        width: 100%;
+    }
 }

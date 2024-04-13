@@ -7,14 +7,16 @@ export const links: LinksFunction = () => {
 }
 
 interface ListProps extends PropsWithChildren {
-    variant?: 'base' | 'compact' | 'spacious';
+    variant?: 'base' | 'compact' | 'spacious' | 'gap-tight' | 'gap-loose';
+    bg?: 'none' | 'muted' | 'soft';
     divider?: 'none' | 'base' | 'strong';
 }
 
-export const List = ({ children, variant = 'base', divider = 'base' }: ListProps) => {
+export const List = ({ children, variant = 'base', divider = 'base', bg='muted' }: ListProps) => {
     return (
         <ul 
             className={'List'} 
+            data-background={bg}
             data-variant={variant}
             data-divider={divider}
         >

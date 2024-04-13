@@ -1,7 +1,7 @@
 import { Prisma, User } from "@prisma/client";
 import { UserRepository } from "./user.repository";
 import { UserSettingsService } from "../settings/settings.service";
-import { userDataToCreateInput, userToUserWithSettings } from "./user.mappers";
+import { userDataToCreateInput, userToUserWithSettings, userUpdateDataToUpdateInput } from "./user.mappers";
 import { ISettingsCreateInput } from "../settings/settings.interfaces";
 import { IUserCreateData } from "./user.interfaces";
 
@@ -27,7 +27,8 @@ export class UserService {
     }
 
     static async update(id: string, updateData: Prisma.UserUpdateInput) {
-        await UserRepository.update(id, updateData);
+        const updateInput = userUpdateDataToUpdateInput(updateData);
+        await UserRepository.update(id, updateInput);
         return this.findByIdWithSettings(id);
     }
 

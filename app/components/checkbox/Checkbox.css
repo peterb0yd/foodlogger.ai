@@ -1,5 +1,4 @@
 .Checkbox-Container > .Checkbox {
-	display: inline-block;
 	position: relative;
 	cursor: pointer;
 	height: 20px;

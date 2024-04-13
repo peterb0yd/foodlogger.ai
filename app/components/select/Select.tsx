@@ -1,5 +1,6 @@
 import { LinksFunction } from '@remix-run/node';
 import selectStyles from './Select.css';
+import { Label, links as labelLinks } from '../label/Label';
 
 type Option = {
     value: string;
@@ -13,14 +14,17 @@ interface SelectProps {
     size?: 'sm' | 'md' | 'lg';
     options: Option[] | string[];
     autoComplete?: string;
+    fullWidth?: boolean;
+    grow?: boolean;
     onSelect: (value: string) => void;
 }
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: selectStyles },
+    ...labelLinks(),
 ];
 
-export const Select = ({ value, name, size = 'md', label, options, autoComplete, onSelect }: SelectProps) => {
+export const Select = ({ value, name, size = 'md', fullWidth, grow, label, options, autoComplete, onSelect }: SelectProps) => {
     let optionItems: Option[] = [];
     if (typeof options[0] === 'string') {
         optionItems = (options as string[]).map((option) => ({ value: option, label: option }));
@@ -29,9 +33,10 @@ export const Select = ({ value, name, size = 'md', label, options, autoComplete,
     }
 
     return (
-        <label
-            className='Select'
-            data-size={size}
+        <Label
+            name='Select-Label'
+            data-full-width={fullWidth}
+            data-flex-grow={grow}
         >
             {label}
             <select
@@ -46,6 +51,6 @@ export const Select = ({ value, name, size = 'md', label, options, autoComplete,
                     </option>
                 ))}
             </select>
-        </label>
+        </Label>
     );
 }
