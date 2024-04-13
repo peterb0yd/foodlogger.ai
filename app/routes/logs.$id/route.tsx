@@ -9,7 +9,7 @@ import { IFoodLogItemWithFoodItem } from "~/api/modules/food-log-item/food-log-i
 import { SessionService } from "~/api/modules/session/session.service";
 import { IconNames } from "~/enums/icons";
 import { RequestMethods } from "~/enums/requests";
-import pageStyles from './logs.$id.css';
+import styles from './logs.$id.css?url';
 import { Divider, links as dividerLinks } from "~/components/divider/Divider";
 import { useEffect, useState } from "react";
 import { PromptModal, links as promptModalLinks } from "./PromptModal";
@@ -25,7 +25,7 @@ type BadAudioResponse = { suggestion: string };
 type SubmitterResponse = IFoodLogItemWithFoodItem | BadAudioResponse;
 
 export const links: LinksFunction = () => [
-    { rel: 'stylesheet', href: pageStyles },
+    { rel: 'stylesheet', href: styles },
     ...mainLinks(),
     ...dividerLinks(),
     ...audioRecLinks(),

@@ -1,6 +1,6 @@
 import { LinksFunction } from '@remix-run/node';
 import React, { PropsWithChildren } from 'react';
-import flexBoxStyles from './FlexBox.css';
+import styles from './FlexBox.css?url';
 
 interface FlexBoxProps extends PropsWithChildren {
     col?: boolean;
@@ -24,7 +24,7 @@ interface FlexBoxProps extends PropsWithChildren {
 }
 
 export const links: LinksFunction = () => [
-    { rel: 'stylesheet', href: flexBoxStyles },
+    { rel: 'stylesheet', href: styles },
 ];
 
 export const FlexBox = ({

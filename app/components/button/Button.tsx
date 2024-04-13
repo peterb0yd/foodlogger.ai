@@ -2,7 +2,7 @@ import { LinksFunction } from '@remix-run/node';
 import { useNavigate } from '@remix-run/react';
 import { ForwardedRef, PropsWithChildren, forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import { PageRoutes } from '~/enums/routes';
-import buttonStyles from './Button.css';
+import buttonStyles from './Button.css?url';
 import { Icon, IconProps } from '../icon/Icon';
 import { LoadingSpinner, links as loadingSpinnerLinks } from '../loading-spinner/LoadingSpinner';
 import { BorderTypes, ColorTypes, FontWeights } from '~/types/propTypes';

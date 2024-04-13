@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useMemo } from "react";
 import { LinksFunction } from "@remix-run/node";
-import audioRecorderStyles from "./AudioRecorder.css";
+import audioRecorderStyles from "./AudioRecorder.css?url";
 import { Button } from "../button/Button";
 import { IconNames } from "~/enums/icons";
 import { useAudioRecorder } from "~/hooks/useAudioRecorder";

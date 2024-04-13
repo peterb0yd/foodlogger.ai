@@ -6,7 +6,7 @@ import { FlexBox, links as flexBoxLinks } from "~/components/flex-box/FlexBox";
 import { Text, links as textLinks } from "~/components/text/Text";
 import { Icon, links as iconLinks } from "~/components/icon/Icon";
 import { IconNames } from "~/enums/icons";
-import styles from './TimelineBlock.css';
+import styles from './TimelineBlock.css?url';
 import { useSearchParams } from "@remix-run/react";
 import { useTimelineContext } from "../Timeline";
 import { IFoodLogWithNestedFoods } from "~/api/modules/food-log/food-log.interfaces";

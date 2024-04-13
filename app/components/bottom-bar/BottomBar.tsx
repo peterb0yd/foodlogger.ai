@@ -1,7 +1,7 @@
 import { IconNames } from "~/enums/icons";
 import { Button, links as buttonLinks } from "../button/Button";
 import { FlexBox, links as flexboxLinks } from "../flex-box/FlexBox";
-import bottomBarStyles from './BottomBar.css'
+import bottomBarStyles from './BottomBar.css?url'
 import { LinksFunction } from "@remix-run/node";
 import { PropsWithChildren } from "react";
 

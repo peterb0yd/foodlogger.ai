@@ -1,5 +1,5 @@
 import { LinksFunction } from '@remix-run/node';
-import logoLinks from './Logo.css';
+import styles from './Logo.css?url';
 import { Text, links as textLinks } from '../text/Text';
 import { FlexBox, links as flexBoxLinks } from '../flex-box/FlexBox';
 import { Button, links as buttonLinks } from '../button/Button';
@@ -8,7 +8,7 @@ import { PageRoutes } from '~/enums/routes';
 import { IconNames } from '~/enums/icons';
 
 export const links: LinksFunction = () => [
-    { rel: 'stylesheet', href: logoLinks },
+    { rel: 'stylesheet', href: styles },
     ...iconLinks(),
     ...flexBoxLinks(),
     ...buttonLinks(),

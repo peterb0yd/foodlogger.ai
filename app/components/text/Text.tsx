@@ -1,5 +1,5 @@
 import { LinksFunction } from "@remix-run/node";
-import textStyles from "./Text.css";
+import textStyles from "./Text.css?url";
 import { PropsWithChildren } from "react";
 import { ColorTypes, FontWeights } from "~/types/propTypes";
 

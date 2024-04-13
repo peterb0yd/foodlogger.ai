@@ -6,7 +6,7 @@ import { FoodLogService } from "~/api/modules/food-log/food-log.service";
 import { links as buttonLinks } from '~/components/button/Button';
 import { Timeline, links as timelineLinks } from "./timeline/Timeline";
 import { IFoodLogWithNestedFoods } from "~/api/modules/food-log/food-log.interfaces";
-import logsStyles from './logs._index.css';
+import styles from './logs._index.css?url';
 import { Main, links as mainLinks } from "~/components/main/Main";
 import { useState } from "react";
 import { APIRoutes } from "~/enums/routes";
@@ -29,7 +29,7 @@ const AFTERNOON_BLOCK = TIMES.slice(12, 18);
 const EVENING_BLOCK = TIMES.slice(18, 24);
 
 export const links: LinksFunction = () => [
-    { rel: 'stylesheet', href: logsStyles },
+    { rel: 'stylesheet', href: styles },
     ...mainLinks(),
     ...flexBoxLinks(),
     ...buttonLinks(),

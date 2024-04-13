@@ -1,5 +1,5 @@
 import { LinksFunction } from '@remix-run/node';
-import selectStyles from './Select.css';
+import styles from './Select.css?url';
 import { Label, links as labelLinks } from '../label/Label';
 
 type Option = {
@@ -20,7 +20,7 @@ interface SelectProps {
 }
 
 export const links: LinksFunction = () => [
-    { rel: 'stylesheet', href: selectStyles },
+    { rel: 'stylesheet', href: styles },
     ...labelLinks(),
 ];
 

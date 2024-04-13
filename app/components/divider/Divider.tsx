@@ -1,5 +1,5 @@
 import { LinksFunction } from "@remix-run/node";
-import styles from './Divider.css';
+import styles from './Divider.css?url';
 import { Text, links as textLinks } from "../text/Text";
 
 export const links: LinksFunction = () => [

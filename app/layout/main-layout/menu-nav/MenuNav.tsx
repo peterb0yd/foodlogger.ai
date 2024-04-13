@@ -1,5 +1,5 @@
 import { LinksFunction } from "@remix-run/node";
-import styles from './MenuNav.css';
+import styles from './MenuNav.css?url';
 import { List, links as listLinks } from "~/components/list/List";
 import { Button, links as buttonLinks } from "~/components/button/Button";
 import { IconNames } from "~/enums/icons";

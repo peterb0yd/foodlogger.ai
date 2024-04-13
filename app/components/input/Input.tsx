@@ -1,5 +1,5 @@
 import { LinksFunction } from '@remix-run/node';
-import inputStyles from './Input.css';
+import styles from './Input.css?url';
 import { IconNames } from '~/enums/icons';
 import { PropsWithChildren } from 'react';
 import { Icon } from '../icon/Icon';
@@ -27,7 +27,7 @@ interface InputProps {
 }
 
 export const links: LinksFunction = () => [
-    { rel: 'stylesheet', href: inputStyles },
+    { rel: 'stylesheet', href: styles },
     ...labelLinks(),
 ];
 

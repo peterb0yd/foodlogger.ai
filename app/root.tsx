@@ -1,4 +1,3 @@
-import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import {
     Links,
@@ -8,17 +7,15 @@ import {
     ScrollRestoration,
     useLoaderData,
 } from "@remix-run/react";
-import { useSWEffect, LiveReload } from '@remix-pwa/sw';
-import globalStyles from "~/styles/global.css";
-import variables from "~/styles/variables.css";
-import fonts from "~/styles/fonts.css";
+import globalStyles from "~/styles/global.css?url";
+import variables from "~/styles/variables.css?url";
+import fonts from "~/styles/fonts.css?url";
 import { MainLayout, links as mainLayoutLinks } from "~/layout/main-layout/MainLayout";
 import 'react-loading-skeleton/dist/skeleton.css';
 import { SkeletonTheme } from "react-loading-skeleton";
 import { SessionService } from "./api/modules/session/session.service";
 
 export const links: LinksFunction = () => [
-    ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
     { rel: "stylesheet", href: globalStyles },
     { rel: "stylesheet", href: variables },
     { rel: "stylesheet", href: fonts },
@@ -33,7 +30,6 @@ export const loader: LoaderFunction = async (context) => {
 export default function App() {
     const { userId } = useLoaderData<typeof loader>();
 
-    useSWEffect();
     return (
         <html lang="en">
             <head>
@@ -57,7 +53,6 @@ export default function App() {
                 </SkeletonTheme>
                 <ScrollRestoration />
                 <Scripts />
-                <LiveReload />
             </body>
         </html>
     );

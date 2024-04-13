@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import styles from './Label.css'
+import styles from './Label.css?url'
 import { LinksFunction } from '@remix-run/node';
 
 export const links: LinksFunction = () => [

@@ -1,5 +1,5 @@
 import { LinksFunction } from "@remix-run/node";
-import styles from './TemplateSelector.css';
+import styles from './TemplateSelector.css?url';
 import { ITemplateWithNestedItems } from "~/api/modules/template/template.interfaces";
 import { FlexBox, links as flexBoxLinks } from "~/components/flex-box/FlexBox";
 import { Button, links as buttonLinks } from "~/components/button/Button";

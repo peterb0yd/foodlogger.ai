@@ -10,7 +10,7 @@ import { Text, links as textLinks } from "~/components/text/Text";
 import { List, links as listLinks } from "~/components/list/List";
 import { Checkbox, links as checkboxLinks } from "~/components/checkbox/Checkbox";
 import { Input, links as inputLinks } from "~/components/input/Input";
-import styles from './settings.css';
+import styles from './settings.css?url';
 import { APIRoutes } from "~/enums/routes";
 import React, { useCallback, useEffect, useState } from "react";
 import { debounce } from "lodash-es";

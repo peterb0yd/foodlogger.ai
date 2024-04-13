@@ -1,5 +1,5 @@
 import { LinksFunction } from '@remix-run/node';
-import modalStyles from './Modal.css';
+import modalStyles from './Modal.css?url';
 import { PropsWithChildren } from 'react';
 import { PageRoutes } from '~/enums/routes';
 import { useNavigate } from '@remix-run/react';

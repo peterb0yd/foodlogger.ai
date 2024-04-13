@@ -1,7 +1,7 @@
 import { LinksFunction } from '@remix-run/node';
 import { PropsWithChildren, useEffect, useState } from 'react';
 import { Logo, links as logoLinks } from '~/components/logo/Logo';
-import styles from './MainLayout.css';
+import styles from './MainLayout.css?url';
 import { Button, links as buttonLinks } from '~/components/button/Button';
 import { MenuNav, links as menuNavLinks } from './menu-nav/MenuNav';
 import { IconNames } from '~/enums/icons';

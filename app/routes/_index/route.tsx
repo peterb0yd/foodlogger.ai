@@ -3,7 +3,7 @@ import { Button, links as buttonLinks } from "~/components/button/Button";
 import { FlexBox, links as flexBoxLinks } from "~/components/flex-box/FlexBox";
 import { Text, links as textLinks } from "~/components/text/Text";
 import { PageRoutes } from "~/enums/routes";
-import styles from './home.styles.css';
+import styles from './home.styles.css?url';
 import { IconNames } from "~/enums/icons";
 import { links as layoutLinks } from "~/layout/main-layout/MainLayout";
 import { Main, links as mainLinks } from "~/components/main/Main";

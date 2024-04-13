@@ -5,7 +5,7 @@ import { Trash } from "./Trash";
 import { ForwardedRef, Fragment, forwardRef } from "react";
 import { ChevronCircle } from "./ChevronCircle";
 import { Pencil } from "./Pencil";
-import iconStyles from './Icon.css';
+import styles from './Icon.css?url';
 import { LinksFunction } from "@remix-run/node";
 import { Mic } from "./Mic";
 import { LoadingDots } from "./LoadingDots";
@@ -42,7 +42,7 @@ export interface IconProps {
 }
 
 export const links: LinksFunction = () => [
-    { rel: 'stylesheet', href: iconStyles },
+    { rel: 'stylesheet', href: styles },
 ];
 
 export const Icon = forwardRef(({ name, size = 'md', color }: IconProps, ref: ForwardedRef<SVGSVGElement>) => {

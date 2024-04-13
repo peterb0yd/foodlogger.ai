@@ -1,5 +1,5 @@
 import { LinksFunction } from '@remix-run/node';
-import styles from './Checkbox.css';
+import styles from './Checkbox.css?url';
 import { FlexBox } from '../flex-box/FlexBox';
 import { Label } from '../label/Label';
 

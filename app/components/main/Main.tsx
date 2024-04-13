@@ -1,5 +1,5 @@
 import { LinksFunction } from '@remix-run/node';
-import styles from './Main.css';
+import styles from './Main.css?url';
 import { PropsWithChildren } from 'react';
 import { Text, links as textLinks } from '../text/Text';
 import { FlexBox, links as flexboxLinks } from '../flex-box/FlexBox';

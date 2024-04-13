@@ -1,6 +1,6 @@
 import { LinksFunction } from "@remix-run/node";
 import { ColorTypes } from "~/types/propTypes";
-import styles from './LoadingSpinner.css';
+import styles from './LoadingSpinner.css?url';
 import { IconNames } from "~/enums/icons";
 import { Icon, links as iconLinks } from "../icon/Icon";
 
