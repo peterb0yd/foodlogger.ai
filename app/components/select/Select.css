@@ -1,8 +1,10 @@
-.Select-Label {
-	display: flex;
-	flex-direction: column;
-	gap: var(--input-label-gap);
-
+.Select-Label { 
+    span {
+        display: block;
+        line-height: 1rem;
+        padding-bottom: 0.4rem;
+        margin-left: calc(var(--input-padding) + var(--input-border-width));
+    }
 	select {
 		cursor: pointer;
 		background-color: var(--color-surface-muted);

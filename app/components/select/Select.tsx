@@ -38,7 +38,9 @@ export const Select = ({ value, name, size = 'md', fullWidth, grow, label, optio
             data-full-width={fullWidth}
             data-flex-grow={grow}
         >
-            {label}
+            {label && (
+                <span>{label}</span>
+            )}
             <select
                 name={name}
                 value={value}
