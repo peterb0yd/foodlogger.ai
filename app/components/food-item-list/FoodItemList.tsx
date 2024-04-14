@@ -30,7 +30,7 @@ interface FoodItemListProps {
 export const FoodItemList = ({ items, isLoading, canDelete }: FoodItemListProps) => {
     const hasItems = Boolean(items?.length);
     if (!hasItems && !isLoading) {
-        return <Text align="center" color="soft">Your food logs will show up here...</Text>;
+        return <Text align="center" color="soft">{`Your food items will show up here...`}</Text>;
     }
     return (
         <FlexBox col gap="sm" width="full">

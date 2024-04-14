@@ -60,7 +60,6 @@ export default function EditFoodLogPage() {
     const backLink = navigationType === 'PUSH' ? -1 : PageRoutes.LOGS;
     const shouldShowPrompt = Boolean(promptErrorText && showPrompt);
     const hasFoodItems = Boolean(foodLogItems?.length > 0);
-    const canShowFoodList = hasFoodItems || isLoading;
     const hasTemplates = Boolean(templates?.length > 0);
     const canShowTemplates = hasTemplates && !hasFoodItems;
 
