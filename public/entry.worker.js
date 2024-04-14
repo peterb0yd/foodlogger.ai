@@ -17,53 +17,16 @@ function _mergeNamespaces(n, m) {
   }
   return Object.freeze(Object.defineProperty(n, Symbol.toStringTag, { value: "Module" }));
 }
-const PAGES = "page-cache";
-const DATA = "data-cache";
-const ASSETS = "assets-cache";
-const dataCache = Storage.open(DATA, {
-  ttl: 60 * 60 * 24 * 7 * 1e3
-  // 7 days
-});
-const documentCache = Storage.open(PAGES);
-const assetCache = Storage.open(ASSETS);
 self.addEventListener("install", (event) => {
-  logger.log("Service worker installed");
+  console.log("Service worker installed");
   event.waitUntil(self.skipWaiting());
 });
 self.addEventListener("activate", (event) => {
-  logger.log("Service worker activated");
+  console.log("Service worker activated");
   event.waitUntil(self.clients.claim());
 });
-const dataHandler = networkFirst({
-  cache: dataCache
-});
-const assetsHandler = cacheFirst({
-  cache: assetCache,
-  cacheQueryOptions: {
-    ignoreSearch: true,
-    ignoreVary: true
-  }
-});
-const defaultFetchHandler = ({ context, request }) => {
-  const type = matchRequest(request);
-  if (type === "asset") {
-    return assetsHandler(context.event.request);
-  }
-  if (type === "loader") {
-    return dataHandler(context.event.request);
-  }
-  return context.fetchFromServer();
-};
-const handler = new RemixNavigationHandler({
-  dataCache,
-  documentCache
-});
-self.addEventListener("message", (event) => {
-  event.waitUntil(handler.handle(event));
-});
 const entryWorker = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  defaultFetchHandler
+  __proto__: null
 }, Symbol.toStringTag, { value: "Module" }));
 var __getOwnPropNames$i = Object.getOwnPropertyNames;
 var __commonJS$i = (cb, mod) => function __require() {
@@ -332,7 +295,6 @@ const route18 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePrope
   default: worker_runtime_default
 }, Symbol.toStringTag, { value: "Module" }));
 const assets = [
-  "/entry.worker.js",
   "/favicon.ico",
   "/build/__remix_entry_dev-WGJKL5RQ.js",
   "/build/css-bundle-46UMMAO5.css",
@@ -399,24 +361,6 @@ const assets = [
   "/build/_assets/logs._index-UZMTNWNQ.css",
   "/build/_assets/settings-4TI2XGAT.css",
   "/build/_assets/variables-GESUP64T.css",
-  "/build/routes/_auth-2CI6IW4D.js",
-  "/build/routes/_auth.login-ARLNZ4UL.js",
-  "/build/routes/_auth.verify-DTBXKMU5.js",
-  "/build/routes/_index-C4IHJQAD.js",
-  "/build/routes/api.food-log-items-HJIPGALR.js",
-  "/build/routes/api.food-log-items.$id-EJK4PBV6.js",
-  "/build/routes/api.food-logs-L6TUWRWI.js",
-  "/build/routes/api.sessions-ROOW2LGU.js",
-  "/build/routes/api.template-food-log-items.$id-NKZD2BTP.js",
-  "/build/routes/api.templates-TEF422FO.js",
-  "/build/routes/api.templates.$id-DHIFMQDU.js",
-  "/build/routes/api.users.$id-K4UHONCU.js",
-  "/build/routes/api.users.$id.settings-CEYDWKGQ.js",
-  "/build/routes/logs.$id-HFYFQ7MP.js",
-  "/build/routes/logs._index-HJL7A3Q6.js",
-  "/build/routes/manifest[.]webmanifest-J3KYYY3Q.js",
-  "/build/routes/settings-U22W7YRW.js",
-  "/build/routes/templates.$id-DJHSSONJ.js",
   "/build/_shared/browser-ponyfill-HHJCH4WC.js",
   "/build/_shared/chunk-5VZQG2Z3.js",
   "/build/_shared/chunk-6P3DBEH7.js",
@@ -445,7 +389,25 @@ const assets = [
   "/build/_shared/react-3OYUNTOK.js",
   "/build/_shared/react-dom-BEFB7ICU.js",
   "/build/_shared/remix_hmr-LUVYR5BJ.js",
-  "/build/_shared/runtime-GC7QIU56.js"
+  "/build/_shared/runtime-GC7QIU56.js",
+  "/build/routes/_auth-2CI6IW4D.js",
+  "/build/routes/_auth.login-ARLNZ4UL.js",
+  "/build/routes/_auth.verify-DTBXKMU5.js",
+  "/build/routes/_index-C4IHJQAD.js",
+  "/build/routes/api.food-log-items-HJIPGALR.js",
+  "/build/routes/api.food-log-items.$id-EJK4PBV6.js",
+  "/build/routes/api.food-logs-L6TUWRWI.js",
+  "/build/routes/api.sessions-ROOW2LGU.js",
+  "/build/routes/api.template-food-log-items.$id-NKZD2BTP.js",
+  "/build/routes/api.templates-TEF422FO.js",
+  "/build/routes/api.templates.$id-DHIFMQDU.js",
+  "/build/routes/api.users.$id-K4UHONCU.js",
+  "/build/routes/api.users.$id.settings-CEYDWKGQ.js",
+  "/build/routes/logs.$id-HFYFQ7MP.js",
+  "/build/routes/logs._index-HJL7A3Q6.js",
+  "/build/routes/manifest[.]webmanifest-J3KYYY3Q.js",
+  "/build/routes/settings-U22W7YRW.js",
+  "/build/routes/templates.$id-DJHSSONJ.js"
 ];
 const routes = {
   "root": {
@@ -678,171 +640,6 @@ const routes = {
   }
 };
 const entry = { module: entryWorker };
-/**
- * @remix-run/router v1.15.3
- *
- * Copyright (c) Remix Software Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.md file in the root directory of this source tree.
- *
- * @license MIT
- */
-var Action$1;
-(function(Action2) {
-  Action2["Pop"] = "POP";
-  Action2["Push"] = "PUSH";
-  Action2["Replace"] = "REPLACE";
-})(Action$1 || (Action$1 = {}));
-function warning$1(cond, message) {
-  if (!cond) {
-    if (typeof console !== "undefined")
-      console.warn(message);
-    try {
-      throw new Error(message);
-    } catch (e) {
-    }
-  }
-}
-var ResultType$1;
-(function(ResultType2) {
-  ResultType2["data"] = "data";
-  ResultType2["deferred"] = "deferred";
-  ResultType2["redirect"] = "redirect";
-  ResultType2["error"] = "error";
-})(ResultType$1 || (ResultType$1 = {}));
-function matchPath$1(pattern, pathname) {
-  if (typeof pattern === "string") {
-    pattern = {
-      path: pattern,
-      caseSensitive: false,
-      end: true
-    };
-  }
-  let [matcher, compiledParams] = compilePath$1(pattern.path, pattern.caseSensitive, pattern.end);
-  let match = pathname.match(matcher);
-  if (!match)
-    return null;
-  let matchedPathname = match[0];
-  let pathnameBase = matchedPathname.replace(/(.)\/+$/, "$1");
-  let captureGroups = match.slice(1);
-  let params = compiledParams.reduce((memo, _ref, index) => {
-    let {
-      paramName,
-      isOptional
-    } = _ref;
-    if (paramName === "*") {
-      let splatValue = captureGroups[index] || "";
-      pathnameBase = matchedPathname.slice(0, matchedPathname.length - splatValue.length).replace(/(.)\/+$/, "$1");
-    }
-    const value = captureGroups[index];
-    if (isOptional && !value) {
-      memo[paramName] = void 0;
-    } else {
-      memo[paramName] = (value || "").replace(/%2F/g, "/");
-    }
-    return memo;
-  }, {});
-  return {
-    params,
-    pathname: matchedPathname,
-    pathnameBase,
-    pattern
-  };
-}
-function compilePath$1(path, caseSensitive, end) {
-  if (caseSensitive === void 0) {
-    caseSensitive = false;
-  }
-  if (end === void 0) {
-    end = true;
-  }
-  warning$1(path === "*" || !path.endsWith("*") || path.endsWith("/*"), 'Route path "' + path + '" will be treated as if it were ' + ('"' + path.replace(/\*$/, "/*") + '" because the `*` character must ') + "always follow a `/` in the pattern. To get rid of this warning, " + ('please change the route path to "' + path.replace(/\*$/, "/*") + '".'));
-  let params = [];
-  let regexpSource = "^" + path.replace(/\/*\*?$/, "").replace(/^\/*/, "/").replace(/[\\.*+^${}|()[\]]/g, "\\$&").replace(/\/:([\w-]+)(\?)?/g, (_, paramName, isOptional) => {
-    params.push({
-      paramName,
-      isOptional: isOptional != null
-    });
-    return isOptional ? "/?([^\\/]+)?" : "/([^\\/]+)";
-  });
-  if (path.endsWith("*")) {
-    params.push({
-      paramName: "*"
-    });
-    regexpSource += path === "*" || path === "/*" ? "(.*)$" : "(?:\\/(.+)|\\/*)$";
-  } else if (end) {
-    regexpSource += "\\/*$";
-  } else if (path !== "" && path !== "/") {
-    regexpSource += "(?:(?=\\/|$))";
-  } else
-    ;
-  let matcher = new RegExp(regexpSource, caseSensitive ? void 0 : "i");
-  return [matcher, params];
-}
-function isRouteErrorResponse$1(error) {
-  return error != null && typeof error.status === "number" && typeof error.statusText === "string" && typeof error.internal === "boolean" && "data" in error;
-}
-const validMutationMethodsArr$1 = ["post", "put", "patch", "delete"];
-new Set(validMutationMethodsArr$1);
-const validRequestMethodsArr$1 = ["get", ...validMutationMethodsArr$1];
-new Set(validRequestMethodsArr$1);
-function getAugmentedNamespace(n) {
-  if (n.__esModule)
-    return n;
-  var f = n.default;
-  if (typeof f == "function") {
-    var a = function a2() {
-      if (this instanceof a2) {
-        return Reflect.construct(f, arguments, this.constructor);
-      }
-      return f.apply(this, arguments);
-    };
-    a.prototype = f.prototype;
-  } else
-    a = {};
-  Object.defineProperty(a, "__esModule", { value: true });
-  Object.keys(n).forEach(function(k) {
-    var d = Object.getOwnPropertyDescriptor(n, k);
-    Object.defineProperty(a, k, d.get ? d : {
-      enumerable: true,
-      get: function() {
-        return n[k];
-      }
-    });
-  });
-  return a;
-}
-var mode$2 = {};
-/**
- * @remix-run/server-runtime v2.8.1
- *
- * Copyright (c) Remix Software Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.md file in the root directory of this source tree.
- *
- * @license MIT
- */
-Object.defineProperty(mode$2, "__esModule", { value: true });
-let ServerMode = /* @__PURE__ */ function(ServerMode2) {
-  ServerMode2["Development"] = "development";
-  ServerMode2["Production"] = "production";
-  ServerMode2["Test"] = "test";
-  return ServerMode2;
-}({});
-function isServerMode(value) {
-  return value === ServerMode.Development || value === ServerMode.Production || value === ServerMode.Test;
-}
-var ServerMode_1 = mode$2.ServerMode = ServerMode;
-var isServerMode_1 = mode$2.isServerMode = isServerMode;
-const mode$1 = /* @__PURE__ */ _mergeNamespaces({
-  __proto__: null,
-  ServerMode: ServerMode_1,
-  default: mode$2,
-  isServerMode: isServerMode_1
-}, [mode$2]);
-var responses = {};
 /**
  * @remix-run/router v1.15.3
  *
@@ -3741,27 +3538,27 @@ async function callLoaderOrAction(type, request, match, matches, manifest, mapRo
   let resultType;
   let result;
   let onReject;
-  let runHandler = (handler2) => {
+  let runHandler = (handler) => {
     let reject;
     let abortPromise = new Promise((_, r) => reject = r);
     onReject = () => reject();
     request.signal.addEventListener("abort", onReject);
-    return Promise.race([handler2({
+    return Promise.race([handler({
       request,
       params: match.params,
       context: opts.requestContext
     }), abortPromise]);
   };
   try {
-    let handler2 = match.route[type];
+    let handler = match.route[type];
     if (match.route.lazy) {
-      if (handler2) {
+      if (handler) {
         let handlerError;
         let values = await Promise.all([
           // If the handler throws, don't let it immediately bubble out,
           // since we need to let the lazy() execution finish so we know if this
           // route has a boundary that can handle the error
-          runHandler(handler2).catch((e) => {
+          runHandler(handler).catch((e) => {
             handlerError = e;
           }),
           loadLazyRouteModule(match.route, mapRouteProperties, manifest)
@@ -3772,9 +3569,9 @@ async function callLoaderOrAction(type, request, match, matches, manifest, mapRo
         result = values[0];
       } else {
         await loadLazyRouteModule(match.route, mapRouteProperties, manifest);
-        handler2 = match.route[type];
-        if (handler2) {
-          result = await runHandler(handler2);
+        handler = match.route[type];
+        if (handler) {
+          result = await runHandler(handler);
         } else if (type === "action") {
           let url = new URL(request.url);
           let pathname = url.pathname + url.search;
@@ -3790,14 +3587,14 @@ async function callLoaderOrAction(type, request, match, matches, manifest, mapRo
           };
         }
       }
-    } else if (!handler2) {
+    } else if (!handler) {
       let url = new URL(request.url);
       let pathname = url.pathname + url.search;
       throw getInternalRouterError(404, {
         pathname
       });
     } else {
-      result = await runHandler(handler2);
+      result = await runHandler(handler);
     }
     invariant(result !== void 0, "You defined " + (type === "action" ? "an action" : "a loader") + " for route " + ('"' + match.route.id + "\" but didn't return anything from your `" + type + "` ") + "function. Please return a value or `null`.");
   } catch (e) {
@@ -4416,6 +4213,62 @@ const router$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProp
   resolveTo,
   stripBasename
 }, Symbol.toStringTag, { value: "Module" }));
+function getAugmentedNamespace(n) {
+  if (n.__esModule)
+    return n;
+  var f = n.default;
+  if (typeof f == "function") {
+    var a = function a2() {
+      if (this instanceof a2) {
+        return Reflect.construct(f, arguments, this.constructor);
+      }
+      return f.apply(this, arguments);
+    };
+    a.prototype = f.prototype;
+  } else
+    a = {};
+  Object.defineProperty(a, "__esModule", { value: true });
+  Object.keys(n).forEach(function(k) {
+    var d = Object.getOwnPropertyDescriptor(n, k);
+    Object.defineProperty(a, k, d.get ? d : {
+      enumerable: true,
+      get: function() {
+        return n[k];
+      }
+    });
+  });
+  return a;
+}
+var mode$2 = {};
+/**
+ * @remix-run/server-runtime v2.8.1
+ *
+ * Copyright (c) Remix Software Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.md file in the root directory of this source tree.
+ *
+ * @license MIT
+ */
+Object.defineProperty(mode$2, "__esModule", { value: true });
+let ServerMode = /* @__PURE__ */ function(ServerMode2) {
+  ServerMode2["Development"] = "development";
+  ServerMode2["Production"] = "production";
+  ServerMode2["Test"] = "test";
+  return ServerMode2;
+}({});
+function isServerMode(value) {
+  return value === ServerMode.Development || value === ServerMode.Production || value === ServerMode.Test;
+}
+var ServerMode_1 = mode$2.ServerMode = ServerMode;
+var isServerMode_1 = mode$2.isServerMode = isServerMode;
+const mode$1 = /* @__PURE__ */ _mergeNamespaces({
+  __proto__: null,
+  ServerMode: ServerMode_1,
+  default: mode$2,
+  isServerMode: isServerMode_1
+}, [mode$2]);
+var responses = {};
 const require$$0 = /* @__PURE__ */ getAugmentedNamespace(router$2);
 var errors$2 = {};
 const require$$1$1 = /* @__PURE__ */ getAugmentedNamespace(mode$1);
@@ -4602,7 +4455,7 @@ function clone(_object) {
 }
 function getURLParameters(request, path = "") {
   const url = new URL(request.url);
-  const match = matchPath$1(path, url.pathname);
+  const match = matchPath(path, url.pathname);
   return {
     ...Object.fromEntries(new URL(request.url).searchParams.entries()),
     ...match == null ? void 0 : match.params
@@ -4690,8 +4543,8 @@ async function handleRequest({ defaultHandler: defaultHandler2, errorHandler, ev
       }).then(responseHandler);
     }
   } catch (error) {
-    const handler2 = (error2) => errorHandler(error2, _arguments);
-    return _errorHandler({ error, handler: handler2 });
+    const handler = (error2) => errorHandler(error2, _arguments);
+    return _errorHandler({ error, handler });
   }
   return defaultHandler2(_arguments);
 }
@@ -4727,7 +4580,7 @@ function _errorHandler({ error, handler: handleError }) {
     error.headers.set("X-Remix-Catch", "yes");
     return error;
   }
-  if (isRouteErrorResponse$1(error)) {
+  if (isRouteErrorResponse(error)) {
     error.error && handleError(error.error);
     return errorResponseToJson(error);
   }
