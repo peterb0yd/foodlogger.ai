@@ -118,7 +118,7 @@ export default function EditFoodLogPage() {
                 />
             </FlexBox>
             {canShowTemplates && (
-                <FlexBox col gap="sm" width="full">
+                <FlexBox col gap="lg" width="full">
                     <Divider
                         betweenText="or select a template"
                         color="highlight"
