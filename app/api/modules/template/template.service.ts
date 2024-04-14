@@ -6,7 +6,7 @@ import {
 	ITemplateUpdateInput,
 	ITemplateWithNestedSelectedItems,
 } from './template.interfaces';
-import { templateDataToCreateInput, templateWithItemsDto } from './template.mappers';
+import { templateDataToCreateInput, templateDataToUpdateInput, templateWithItemsDto } from './template.mappers';
 import { TemplateRepository } from './template.repository';
 import { TemplateFoodLogItemService } from '../template-food-log-item/template-food-log-item.service';
 
@@ -35,7 +35,8 @@ export class TemplateService {
 		});
 	}
 
-	static async update(id: string, updateInput: ITemplateUpdateInput, tx?: PrismaTxType) {
+	static async update(id: string, updateData: ITemplateUpdateInput, tx?: PrismaTxType) {
+        const updateInput = templateDataToUpdateInput(updateData);
 		return TemplateRepository.update(id, updateInput, tx);
 	}
 

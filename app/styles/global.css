@@ -143,3 +143,21 @@ select {
 [data-text='secondary'] {
 	color: var(--color-secondary);
 }
+
+/** Padding X **/
+[data-padding-x='xs'] {
+    padding-left: 0.125rem;
+    padding-right: 0.125rem;
+}
+[data-padding-x='sm'] {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+}
+[data-padding-x='md'] {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+[data-padding-x='input'] {
+    padding-left: calc(var(--input-padding) + var(--input-border-width));
+    padding-right: calc(var(--input-padding) + var(--input-border-width));
+}

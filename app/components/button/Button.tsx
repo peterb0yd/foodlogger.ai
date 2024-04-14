@@ -5,7 +5,7 @@ import { PageRoutes } from '~/enums/routes';
 import buttonStyles from './Button.css?url';
 import { Icon, IconProps } from '../icon/Icon';
 import { LoadingSpinner, links as loadingSpinnerLinks } from '../loading-spinner/LoadingSpinner';
-import { BorderTypes, ColorTypes, FontWeights } from '~/types/propTypes';
+import { BorderTypes, ColorTypes, FontWeightTypes } from '~/types/propTypes';
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: buttonStyles },

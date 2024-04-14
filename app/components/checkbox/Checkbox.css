@@ -1,8 +1,8 @@
 .Checkbox-Container > .Checkbox {
 	position: relative;
 	cursor: pointer;
-	height: 20px;
-	width: 20px;
+	height: 22px;
+	width: 22px;
 }
 .Checkbox-Container > .Checkbox > label {
 	size: 1rem;

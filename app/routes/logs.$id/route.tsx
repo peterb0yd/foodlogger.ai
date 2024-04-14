@@ -17,6 +17,7 @@ import { BottomBar, links as bottomBarLinks } from "~/components/bottom-bar/Bott
 import { FoodItemList, links as foodListLinks } from "~/components/food-item-list/FoodItemList";
 import { isFetcherLoading } from "~/utils/fetcherLoading";
 import { Main, links as mainLinks } from "~/components/main/Main";
+import { Label, links as labelLinks } from "~/components/label/Label";
 import { TemplateService } from "~/api/modules/template/template.service";
 import { TemplateSelector } from "./template-selector/TemplateSelector";
 
@@ -32,6 +33,7 @@ export const links: LinksFunction = () => [
     ...promptModalLinks(),
     ...bottomBarLinks(),
     ...foodListLinks(),
+    ...labelLinks(),
 ];
 
 export const loader: LoaderFunction = async (context) => {
@@ -58,6 +60,7 @@ export default function EditFoodLogPage() {
     const backLink = navigationType === 'PUSH' ? -1 : PageRoutes.LOGS;
     const shouldShowPrompt = Boolean(promptErrorText && showPrompt);
     const hasFoodItems = Boolean(foodLogItems?.length > 0);
+    const canShowFoodList = hasFoodItems || isLoading;
     const hasTemplates = Boolean(templates?.length > 0);
     const canShowTemplates = hasTemplates && !hasFoodItems;
 
@@ -101,16 +104,19 @@ export default function EditFoodLogPage() {
     }
 
     return (
-        <Main name="EditLog" title="Log Your Meal">
+        <Main name="EditLog" title="Log Your Meal" padBottom="1/3">
             <EditLogHeader
                 isLoading={isLoading}
                 handleNewAudioLog={handleNewAudioLog}
             />
-            <FoodItemList
-                items={foodLogItems}
-                isLoading={isLoading}
-                canDelete
-            />
+            <FlexBox col gap="md" width="full">
+                <Label padLeft text={`Food Items`} />
+                <FoodItemList
+                    items={foodLogItems}
+                    isLoading={isLoading}
+                    canDelete
+                />
+            </FlexBox>
             {canShowTemplates && (
                 <FlexBox col gap="sm" width="full">
                     <Divider

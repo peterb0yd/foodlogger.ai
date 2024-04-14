@@ -1,6 +1,6 @@
 import { LinksFunction, LoaderFunction } from "@remix-run/node";
-import { useLoaderData, useNavigate, useParams } from "@remix-run/react";
-import { useRef } from "react";
+import { Form, useLoaderData, useNavigate, useParams } from "@remix-run/react";
+import { useRef, useState } from "react";
 import { useFetcher } from "react-router-dom";
 import { SessionService } from "~/api/modules/session/session.service";
 import { TemplateService } from "~/api/modules/template/template.service";
@@ -8,6 +8,7 @@ import { BottomBar, links as bottomBarLinks } from "~/components/bottom-bar/Bott
 import { Input, links as inputLinks } from "~/components/input/Input";
 import { FlexBox, links as flexboxLinks } from "~/components/flex-box/FlexBox";
 import { Text, links as textLinks } from "~/components/text/Text";
+import styles from './templates.$id.css?url';
 import { RequestMethods } from "~/enums/requests";
 import { APIRoutes, PageRoutes } from "~/enums/routes";
 import { IconNames } from "~/enums/icons";
@@ -17,6 +18,7 @@ import { Label, links as labelLinks } from "~/components/label/Label";
 import { Main, links as mainLinks } from "~/components/main/Main";
 
 export const links: LinksFunction = () => [
+    { rel: 'stylesheet', href: styles },
     ...mainLinks(),
     ...bottomBarLinks(),
     ...inputLinks(),
@@ -34,58 +36,68 @@ export const loader: LoaderFunction = async (context) => {
 
 export default function TemplateCreatePage() {
     const { template } = useLoaderData<typeof loader>();
+    const navigate = useNavigate();
     const params = useParams();
     const fetcher = useFetcher();
     const formRef = useRef<HTMLFormElement>(null);
-    const navigate = useNavigate();
     const isLoading = isFetcherLoading(fetcher);
+    const [name, setName] = useState(template.name);
 
-    const handleSubmit = async () => {
-        const formData = new FormData(formRef.current as HTMLFormElement);
-        const name = formData.get('name') as string;
-        const formDataToSubmit = new FormData();
-        formDataToSubmit.set('name', name);
-        fetcher.submit(formDataToSubmit, {
+    const onSaveButtonClick = () => {
+        const input = (formRef.current?.querySelector('input[name="name"]') as HTMLInputElement);
+        const validity = input.checkValidity();
+        if (!validity) {
+            input.reportValidity();
+            return;
+        }
+        fetcher.submit(formRef.current, {
             method: RequestMethods.PATCH,
             action: `${APIRoutes.TEMPLATES}/${params.id}`,
+            navigate: true,
         });
     }
 
-    const handleFormSubmission = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        handleSubmit();
-    }
-
     return (
-        <Main name="Edit Template" title="Edit Your Template">
-            <FlexBox height="full" center>
-                <FlexBox col gap="lg">
-                    <fetcher.Form onSubmit={handleFormSubmission} ref={formRef}>
-                        <Input type="text" name="name" label="Name" defaultValue={template.name} />
-                    </fetcher.Form>
-                    <FlexBox col>
-                        <Label>Food Items</Label>
-                        <FoodItemList
-                            items={template.items}
-                        />
-                    </FlexBox>
+        <Main name="Edit Template" title="Edit Your Template" padBottom="1/3">
+            <FlexBox col gap="xl" width="full">
+                <fetcher.Form
+                    method={RequestMethods.PATCH}
+                    action={`${APIRoutes.TEMPLATES}/${params.id}`}
+                    ref={formRef}
+                >
+                    <Input
+                        type="text"
+                        name="name"
+                        label="Name"
+                        fullWidth
+                        value={name}
+                        required
+                        placeholder="Your template's name..."
+                        onChange={(val) => setName(val)}
+                    />
+                </fetcher.Form>
+                <FlexBox col gap="md" width="full">
+                    <Label padLeft text={`Template's Food Items`} />
+                    <FoodItemList
+                        items={template.items}
+                    />
                 </FlexBox>
-
-                <BottomBar>
-                    <BottomBar.SecondaryButton
-                        text="Cancel"
-                        icon={IconNames.ChevronLeft}
-                        onClick={() => navigate(PageRoutes.LOGS)}
-                        disabled={isLoading}
-                    />
-                    <BottomBar.PrimaryButton
-                        text="Save"
-                        icon={IconNames.CheckMark}
-                        onClick={handleSubmit}
-                        loading={isLoading}
-                    />
-                </BottomBar>
             </FlexBox>
+
+            <BottomBar>
+                <BottomBar.SecondaryButton
+                    text="Remove Template"
+                    icon={IconNames.ChevronLeft}
+                    onClick={() => navigate(PageRoutes.LOGS)}
+                    disabled={isLoading}
+                />
+                <BottomBar.PrimaryButton
+                    text="Save Template"
+                    icon={IconNames.CheckMark}
+                    onClick={onSaveButtonClick}
+                    loading={isLoading}
+                />
+            </BottomBar>
         </Main>
     );
 }

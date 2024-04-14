@@ -102,24 +102,6 @@
     gap: 4rem;
 }
 
-/** Padding X **/
-.FlexBox[data-padding-x='xs'] {
-    padding-left: 0.125rem;
-    padding-right: 0.125rem;
-}
-.FlexBox[data-padding-x='sm'] {
-    padding-left: 0.25rem;
-    padding-right: 0.25rem;
-}
-.FlexBox[data-padding-x='md'] {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-}
-.FlexBox[data-padding-x='lg'] {
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
-
 /** Clickable **/
 .FlexBox[data-clickable='true'] {
     cursor: pointer;

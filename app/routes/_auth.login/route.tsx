@@ -69,7 +69,7 @@ export default function Login() {
 
     return (
         <Form onSubmit={onFormSubmit}>
-            <FlexBox col gap="xl" center width='full'>
+            <FlexBox col gap="xl" center width='global-max'>
                 <Text size="lg">{`Enter your phone number.`}</Text>
                 <FlexBox gap="md" width='full'>
                     <Select
@@ -86,6 +86,7 @@ export default function Login() {
                         name="phone"
                         label="Number"
                         pattern="[0-9]{10}"
+                        placeholder="###-###-####"
                         grow
                         required
                         autoComplete="tel-national"

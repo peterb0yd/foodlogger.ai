@@ -1,7 +1,7 @@
 import { LinksFunction } from "@remix-run/node";
 import textStyles from "./Text.css?url";
 import { PropsWithChildren } from "react";
-import { ColorTypes, FontWeights } from "~/types/propTypes";
+import { ColorTypes, FontWeightTypes } from "~/types/propTypes";
 
 export const links: LinksFunction = () => [
     { rel: "stylesheet", href: textStyles },
@@ -9,7 +9,7 @@ export const links: LinksFunction = () => [
 
 interface TextProps extends PropsWithChildren {
     size?: "xs" | "sm" | "base" | "md" | "lg" | "xl" | "2xl" | "3xl";
-    weight?: FontWeights;
+    weight?: FontWeightTypes;
     color?: ColorTypes;
     width?: "full" | "auto";
     lineHeight?: "none" | "tight" | "normal" | "loose";

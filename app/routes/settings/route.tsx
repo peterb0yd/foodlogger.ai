@@ -114,7 +114,7 @@ export default function Settings() {
                             <List.Item>
                                 <SettingsCheckbox
                                     name="exercise"
-                                    label="Track Exercise"
+                                    label="Track Exercise Performance"
                                     checked={settingsData.isTrackingExercise}
                                     onChange={(val) => handleSettingsChange('isTrackingExercise', val)}
                                 />
@@ -122,7 +122,7 @@ export default function Settings() {
                             <List.Item>
                                 <SettingsCheckbox
                                     name="energy"
-                                    label="Track Energy"
+                                    label="Track Energy Levels"
                                     checked={settingsData.isTrackingEnergy}
                                     onChange={(val) => handleSettingsChange('isTrackingEnergy', val)}
                                 />
@@ -130,7 +130,7 @@ export default function Settings() {
                             <List.Item>
                                 <SettingsCheckbox
                                     name="poop"
-                                    label="Track Poop"
+                                    label="Track Bowel Movements"
                                     checked={settingsData.isTrackingPoop}
                                     onChange={(val) => handleSettingsChange('isTrackingPoop', val)}
                                 />

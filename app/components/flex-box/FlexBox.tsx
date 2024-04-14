@@ -1,6 +1,7 @@
 import { LinksFunction } from '@remix-run/node';
 import React, { PropsWithChildren } from 'react';
 import styles from './FlexBox.css?url';
+import { PadXTypes } from '~/types/propTypes';
 
 interface FlexBoxProps extends PropsWithChildren {
     col?: boolean;
@@ -13,7 +14,7 @@ interface FlexBoxProps extends PropsWithChildren {
     wrap?: 'wrap' | 'reverse' | 'nowrap';
     gap?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
     bg?: 'base' | 'muted' | 'contrast';
-    padX?: 'xs' | 'sm' | 'md' | 'lg';
+    padX?: PadXTypes;
     border?: 'thin' | 'base' | 'muted' | 'contrast';
     borderRadius?: 'xs' | 'sm' | 'md' | 'rounded' | 'full';
     width?: 'full' | 'max' | 'global-max';
@@ -58,7 +59,7 @@ export const FlexBox = ({
     const dir = reverse ? `${axis}-reverse` : axis;
     return (
         <Component
-            className={`FlexBox ${name ?? ''}`}
+            className={`FlexBox ${name ?? ''}`.trim()}
             data-direction={dir}
             data-grow={grow}
             data-width={width}

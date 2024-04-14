@@ -44,7 +44,7 @@ export default function Login() {
 
     return (
         <fetcher.Form method={RequestMethods.PATCH} action={APIRoutes.SESSIONS}>
-            <FlexBox col gap="xl" center>
+            <FlexBox col gap="xl" center width='global-max'>
                 <input type="hidden" name="phone" value={phone} />
                 <Text size="lg">{`Enter your code.`}</Text>
                 <Input

@@ -1,8 +1,14 @@
-import { ITemplateCreateData, ITemplateCreateInput, ITemplateWithNestedItems, ITemplateWithNestedSelectedItems } from "./template.interfaces";
+import { TemplateStatuses } from "@prisma/client";
+import { ITemplateCreateData, ITemplateCreateInput, ITemplateUpdateData, ITemplateUpdateInput, ITemplateWithNestedItems, ITemplateWithNestedSelectedItems } from "./template.interfaces";
 
 export const templateDataToCreateInput = (templateData: ITemplateCreateData): ITemplateCreateInput => ({
     name: templateData.name,
     userId: templateData.userId,
+});
+
+export const templateDataToUpdateInput = (templateData: ITemplateUpdateData): ITemplateUpdateInput => ({
+    name: templateData.name,
+    status: TemplateStatuses.PUBLISHED,
 });
 
 export const templateWithItemsDto = (template: ITemplateWithNestedSelectedItems): ITemplateWithNestedItems | null => {

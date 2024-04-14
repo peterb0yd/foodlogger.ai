@@ -4,6 +4,7 @@ import { IconNames } from '~/enums/icons';
 import { PropsWithChildren } from 'react';
 import { Icon } from '../icon/Icon';
 import { Label, links as labelLinks } from '../label/Label';
+import { FlexBox, links as flexboxLinks } from '../flex-box/FlexBox';
 
 interface InputProps {
     value?: string;
@@ -29,18 +30,20 @@ interface InputProps {
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: styles },
     ...labelLinks(),
+    ...flexboxLinks(),
 ];
 
 export const Input = ({ value, icon, placeholder, dark, min, max, size = 'md', type = 'text', defaultValue, name, label, pattern, grow, autoComplete, required, fullWidth, onChange }: InputProps) => {
     return (
         <Container icon={icon}>
-            <Label
-                name='Input-Label'
-                data-full-width={fullWidth}
-                data-flex-grow={grow}
+            <FlexBox
+                name='Input-Wrapper'
+                width={fullWidth ? 'full' : undefined}
+                grow={grow}
+                col
             >
                 {label && (
-                    <span>{label}</span>
+                    <Label text={label} name={name} />
                 )}
                 <input
                     data-size={size}
@@ -56,7 +59,7 @@ export const Input = ({ value, icon, placeholder, dark, min, max, size = 'md', t
                     min={min}
                     max={max}
                 />
-            </Label>
+            </FlexBox>
         </Container>
     );
 }
@@ -65,17 +68,15 @@ interface ContainerProps extends PropsWithChildren {
     icon?: IconNames;
     grow?: boolean;
     fullWidth?: boolean;
-    dark?: boolean;
 }
 
-const Container = ({ icon, children, dark, grow, fullWidth }: ContainerProps) => {
+const Container = ({ icon, children, grow, fullWidth }: ContainerProps) => {
     if (icon) {
         return (
             <div
-                className="InputWithIcon"
+                className="Input-With-Icon"
                 data-full-width={fullWidth}
                 data-flex-grow={grow}
-                // data-dark={dark} TODO: Fix dark mode
             >
                 <Icon name={icon} size="lg" color="contrast" />
                 {children}

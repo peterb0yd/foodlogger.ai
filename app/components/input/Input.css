@@ -1,9 +1,9 @@
-.Input-Label {
-    span {
+.Input-Wrapper {
+    .Label {
         display: block;
         line-height: 1rem;
         padding-bottom: 0.4rem;
-        margin-left: calc(var(--input-padding) + var(--input-border-width));
+        padding-left: calc(var(--input-padding) + var(--input-border-width));
     }
 	input {
 		background-color: var(--color-surface-muted);
@@ -24,7 +24,7 @@
 	}
 }
 
-.InputWithIcon {
+.Input-With-Icon {
 	display: flex;
 	align-items: center;
 	background-color: var(--color-surface-muted);
@@ -51,8 +51,7 @@
 }
 
 /** Flex Grow **/
-.Input-Label[data-flex-grow='true'],
-.InputWithIcon[data-flex-grow='true'] {
+.Input-With-Icon[data-flex-grow='true'] {
     flex-grow: 1;
 
     input {
@@ -61,8 +60,7 @@
 }
 
 /** Full Width **/
-.Input-Label[data-full-width='true'],
-.InputWithIcon[data-full-width='true'] {
+.Input-With-Icon[data-full-width='true'] {
 	width: 100%;
 
     input {

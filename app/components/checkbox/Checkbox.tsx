@@ -49,12 +49,11 @@ export const Checkbox = ({ label, name, gap = "sm", checkSide = 'left', spaced, 
             />
             {label && (
                 <Label
-                    htmlFor={name}
+                    text={label}
+                    name={name}
                     uppercase={false}
                     noEvents
-                >
-                    {label}
-                </Label>
+                />
             )}
         </FlexBox>
     );

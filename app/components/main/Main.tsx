@@ -17,12 +17,12 @@ interface MainProps extends PropsWithChildren {
     name: string;
     title?: string;
     subtitle?: React.ReactNode;
-    hasMenu?: boolean;
+    padBottom?: 'none' | '1/2' | '1/3';
 }
 
-export const Main = ({ children, name, title, subtitle, hasMenu }: MainProps) => {
+export const Main = ({ children, name, title, subtitle, padBottom = 'none' }: MainProps) => {
     return (
-        <main className={name}>
+        <main className={name} data-pad-bottom={padBottom}>
             <FlexBox justify="between">
                 {title && (
                     <FlexBox col gap="md">

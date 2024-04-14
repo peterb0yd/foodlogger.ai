@@ -14,3 +14,8 @@
 .Label[data-no-events] {
     pointer-events: none;
 }
+
+/** Pad left? **/
+.Label[data-pad-left='true'] {
+    padding-left: calc(var(--input-padding) + var(--input-border-width));
+}

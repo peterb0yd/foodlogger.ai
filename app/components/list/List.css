@@ -16,31 +16,36 @@
 /** Variants **/
 .List[data-variant='base'] {
 	.List-Item {
-		padding: 0.1rem 0;
+		padding-top: 0.1rem;
+        padding-bottom: 0.1rem;
 	}
 }
 .List[data-variant='compact'] {
 	.List-Item {
-		padding: 0.3rem 0;
+		padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
 	}
 }
 .List[data-variant='spacious'] {
 	.List-Item {
-		padding: 0.75rem 0;
+		padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
 	}
 }
 .List[data-variant='gap-tight'] {
     gap: 0.2rem;
 
     .List-Item {
-        padding: 0.3rem 0;
+		padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
     }
 }
 .List[data-variant='gap-loose'] {
     gap: 0.4rem;
 
     .List-Item {
-        padding: 0.5rem 0;
+		padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
     }
 }
 

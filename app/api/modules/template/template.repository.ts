@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client';
+import { Prisma, TemplateStatuses } from '@prisma/client';
 import { PrismaTxType } from '~/utils/prisma';
 import prisma from '~/utils/prisma';
 
@@ -48,7 +48,7 @@ export class TemplateRepository {
     static async findAllByUserId(userId: string, tx: PrismaTxType = prisma) {
         try {
             const templates = await tx.template.findMany({
-                where: { userId },
+                where: { userId, status: TemplateStatuses.PUBLISHED },
                 include: {
                     foodLogTemplateItems: {
                         include: {
