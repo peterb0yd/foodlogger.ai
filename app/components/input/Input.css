@@ -1,8 +1,10 @@
 .Input-Label {
-	display: flex;
-	flex-direction: column;
-	gap: var(--input-label-gap);
-
+    span {
+        display: block;
+        line-height: 1rem;
+        padding-bottom: 0.4rem;
+        margin-left: calc(var(--input-padding) + var(--input-border-width));
+    }
 	input {
 		background-color: var(--color-surface-muted);
 		border: var(--input-border);
@@ -41,10 +43,10 @@
 	}
 
 	&:hover {
-		border-color: var(--input-border-hover);
+		border: var(--input-border-hover);
 	}
 	&:focus {
-		border-color: var(--input-border-focus);
+		border: var(--input-border-focus);
 	}
 }
 

@@ -4,9 +4,13 @@
 	font-family: var(--font-primary);
 	color: var(--color-text-muted);
     line-height: 1em;
-    pointer-events: none;
 }
 
 .Label[data-uppercase='true'] {
     text-transform: uppercase;
+}
+
+/** Pointer events **/
+.Label[data-no-events] {
+    pointer-events: none;
 }

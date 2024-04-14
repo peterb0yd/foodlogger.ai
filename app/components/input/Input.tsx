@@ -39,7 +39,9 @@ export const Input = ({ value, icon, placeholder, dark, min, max, size = 'md', t
                 data-full-width={fullWidth}
                 data-flex-grow={grow}
             >
-                {label ?? null}
+                {label && (
+                    <span>{label}</span>
+                )}
                 <input
                     data-size={size}
                     name={name}

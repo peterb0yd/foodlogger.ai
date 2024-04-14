@@ -175,7 +175,7 @@ interface SectionProps {
 
 const Section = ({ title, children }: SectionProps) => {
     return (
-        <FlexBox name={title} col gap="sm" width="full">
+        <FlexBox name={title} col gap="md" width="full">
             <Text color="soft" size="sm" weight="black" uppercase>
                 {title}
             </Text>

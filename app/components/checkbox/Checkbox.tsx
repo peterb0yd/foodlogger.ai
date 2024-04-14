@@ -48,7 +48,13 @@ export const Checkbox = ({ label, name, gap = "sm", checkSide = 'left', spaced, 
                 onChange={(e) => onChange?.(e.target.checked)}
             />
             {label && (
-                <Label htmlFor={name} uppercase={false}>{label}</Label>
+                <Label
+                    htmlFor={name}
+                    uppercase={false}
+                    noEvents
+                >
+                    {label}
+                </Label>
             )}
         </FlexBox>
     );
