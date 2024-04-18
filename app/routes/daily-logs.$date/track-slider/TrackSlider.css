@@ -1,0 +1,71 @@
+:root {
+	--sad-emoji-url: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><text y="25" font-size="30">😭</text></svg>');
+	--kinda-sad-emoji-url: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><text y="25" font-size="30">😢</text></svg>');
+	--neutral-emoji-url: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><text y="25" font-size="30">😐</text></svg>');
+	--kinda-happy-emoji-url: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><text y="25" font-size="30">😊</text></svg>');
+	--happy-emoji-url: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><text y="25" font-size="30">😄</text></svg>');
+}
+
+.slider-container {
+	width: 100%;
+    height: 40px;
+}
+
+.range-slider {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 100%;
+	height: 10px; /* Track height */
+	background: var(--color-surface-soft);
+	cursor: pointer;
+	outline: none; /* Remove default focus styles */
+}
+
+/* Customize the thumb for WebKit browsers */
+.range-slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	border: none;
+	height: 40px;
+	width: 40px;
+}
+
+/* Customize the thumb for Firefox */
+.range-slider::-moz-range-thumb {
+	height: 40px;
+	width: 40px;
+}
+
+/* Emoji backgrounds */
+.emoji-sad::-webkit-slider-thumb {
+	background: var(--sad-emoji-url) no-repeat center center / cover;
+}
+.emoji-kinda-sad::-webkit-slider-thumb {
+	background: var(--kinda-sad-emoji-url) no-repeat center center / cover;
+}
+.emoji-neutral::-webkit-slider-thumb {
+    background: var(--neutral-emoji-url) no-repeat center center / cover;
+}
+.emoji-kinda-happy::-webkit-slider-thumb {
+    background: var(--kinda-happy-emoji-url) no-repeat center center / cover;
+}
+.emoji-happy::-webkit-slider-thumb {
+    background: var(--happy-emoji-url) no-repeat center center / cover;
+}
+
+/* Repeat the same for Firefox */
+.emoji-sad::-moz-range-thumb {
+	background: var(--sad-emoji-url) no-repeat center center / cover;
+}
+.emoji-kinda-sad::-moz-range-thumb {
+    background: var(--kinda-sad-emoji-url) no-repeat center center / cover;
+}
+.emoji-neutral::-moz-range-thumb {
+	background: var(--neutral-emoji-url) no-repeat center center / cover;
+}
+.emoji-kinda-happy::-moz-range-thumb {
+    background: var(--kinda-happy-emoji-url) no-repeat center center / cover;
+}
+.emoji-happy::-moz-range-thumb {
+	background: var(--happy-emoji-url) no-repeat center center / cover;
+}

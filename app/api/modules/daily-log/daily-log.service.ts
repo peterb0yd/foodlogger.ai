@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { IDailyLogCreateData } from "./daily-log.interfaces";
 import { dailyLogDataToCreateInput } from "./daily-log.mappers"
 import { DailyLogRepository } from "./daily-log.repository";
@@ -15,5 +16,10 @@ export class DailyLogService {
 
     static findById = async (id: string) => {
         return DailyLogRepository.findById(id);
+    }
+    
+    static findByDate = async (userId: string, isoDate: string) => {
+        const entryDate = DateTime.fromISO(isoDate).startOf('day').toJSDate();
+        return DailyLogRepository.findByDate(userId, entryDate);
     }
 }

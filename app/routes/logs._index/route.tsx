@@ -76,7 +76,6 @@ export default function FoodLogsPage() {
     return (
         <Main
             name="FoodLogs"
-            hasMenu
             title={`Food Logs from ${webDateAsHumanString(date)}`}
             subtitle={(
                 <Input
