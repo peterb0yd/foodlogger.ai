@@ -8,7 +8,7 @@ export class UserRepository {
 				where: { id },
 			});
 		} catch (error) {
-			return null;
+			throw error;
 		}
 	}
 
@@ -21,7 +21,7 @@ export class UserRepository {
                 },
             });
         } catch (error) {
-            return null;
+            throw error;
         }
     }
 
@@ -31,7 +31,7 @@ export class UserRepository {
                 where: { phone },
             });
         } catch (error) {
-            return null;
+            throw error;
         }
     }
 
@@ -41,18 +41,19 @@ export class UserRepository {
                 data: user,
             });
         } catch (error) {
-            return null;
+            throw error;
         }
     }
 
     static async update(id: string, user: Prisma.UserUpdateInput, tx: PrismaTxType = prisma) {
         try {
+            console.log('updating', id, user)
             return await tx.user.update({
                 where: { id },
                 data: user,
             });
         } catch (error) {
-            return null;
+            throw error;
         }
     }
 

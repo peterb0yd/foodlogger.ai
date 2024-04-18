@@ -1,7 +1,7 @@
 import { LinksFunction, LoaderFunction } from "@remix-run/node";
 import { SessionService } from "~/api/modules/session/session.service";
 import { UserService } from "~/api/modules/user/user.service";
-import { useFetcher, useLoaderData } from "@remix-run/react";
+import { useActionData, useFetcher, useLoaderData } from "@remix-run/react";
 import { IUserCreateData, IUserWithSettings } from "~/api/modules/user/user.interfaces";
 import { RequestMethods } from "~/enums/requests";
 import { Main, links as mainLinks } from "~/components/main/Main";
@@ -46,9 +46,8 @@ export default function Settings() {
         fetcher.submit(updateData, {
             action,
             method: RequestMethods.PATCH,
-            navigate: true,
         })
-    }, 1000), []);
+    }, 500), []);
 
     const handleUserChange = (key: string, val: string | boolean) => {
         const newUserData = { ...userData, [key]: val };
@@ -78,7 +77,7 @@ export default function Settings() {
                                 label="Name"
                                 fullWidth
                                 placeholder="Your name..."
-                                value={userData.name as string}
+                                value={userData.name as string ?? ''}
                                 onChange={(val) => handleUserChange('name', val)}
                             />
                         </List.Item>
@@ -88,7 +87,7 @@ export default function Settings() {
                                 label="Email"
                                 fullWidth
                                 placeholder="Your email..."
-                                value={userData.email as string}
+                                value={userData.email as string ?? ''}
                                 onChange={(val) => handleUserChange('email', val)}
                             />
                         </List.Item>
@@ -98,7 +97,7 @@ export default function Settings() {
                                 label="Phone"
                                 fullWidth
                                 placeholder="Your phone..."
-                                value={userData.phone as string}
+                                value={userData.phone as string ?? ''}
                                 onChange={(val) => handleUserChange('phone', val)}
                             />
                         </List.Item>

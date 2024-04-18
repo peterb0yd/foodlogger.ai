@@ -23,7 +23,6 @@ const { getSession, commitSession, destroySession } = createSessionStorage<ISess
 	},
 	async readData(id) {
         try {
-            console.log('id', id)
             return SessionService.findById(id);
         } catch (error) {
             return null;

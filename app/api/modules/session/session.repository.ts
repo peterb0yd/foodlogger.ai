@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import prisma from '~/utils/prisma';
+import prisma, { PrismaTxType } from '~/utils/prisma';
 
 export class SessionRepository {
     static async create(session: Prisma.SessionCreateInput, tx: PrismaTxType = prisma) {
