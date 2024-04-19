@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { IDailyLogCreateData } from "./daily-log.interfaces";
+import { IDailyLogCreateData, IDailyLogUpdateData } from "./daily-log.interfaces";
 import { dailyLogDataToCreateInput } from "./daily-log.mappers"
 import { DailyLogRepository } from "./daily-log.repository";
 
@@ -9,9 +9,8 @@ export class DailyLogService {
         return DailyLogRepository.create(createInput);
     }
 
-    static update = async (id: string, updateData: IDailyLogCreateData) => {
-        const updateInput = dailyLogDataToCreateInput(updateData);
-        return DailyLogRepository.update(id, updateInput);
+    static update = async (id: string, updateData: IDailyLogUpdateData) => {
+        return DailyLogRepository.update(id, updateData);
     }
 
     static findById = async (id: string) => {
@@ -19,6 +18,7 @@ export class DailyLogService {
     }
     
     static findByDate = async (userId: string, isoDate: string) => {
+        console.log({isoDate})
         const entryDate = DateTime.fromISO(isoDate).startOf('day').toJSDate();
         return DailyLogRepository.findByDate(userId, entryDate);
     }

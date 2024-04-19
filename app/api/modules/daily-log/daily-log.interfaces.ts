@@ -1,7 +1,10 @@
 export interface IDailyLogCreateData {
 	isoDate: string;
 	userId: string;
-	sleepQuality?: number;
+}
+
+export interface IDailyLogUpdateData {
+    sleepQuality?: number;
 	energyQuality?: number;
     exerciseQuality?: number;
 	poopQuality?: number;

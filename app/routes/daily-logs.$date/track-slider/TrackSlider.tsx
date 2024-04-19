@@ -6,9 +6,13 @@ export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: styles },
 ];
 
-export const TrackSlider = () => {
-    const [value, setValue] = useState(50); // Default range value
+interface TrackSliderProps {
+    value: number;
+    onChange: (value: number) => void;
+}
 
+export const TrackSlider = ({ value = 50, onChange }: TrackSliderProps) => {
+    
     // Determine the class for the emoji based on value
     const getEmojiClass = (value: number) => {
         const oneFifth = 100 / 5;
@@ -20,8 +24,7 @@ export const TrackSlider = () => {
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(event.target.valueAsNumber);
-        console.log(event.target.valueAsNumber);
+        onChange(event.target.valueAsNumber);
     };
 
     return (
