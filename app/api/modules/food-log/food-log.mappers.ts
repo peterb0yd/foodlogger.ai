@@ -1,10 +1,10 @@
 import { FoodLog, Prisma } from "@prisma/client";
 import { IFoodLogRequestData, IFoodLogWithNestedFoods, IFoodLogWithNestedSelectedItems } from "./food-log.interfaces";
-import { dateAsTimeUIString } from "~/utils/datetime";
+import { dateAsTimeUIString, isoAsUtcDate } from "~/utils/datetime";
 
 export const foodLogDataToCreateInput = (foodLogData: IFoodLogRequestData) => {
     return {
-        loggedAt: new Date(foodLogData.loggedAt),
+        loggedAt: isoAsUtcDate(foodLogData.loggedAt),
         user: {
             connect: {
                 id: foodLogData.userId

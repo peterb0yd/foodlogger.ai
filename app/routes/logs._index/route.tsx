@@ -9,13 +9,14 @@ import { IFoodLogWithNestedFoods } from "~/api/modules/food-log/food-log.interfa
 import styles from './logs._index.css?url';
 import { Main, links as mainLinks } from "~/components/main/Main";
 import { useState } from "react";
-import { APIRoutes } from "~/enums/routes";
+import { APIRoutes, PageRoutes } from "~/enums/routes";
 import { isFetcherLoading } from "~/utils/fetcherLoading";
 import { webDateAsHumanString, localDateToWebString } from "~/utils/datetime";
 import { Input, links as labelLinks } from "~/components/input/Input";
 import { RequestMethods } from "~/enums/requests";
 import { DailyLogService } from "~/api/modules/daily-log/daily-log.service";
 import { DailyLog } from "@prisma/client";
+import { IconNames } from "~/enums/icons";
 
 type FetcherResponseType = { foodLogs: IFoodLogWithNestedFoods[] };
 
@@ -68,6 +69,14 @@ export default function FoodLogsPage() {
     const fetcher = useFetcher<FetcherResponseType>();
     const foodLogsForDate = fetcher.data?.foodLogs ?? foodLogs;
     const isLoading = isFetcherLoading(fetcher);
+    const dateAsText = webDateAsHumanString(date);
+    const setMetricsText = (() => {
+        switch(dateAsText) {
+            case 'Today': return 'Set Today\'s Metrics';
+            case 'Yesterday': return 'Set Yesterday\'s Metrics';
+            default: return `Set Metrics for ${dateAsText}`
+        }
+    })();
 
     const onDateChange = (dateVal: string) => {
         if (new Date(dateVal) > new Date()) return;
@@ -80,10 +89,10 @@ export default function FoodLogsPage() {
         });
     }
 
-    const handleDailyLogClick = async () => {
+    const handleSetMetricsClick = async () => {
         if (dailyLog) {
-           navigate(`/daily-logs/${date}`);
-           return;
+            navigate(`${PageRoutes.DAILY_LOGS}/${startDate}`);
+            return;
         }
         const formData = new FormData();
         formData.append('userId', userId);
@@ -98,7 +107,7 @@ export default function FoodLogsPage() {
     return (
         <Main
             name="FoodLogs"
-            title={`Food Logs from ${webDateAsHumanString(date)}`}
+            title={`Food Logs from ${dateAsText}`}
             subtitle={(
                 <Input
                     type="date"
@@ -110,9 +119,17 @@ export default function FoodLogsPage() {
                 />
             )}
         >
-            <FlexBox col center width="full" gap="md">
-                <Button type="submit" onClick={handleDailyLogClick} variant="primary" size="md" width="full">
-                    Create Daily Log
+            <FlexBox col center width="full" gap="xl">
+                <Button
+                    type="submit"
+                    onClick={handleSetMetricsClick}
+                    variant="primary"
+                    size="md"
+                    width="full"
+                    icon={IconNames.Metrics}
+                    loading={isLoading}
+                >
+                    {setMetricsText}
                 </Button>
                 <FlexBox col gap="xl" width="full" padBottom='1/3'>
                     <Timeline userId={userId} foodLogs={foodLogsForDate} isLoading={false}>

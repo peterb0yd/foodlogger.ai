@@ -1,9 +1,9 @@
 import { ActionFunction, LoaderFunction, json, redirect } from '@remix-run/node';
 import { DailyLogService } from '~/api/modules/daily-log/daily-log.service';
 import { SessionService } from '~/api/modules/session/session.service';
-import { UserService } from '~/api/modules/user/user.service';
 import { RequestMethods } from '~/enums/requests';
 import { PageRoutes } from '~/enums/routes';
+import { jsDateToWebString } from '~/utils/datetime';
 
 export const loader: LoaderFunction = async () => {
     return redirect('/404');
@@ -22,7 +22,7 @@ export const action: ActionFunction = async ({ request, params }) => {
 				if (!dailyLog) {
 					throw new Error(`Failed to update dailyLog for ${userId}`);
 				}
-				return redirect(`${PageRoutes.DAILY_LOGS}/${dailyLog.entryDate}`)
+                return json(dailyLog);
 			} catch (error) {
 				console.error(error);
 				return new Response(null, {

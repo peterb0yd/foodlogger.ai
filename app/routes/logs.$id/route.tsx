@@ -88,6 +88,7 @@ export default function EditFoodLogPage() {
         fetcher.submit(formData, {
             method: RequestMethods.POST,
             action: APIRoutes.FOOD_ITEM_LOGS,
+            navigate: false,
         });
     }
 

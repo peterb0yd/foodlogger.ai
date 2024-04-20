@@ -1,0 +1,11 @@
+
+.TextBox {
+    background-color: var(--color-surface-muted);
+    border: var(--input-border);
+    box-sizing: border-box;
+    color: var(--color-text);
+    font-size: var(--font-size-md);
+    padding: calc(var(--input-padding) + 0.5px); /* added 0.5px to make same height as select */
+    border-radius: var(--input-border-radius);
+    width: 100%;
+}

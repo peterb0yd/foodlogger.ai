@@ -33,7 +33,7 @@ export const TrackSlider = ({ value = 50, onChange }: TrackSliderProps) => {
                 type="range"
                 min="0"
                 max="100"
-                value={value}
+                value={value ?? 50}
                 onChange={handleChange}
                 className={`range-slider ${getEmojiClass(value)}`}
             />

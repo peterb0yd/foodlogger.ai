@@ -12,6 +12,8 @@ import { useTimelineContext } from "../Timeline";
 import { IFoodLogWithNestedFoods } from "~/api/modules/food-log/food-log.interfaces";
 import { AddOrEditFoodLog, links as addEditButtonLinks } from "./AddOrEditFoodLog";
 import Skeleton from "react-loading-skeleton";
+import numToWords from 'number-to-words';
+import { startCase } from "lodash-es";
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: styles },
@@ -32,7 +34,7 @@ export const TimelineBlock = ({ times, name }: TimelineBlockProps) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const nameParam = searchParams.get(name.toLowerCase());
     const [isExpanded, setIsExpanded] = useState(nameParam === 'true');
-    const { userId, foodLogs, isLoading } = useTimelineContext();
+    const { userId, isLoading } = useTimelineContext();
     const actionText = isExpanded ? 'Collapse' : 'Expand';
 
     const toggleExpand = () => {
@@ -76,7 +78,6 @@ export const TimelineBlock = ({ times, name }: TimelineBlockProps) => {
                 </FlexBox>
                 <BlockContent
                     times={times}
-                    foodLogs={foodLogs}
                     userId={userId}
                     name={name}
                     isExpanded={isExpanded}
@@ -90,50 +91,79 @@ export const TimelineBlock = ({ times, name }: TimelineBlockProps) => {
 
 interface BlockContentProps {
     times: string[];
-    foodLogs: IFoodLogWithNestedFoods[];
-    userId: string;
     name: string;
+    userId: string;
     isExpanded: boolean;
     toggleExpand: () => void;
 }
 
 // Component that shows content dependent on collapsed or expanded state
-const BlockContent = ({ times, foodLogs, userId, name, isExpanded, toggleExpand }: BlockContentProps) => {
-
+const BlockContent = ({ userId, times, name, isExpanded, toggleExpand }: BlockContentProps) => {
+    const { foodLogs } = useTimelineContext();
     if (isExpanded) {
-        return <ExpandedSection times={times} foodLogs={foodLogs} userId={userId} />
+        return (
+            <ExpandedSection
+                times={times}
+                userId={userId}
+            />
+        );
     }
-    return <CollapsedSection name={name} onClick={toggleExpand} />;
+    return (
+        <CollapsedSection
+            name={name}
+            times={times}
+            onClick={toggleExpand}
+        />
+    );
 }
 
 
-interface AddFoodLogToBlockProps {
+interface CollapsedSectionProps {
     name: string;
+    times: string[];
     onClick: () => void;
 }
 
-const CollapsedSection = ({ name, onClick }: AddFoodLogToBlockProps) => (
-    <Button
-        variant="muted"
-        size="xl"
-        width="full"
-        borderRadius="md"
-        onClick={onClick}
-    >
-        <FlexBox gap="md" align="center" justify="between" width="full">
-            <Text size="lg" color="primary">{`Add ${name} Meal or Snack`}</Text>
-            <Icon name={IconNames.Plus} size="md" color="primary" />
-        </FlexBox>
-    </Button>
-);
+const CollapsedSection = ({ name, times, onClick }: CollapsedSectionProps) => {
+    const { foodLogs } = useTimelineContext();
+    const blockLogs = foodLogs.filter(log => {
+        return times.includes(log.loggedAtFormatted);
+    });
+    const countWords = numToWords.toWords(blockLogs.length);
+    const mealText = blockLogs.length === 1 ? 'meal' : 'meals';
+    return (
+        <Button
+            variant="muted"
+            size="xl"
+            width="full"
+            borderRadius="md"
+            onClick={onClick}
+        >
+            <FlexBox col gap="md">
+                <FlexBox gap="md" align="center" justify="between" width="full">
+                    <Text size="lg" color="primary">{`Add ${name} Meal or Snack`}</Text>
+                    <Icon name={IconNames.Plus} size="md" color="primary" />
+                </FlexBox>
+                {Boolean(blockLogs?.length) && (
+                    <Text
+                        size="sm"
+                        color="muted"
+                    >
+                        {`${startCase(countWords)} ${mealText} logged for the ${name.toLowerCase()}.`}
+                    </Text>
+                )}
+            </FlexBox>
+        </Button>
+    );
+}
 
 interface ExpandedSectionProps {
     times: string[];
-    foodLogs: IFoodLogWithNestedFoods[];
     userId: string;
 }
 
-const ExpandedSection = ({ times, foodLogs, userId }: ExpandedSectionProps) => {
+const ExpandedSection = ({ userId, times }: ExpandedSectionProps) => {
+    const { foodLogs } = useTimelineContext();
 
     const findFoodLogForTime = (time: string) => {
         const foodLog = foodLogs.find(log => log.loggedAtFormatted === time);
@@ -145,6 +175,7 @@ const ExpandedSection = ({ times, foodLogs, userId }: ExpandedSectionProps) => {
             {times.map(time => (
                 <AddOrEditFoodLog
                     key={time}
+                    userId={userId}
                     time={time}
                     foodLog={findFoodLogForTime(time)}
                 />
