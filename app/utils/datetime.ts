@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 const UI_FORMAT = 'h:mm a';
 const WEB_DATE_FORMAT = 'yyyy-MM-dd';
 const TIMEZONE = 'America/New_York';
-const HUMAN_DAY_FORMAT = 'MMM d';
+const HUMAN_DAY_FORMAT = 'MMMM d';
 
 // as ISO in UTC
 export const timeStringAsIso = (time: string) => {
