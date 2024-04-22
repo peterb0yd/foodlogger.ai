@@ -16,6 +16,7 @@ import { IUserWithSettings } from "~/api/modules/user/user.interfaces";
 import { TextBox, links as textboxLinks } from "~/components/text-box/TextBox";
 import { BottomBar, links as bottomBarLinks } from "~/components/bottom-bar/BottomBar";
 import { IconNames } from "~/enums/icons";
+import { DateTime } from "luxon";
 
 export const links: LinksFunction = () => [
     ...mainLinks(),
@@ -28,9 +29,8 @@ export const links: LinksFunction = () => [
 
 export const loader: LoaderFunction = async (context) => {
     const userId = await SessionService.requireAuth(context.request);
-    const { date: dateParam } = context.params;
-    const date = dateParam ? new Date(dateParam) : new Date();
-    const isoDate = date.toISOString();
+    const dateParam = context.params.date as string;
+    const isoDate = DateTime.fromISO(dateParam).toISO() as string;
     const dailyLog = await DailyLogService.findByDate(userId, isoDate);
     const user = await UserService.findByIdWithSettings(userId);
     return { dailyLog, user };

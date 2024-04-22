@@ -1,7 +1,7 @@
+import { DateTime } from "luxon";
 import { IFoodLogRequestData } from "./food-log.interfaces";
 import { foodLogDataToCreateInput, foodLogWithItemsToDto } from "./food-log.mappers";
 import { FoodLogRepository } from "./food-log.repository";
-import { startOfIsoDate } from "~/utils/datetime";
 
 export class FoodLogService {
     static async create(foodLogData: IFoodLogRequestData) {
@@ -18,7 +18,7 @@ export class FoodLogService {
     }
 
     static async findLogsForDate(userId: string, isoDate: string) {
-        const startTime = startOfIsoDate(isoDate);
+        const startTime = DateTime.fromISO(isoDate).startOf('day').toJSDate();
         const foodLogsWithItems = await FoodLogRepository.findLogsForDate(userId, startTime);
         return foodLogWithItemsToDto(foodLogsWithItems);
     }

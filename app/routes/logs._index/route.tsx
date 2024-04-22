@@ -11,12 +11,13 @@ import { Main, links as mainLinks } from "~/components/main/Main";
 import { useState } from "react";
 import { APIRoutes, PageRoutes } from "~/enums/routes";
 import { isFetcherLoading } from "~/utils/fetcherLoading";
-import { webDateAsHumanString, localDateToWebString } from "~/utils/datetime";
 import { Input, links as labelLinks } from "~/components/input/Input";
 import { RequestMethods } from "~/enums/requests";
 import { DailyLogService } from "~/api/modules/daily-log/daily-log.service";
 import { DailyLog } from "@prisma/client";
 import { IconNames } from "~/enums/icons";
+import { DateTime } from "luxon";
+import { dateAsHumanString } from "~/utils/datetime";
 
 type FetcherResponseType = { foodLogs: IFoodLogWithNestedFoods[] };
 
@@ -62,14 +63,14 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function FoodLogsPage() {
     const { userId, foodLogs, dailyLog } = useLoaderData<LoaderDataProps>();
     const [searchParams, setSearchParams] = useSearchParams();
-    const startDate = searchParams.get('date') ?? localDateToWebString(new Date());
+    const startDate = searchParams.get('date') ?? DateTime.now().toISODate();
     const [date, setDate] = useState(startDate);
     const navigate = useNavigate();
-    const isoDate = new Date(date).toISOString();
+    const isoDate = DateTime.fromISO(date).toISO() as string;
     const fetcher = useFetcher<FetcherResponseType>();
     const foodLogsForDate = fetcher.data?.foodLogs ?? foodLogs;
     const isLoading = isFetcherLoading(fetcher);
-    const dateAsText = webDateAsHumanString(date);
+    const dateAsText = dateAsHumanString(date);
     const setMetricsText = (() => {
         switch(dateAsText) {
             case 'Today': return 'Set Today\'s Metrics';
@@ -79,9 +80,10 @@ export default function FoodLogsPage() {
     })();
 
     const onDateChange = (dateVal: string) => {
-        if (new Date(dateVal) > new Date()) return;
+        const newDate = DateTime.fromISO(dateVal);
+        if (newDate > DateTime.now()) return;
         setDate(dateVal);
-        const isoDate = new Date(dateVal).toISOString();
+        const isoDate = newDate.toISO();
         fetcher.load(`${APIRoutes.FOOD_LOGS}?isoDate=${isoDate}&userId=${userId}`);
         setSearchParams(prev => {
             prev.set('date', dateVal);
@@ -114,7 +116,7 @@ export default function FoodLogsPage() {
                     name={"Date"}
                     value={date}
                     size="sm"
-                    max={localDateToWebString(new Date())}
+                    max={DateTime.now().toISODate()}
                     onChange={onDateChange}
                 />
             )}

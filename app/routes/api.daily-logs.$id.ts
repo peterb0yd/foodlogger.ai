@@ -2,8 +2,6 @@ import { ActionFunction, LoaderFunction, json, redirect } from '@remix-run/node'
 import { DailyLogService } from '~/api/modules/daily-log/daily-log.service';
 import { SessionService } from '~/api/modules/session/session.service';
 import { RequestMethods } from '~/enums/requests';
-import { PageRoutes } from '~/enums/routes';
-import { jsDateToWebString } from '~/utils/datetime';
 
 export const loader: LoaderFunction = async () => {
     return redirect('/404');

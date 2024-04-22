@@ -9,9 +9,10 @@ import { Icon, links as iconLinks } from "~/components/icon/Icon";
 import { IconNames } from "~/enums/icons";
 import { RequestMethods } from "~/enums/requests";
 import { APIRoutes, PageRoutes } from "~/enums/routes";
-import { timeStringAsIso } from "~/utils/datetime";
 import { IFoodLogWithNestedFoods } from "~/api/modules/food-log/food-log.interfaces";
 import { LinksFunction } from "@remix-run/node";
+import { DateTime } from "luxon";
+import { TIMESTRING_FORMAT } from "~/utils/datetime";
 
 export const links: LinksFunction = () => [
     ...buttonLinks(),
@@ -29,6 +30,7 @@ interface AddOrEditFoodLogProps {
 // Displays a time-block with a button to add a food log 
 // or a summary of a saved food log and a button to edit it
 export const AddOrEditFoodLog = ({ userId, time, foodLog }: AddOrEditFoodLogProps) => {
+    const loggedAt = DateTime.fromFormat(time, TIMESTRING_FORMAT).toISO() as string;
     
     // Edit an existing food log
     if (foodLog) {
@@ -62,7 +64,7 @@ export const AddOrEditFoodLog = ({ userId, time, foodLog }: AddOrEditFoodLogProp
             action={APIRoutes.FOOD_LOGS}
         >
             <input type="hidden" name="userId" value={userId} />
-            <input type="hidden" name="loggedAt" value={timeStringAsIso(time)} />
+            <input type="hidden" name="loggedAt" value={loggedAt} />
             <Button
                 variant="base"
                 size="lg"

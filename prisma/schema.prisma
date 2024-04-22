@@ -178,6 +178,8 @@ enum Units {
     SHOT
     BOTTLE
     BAR
+    PACKET
+    SCOOP
     TABLET
     SQUARE
     NONE
