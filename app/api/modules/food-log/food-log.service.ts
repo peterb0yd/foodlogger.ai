@@ -6,6 +6,7 @@ import { FoodLogRepository } from "./food-log.repository";
 export class FoodLogService {
     static async create(foodLogData: IFoodLogRequestData) {
         const { userId, loggedAt } = foodLogData;
+        console.log('create', {userId, loggedAt})
         if (!userId || !loggedAt) {
             throw new Error('userId and a loggedAt is required');
         }
@@ -19,6 +20,7 @@ export class FoodLogService {
 
     static async findLogsForDate(userId: string, isoDate: string) {
         const startTime = DateTime.fromISO(isoDate).startOf('day').toJSDate();
+        console.log('findLogsForDate', {startTime});
         const foodLogsWithItems = await FoodLogRepository.findLogsForDate(userId, startTime);
         return foodLogWithItemsToDto(foodLogsWithItems);
     }

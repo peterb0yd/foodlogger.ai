@@ -31,7 +31,7 @@ interface AddOrEditFoodLogProps {
 // or a summary of a saved food log and a button to edit it
 export const AddOrEditFoodLog = ({ userId, time, foodLog }: AddOrEditFoodLogProps) => {
     const loggedAt = DateTime.fromFormat(time, TIMESTRING_FORMAT).toISO() as string;
-    
+
     // Edit an existing food log
     if (foodLog) {
         let foodSummary = 'No foods added yet...';

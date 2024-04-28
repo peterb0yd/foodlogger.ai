@@ -13,6 +13,5 @@ export interface IFoodLogWithNestedFoods extends Omit<FoodLog, 'loggedAt' | 'cre
     createdAt: Date | string;
     updatedAt: Date | string;
     loggedAt: Date | string;
-    loggedAtFormatted: string;
     foods: { name: string; }[];
 }

@@ -14,6 +14,8 @@ import { AddOrEditFoodLog, links as addEditButtonLinks } from "./AddOrEditFoodLo
 import Skeleton from "react-loading-skeleton";
 import numToWords from 'number-to-words';
 import { startCase } from "lodash-es";
+import { DateTime } from "luxon";
+import { TIMESTRING_FORMAT } from "~/utils/datetime";
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: styles },
@@ -28,6 +30,10 @@ export const links: LinksFunction = () => [
 interface TimelineBlockProps {
     times: string[];
     name: string;
+}
+
+const getDateAsTimestring = (date: Date | string) => {
+    return DateTime.fromJSDate(new Date(date)).toLocal().toFormat(TIMESTRING_FORMAT);
 }
 
 export const TimelineBlock = ({ times, name }: TimelineBlockProps) => {
@@ -99,7 +105,6 @@ interface BlockContentProps {
 
 // Component that shows content dependent on collapsed or expanded state
 const BlockContent = ({ userId, times, name, isExpanded, toggleExpand }: BlockContentProps) => {
-    const { foodLogs } = useTimelineContext();
     if (isExpanded) {
         return (
             <ExpandedSection
@@ -127,7 +132,9 @@ interface CollapsedSectionProps {
 const CollapsedSection = ({ name, times, onClick }: CollapsedSectionProps) => {
     const { foodLogs } = useTimelineContext();
     const blockLogs = foodLogs.filter(log => {
-        return times.includes(log.loggedAtFormatted);
+        const hasFoodItems = Boolean(log.foods?.length);
+        const loggedAtTimestring = getDateAsTimestring(log.loggedAt);
+        return hasFoodItems && times.includes(loggedAtTimestring);
     });
     const countWords = numToWords.toWords(blockLogs.length);
     const mealText = blockLogs.length === 1 ? 'meal' : 'meals';
@@ -166,7 +173,10 @@ const ExpandedSection = ({ userId, times }: ExpandedSectionProps) => {
     const { foodLogs } = useTimelineContext();
 
     const findFoodLogForTime = (time: string) => {
-        const foodLog = foodLogs.find(log => log.loggedAtFormatted === time);
+        const foodLog = foodLogs.find(log => {
+            const loggedAtTimestring = getDateAsTimestring(log.loggedAt);
+            return loggedAtTimestring === time;
+        });
         return foodLog ?? null;
     }
 

@@ -63,7 +63,6 @@ export default function EditFoodLogPage() {
 
     useEffect(() => {
         const fetcherData = fetcher.data as BadAudioResponse;
-        console.log({fetcherData});
         if (fetcherData?.suggestion) {
             setPromptText(fetcherData.suggestion);
         }
