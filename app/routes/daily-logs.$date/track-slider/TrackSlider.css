@@ -4,14 +4,20 @@
 	--neutral-emoji-url: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><text y="25" font-size="30">😐</text></svg>');
 	--kinda-happy-emoji-url: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><text y="25" font-size="30">😊</text></svg>');
 	--happy-emoji-url: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><text y="25" font-size="30">😄</text></svg>');
+
+    --arrow-duration: 1.5s;
 }
 
-.slider-container {
+.TrackSlider-Container {
+	position: relative;
 	width: 100%;
-    height: 40px;
+	height: 45px;
 }
 
-.range-slider {
+.TrackSlider {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
 	-webkit-appearance: none;
 	appearance: none;
 	width: 100%;
@@ -21,8 +27,63 @@
 	outline: none; /* Remove default focus styles */
 }
 
+/** Arrow Indicators **/
+.ChevronLeft,
+.ChevronRight {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+    opacity: 0;
+
+    /* 2nd and 4th child*/
+    &:nth-child(2),
+    &:nth-child(5) {
+		animation-delay: calc(calc(var(--arrow-duration) / 3));
+	}
+    &:nth-child(3),
+    &:nth-child(6) {
+        animation-delay: calc(calc(var(--arrow-duration) / 3) * 2);
+    }
+}
+.ChevronLeft {
+	animation: fadeLeft var(--arrow-duration) infinite;
+    animation-timing-function: ease-in;
+    transform: translate(-140%, -50%);
+}
+.ChevronRight {
+	animation: fadeRight var(--arrow-duration) infinite;
+    animation-timing-function: ease-in;
+    transform: translate(40%, -50%);
+}
+@keyframes fadeLeft {
+	0% {
+		opacity: 0.2;
+		transform: translate(-140%, -50%);
+	}
+    50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+		transform: translate(-220%, -50%);
+	}
+}
+@keyframes fadeRight {
+	0% {
+		opacity: 0.2;
+		transform: translate(40%, -50%);
+	}
+    50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+		transform: translate(120%, -50%);
+	}
+}
+
 /* Customize the thumb for WebKit browsers */
-.range-slider::-webkit-slider-thumb {
+.TrackSlider::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	appearance: none;
 	border: none;
@@ -31,9 +92,18 @@
 }
 
 /* Customize the thumb for Firefox */
-.range-slider::-moz-range-thumb {
+.TrackSlider::-moz-range-thumb {
 	height: 40px;
 	width: 40px;
+}
+
+/* Default styles for the thumb */
+.circle::-webkit-slider-thumb {
+	width: 40px;
+	height: 40px;
+	background: var(--color-surface);
+	border-radius: 50%;
+	border: 4px solid var(--color-primary-dark);
 }
 
 /* Emoji backgrounds */
@@ -44,13 +114,13 @@
 	background: var(--kinda-sad-emoji-url) no-repeat center center / cover;
 }
 .emoji-neutral::-webkit-slider-thumb {
-    background: var(--neutral-emoji-url) no-repeat center center / cover;
+	background: var(--neutral-emoji-url) no-repeat center center / cover;
 }
 .emoji-kinda-happy::-webkit-slider-thumb {
-    background: var(--kinda-happy-emoji-url) no-repeat center center / cover;
+	background: var(--kinda-happy-emoji-url) no-repeat center center / cover;
 }
 .emoji-happy::-webkit-slider-thumb {
-    background: var(--happy-emoji-url) no-repeat center center / cover;
+	background: var(--happy-emoji-url) no-repeat center center / cover;
 }
 
 /* Repeat the same for Firefox */
@@ -58,13 +128,13 @@
 	background: var(--sad-emoji-url) no-repeat center center / cover;
 }
 .emoji-kinda-sad::-moz-range-thumb {
-    background: var(--kinda-sad-emoji-url) no-repeat center center / cover;
+	background: var(--kinda-sad-emoji-url) no-repeat center center / cover;
 }
 .emoji-neutral::-moz-range-thumb {
 	background: var(--neutral-emoji-url) no-repeat center center / cover;
 }
 .emoji-kinda-happy::-moz-range-thumb {
-    background: var(--kinda-happy-emoji-url) no-repeat center center / cover;
+	background: var(--kinda-happy-emoji-url) no-repeat center center / cover;
 }
 .emoji-happy::-moz-range-thumb {
 	background: var(--happy-emoji-url) no-repeat center center / cover;
