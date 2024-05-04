@@ -7,10 +7,25 @@
 
 .List-Item {
 	display: flex;
-	align-items: center;
 	justify-content: space-between;
     max-width: 100%;
     flex-grow: 1;
+}
+
+/** List Item Col **/
+.List-Item[data-col='true'] {
+    flex-direction: column;
+}
+
+/** List Item Align **/
+.List-Item[data-align='left'] {
+    justify-content: flex-start;
+}
+.List-Item[data-align='center'] {
+    justify-content: center;
+}
+.List-Item[data-align='right'] {
+    justify-content: flex-end;
 }
 
 /** Variants **/
@@ -33,7 +48,7 @@
 	}
 }
 .List[data-variant='gap-tight'] {
-    gap: 0.2rem;
+    gap: 0.3rem;
 
     .List-Item {
 		padding-top: 0.3rem;
@@ -41,7 +56,7 @@
     }
 }
 .List[data-variant='gap-loose'] {
-    gap: 0.4rem;
+    gap: 0.6rem;
 
     .List-Item {
 		padding-top: 0.75rem;

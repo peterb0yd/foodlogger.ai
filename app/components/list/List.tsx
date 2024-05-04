@@ -28,13 +28,17 @@ export const List = ({ children, variant = 'base', divider = 'base', bg = 'muted
 
 interface ListItemProps extends PropsWithChildren {
     padX?: PadXTypes;
+    col?: boolean;
+    align?: 'left' | 'center' | 'right';
 }
 
-List.Item = ({ children, padX }: ListItemProps) => {
+List.Item = ({ children, col, align='center', padX }: ListItemProps) => {
     return (
         <li
             className='List-Item'
             data-padding-x={padX}
+            data-col={col}
+            data-align={align}
         >
             {children}
         </li>
