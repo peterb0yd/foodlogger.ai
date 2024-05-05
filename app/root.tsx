@@ -30,18 +30,18 @@ export const meta: MetaFunction = () => {
         { name: "keywords", content: "meal tracking, voice recognition, nutrition, health, diet, food logging" },
         { property: "og:title", content: "FoodLogger.ai | The Easiest Meal Tracking App" },
         { property: "og:description", content: "Use FoodLogger.ai to quickly log your meals with voice recognition. The simplest way to track your diet!" },
-        { property: "og:type", content: "website" },
-        { property: "og:image", content: "/path/to/social-media-image.jpg" },
+        // { property: "og:type", content: "website" },
+        // { property: "og:image", content: "/path/to/social-media-image.jpg" },
         { property: "og:url", content: "https://www.foodlogger.ai" },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: "FoodLogger.ai | The Easiest Meal Tracking App" },
         { name: "twitter:description", content: "Use FoodLogger.ai to quickly log your meals with voice recognition. The simplest way to track your diet!" },
-        { name: "twitter:image", content: "/path/to/twitter-image.jpg" },
-        { name: "twitter:creator", content: "@yourtwitterhandle" },
+        // { name: "twitter:image", content: "/path/to/twitter-image.jpg" },
+        // { name: "twitter:creator", content: "@yourtwitterhandle" },
         { rel: "icon", href: "/imgs/foodlogger-fav-64.png", sizes: "64x64" },
         { rel: "icon", href: "/imgs/foodlogger-fav-128.png", sizes: "128x128" },
         { rel: "apple-touch-icon", href: "/imgs/foodlogger-fav-128.png" },
-        { rel: "manifest", href: "/manifest.json" }
+        { rel: "manifest", href: "/manifest.webmanifest" }
     ];
 };
 
@@ -57,10 +57,7 @@ export default function App() {
     return (
         <html lang="en">
             <head>
-                <meta charSet="utf-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <Meta />
-                <link rel="manifest" href="/manifest.webmanifest" />
                 <Links />
             </head>
             <body>
