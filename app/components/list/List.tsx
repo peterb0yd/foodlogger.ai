@@ -32,7 +32,7 @@ interface ListItemProps extends PropsWithChildren {
     align?: 'left' | 'center' | 'right';
 }
 
-List.Item = ({ children, col, align='center', padX }: ListItemProps) => {
+List.Item = ({ children, col, align='left', padX }: ListItemProps) => {
     return (
         <li
             className='List-Item'

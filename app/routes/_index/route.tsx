@@ -23,40 +23,39 @@ export default function Home() {
     return (
         <Main name="Home">
             <FlexBox col gap="2xl" center>
-                <FlexBox center col gap="xl" width="full">
-                    <FlexBox col gap="md" align="center" width="full">
-                        <Text size="xl" align="center" weight="black" lineHeight="tight">{`Meal tracking made simple.`}</Text>
-                        <Text size="md" align="center" lineHeight="tight">{`Tell AI what you ate and let it do your tracking for you.`}</Text>
-                    </FlexBox>
-                    <Button
-                        to={PageRoutes.LOGS}
-                        variant="secondary"
-                        size="lg"
-                        icon={IconNames.ChevronCircle}
-                        iconSide="right"
-                    >
-                        Go to Logs
-                    </Button>
+                <FlexBox col gap="md" align="center" width="full">
+                    <Text size="xl" align="center" weight="black" lineHeight="tight">{`Meal tracking made simple.`}</Text>
+                    <Text size="md" align="center" weight="bold" color="muted" lineHeight="tight">{`Tell AI what you ate and let it do your tracking for you.`}</Text>
                 </FlexBox>
+                <Button
+                    to={PageRoutes.LOGS}
+                    variant="secondary"
+                    size="lg"
+                    width="full"
+                    icon={IconNames.ChevronCircle}
+                    iconSide="right"
+                >
+                    Go to Logs
+                </Button>
 
-                <List variant="gap-loose">
+                <List variant="gap-loose" bg="none">
                     <List.Item col align="left" padX="md">
-                        <Text size="lg" color="muted" weight="black">Voice</Text>
+                        <Text size="lg" color="muted" weight="black">1. Voice</Text>
                         <Text size="md">
-                            {`We use voice recognition to make it easy to log your meals. Just tell us what you ate and we'll take care of the rest.`}
+                            {`Voice recognition is easier than navigating a bunch of dropdowns and inputs. Say what you ate and let AI figure out the details.`}
                         </Text>
                     </List.Item>
                     <List.Item col align="left" padX="md">
-                        <Text size="lg" color="muted" weight="black">AI</Text>
+                        <Text size="lg" color="muted" weight="black">2. Privacy</Text>
                         <Text size="md">
-                            {`Our AI will analyze your meals and provide you with insights on your diet and how you can improve it.`}
+                            {`Tell us your name and email... or don't. We don't care. Log in and sign up with only a phone number. Password and personal info is not required.`}
                         </Text>
                     </List.Item>
                     <List.Item col align="left" padX="md">
-                        <Text size="lg" color="muted" weight="black">Privacy</Text>
+                        <Text size="lg" color="muted" weight="black">3. Template</Text>
                         <Text size="md">
-                            {`This app is designed to respect your privacy. We don't store your data and we don't share it with anyone.`}
-                        </Text>
+                            {`Use templates to speed up your tracking. Save your favorite snacks, drinks and meals and log them with a single button. Modify the log any way you want.`}
+                        </Text> 
                     </List.Item>
                 </List>
             </FlexBox>
