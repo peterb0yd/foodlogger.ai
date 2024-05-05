@@ -40,20 +40,20 @@ export default function Home() {
 
                 <List variant="gap-loose" bg="none">
                     <List.Item col align="left" padX="md">
-                        <Text size="lg" color="muted" weight="black">1. Voice</Text>
-                        <Text size="md">
+                        <Text size="lg" color="primary" weight="black">1. Voice</Text>
+                        <Text size="md" color="highlight">
                             {`Voice recognition is easier than navigating a bunch of dropdowns and inputs. Say what you ate and let AI figure out the details.`}
                         </Text>
                     </List.Item>
                     <List.Item col align="left" padX="md">
-                        <Text size="lg" color="muted" weight="black">2. Privacy</Text>
-                        <Text size="md">
+                        <Text size="lg" color="primary" weight="black">2. Privacy</Text>
+                        <Text size="md" color="highlight">
                             {`Tell us your name and email... or don't. We don't care. Log in and sign up with only a phone number. Password and personal info is not required.`}
                         </Text>
                     </List.Item>
                     <List.Item col align="left" padX="md">
-                        <Text size="lg" color="muted" weight="black">3. Template</Text>
-                        <Text size="md">
+                        <Text size="lg" color="primary" weight="black">3. Template</Text>
+                        <Text size="md" color="highlight">
                             {`Use templates to speed up your tracking. Save your favorite snacks, drinks and meals and log them with a single button. Modify the log any way you want.`}
                         </Text> 
                     </List.Item>
