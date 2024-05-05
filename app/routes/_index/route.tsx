@@ -54,7 +54,7 @@ export default function Home() {
                     <List.Item col align="left" padX="md">
                         <Text size="lg" color="primary" weight="black">3. Template</Text>
                         <Text size="md" color="highlight">
-                            {`Use templates to speed up your tracking. Save your favorite snacks, drinks and meals and log them with a single button. Modify the log any way you want.`}
+                            {`Logging can be annoying. Use templates to speed it up. Save your favorite snacks, drinks and meals and log them with a single button. Modify your log any way you want.`}
                         </Text> 
                     </List.Item>
                 </List>
