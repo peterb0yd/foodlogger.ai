@@ -1,4 +1,4 @@
-import type { LinksFunction, LoaderFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import {
     Links,
     Meta,
@@ -21,6 +21,30 @@ export const links: LinksFunction = () => [
     { rel: "stylesheet", href: fonts },
     ...mainLayoutLinks(),
 ];
+
+export const meta: MetaFunction = () => {
+    return [
+        { charset: "utf-8" },
+        { name: "viewport", content: "width=device-width,initial-scale=1" },
+        { name: "description", content: "FoodLogger.ai is designed to be the easiest meal tracking app on the market. Track your meals effortlessly using voice recognition technology." },
+        { name: "keywords", content: "meal tracking, voice recognition, nutrition, health, diet, food logging" },
+        { property: "og:title", content: "FoodLogger.ai | The Easiest Meal Tracking App" },
+        { property: "og:description", content: "Use FoodLogger.ai to quickly log your meals with voice recognition. The simplest way to track your diet!" },
+        { property: "og:type", content: "website" },
+        { property: "og:image", content: "/path/to/social-media-image.jpg" },
+        { property: "og:url", content: "https://www.foodlogger.ai" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: "FoodLogger.ai | The Easiest Meal Tracking App" },
+        { name: "twitter:description", content: "Use FoodLogger.ai to quickly log your meals with voice recognition. The simplest way to track your diet!" },
+        { name: "twitter:image", content: "/path/to/twitter-image.jpg" },
+        { name: "twitter:creator", content: "@yourtwitterhandle" },
+        { rel: "icon", href: "/imgs/foodlogger-fav-64.png", sizes: "64x64" },
+        { rel: "icon", href: "/imgs/foodlogger-fav-128.png", sizes: "128x128" },
+        { rel: "apple-touch-icon", href: "/imgs/foodlogger-fav-128.png" },
+        { rel: "manifest", href: "/manifest.json" }
+    ];
+};
+
 
 export const loader: LoaderFunction = async (context) => {
     const userId = await SessionService.getUserIdFromRequest(context.request);
