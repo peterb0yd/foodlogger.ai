@@ -63,6 +63,8 @@ export default function App() {
             <head>
                 <Meta />
                 <Links />
+                {/* png favicon */}
+                <link rel="icon" type="image/png" href="/imgs/foodlogger-fav-64.png" />
             </head>
             <body>
                 <SkeletonTheme
