@@ -22,7 +22,7 @@ export const links: LinksFunction = () => [
 export default function Home() {
     return (
         <Main name="Home">
-            <FlexBox col gap="2xl" center>
+            <FlexBox col gap="2xl" center padBottom="1/3">
                 <FlexBox col gap="md" align="center" width="full">
                     <Text size="xl" align="center" weight="black" lineHeight="tight">{`Meal tracking made simple.`}</Text>
                     <Text size="md" align="center" weight="bold" color="muted" lineHeight="tight">{`Tell AI what you ate and let it do your tracking for you.`}</Text>
