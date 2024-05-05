@@ -23,20 +23,23 @@ export const links: LinksFunction = () => [
 ];
 
 export const meta: MetaFunction = () => {
+    const title = "FoodLogger.ai | The Easiest Meal Tracking App";
+    const description = "Use FoodLogger.ai to quickly log your meals with voice recognition. The simplest way to track your diet!";
+    const background = "https://www.foodlogger.ai/imgs/foodlogger-background.png";
     return [
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width,initial-scale=1" },
-        { name: "description", content: "FoodLogger.ai is designed to be the easiest meal tracking app on the market. Track your meals effortlessly using voice recognition technology." },
-        { name: "keywords", content: "meal tracking, voice recognition, nutrition, health, diet, food logging" },
-        { property: "og:title", content: "FoodLogger.ai | The Easiest Meal Tracking App" },
-        { property: "og:description", content: "Use FoodLogger.ai to quickly log your meals with voice recognition. The simplest way to track your diet!" },
+        { name: "description", content: description },
+        { name: "keywords", content: "meal tracking, voice recognition, nutrition, health, diet, food logging, ai" },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
         { property: "og:type", content: "website" },
-        { property: "og:image", content: "https://www.foodlogger.ai/imgs/foodlogger-background.png" },
+        { property: "og:image", content: background },
         { property: "og:url", content: "https://www.foodlogger.ai" },
-        { name: "twitter:card", content: "https://www.foodlogger.ai/imgs/foodlogger-background.png" },
-        { name: "twitter:title", content: "FoodLogger.ai | The Easiest Meal Tracking App" },
-        { name: "twitter:description", content: "Use FoodLogger.ai to quickly log your meals with voice recognition. The simplest way to track your diet!" },
-        { name: "twitter:image", content: "https://www.foodlogger.ai/imgs/foodlogger-background.png" },
+        { name: "twitter:card", content: background },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: background },
         // { name: "twitter:creator", content: "@yourtwitterhandle" },
         { rel: "icon", href: "/imgs/foodlogger-fav-64.png", type:"image/png", sizes: "64x64" },
         { rel: "icon", href: "/imgs/foodlogger-fav-128.png", type:"image/png", sizes: "128x128" },
