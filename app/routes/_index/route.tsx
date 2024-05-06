@@ -46,19 +46,25 @@ export default function Home() {
                         </Text>
                     </List.Item>
                     <List.Item col align="left" padX="md">
-                        <Text size="xl" color="primary" weight="bold">{`2. Easy sign up & log in`}</Text>
-                        <Text size="md" color="highlight">
-                            {`Tell us your name and email... or don't. We don't care. Log in and sign up with only a phone number. Password and personal info is not required.`}
-                        </Text>
-                    </List.Item>
-                    <List.Item col align="left" padX="md">
-                        <Text size="xl" color="primary" weight="bold">{`3. Save time with templates`}</Text>
+                        <Text size="xl" color="primary" weight="bold">{`2. Save time with templates`}</Text>
                         <Text size="md" color="highlight">
                             {`It's true, logging everything you eat is time-consuming. Use templates to speed it up. Save your favorite snacks, drinks and meals and log them with a single button.`}
                         </Text> 
                     </List.Item>
                     <List.Item col align="left" padX="md">
-                        <Text size="xl" color="primary" weight="bold">{`4. Image recognition (coming soon)`}</Text>
+                        <Text size="xl" color="primary" weight="bold">{`3. Track mood, bowels, sleep, etc`}</Text>
+                        <Text size="md" color="highlight">
+                            {`It turns our what we eat impacts more than just our weight. Track your mood, bowel movements, sleep, and more to see how your diet affects your overall health.`}
+                        </Text> 
+                    </List.Item>
+                    <List.Item col align="left" padX="md">
+                        <Text size="xl" color="primary" weight="bold">{`4. Easy sign up & log in`}</Text>
+                        <Text size="md" color="highlight">
+                            {`Tell us your name and email... or don't. We don't care. Log in and sign up with only a phone number. Password and personal info is not required.`}
+                        </Text>
+                    </List.Item>
+                    <List.Item col align="left" padX="md">
+                        <Text size="xl" color="primary" weight="bold">{`5. Image recognition (coming soon)`}</Text>
                     </List.Item>
                 </List>
             </FlexBox>
