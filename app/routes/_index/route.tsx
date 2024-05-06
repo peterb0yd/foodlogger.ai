@@ -52,9 +52,9 @@ export default function Home() {
                         </Text> 
                     </List.Item>
                     <List.Item col align="left" padX="md">
-                        <Text size="xl" color="primary" weight="bold">{`3. Track mood, bowels, sleep, etc`}</Text>
+                        <Text size="xl" color="primary" weight="bold">{`3. Track mood, energy, bowels and more`}</Text>
                         <Text size="md" color="highlight">
-                            {`It turns out what we eat impacts more than just our weight. Track your mood, bowel movements, sleep, and more to see how your diet affects your overall health.`}
+                            {`It turns out what we eat impacts more than just our weight. Track your mood, bowel movements, energy levels, sleep and more to see how your diet affects your overall mood and health.`}
                         </Text> 
                     </List.Item>
                     <List.Item col align="left" padX="md">
@@ -65,6 +65,9 @@ export default function Home() {
                     </List.Item>
                     <List.Item col align="left" padX="md">
                         <Text size="xl" color="primary" weight="bold">{`5. Image recognition (coming soon)`}</Text>
+                    </List.Item>
+                    <List.Item col align="left" padX="md">
+                        <Text size="xl" color="primary" weight="bold">{`6. Calorie & macronutrient breakdown (coming soon)`}</Text>
                     </List.Item>
                 </List>
             </FlexBox>
