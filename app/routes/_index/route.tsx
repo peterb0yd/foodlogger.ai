@@ -54,7 +54,7 @@ export default function Home() {
                     <List.Item col align="left" padX="md">
                         <Text size="xl" color="primary" weight="bold">{`3. Track mood, bowels, sleep, etc`}</Text>
                         <Text size="md" color="highlight">
-                            {`It turns our what we eat impacts more than just our weight. Track your mood, bowel movements, sleep, and more to see how your diet affects your overall health.`}
+                            {`It turns out what we eat impacts more than just our weight. Track your mood, bowel movements, sleep, and more to see how your diet affects your overall health.`}
                         </Text> 
                     </List.Item>
                     <List.Item col align="left" padX="md">

@@ -56,11 +56,11 @@
     }
 }
 .List[data-variant='gap-loose'] {
-    gap: 0.6rem;
+    gap: 0.8rem;
 
     .List-Item {
-		padding-top: 0.75rem;
-        padding-bottom: 0.75rem;
+		padding-top: 0.7rem;
+        padding-bottom: 0.7rem;
     }
 }
 
