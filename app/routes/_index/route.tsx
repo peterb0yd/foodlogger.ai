@@ -29,7 +29,7 @@ export default function Home() {
                 </FlexBox>
                 <Button
                     to={PageRoutes.LOGS}
-                    variant="secondary"
+                    variant="primary"
                     size="lg"
                     width="full"
                     icon={IconNames.ChevronCircle}
