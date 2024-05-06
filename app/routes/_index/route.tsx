@@ -60,7 +60,7 @@ export default function Home() {
                     <List.Item col align="left" padX="md">
                         <Text size="xl" color="primary" weight="bold">{`4. Easy sign up & log in`}</Text>
                         <Text size="md" color="highlight">
-                            {`Tell us your name and email... or don't. We don't care. Log in and sign up with only a phone number. Password and personal info is not required.`}
+                            {`Input your name and email... or not. We don't care. Log in and sign up with only a phone number. Password and personal info is not required.`}
                         </Text>
                     </List.Item>
                     <List.Item col align="left" padX="md">
