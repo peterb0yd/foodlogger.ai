@@ -7,39 +7,39 @@ export const loader = async () => {
 			name: 'FoodLogger.ai',
 			start_url: '/',
 			display: 'standalone',
-			background_color: '#d3d7dd',
-			theme_color: '#c34138',
+			background_color: '#181620',
+			theme_color: '#A3C4BC',
 			permissions: {
 				'audio-capture': {
-					description: 'Required to capture audio via getUserMedia',
+					description: 'Required to capture audio for food logging',
 				},
 			},
-			shortcuts: [
-				{
-					name: 'Homepage',
-					url: '/',
-					// icons: [
-					// 	{
-					// 		src: '/icons/android-icon-96x96.png',
-					// 		sizes: '96x96',
-					// 		type: 'image/png',
-					// 		purpose: 'any monochrome',
-					// 	},
-					// ],
-				},
-			],
-			// icons: [
+			// shortcuts: [
 			// 	{
-			// 		src: '/icons/icon-192x192.png',
-			// 		sizes: '192x192',
-			// 		type: 'image/png',
-			// 	},
-			// 	{
-			// 		src: '/icons/icon-512x512.png',
-			// 		sizes: '512x512',
-			// 		type: 'image/png',
+			// 		name: 'Homepage',
+			// 		url: '/',
+			// 		icons: [
+			// 			{
+			// 				src: '/imgs/foodlogger-favicon-128.png',
+			// 				sizes: '128x128',
+			// 				type: 'image/png',
+			// 				purpose: 'any monochrome',
+			// 			},
+			// 		],
 			// 	},
 			// ],
+			icons: [
+				{
+					src: '/imgs/foodlogger-favicon-128.png',
+					sizes: '192x192',
+					type: 'image/png',
+				},
+				{
+					src: '/imgs/foodlogger-favicon-128.png',
+					sizes: '512x512',
+					type: 'image/png',
+				},
+			],
 		},
 		{
 			headers: {
