@@ -41,9 +41,9 @@ export const meta: MetaFunction = () => {
         { name: "twitter:description", content: description },
         { name: "twitter:image", content: background },
         // { name: "twitter:creator", content: "@yourtwitterhandle" },
-        { rel: "icon", href: "/imgs/foodlogger-fav-64.png", type:"image/png", sizes: "64x64" },
-        { rel: "icon", href: "/imgs/foodlogger-fav-128.png", type:"image/png", sizes: "128x128" },
-        { rel: "icon", href: "/imgs/foodlogger-fav-64.png", type:"image/png" },
+        { rel: "icon", href: "/imgs/foodlogger-favicon-64.png", type:"image/png", sizes: "64x64" },
+        { rel: "icon", href: "/imgs/foodlogger-favicon-128.png", type:"image/png", sizes: "128x128" },
+        { rel: "icon", href: "/imgs/foodlogger-favicon-64.png", type:"image/png" },
         { rel: "apple-touch-icon", href: "/imgs/foodlogger-fav-128.png" },
         { rel: "manifest", href: "/manifest.webmanifest" }
     ];
@@ -64,7 +64,7 @@ export default function App() {
                 <Meta />
                 <Links />
                 {/* png favicon */}
-                <link rel="icon" type="image/png" href="/imgs/foodlogger-fav-64.png" />
+                <link rel="icon" type="image/png" href="/imgs/foodlogger-favicon-64.png" />
             </head>
             <body>
                 <SkeletonTheme
