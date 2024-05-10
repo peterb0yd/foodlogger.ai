@@ -5,6 +5,7 @@ export enum PageRoutes {
     LOGIN = '/login',
     VERIFY = '/verify',
     EDIT_LOG = '/logs/:id',
+    DAILY_LOGS = '/daily-logs',
 }
 
 export enum APIRoutes {
@@ -13,4 +14,5 @@ export enum APIRoutes {
     SESSIONS = '/api/sessions',
     TEMPLATES = '/api/templates',
     USERS = '/api/users',
+    DAILY_LOGS = '/api/daily-logs',
 }

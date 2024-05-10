@@ -4,14 +4,14 @@ import { LinksFunction } from "@remix-run/node";
 import { IFoodLogWithNestedFoods } from "~/api/modules/food-log/food-log.interfaces";
 
 interface TimelineContextProps {
-    userId: string;
     foodLogs: IFoodLogWithNestedFoods[];
     isLoading?: boolean;
+    userId: string;
 }
 
 const TimelineContext = createContext<TimelineContextProps>({
-    userId: '',
     foodLogs: [],
+    userId: '',
     isLoading: false,
 });
 

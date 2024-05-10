@@ -30,7 +30,6 @@ export const action: ActionFunction = async (context) => {
 					const result = await FoodLogItemService.create(audioData, foodLogId);
 					return json(result ?? {});
 				}
-				throw new BadAudioInputError('No audio data provided');
 			} catch (error) {
 				if (error instanceof BadAudioInputError) {
 					return json({

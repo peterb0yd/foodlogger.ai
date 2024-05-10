@@ -4,6 +4,7 @@ import { ISessionData } from './session.interfaces';
 import { SessionService } from './session.service';
 import { Prisma } from '@prisma/client';
 import { COOKIE_NAME } from './session.constants';
+import { DateTime } from 'luxon';
 
 const { getSession, commitSession, destroySession } = createSessionStorage<ISessionData>({
 	cookie: {
@@ -11,13 +12,13 @@ const { getSession, commitSession, destroySession } = createSessionStorage<ISess
 		sameSite: 'lax',
         // secure: process.env.NODE_ENV === 'production',
 	},
-	async createData(data, expires) {
-		if (!expires) {
-			expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7); // 1 week
+	async createData(data, expiresAt) {
+		if (!expiresAt) {
+            expiresAt = DateTime.now().plus({ weeks: 1 }).toJSDate();
 		}
 		const session = await SessionService.create({
 			...data,
-			expiresAt: new Date(expires),
+			expiresAt,
 		} as Prisma.SessionCreateInput);
 		return session.id;
 	},
@@ -30,7 +31,7 @@ const { getSession, commitSession, destroySession } = createSessionStorage<ISess
 	},
 	async updateData(id, data, expiresAt) {
 		if (!expiresAt) {
-			expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7); // 1 week
+			expiresAt = DateTime.now().plus({ weeks: 1 }).toJSDate();
 		}
 		await SessionService.updateById(id, {
 			...data,

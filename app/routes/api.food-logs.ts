@@ -14,7 +14,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 				statusText: 'Bad Request',
 			});
 		}
-        console.log('api loader', {isoDate})
 		const foodLogs = await FoodLogService.findLogsForDate(userId, isoDate);
 		return json({ foodLogs });
 	} catch (error) {
@@ -32,7 +31,6 @@ export const action: ActionFunction = async ({ request }) => {
 	switch (request.method) {
 		case RequestMethods.POST: {
 			try {
-                // TODO: fix timezone issue
 				const data = await request.formData();
 				const userId = data.get('userId') as string;
 				const loggedAt = data.get('loggedAt') as string;

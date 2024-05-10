@@ -22,6 +22,8 @@ import { Menu } from "./Menu";
 import { LogOut } from "./LogOut";
 import { Settings } from "./Settings";
 import { Logs } from "./Logs";
+import { Metrics } from "./Metrics";
+import { DoubleArrow } from "./DoubleArrow";
 
 const sizeMap = {
     xs: 16,
@@ -68,6 +70,8 @@ export const Icon = forwardRef(({ name, size = 'md', color }: IconProps, ref: Fo
             case IconNames.LogOut: return LogOut;
             case IconNames.Settings: return Settings;
             case IconNames.Logs: return Logs;
+            case IconNames.DoubleArrow: return DoubleArrow;
+            case IconNames.Metrics: return Metrics;
             default: return Fragment;
         }
     })();

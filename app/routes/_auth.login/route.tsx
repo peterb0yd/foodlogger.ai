@@ -18,6 +18,7 @@ import { Input, links as inputLinks } from "~/components/input/Input";
 import { Button, links as buttonLinks } from "~/components/button/Button";
 import { IconNames } from "~/enums/icons";
 import { isFetcherLoading } from "~/utils/fetcherLoading";
+import { DateTime } from "luxon";
 
 export const links: LinksFunction = () => [
     ...flexBoxLinks(),
@@ -34,7 +35,7 @@ export const loader: LoaderFunction = async ({
 
     // Remove any old cookie by overwriting it with an expired one.
     const oldSessionCookie = createCookie(COOKIE_NAME, {
-        expires: new Date(Date.now() - 1),
+        expires: DateTime.now().toJSDate(),
     });
     return json({}, {
         headers: {
