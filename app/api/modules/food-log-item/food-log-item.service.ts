@@ -75,6 +75,7 @@ export class FoodLogItemService {
 						foodLogItems: createdItems ?? [],
 					};
 				}
+                return { suggestion };
 			} catch (error) {
 				console.log('Error creating food-log-item', error);
 				throw error;

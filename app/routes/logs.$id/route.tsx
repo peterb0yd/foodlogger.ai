@@ -52,16 +52,21 @@ export default function EditFoodLogPage() {
     const navigate = useNavigate();
     const submitTemplate = useSubmit();
     const params = useParams();
-    const [showPrompt, setShowPrompt] = useState(true);
+    const [promptText, setPromptText] = useState('');
     const foodLogId = params.id as string;
     const isLoading = isFetcherLoading(fetcher);
-    const promptErrorText = (fetcher.data as BadAudioResponse)?.suggestion ?? null;
     const navigationType = useNavigationType();
     const backLink = navigationType === 'PUSH' ? -1 : PageRoutes.LOGS;
-    const shouldShowPrompt = Boolean(promptErrorText && showPrompt);
     const hasFoodItems = Boolean(foodLogItems?.length > 0);
     const hasTemplates = Boolean(templates?.length > 0);
     const canShowTemplates = hasTemplates && !hasFoodItems;
+
+    useEffect(() => {
+        const fetcherData = fetcher.data as BadAudioResponse;
+        if (fetcherData?.suggestion) {
+            setPromptText(fetcherData.suggestion);
+        }
+    }, [fetcher.data])
 
     // Submits the audio blob to the server but doesn't change page
     const handleNewAudioLog = async (audioBlob: Blob) => {
@@ -88,6 +93,7 @@ export default function EditFoodLogPage() {
         fetcher.submit(formData, {
             method: RequestMethods.POST,
             action: APIRoutes.FOOD_ITEM_LOGS,
+            navigate: false,
         });
     }
 
@@ -129,10 +135,10 @@ export default function EditFoodLogPage() {
                     />
                 </FlexBox>
             )}
-            {shouldShowPrompt && (
+            {promptText && (
                 <PromptModal
-                    promptText={promptErrorText as string}
-                    closeModal={() => setShowPrompt(false)}
+                    promptText={promptText}
+                    closeModal={() => setPromptText('')}
                 />
             )}
             <BottomBar>

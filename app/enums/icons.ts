@@ -17,5 +17,7 @@ export enum IconNames {
 	Menu = 'Menu',
 	LogOut = 'LogOut',
 	Settings = 'Settings',
+    Metrics = 'Metrics',
+    DoubleArrow = 'DoubleArrow',
 	LoadingDots = 'LoadingDots', // Only used for loading animation
 }

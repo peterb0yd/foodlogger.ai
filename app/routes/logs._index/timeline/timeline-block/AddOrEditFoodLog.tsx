@@ -1,6 +1,6 @@
 
 
-import { useFetcher } from "@remix-run/react";
+import { Form, useFetcher } from "@remix-run/react";
 import { startCase } from "lodash-es";
 import { Button, links as buttonLinks } from "~/components/button/Button";
 import { Text, links as textLinks } from "~/components/text/Text";
@@ -8,11 +8,11 @@ import { FlexBox, links as flexboxLinks } from "~/components/flex-box/FlexBox";
 import { Icon, links as iconLinks } from "~/components/icon/Icon";
 import { IconNames } from "~/enums/icons";
 import { RequestMethods } from "~/enums/requests";
-import { APIRoutes } from "~/enums/routes";
-import { timeStringAsIso } from "~/utils/datetime";
-import { useTimelineContext } from "../Timeline";
+import { APIRoutes, PageRoutes } from "~/enums/routes";
 import { IFoodLogWithNestedFoods } from "~/api/modules/food-log/food-log.interfaces";
 import { LinksFunction } from "@remix-run/node";
+import { DateTime } from "luxon";
+import { TIMESTRING_FORMAT } from "~/utils/datetime";
 
 export const links: LinksFunction = () => [
     ...buttonLinks(),
@@ -22,15 +22,15 @@ export const links: LinksFunction = () => [
 ];
 
 interface AddOrEditFoodLogProps {
+    userId: string;
     time: string;
     foodLog: IFoodLogWithNestedFoods | null;
 }
 
 // Displays a time-block with a button to add a food log 
 // or a summary of a saved food log and a button to edit it
-export const AddOrEditFoodLog = ({ time, foodLog }: AddOrEditFoodLogProps) => {
-    const fetcher = useFetcher();
-    const { userId } = useTimelineContext();
+export const AddOrEditFoodLog = ({ userId, time, foodLog }: AddOrEditFoodLogProps) => {
+    const loggedAt = DateTime.fromFormat(time, TIMESTRING_FORMAT).toISO() as string;
 
     // Edit an existing food log
     if (foodLog) {
@@ -45,7 +45,7 @@ export const AddOrEditFoodLog = ({ time, foodLog }: AddOrEditFoodLogProps) => {
                 size="lg"
                 borderRadius="md"
                 name="EditFoodLog"
-                href={`/logs/${foodLog.id}`}
+                href={`${PageRoutes.LOGS}/${foodLog.id}`}
                 width="full"
             >
                 <LogContent
@@ -59,12 +59,12 @@ export const AddOrEditFoodLog = ({ time, foodLog }: AddOrEditFoodLogProps) => {
 
     // Add a new food log
     return (
-        <fetcher.Form
+        <Form
             method={RequestMethods.POST}
             action={APIRoutes.FOOD_LOGS}
         >
             <input type="hidden" name="userId" value={userId} />
-            <input type="hidden" name="loggedAt" value={timeStringAsIso(time)} />
+            <input type="hidden" name="loggedAt" value={loggedAt} />
             <Button
                 variant="base"
                 size="lg"
@@ -73,7 +73,7 @@ export const AddOrEditFoodLog = ({ time, foodLog }: AddOrEditFoodLogProps) => {
             >
                 <LogContent time={time} />
             </Button>
-        </fetcher.Form>
+        </Form>
     );
 }
 

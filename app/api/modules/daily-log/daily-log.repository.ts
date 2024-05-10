@@ -35,5 +35,16 @@ export class DailyLogRepository {
             throw new Error(`Error finding daily log: ${error}`);
         }
     }
+
+    static async findByDate(userId: string, entryDate: Date, tx: PrismaTxType = prisma) {
+        try {
+            const dailyLog = await tx.dailyLog.findFirst({
+                where: { userId, entryDate },
+            });
+            return dailyLog;
+        } catch (error) {
+            throw new Error(`Error finding daily log: ${error}`);
+        }
+    }
     
 }
