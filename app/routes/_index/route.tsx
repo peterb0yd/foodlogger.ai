@@ -46,7 +46,7 @@ export default function Home() {
                             {`1. Easy logging using voice`}
                         </Text>
                         <Text size="md" color="highlight">
-                            {`Log your snacks, drinks and meals faster than ever with the help of Voice Recognition. Why waste your time typing food names and selecting quantities from dropdowns if there is an easier way?`}
+                            {`Log your snacks, drinks and meals faster than ever with the help of Voice Recognition. Don't waste time typing food names and selecting quantities from dropdowns. There is an easier way.`}
                         </Text>
                     </List.Item>
                     <List.Item col align="left" padX="md">
