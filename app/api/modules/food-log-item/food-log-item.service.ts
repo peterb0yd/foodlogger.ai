@@ -1,4 +1,4 @@
-import { getTranscriptionFromAudioFile, parseFoodItemLogData } from './food-log-item.utils';
+import { getTranscriptionFromAudioFile, parseFoodLogItemData } from './food-log-item.utils';
 import { FoodLogItemRepository } from './food-log-item.repository';
 import { FoodItemService } from '../food-item/food-item.service';
 import {
@@ -33,7 +33,8 @@ export class FoodLogItemService {
 		let foodLogItemData: Array<ITranscribedFoodLogItem> = [];
 		let suggestion: string | undefined;
 		try {
-			const jsonResponse = await parseFoodItemLogData(transcription);
+			const jsonResponse = await parseFoodLogItemData(transcription);
+            console.log({jsonResponse});
 			foodLogItemData = jsonResponse?.logs ?? [];
 			suggestion = jsonResponse?.suggestion;
 		} catch (error) {

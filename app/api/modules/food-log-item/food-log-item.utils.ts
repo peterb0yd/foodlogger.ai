@@ -17,7 +17,7 @@ export const getTranscriptionFromAudioFile = async (audioData: string) => {
 };
 
 // Find out what the user said and have ChatGPT put it in JSON format
-export const parseFoodItemLogData = async (transcription: string) => {
+export const parseFoodLogItemData = async (transcription: string) => {
 	let response;
 	try {
 		const openai = getOpenAIClient();
