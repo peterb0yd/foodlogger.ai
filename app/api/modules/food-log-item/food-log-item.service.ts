@@ -30,6 +30,7 @@ export class FoodLogItemService {
 	// Add a food-log-item to a food-log given the user's audio input
 	static async create(audioData: string, foodLogId: string) {
 		const transcription = await getTranscriptionFromAudioFile(audioData);
+        console.log({transcription});
 		let foodLogItemData: Array<ITranscribedFoodLogItem> = [];
 		let suggestion: string | undefined;
 		try {
