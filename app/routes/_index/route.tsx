@@ -43,7 +43,23 @@ export default function Home() {
                 <List variant="gap-loose" bg="none">
                     <List.Item col align="left" padX="md">
                         <Text size="xl" color="primary" weight="bold">
-                            {`1. Easy logging using voice`}
+                            {`Mood & Energy tracking`}
+                        </Text>
+                        <Text size="md" color="highlight">
+                            {`It turns out what we eat impacts more than just our weight. Track your mood, energy levels, sleep and more to see how your diet affects your overall mood and health.`}
+                        </Text>
+                    </List.Item>
+                    <List.Item col align="left" padX="md">
+                        <Text size="xl" color="primary" weight="bold">
+                            {`IBS & FODMAP tracking`}
+                        </Text>
+                        <Text size="md" color="highlight">
+                            {`Find the foods that trigger your IBS symptoms. Track your FODMAP intake and see how it affects your digestion and overall well-being.`}
+                        </Text>
+                    </List.Item>
+                    <List.Item col align="left" padX="md">
+                        <Text size="xl" color="primary" weight="bold">
+                            {`AI-powered food logging`}
                         </Text>
                         <Text size="md" color="highlight">
                             {`Log your snacks, drinks and meals faster than ever with the help of AI. Don't waste time typing food names and selecting quantities from dropdowns. There is an easier way.`}
@@ -51,7 +67,7 @@ export default function Home() {
                     </List.Item>
                     <List.Item col align="left" padX="md">
                         <Text size="xl" color="primary" weight="bold">
-                            {`2. Save time with templates`}
+                            {`Save time with templates`}
                         </Text>
                         <Text size="md" color="highlight">
                             {`It's true, logging everything you eat is time-consuming. Use templates to speed it up. Save your favorite snacks, drinks and meals and log them with a single button.`}
@@ -59,15 +75,7 @@ export default function Home() {
                     </List.Item>
                     <List.Item col align="left" padX="md">
                         <Text size="xl" color="primary" weight="bold">
-                            {`3. Track mood, energy, bowels and more`}
-                        </Text>
-                        <Text size="md" color="highlight">
-                            {`It turns out what we eat impacts more than just our weight. Track your mood, energy levels, bowel movements, sleep and more to see how your diet affects your overall mood and health.`}
-                        </Text>
-                    </List.Item>
-                    <List.Item col align="left" padX="md">
-                        <Text size="xl" color="primary" weight="bold">
-                            {`4. Easy sign up & log in`}
+                            {`Sign up in seconds`}
                         </Text>
                         <Text size="md" color="highlight">
                             {`Input your name and email... or not. We don't care. Log in and sign up with only a phone number. Password and personal info is not required.`}
@@ -75,12 +83,12 @@ export default function Home() {
                     </List.Item>
                     <List.Item col align="left" padX="md">
                         <Text size="xl" color="primary" weight="bold">
-                            {`5. Calorie & macronutrient breakdown (coming soon)`}
+                            {`Calorie & macronutrient breakdown (coming soon)`}
                         </Text>
                     </List.Item>
                     <List.Item col align="left" padX="md">
                         <Text size="xl" color="primary" weight="bold">
-                            {`6. Image recognition (coming soon)`}
+                            {`Image recognition (coming soon)`}
                         </Text>
                     </List.Item>
                 </List>
