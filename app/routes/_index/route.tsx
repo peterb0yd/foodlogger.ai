@@ -26,7 +26,7 @@ export default function Home() {
                 <FlexBox col gap="lg" align="center" width="full">
                     <Text size="2xl" align="center" weight="black" lineHeight="tight">{`Enhance your well-being.`}</Text>
                     <Text size="md" align="center" weight="bold" color="muted" lineHeight="tight">
-                        {`Discover the foods that boost your Mood and Energy with the help of AI.`}
+                        {`Discover the foods that boost your mood and energy with the help of AI.`}
                     </Text>
                 </FlexBox>
                 <Button
