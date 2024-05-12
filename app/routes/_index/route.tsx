@@ -25,7 +25,7 @@ export default function Home() {
             <FlexBox col gap="2xl" center padBottom="1/3">
                 <FlexBox col gap="lg" align="center" width="full">
                     <Text size="2xl" align="center" weight="black" lineHeight="tight">{`Enhance your well-being.`}</Text>
-                    <Text size="md" align="center" weight="bold" color="muted" lineHeight="tight">
+                    <Text size="md" align="center" weight="bold" color="muted" lineHeight="loose">
                         {`Discover the foods that boost your mood and energy with the help of AI.`}
                     </Text>
                 </FlexBox>
