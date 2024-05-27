@@ -1,4 +1,4 @@
-## Why make this? 🤔
+## Why FoodLogger.ai? 🤔
 
 The mission for this project is to build the easiest food-logging app with the help of AI services. The premise is using voice recognition for all food entries to reduce time and effort for the user.
 
