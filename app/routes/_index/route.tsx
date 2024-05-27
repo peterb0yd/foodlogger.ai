@@ -81,16 +81,6 @@ export default function Home() {
                             {`Input your name and email... or not. We don't care. Log in and sign up with only a phone number. Password and personal info is not required.`}
                         </Text>
                     </List.Item>
-                    <List.Item col align="left" padX="md">
-                        <Text size="xl" color="primary" weight="bold">
-                            {`Calorie & macronutrient breakdown (coming soon)`}
-                        </Text>
-                    </List.Item>
-                    <List.Item col align="left" padX="md">
-                        <Text size="xl" color="primary" weight="bold">
-                            {`Image recognition (coming soon)`}
-                        </Text>
-                    </List.Item>
                 </List>
             </FlexBox>
         </Main>
