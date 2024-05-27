@@ -2,7 +2,7 @@
 
 The mission for this project is to build the easiest food-logging app with the help of AI services. The premise is using voice recognition for all food entries to reduce time and effort for the user. 
 
-Originally it was meant to be a useful tool for myself to use. Then I had the idea to launch it as a paid product. Then I lost interest and moved onto greener pastures. Now I'm focused on climate-tech projects.
+Originally it was meant to be a useful tool for myself to use. Then I had the idea to launch it as a paid product. Then I lost interest and moved onto greener pastures. Now I'm focused on climate-tech!
 
 ## Project Setup 🛠️
 
