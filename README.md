@@ -32,7 +32,7 @@ That's it! The app will now be running on `https://localhost:3000`
 
 1. Migrate to use only free open-source services
 
-2. Analytics for weekly, monthly, and yearly macronutrient stats
+2. Analytics pages for weekly, monthly, and yearly macronutrient stats
 
 3. Create a light-mode theme with a toggle to switch modes
 
